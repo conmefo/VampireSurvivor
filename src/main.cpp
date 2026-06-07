@@ -1,50 +1,75 @@
 #include "main.h"
-
+#include "States/StateManager.h"
+#include "States/Intro/LoadingState.h"
+#include "Core/Resources/ResourceManager.h"
+#include "Core/Resources/ResourceIdentifiers.h"
+#include "States/StateContext.h"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
-int runSfmlTest() {
-    sf::RenderWindow window(sf::VideoMode(800, 600), "SFML Test");
+int runSfmlTest()
+{
+    sf::RenderWindow window(sf::VideoMode(800, 600), "Vampire Survivors Clone");
     window.setFramerateLimit(60);
 
-    sf::CircleShape ball(50.f);
-    ball.setFillColor(sf::Color(90, 200, 120));
-    ball.setOrigin(ball.getRadius(), ball.getRadius());
+    ResourceManager<sf::Texture, TextureID> textureManager;
+    ResourceManager<sf::Font, FontID> fontManager;
+    
+    try
+    {
+        textureManager.Load(TextureID::Background, "Assets/background.png");
+        textureManager.Load(TextureID::Title, "Assets/title.png");
+        textureManager.Load(TextureID::Prompt, "Assets/press_start.png");
+        
+        textureManager.Load(TextureID::CharacterDecoration_0, "Assets/char_0.png");
+        textureManager.Load(TextureID::CharacterDecoration_1, "Assets/char_1.png");
+        textureManager.Load(TextureID::CharacterDecoration_2, "Assets/char_2.png");
+    }
+    catch (const std::exception& e)
+    {
+        std::cerr << "Initialization Error: " << e.what() << "\n";
+    }
 
-    sf::Vector2f position(400.f, 300.f);
-    sf::Vector2f velocity(220.f, 160.f);
+    StateManager stateManager;
+    StateContext context(stateManager, textureManager, fontManager);
+
+    stateManager.AddState(std::make_unique<LoadingState>(context));
+    stateManager.ProcessStateChanges();
+
     sf::Clock clock;
 
-    while (window.isOpen()) {
+    while(window.isOpen())
+    {
         sf::Event event{};
-        while (window.pollEvent(event)) {
-            if (event.type == sf::Event::Closed ||
-                (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)) {
+        while(window.pollEvent(event))
+        {
+            if(event.type == sf::Event::Closed)
+            {
                 window.close();
             }
+
+            stateManager.HandleInput(event);
         }
 
-        const float dt = clock.restart().asSeconds();
-        position += velocity * dt;
+        float dt = clock.restart().asSeconds();
 
-        const float radius = ball.getRadius();
-        const sf::Vector2u size = window.getSize();
+        stateManager.Update(dt);
+        stateManager.ProcessStateChanges();
 
-        if (position.x - radius < 0.f || position.x + radius > size.x) {
-            velocity.x = -velocity.x;
+        if(stateManager.IsEmpty())
+        {
+            window.close();
         }
 
-        if (position.y - radius < 0.f || position.y + radius > size.y) {
-            velocity.y = -velocity.y;
-        }
-
-        ball.setPosition(position);
-
-        window.clear(sf::Color(35, 40, 50));
-        window.draw(ball);
+        window.clear(sf::Color(20, 20, 30));
+        stateManager.Draw(window);
         window.display();
     }
 
     return 0;
 }
 
-int main() { return runSfmlTest(); }
+int main()
+{
+    return runSfmlTest();
+}

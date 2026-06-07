@@ -26,10 +26,23 @@ FetchContent_MakeAvailable(SFML)
 
 add_executable(MarioGame
     src/main.cpp
+    src/States/StateManager.cpp
+    src/States/Intro/LoadingState.cpp
+    src/States/Intro/WarningState.cpp
+    src/Core/Math/MathUtils.cpp
+    src/Core/Animation/Tweener.cpp
+    src/Core/Animation/Spring.cpp
+    src/UI/Core/UIElement.cpp
+    src/UI/Panels/UIPanel.cpp
+    src/UI/Elements/UIButton.cpp
+    src/UI/Components/FaderComponent.cpp
+    src/UI/Components/NineSliceComponent.cpp
+    src/Core/UI/ScreenTransitionManager.cpp
+    src/States/Title/TitleState.cpp
 )
 
 target_include_directories(MarioGame PRIVATE
-    "${CMAKE_CURRENT_SOURCE_DIR}/include"
+    "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
 target_link_libraries(MarioGame PRIVATE
