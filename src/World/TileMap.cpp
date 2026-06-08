@@ -65,21 +65,26 @@ void TileMap::BuildMap()
 
 sf::IntRect TileMap::GetTextureRect(TileId tile) const
 {
+    sf::Vector2u textureSize = m_tileset.getSize();
+    int textureLeft = std::max(0, (static_cast<int>(textureSize.x) - GrassDrawSize) / 2);
+    int textureTop = std::max(0, (static_cast<int>(textureSize.y) - GrassDrawSize) / 2);
+
     switch(tile)
     {
         case TileId::Grass:
-            return sf::IntRect(0, 0, GrassDrawSize, GrassDrawSize);
+            return sf::IntRect(textureLeft, textureTop, GrassDrawSize, GrassDrawSize);
     }
 
-    return sf::IntRect(0, 0, GrassDrawSize, GrassDrawSize);
+    return sf::IntRect(textureLeft, textureTop, GrassDrawSize, GrassDrawSize);
 }
 
 void TileMap::AppendTile(sf::VertexArray& vertices, int x, int y, TileId tile) const
 {
     sf::IntRect texRect = GetTextureRect(tile);
 
-    float worldX = static_cast<float>(x * TileSize - GrassDrawOffset);
-    float worldY = static_cast<float>(y * TileSize - GrassDrawOffset);
+    float drawOffset = (TileSize - GrassDrawSize) / 2.0f;
+    float worldX = static_cast<float>(x * TileSize) + drawOffset;
+    float worldY = static_cast<float>(y * TileSize) + drawOffset;
     float worldRight = worldX + GrassDrawSize;
     float worldBottom = worldY + GrassDrawSize;
 
