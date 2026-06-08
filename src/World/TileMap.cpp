@@ -1,5 +1,4 @@
 #include "TileMap.h"
-#include <algorithm>
 #include <cmath>
 #include <sstream>
 
@@ -17,50 +16,36 @@ bool TileMap::Load(const std::string &texturePath) {
   }
 
   BuildMap();
-  return true;
+  return BuildMapTexture();
 }
 
 void TileMap::Draw(sf::RenderTarget &target, const sf::View &view) {
-  if (m_tiles.empty()) {
+  if (!m_mapTextureReady) {
     return;
   }
 
   sf::Vector2f center = view.getCenter();
   sf::Vector2f size = view.getSize();
+  sf::Vector2f worldSize = GetWorldSize();
+  sf::Sprite mapSprite(m_mapTexture.getTexture());
 
   float left = center.x - size.x / 2.0f;
   float top = center.y - size.y / 2.0f;
   float right = center.x + size.x / 2.0f;
   float bottom = center.y + size.y / 2.0f;
 
-  int startX = std::max(0, static_cast<int>(std::floor(left / TileSize)) - 1);
-  int startY = std::max(0, static_cast<int>(std::floor(top / TileSize)) - 1);
-  int endX =
-      std::min(MapWidth - 1, static_cast<int>(std::ceil(right / TileSize)) + 1);
-  int endY = std::min(MapHeight - 1,
-                      static_cast<int>(std::ceil(bottom / TileSize)) + 1);
-
-  for (sf::VertexArray &vertices : m_visibleVertices) {
-    vertices.clear();
-    vertices.setPrimitiveType(sf::Quads);
-  }
+  int startX = static_cast<int>(std::floor(left / worldSize.x)) - 1;
+  int startY = static_cast<int>(std::floor(top / worldSize.y)) - 1;
+  int endX = static_cast<int>(std::ceil(right / worldSize.x)) + 1;
+  int endY = static_cast<int>(std::ceil(bottom / worldSize.y)) + 1;
 
   for (int y = startY; y <= endY; ++y) {
     for (int x = startX; x <= endX; ++x) {
-      TileId tile = m_tiles[y * MapWidth + x];
-      AppendTile(m_visibleVertices[static_cast<std::size_t>(tile)], x, y, tile);
+      mapSprite.setPosition(static_cast<float>(x) * worldSize.x,
+                            static_cast<float>(y) * worldSize.y);
+      target.draw(mapSprite);
     }
   }
-  for (std::size_t i = 1; i < m_visibleVertices.size(); ++i) {
-    sf::RenderStates states;
-    states.texture = &m_textures[i];
-    target.draw(m_visibleVertices[i], states);
-  }
-
-  sf::RenderStates forestStates;
-  forestStates.texture = &m_textures[static_cast<std::size_t>(TileId::Forest)];
-  target.draw(m_visibleVertices[static_cast<std::size_t>(TileId::Forest)],
-              forestStates);
 }
 
 sf::Vector2f TileMap::GetWorldSize() const {
@@ -143,6 +128,48 @@ void TileMap::BuildMap() {
     }
   }
 }
+
+bool TileMap::BuildMapTexture() {
+  sf::Vector2f worldSize = GetWorldSize();
+  if (!m_mapTexture.create(static_cast<unsigned int>(worldSize.x),
+                           static_cast<unsigned int>(worldSize.y))) {
+    m_mapTextureReady = false;
+    return false;
+  }
+
+  for (sf::VertexArray &vertices : m_visibleVertices) {
+    vertices.clear();
+    vertices.setPrimitiveType(sf::Quads);
+  }
+
+  for (int y = -1; y <= MapHeight; ++y) {
+    for (int x = -1; x <= MapWidth; ++x) {
+      int mapX = WrapIndex(x, MapWidth);
+      int mapY = WrapIndex(y, MapHeight);
+      TileId tile = m_tiles[mapY * MapWidth + mapX];
+      AppendTile(m_visibleVertices[static_cast<std::size_t>(tile)], x, y, mapX,
+                 mapY, tile);
+    }
+  }
+
+  m_mapTexture.clear(sf::Color(12, 28, 12));
+
+  for (std::size_t i = 1; i < m_visibleVertices.size(); ++i) {
+    sf::RenderStates states;
+    states.texture = &m_textures[i];
+    m_mapTexture.draw(m_visibleVertices[i], states);
+  }
+
+  sf::RenderStates forestStates;
+  forestStates.texture = &m_textures[static_cast<std::size_t>(TileId::Forest)];
+  m_mapTexture.draw(m_visibleVertices[static_cast<std::size_t>(TileId::Forest)],
+                    forestStates);
+
+  m_mapTexture.display();
+  m_mapTextureReady = true;
+  return true;
+}
+
 TileId TileMap::GetTileFromGridValue(int value) const {
   switch (value) {
   case 1:
@@ -162,14 +189,23 @@ sf::IntRect TileMap::GetTextureRect(TileId tile) const {
                      static_cast<int>(textureSize.y));
 }
 
-void TileMap::AppendTile(sf::VertexArray &vertices, int x, int y,
-                         TileId tile) const {
+int TileMap::WrapIndex(int value, int max) const {
+  int wrapped = value % max;
+  if (wrapped < 0) {
+    wrapped += max;
+  }
+
+  return wrapped;
+}
+
+void TileMap::AppendTile(sf::VertexArray &vertices, int drawX, int drawY,
+                         int mapX, int mapY, TileId tile) const {
   sf::IntRect texRect = GetTextureRect(tile);
 
   float drawWidth = static_cast<float>(texRect.width);
   float drawHeight = static_cast<float>(texRect.height);
-  float cellCenterX = static_cast<float>(x * TileSize) + TileSize / 2.0f;
-  float cellCenterY = static_cast<float>(y * TileSize) + TileSize / 2.0f;
+  float cellCenterX = static_cast<float>(drawX * TileSize) + TileSize / 2.0f;
+  float cellCenterY = static_cast<float>(drawY * TileSize) + TileSize / 2.0f;
   float worldX = cellCenterX - drawWidth / 2.0f;
   float worldY = cellCenterY - drawHeight / 2.0f;
   float worldRight = worldX + drawWidth;
@@ -181,25 +217,29 @@ void TileMap::AppendTile(sf::VertexArray &vertices, int x, int y,
   float texBottom = static_cast<float>(texRect.top + texRect.height);
 
   if (tile == TileId::Forest1) {
-    float cellLeft = static_cast<float>(x * TileSize);
-    float cellTop = static_cast<float>(y * TileSize);
+    float cellLeft = static_cast<float>(drawX * TileSize);
+    float cellTop = static_cast<float>(drawY * TileSize);
     float cellRight = cellLeft + TileSize;
     float cellBottom = cellTop + TileSize;
 
-    if (x > 0 && m_tiles[y * MapWidth + x - 1] == TileId::Forest1) {
+    int leftX = WrapIndex(mapX - 1, MapWidth);
+    int rightX = WrapIndex(mapX + 1, MapWidth);
+    int upY = WrapIndex(mapY - 1, MapHeight);
+    int downY = WrapIndex(mapY + 1, MapHeight);
+
+    if (m_tiles[mapY * MapWidth + leftX] == TileId::Forest1) {
       texLeft += cellLeft - worldX;
       worldX = cellLeft;
     }
-    if (x < MapWidth - 1 && m_tiles[y * MapWidth + x + 1] == TileId::Forest1) {
+    if (m_tiles[mapY * MapWidth + rightX] == TileId::Forest1) {
       texRight -= worldRight - cellRight;
       worldRight = cellRight;
     }
-    if (y > 0 && m_tiles[(y - 1) * MapWidth + x] == TileId::Forest1) {
+    if (m_tiles[upY * MapWidth + mapX] == TileId::Forest1) {
       texTop += cellTop - worldY;
       worldY = cellTop;
     }
-    if (y < MapHeight - 1 &&
-        m_tiles[(y + 1) * MapWidth + x] == TileId::Forest1) {
+    if (m_tiles[downY * MapWidth + mapX] == TileId::Forest1) {
       texBottom -= worldBottom - cellBottom;
       worldBottom = cellBottom;
     }

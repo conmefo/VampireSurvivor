@@ -20,13 +20,18 @@ public:
 
 private:
   void BuildMap();
+  bool BuildMapTexture();
   TileId GetTileFromGridValue(int value) const;
   sf::IntRect GetTextureRect(TileId tile) const;
-  void AppendTile(sf::VertexArray &vertices, int x, int y, TileId tile) const;
+  int WrapIndex(int value, int max) const;
+  void AppendTile(sf::VertexArray &vertices, int drawX, int drawY, int mapX,
+                  int mapY, TileId tile) const;
 
   static constexpr std::size_t TileTypeCount = 3;
 
   std::array<sf::Texture, TileTypeCount> m_textures;
   std::vector<TileId> m_tiles;
   std::array<sf::VertexArray, TileTypeCount> m_visibleVertices;
+  sf::RenderTexture m_mapTexture;
+  bool m_mapTextureReady = false;
 };

@@ -4,7 +4,7 @@ setlocal EnableDelayedExpansion
 set "ROOT=%~dp0"
 set "SOURCE_DIR=%ROOT%."
 set "BUILD_DIR=%ROOT%build"
-set "EXE=%BUILD_DIR%\MarioGame.exe"
+set "EXE=%BUILD_DIR%\VampireSurvivors.exe"
 set "TARGET_GENERATOR=Ninja"
 set "CACHE=%BUILD_DIR%\CMakeCache.txt"
 

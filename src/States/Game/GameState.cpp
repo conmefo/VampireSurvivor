@@ -1,99 +1,78 @@
 #include "GameState.h"
 #include "../StateManager.h"
-#include <algorithm>
 #include <cmath>
 #include <iostream>
 
 GameState::GameState(StateContext context)
-    : BaseState(context)
-    , m_cameraCenter(400.0f, 300.0f)
-{
+    : BaseState(context), m_cameraCenter(400.0f, 300.0f) {}
+
+void GameState::Init() {
+  std::cout << "GameState Init" << std::endl;
+
+  if (!m_tileMap.Load("assets/images/maps/forest_tiles.png")) {
+    std::cerr << "Failed to load forest tile assets" << std::endl;
+  }
+
+  m_worldView.setSize(ViewWidth, ViewHeight);
+  ApplyCameraToView();
 }
 
-void GameState::Init()
-{
-    std::cout << "GameState Init" << std::endl;
+void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
+  (void)window;
 
-    if(!m_tileMap.Load("assets/images/maps/forest_tiles.png"))
-    {
-        std::cerr << "Failed to load forest tile assets" << std::endl;
-    }
-
+  if (event.type == sf::Event::KeyPressed &&
+      event.key.code == sf::Keyboard::Escape) {
+    m_context.stateManager.PopState();
+  } else if (event.type == sf::Event::Resized) {
     m_worldView.setSize(ViewWidth, ViewHeight);
-    ClampCameraToMap();
-    m_worldView.setCenter(m_cameraCenter);
+    ApplyCameraToView();
+  }
 }
 
-void GameState::HandleInput(sf::Event& event, sf::RenderWindow& window)
-{
-    (void)window;
+void GameState::Update(float dt) { UpdateCamera(dt); }
 
-    if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-    {
-        m_context.stateManager.PopState();
-    }
-    else if(event.type == sf::Event::Resized)
-    {
-        m_worldView.setSize(ViewWidth, ViewHeight);
-        ClampCameraToMap();
-        m_worldView.setCenter(m_cameraCenter);
-    }
+void GameState::Draw(sf::RenderWindow &window) {
+  window.clear(sf::Color(12, 28, 12));
+
+  sf::View previousView = window.getView();
+
+  window.setView(m_worldView);
+  m_tileMap.Draw(window, m_worldView);
+
+  window.setView(previousView);
 }
 
-void GameState::Update(float dt)
-{
-    UpdateCamera(dt);
+void GameState::UpdateCamera(float dt) {
+  sf::Vector2f direction(0.0f, 0.0f);
+
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::W) ||
+      sf::Keyboard::isKeyPressed(sf::Keyboard::Up)) {
+    direction.y -= 1.0f;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::S) ||
+      sf::Keyboard::isKeyPressed(sf::Keyboard::Down)) {
+    direction.y += 1.0f;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) ||
+      sf::Keyboard::isKeyPressed(sf::Keyboard::Left)) {
+    direction.x -= 1.0f;
+  }
+  if (sf::Keyboard::isKeyPressed(sf::Keyboard::D) ||
+      sf::Keyboard::isKeyPressed(sf::Keyboard::Right)) {
+    direction.x += 1.0f;
+  }
+
+  float length =
+      std::sqrt(direction.x * direction.x + direction.y * direction.y);
+  if (length > 0.0f) {
+    direction.x /= length;
+    direction.y /= length;
+    m_cameraCenter += direction * CameraSpeed * dt;
+    ApplyCameraToView();
+  }
 }
 
-void GameState::Draw(sf::RenderWindow& window)
-{
-    window.clear(sf::Color(12, 28, 12));
-
-    sf::View previousView = window.getView();
-
-    window.setView(m_worldView);
-    m_tileMap.Draw(window, m_worldView);
-
-    window.setView(previousView);
-}
-
-void GameState::UpdateCamera(float dt)
-{
-    sf::Vector2f direction(0.0f, 0.0f);
-
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
-    {
-        direction.y -= 1.0f;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
-    {
-        direction.y += 1.0f;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
-    {
-        direction.x -= 1.0f;
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        direction.x += 1.0f;
-    }
-
-    float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);
-    if(length > 0.0f)
-    {
-        direction.x /= length;
-        direction.y /= length;
-        m_cameraCenter += direction * CameraSpeed * dt;
-        ClampCameraToMap();
-        m_worldView.setCenter(m_cameraCenter);
-    }
-}
-
-void GameState::ClampCameraToMap()
-{
-    sf::Vector2f halfView = m_worldView.getSize() / 2.0f;
-    sf::Vector2f worldSize = m_tileMap.GetWorldSize();
-
-    m_cameraCenter.x = std::clamp(m_cameraCenter.x, halfView.x, worldSize.x - halfView.x);
-    m_cameraCenter.y = std::clamp(m_cameraCenter.y, halfView.y, worldSize.y - halfView.y);
+void GameState::ApplyCameraToView() {
+  m_worldView.setCenter(std::round(m_cameraCenter.x),
+                        std::round(m_cameraCenter.y));
 }
