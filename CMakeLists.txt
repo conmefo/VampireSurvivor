@@ -30,6 +30,8 @@ add_executable(MarioGame
     src/States/StateManager.cpp
     src/States/Intro/LoadingState.cpp
     src/States/Intro/WarningState.cpp
+    src/States/Menu/MainMenuState.cpp
+    src/States/Game/GameState.cpp
     src/Core/Math/MathUtils.cpp
     src/Core/Animation/Tweener.cpp
     src/Core/Animation/Spring.cpp

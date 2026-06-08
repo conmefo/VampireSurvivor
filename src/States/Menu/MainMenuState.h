@@ -1,8 +1,8 @@
 #pragma once
 
 #include "../BaseState.h"
-#include "../StateManager.h"
-#include <iostream>
+#include "../../UI/Elements/UIButton.h"
+#include <memory>
 
 class MainMenuState : public BaseState
 {
@@ -14,21 +14,18 @@ public:
 
     ~MainMenuState() override = default;
 
-    void Init() override
-    {
-        std::cout << "MainMenuState Init" << std::endl;
-    }
+    void Init() override;
+    void HandleInput(sf::Event& event) override;
+    void Update(float dt) override;
+    void Draw(sf::RenderWindow& window) override;
 
-    void HandleInput(sf::Event& event) override
-    {
-    }
+private:
+    void CenterStartText();
+    void StartGame();
 
-    void Update(float dt) override
-    {
-    }
-
-    void Draw(sf::RenderWindow& window) override
-    {
-        window.clear(sf::Color(10, 50, 80));
-    }
+    sf::Texture m_buttonTexture;
+    std::unique_ptr<UIButton> m_startButton;
+    sf::Font m_font;
+    sf::Text m_startText;
+    bool m_startPressed = false;
 };
