@@ -16,7 +16,7 @@ void GameState::Init()
 
     if(!m_tileMap.Load("assets/images/maps/forest_tiles.png"))
     {
-        std::cerr << "Failed to load assets/images/maps/forest_tiles.png" << std::endl;
+        std::cerr << "Failed to load forest tile assets" << std::endl;
     }
 
     m_worldView.setSize(ViewWidth, ViewHeight);

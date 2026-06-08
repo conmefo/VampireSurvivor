@@ -1,16 +1,16 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <array>
 #include <string>
 #include <vector>
 
-enum class TileId { Grass };
+enum class TileId { Forest = 0, Forest1 = 1, Forest2 = 2 };
 
 class TileMap {
 public:
-  static constexpr int TileSize = 60;
-  static constexpr int GrassDrawSize = 64;
-  static constexpr int MapWidth = 80;
+  static constexpr int TileSize = 50;
+  static constexpr int MapWidth = 90;
   static constexpr int MapHeight = 60;
 
   bool Load(const std::string &texturePath);
@@ -20,10 +20,13 @@ public:
 
 private:
   void BuildMap();
+  TileId GetTileFromGridValue(int value) const;
   sf::IntRect GetTextureRect(TileId tile) const;
   void AppendTile(sf::VertexArray &vertices, int x, int y, TileId tile) const;
 
-  sf::Texture m_tileset;
+  static constexpr std::size_t TileTypeCount = 3;
+
+  std::array<sf::Texture, TileTypeCount> m_textures;
   std::vector<TileId> m_tiles;
-  sf::VertexArray m_visibleVertices;
+  std::array<sf::VertexArray, TileTypeCount> m_visibleVertices;
 };
