@@ -17,13 +17,13 @@ int runSfmlTest()
     
     try
     {
-        textureManager.Load(TextureID::Background, "Assets/background.png");
-        textureManager.Load(TextureID::Title, "Assets/title.png");
-        textureManager.Load(TextureID::Prompt, "Assets/press_start.png");
+        textureManager.Load(TextureID::Background, "assets/images/background.png");
+        textureManager.Load(TextureID::Title, "assets/images/title.png");
+        textureManager.Load(TextureID::Prompt, "assets/images/press_start.png");
         
-        textureManager.Load(TextureID::CharacterDecoration_0, "Assets/char_0.png");
-        textureManager.Load(TextureID::CharacterDecoration_1, "Assets/char_1.png");
-        textureManager.Load(TextureID::CharacterDecoration_2, "Assets/char_2.png");
+        textureManager.Load(TextureID::CharacterDecoration_0, "assets/images/char_0.png");
+        textureManager.Load(TextureID::CharacterDecoration_1, "assets/images/char_1.png");
+        textureManager.Load(TextureID::CharacterDecoration_2, "assets/images/char_2.png");
     }
     catch (const std::exception& e)
     {

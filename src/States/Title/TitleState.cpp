@@ -10,7 +10,7 @@ TitleState::TitleState(StateContext context)
 
 void TitleState::Init()
 {
-    if(!m_pixelateShader.loadFromFile("Assets/Shaders/pixelate.frag", sf::Shader::Fragment))
+    if(!m_pixelateShader.loadFromFile("assets/Shaders/pixelate.frag", sf::Shader::Fragment))
     {
         std::cerr << "Failed to load pixelate.frag\n";
     }
