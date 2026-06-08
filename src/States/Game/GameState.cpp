@@ -24,8 +24,10 @@ void GameState::Init()
     m_worldView.setCenter(m_cameraCenter);
 }
 
-void GameState::HandleInput(sf::Event& event)
+void GameState::HandleInput(sf::Event& event, sf::RenderWindow& window)
 {
+    (void)window;
+
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
     {
         m_context.stateManager.PopState();

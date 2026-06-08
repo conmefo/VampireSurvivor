@@ -44,15 +44,6 @@ int runSfmlTest()
     
     try
     {
-<<<<<<< Updated upstream
-        textureManager.Load(TextureID::Background, "assets/images/background.png");
-        textureManager.Load(TextureID::Title, "assets/images/title.png");
-        textureManager.Load(TextureID::Prompt, "assets/images/press_start.png");
-        
-        textureManager.Load(TextureID::CharacterDecoration_0, "assets/images/char_0.png");
-        textureManager.Load(TextureID::CharacterDecoration_1, "assets/images/char_1.png");
-        textureManager.Load(TextureID::CharacterDecoration_2, "assets/images/char_2.png");
-=======
         textureManager.Load("UIAtlas", "Assets/Graphics/Spritesheets/UI.png");
         textureManager.Load("Background", "Assets/Graphics/Backgrounds/introBG_0.png");
         textureManager.Load("Title", "Assets/Graphics/Backgrounds/title.png");
@@ -64,7 +55,6 @@ int runSfmlTest()
         textureManager.Load("CharacterDecoration_2", "Assets/Graphics/Spritesheets/demonSkull.png");
 
         textureManager.Load("Illustrations", "Assets/Graphics/Spritesheets/illustrations.png");
->>>>>>> Stashed changes
     }
     catch (const std::exception& e)
     {

@@ -16,9 +16,6 @@ TitleState::TitleState(StateContext context)
 
 void TitleState::Init()
 {
-<<<<<<< Updated upstream
-    if(!m_pixelateShader.loadFromFile("assets/Shaders/pixelate.frag", sf::Shader::Fragment))
-=======
     std::cout << "TitleState Init\n";
 
     // 1. Setup Composite Background
@@ -26,7 +23,6 @@ void TitleState::Init()
 
     // 2. Load Pixelate Shader
     if (!m_pixelateShader.loadFromFile("Assets/Shaders/pixelate.frag", sf::Shader::Fragment))
->>>>>>> Stashed changes
     {
         std::cerr << "Failed to load pixelate.frag\n";
         m_shaderActive = false; // Fallback

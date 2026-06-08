@@ -18,7 +18,7 @@ if exist "%CACHE%" (
     )
 )
 
-cmake -S "%SOURCE_DIR%" -B "%BUILD_DIR%" -G "%TARGET_GENERATOR%"
+cmake -Wno-deprecated -S "%SOURCE_DIR%" -B "%BUILD_DIR%" -G "%TARGET_GENERATOR%"
 if errorlevel 1 (
     echo.
     echo CMake configure failed.

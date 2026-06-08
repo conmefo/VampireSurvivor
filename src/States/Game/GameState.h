@@ -10,7 +10,7 @@ public:
     ~GameState() override = default;
 
     void Init() override;
-    void HandleInput(sf::Event& event) override;
+    void HandleInput(sf::Event& event, sf::RenderWindow& window) override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
 
