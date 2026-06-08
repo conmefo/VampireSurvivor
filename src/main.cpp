@@ -14,7 +14,7 @@ int runSfmlTest()
 {
     sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
     sf::RenderWindow window(desktop, "Vampire Survivors Clone", sf::Style::Fullscreen);
-    window.setFramerateLimit(60);
+    window.setVerticalSyncEnabled(true);
 
     float screenRatio = static_cast<float>(desktop.width) / static_cast<float>(desktop.height);
     sf::View view;

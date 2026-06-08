@@ -3,7 +3,6 @@
 #include "../../World/TileMap.h"
 #include "../BaseState.h"
 
-
 class GameState : public BaseState {
 public:
   explicit GameState(StateContext context);
@@ -16,9 +15,9 @@ public:
 
 private:
   void UpdateCamera(float dt);
-  void WrapCameraToMap();
+  void ApplyCameraToView();
 
-  static constexpr float CameraSpeed = 100.0f;
+  static constexpr float CameraSpeed = 200.0f;
   static constexpr float ViewWidth = 640.0f;
   static constexpr float ViewHeight = 480.0f;
 
