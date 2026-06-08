@@ -1,12 +1,14 @@
 #include "UIButton.h"
 
-UIButton::UIButton(const sf::Texture& texture, float left, float top, float right, float bottom)
-    : UIPanel(texture, left, top, right, bottom)
+
+
+UIButton::UIButton(TextureAtlas& atlas, const std::string& assetId, float marginLeft, float marginTop, float marginRight, float marginBottom)
+    : UIPanel(atlas, assetId, marginLeft, marginTop, marginRight, marginBottom)
     , m_state(ButtonState::Normal)
     , m_normalColor(sf::Color::White)
-    , m_hoverColor(sf::Color(200, 200, 200))
-    , m_pressedColor(sf::Color(100, 100, 100))
-    , m_disabledColor(sf::Color(50, 50, 50, 150))
+    , m_hoverColor(sf::Color(220, 220, 220))
+    , m_pressedColor(sf::Color(180, 180, 180))
+    , m_disabledColor(sf::Color(100, 100, 100, 150))
     , m_onClickAction(nullptr)
     , m_isFocused(false)
 {

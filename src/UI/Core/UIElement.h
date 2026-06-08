@@ -9,6 +9,7 @@ public:
 
     virtual void Update(float deltaTime) = 0;
     virtual void Draw(sf::RenderTarget& target) = 0;
+    virtual void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) {}
 
     virtual void SetPosition(const sf::Vector2f& pos);
     virtual void SetSize(const sf::Vector2f& size);

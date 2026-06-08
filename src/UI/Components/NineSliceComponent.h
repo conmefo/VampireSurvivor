@@ -8,7 +8,7 @@ public:
     NineSliceComponent();
     ~NineSliceComponent() override = default;
 
-    void SetTexture(const sf::Texture& texture);
+    void SetTexture(const class TextureAtlas& atlas, const std::string& assetId);
     void SetMargins(float left, float top, float right, float bottom);
     void SetSize(const sf::Vector2f& size);
     void SetColor(const sf::Color& color);
@@ -20,6 +20,7 @@ private:
     void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
 
     const sf::Texture* m_sourceTexture;
+    sf::IntRect m_textureRect;
     float m_marginLeft;
     float m_marginTop;
     float m_marginRight;

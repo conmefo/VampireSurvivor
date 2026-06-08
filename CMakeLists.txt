@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.20)
 
-project(MarioGame LANGUAGES CXX)
+project(VampireSurvivors LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -23,9 +23,18 @@ FetchContent_Declare(
     GIT_SHALLOW TRUE
 )
 
-FetchContent_MakeAvailable(SFML)
+FetchContent_Declare(
+    nlohmann_json
+    GIT_REPOSITORY https://github.com/nlohmann/json.git
+    GIT_TAG v3.11.3
+    GIT_SHALLOW TRUE
+)
 
-add_executable(MarioGame
+FetchContent_MakeAvailable(SFML nlohmann_json)
+
+add_executable(VampireSurvivors
+    src/UI/UIManager.cpp
+    src/States/Menu/MainMenuState.cpp
     src/main.cpp
     src/States/StateManager.cpp
     src/States/Intro/LoadingState.cpp
@@ -43,14 +52,26 @@ add_executable(MarioGame
     src/UI/Components/NineSliceComponent.cpp
     src/Core/UI/ScreenTransitionManager.cpp
     src/States/Title/TitleState.cpp
+    src/Core/Resources/TextureAtlas.cpp
+    src/Core/Animation/AnimationLibrary.cpp
+    src/Core/Animation/SpriteAnimator.cpp
 )
 
-target_include_directories(MarioGame PRIVATE
+target_include_directories(VampireSurvivors PRIVATE 
     "${CMAKE_CURRENT_SOURCE_DIR}/src"
 )
 
-target_link_libraries(MarioGame PRIVATE
-    sfml-graphics
-    sfml-window
+target_link_libraries(VampireSurvivors PRIVATE 
+    sfml-graphics 
+    sfml-window 
     sfml-system
+    sfml-main
+    nlohmann_json::nlohmann_json
+)
+
+add_custom_command(TARGET VampireSurvivors POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
+        "$<TARGET_FILE_DIR:VampireSurvivors>/Assets"
+    COMMENT "Copying Assets directory to build output..."
 )

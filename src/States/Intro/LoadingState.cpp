@@ -1,192 +1,154 @@
 #include "LoadingState.h"
+#include "../Menu/MainMenuState.h"
 #include "WarningState.h"
 #include "../StateManager.h"
+#include "Core/WindowSettings.h"
 #include <iostream>
-#include <cmath>
+#include <iomanip>
+#include <sstream>
 
 LoadingState::LoadingState(StateContext context)
-    : BaseState(context)
-    , m_config(Config())
-    , m_assetPaths(AssetPaths())
-    , m_useTextures(true)
-    , m_elapsedTime(0.0f)
-    , m_taskTimer(0.0f)
-    , m_animTimer(0.0f)
-    , m_progress(0.0f)
-    , m_currentTaskIndex(0)
-    , m_currentFrame(0)
-{
-}
-
-LoadingState::LoadingState(StateContext context, const Config& config, const AssetPaths& assetPaths)
-    : BaseState(context)
-    , m_config(config)
-    , m_assetPaths(assetPaths)
-    , m_useTextures(true)
-    , m_elapsedTime(0.0f)
-    , m_taskTimer(0.0f)
-    , m_animTimer(0.0f)
-    , m_progress(0.0f)
-    , m_currentTaskIndex(0)
-    , m_currentFrame(0)
+    : BaseState(std::move(context))
+    , m_currentDlcIndex(0)
+    , m_currentPercent(0)
+    , m_stepTimer(0.0f)
+    , m_phase(0)
+    , m_finalWaitTimer(0.0f)
 {
 }
 
 void LoadingState::Init()
 {
-    if(!m_font.loadFromFile(m_assetPaths.fontPath))
+    // Load font
+    try
     {
-        std::cerr << "Failed to load font: " << m_assetPaths.fontPath << std::endl;
+        m_context.fonts.Load(FontID::Main, "Assets/Fonts/Courier_HintedSmooth.ttf");
+    }
+    catch (...)
+    {
+        std::cerr << "Failed to load Courier_HintedSmooth.ttf, falling back to what is available.\n";
     }
 
-    m_text.setFont(m_font);
-    m_text.setCharacterSize(24);
-    m_text.setFillColor(sf::Color::White);
-
-    UpdateText();
-
-    sf::FloatRect textRect = m_text.getLocalBounds();
-    m_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-
-    // Load multiple texture frames
-    m_chestTextures.resize(m_assetPaths.chestFramePaths.size());
-    for(size_t i = 0; i < m_assetPaths.chestFramePaths.size(); ++i)
+    const sf::Font* fontPtr = m_context.fonts.GetPtr(FontID::Main);
+    if(fontPtr)
     {
-        if(!m_chestTextures[i].loadFromFile(m_assetPaths.chestFramePaths[i]))
+        m_font = *fontPtr;
+    }
+
+    // Initialize texts
+    m_textTop.setFont(m_font);
+    m_textTop.setCharacterSize(40);
+    m_textTop.setFillColor(sf::Color::White);
+    m_textTop.setString("Loading DLC");
+
+    m_textMiddle.setFont(m_font);
+    m_textMiddle.setCharacterSize(24);
+    m_textMiddle.setFillColor(sf::Color::White);
+
+    m_textBottom.setFont(m_font);
+    m_textBottom.setCharacterSize(16);
+    m_textBottom.setFillColor(sf::Color(150, 150, 150));
+    m_textBottom.setString("v1.14.112 (63587693R)");
+
+    // Assemble AnimationData manually
+    m_treasureAnimData.frameDuration = 0.1f; // 10 frames per second
+    m_treasureAnimData.isLooping = true;
+    
+    // TreasureIdle_01 to 08
+    for(int i = 1; i <= 8; ++i)
+    {
+        std::stringstream ss;
+        ss << "TreasureIdle_0" << i;
+        AssetTextureData frameData = m_context.atlas.GetTextureData(ss.str());
+        if(frameData.texture != nullptr)
         {
-            std::cerr << "Failed to load frame: " << m_assetPaths.chestFramePaths[i] << std::endl;
-            m_useTextures = false;
+            m_treasureAnimData.frames.push_back(frameData);
         }
     }
 
-    if(m_useTextures && !m_chestTextures.empty())
-    {
-        m_chestSprite.setTexture(m_chestTextures[0]);
-        sf::Vector2u texSize = m_chestTextures[0].getSize();
-        m_chestSprite.setOrigin(texSize.x / 2.0f, texSize.y / 2.0f);
-    }
-    else
-    {
-        m_chestPlaceholder.setSize(sf::Vector2f(80.0f, 80.0f));
-        m_chestPlaceholder.setOrigin(40.0f, 40.0f);
-        m_chestPlaceholder.setFillColor(sf::Color(139, 69, 19));
-        m_chestPlaceholder.setOutlineThickness(2.0f);
-        m_chestPlaceholder.setOutlineColor(sf::Color::Yellow);
-    }
+    m_treasureAnimator.Play(&m_treasureAnimData);
 
-    m_progressBarOutline.setSize(sf::Vector2f(400.0f, 20.0f));
-    m_progressBarOutline.setOrigin(200.0f, 10.0f);
-    m_progressBarOutline.setFillColor(sf::Color::Transparent);
-    m_progressBarOutline.setOutlineThickness(2.0f);
-    m_progressBarOutline.setOutlineColor(sf::Color::White);
+    // Positioning: Treasure in bottom-right
+    // Assume Virtual Bounds
+    float vx = Core::VIRTUAL_WIDTH;
+    float vy = Core::VIRTUAL_HEIGHT;
 
-    m_progressBarFill.setSize(sf::Vector2f(0.0f, 16.0f));
-    m_progressBarFill.setOrigin(0.0f, 8.0f);
-    m_progressBarFill.setFillColor(sf::Color::Green);
+    m_treasureSprite.setPosition(vx - 150.0f, vy - 150.0f);
+    m_treasureSprite.setScale(2.0f, 2.0f);
+
+    m_textBottom.setPosition(vx - 600.0f, vy - 40.0f);
+    m_textMiddle.setPosition(vx - 600.0f, vy - 80.0f);
+    m_textTop.setPosition(vx - 600.0f, vy - 130.0f);
 }
 
-void LoadingState::HandleInput(sf::Event& event)
+void LoadingState::HandleInput(sf::Event& event, sf::RenderWindow& window)
 {
 }
 
 void LoadingState::Update(float dt)
 {
-    if(m_elapsedTime < m_config.totalLoadTime)
+    m_treasureAnimator.Update(dt, m_treasureSprite);
+
+    if(m_phase == 0)
     {
-        m_elapsedTime += dt;
-        m_progress = (m_elapsedTime / m_config.totalLoadTime) * 100.0f;
-        if(m_progress >= 100.0f)
+        m_stepTimer += dt;
+        if(m_stepTimer >= 0.15f) // step fast
         {
-            m_progress = 100.0f;
+            m_stepTimer = 0.0f;
+            m_currentPercent += 10 + (rand() % 15); // random jump
+
+            if(m_currentPercent >= 100)
+            {
+                m_currentPercent = 100;
+                
+                // Keep it at 100% for one frame then advance
+                m_currentDlcIndex++;
+                if(m_currentDlcIndex >= static_cast<int>(m_dlcNames.size()))
+                {
+                    m_phase = 1;
+                }
+                else
+                {
+                    m_currentPercent = 0;
+                }
+            }
+        }
+
+        if(m_phase == 0 && m_currentDlcIndex < static_cast<int>(m_dlcNames.size()))
+        {
+            std::stringstream ss;
+            ss << m_dlcNames[m_currentDlcIndex] << " (" << m_currentPercent << "%)";
+            m_textMiddle.setString(ss.str());
         }
     }
-
-    m_taskTimer += dt;
-    if(m_taskTimer >= m_config.taskSwitchInterval)
+    else if(m_phase == 1)
     {
-        m_taskTimer = 0.0f;
-        if(!m_config.loadingTasks.empty())
+        // Phase 1: Hide middle text, move top text
+        m_textMiddle.setString("");
+        
+        m_textTop.setString("Loading");
+        m_textTop.setPosition(Core::VIRTUAL_WIDTH - 600.0f, Core::VIRTUAL_HEIGHT - 80.0f); // Move to middle line Y
+
+        m_finalWaitTimer += dt;
+        if(m_finalWaitTimer >= 1.5f)
         {
-            m_currentTaskIndex = (m_currentTaskIndex + 1) % m_config.loadingTasks.size();
+            m_context.stateManager.PopState();
+            m_context.stateManager.AddState(std::make_unique<WarningState>(m_context));
         }
-    }
-
-    UpdateText();
-    sf::FloatRect textRect = m_text.getLocalBounds();
-    m_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-
-    float currentFillWidth = (m_progress / 100.0f) * 396.0f;
-    m_progressBarFill.setSize(sf::Vector2f(currentFillWidth, 16.0f));
-
-    m_animTimer += dt;
-    if(m_animTimer >= m_config.frameDuration)
-    {
-        m_animTimer = 0.0f;
-        size_t totalFrames = m_useTextures ? m_chestTextures.size() : 4;
-        if(totalFrames > 0)
-        {
-            m_currentFrame = (m_currentFrame + 1) % totalFrames;
-        }
-    }
-
-    UpdateChestVisuals();
-
-    if(m_progress >= 100.0f)
-    {
-        m_context.stateManager.PopState();
-        m_context.stateManager.AddState(std::make_unique<WarningState>(m_context));
     }
 }
 
 void LoadingState::Draw(sf::RenderWindow& window)
 {
-    sf::Vector2f center(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    // Pure Black background
+    window.clear(sf::Color::Black);
 
-    if(m_useTextures)
+    window.draw(m_textTop);
+    if(m_phase == 0)
     {
-        m_chestSprite.setPosition(center.x, center.y - 100.0f);
-        window.draw(m_chestSprite);
+        window.draw(m_textMiddle);
     }
-    else
-    {
-        m_chestPlaceholder.setPosition(center.x, center.y - 100.0f);
-        window.draw(m_chestPlaceholder);
-    }
+    window.draw(m_textBottom);
 
-    m_text.setPosition(center.x, center.y + 20.0f);
-    m_progressBarOutline.setPosition(center.x, center.y + 100.0f);
-
-    m_progressBarFill.setPosition(center.x - 198.0f, center.y + 100.0f);
-
-    window.draw(m_text);
-    window.draw(m_progressBarOutline);
-    window.draw(m_progressBarFill);
-}
-
-void LoadingState::UpdateText()
-{
-    std::string task = "Loading";
-    if(!m_config.loadingTasks.empty())
-    {
-        task = m_config.loadingTasks[m_currentTaskIndex];
-    }
-    m_text.setString(task + "... (" + std::to_string(static_cast<int>(m_progress)) + "%)");
-}
-
-void LoadingState::UpdateChestVisuals()
-{
-    if(m_useTextures && !m_chestTextures.empty())
-    {
-        if(m_currentFrame < static_cast<int>(m_chestTextures.size()))
-        {
-            m_chestSprite.setTexture(m_chestTextures[m_currentFrame]);
-            sf::Vector2u texSize = m_chestTextures[m_currentFrame].getSize();
-            m_chestSprite.setOrigin(texSize.x / 2.0f, texSize.y / 2.0f);
-        }
-    }
-    else
-    {
-        float scaleFactor = 1.0f + 0.1f * std::sin(m_currentFrame * 3.14159f / 2.0f);
-        m_chestPlaceholder.setScale(scaleFactor, scaleFactor);
-    }
+    window.draw(m_treasureSprite);
 }

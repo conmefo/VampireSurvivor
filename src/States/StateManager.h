@@ -18,7 +18,7 @@ public:
     void ChangeStateWithTransition(std::unique_ptr<BaseState> state, float duration = 0.5f, sf::Color color = sf::Color::Black);
     void ProcessStateChanges();
 
-    void HandleInput(sf::Event& event);
+    void HandleInput(sf::Event& event, sf::RenderWindow& window);
     void Update(float dt);
     void Draw(sf::RenderWindow& window);
 
