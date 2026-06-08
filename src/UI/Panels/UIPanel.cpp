@@ -63,6 +63,16 @@ void UIPanel::SetColor(const sf::Color& color)
     m_backgroundRenderer.SetColor(color);
 }
 
+void UIPanel::SetTexture(TextureAtlas& atlas, const std::string& assetId)
+{
+    m_backgroundRenderer.SetTexture(atlas, assetId);
+}
+
+void UIPanel::SetMargins(float left, float top, float right, float bottom)
+{
+    m_backgroundRenderer.SetMargins(left, top, right, bottom);
+}
+
 FaderComponent& UIPanel::GetFader()
 {
     return m_fader;

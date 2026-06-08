@@ -18,6 +18,8 @@ public:
     void SetPosition(const sf::Vector2f& pos) override;
     void SetSize(const sf::Vector2f& size) override;
     virtual void SetColor(const sf::Color& color);
+    void SetTexture(class TextureAtlas& atlas, const std::string& assetId);
+    void SetMargins(float left, float top, float right, float bottom);
     void SetText(const std::string& text, const sf::Font& font, unsigned int charSize = 20);
 
     FaderComponent& GetFader();

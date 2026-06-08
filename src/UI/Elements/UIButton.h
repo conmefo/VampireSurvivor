@@ -26,6 +26,9 @@ public:
     void SetStateColors(const sf::Color& normal, const sf::Color& hover, const sf::Color& pressed, const sf::Color& disabled);
     void SetState(ButtonState state);
 
+    void SetHoverTexture(const std::string& assetId);
+    void SetPressTexture(const std::string& assetId);
+
     bool Contains(const sf::Vector2f& point) const;
 
 private:
@@ -39,4 +42,9 @@ private:
     
     std::function<void()> m_onClickAction;
     bool m_isFocused;
+    
+    class TextureAtlas& m_atlas;
+    std::string m_idleAssetId;
+    std::string m_hoverAssetId;
+    std::string m_pressAssetId;
 };
