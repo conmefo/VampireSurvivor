@@ -47,8 +47,7 @@ int runSfmlTest()
         textureManager.Load("UIAtlas", "Assets/Graphics/Spritesheets/UI.png");
         textureManager.Load("Background", "Assets/Graphics/Backgrounds/introBG_0.png");
         textureManager.Load("Title", "Assets/Graphics/Backgrounds/title.png");
-        textureManager.Load("Prompt", "Assets/Graphics/Backgrounds/NowLoading_VS.png"); // Assuming NowLoading_VS.png or press_start.png 
-        // Wait, the original code had "Assets/press_start.png" but we only moved NowLoading_VS.png. I'll stick to what was there or what exists.
+        textureManager.Load("Prompt", "Assets/Graphics/Backgrounds/NowLoading_VS.png"); 
         
         textureManager.Load("CharacterDecoration_0", "Assets/Graphics/Spritesheets/demonSkull.png");
         textureManager.Load("CharacterDecoration_1", "Assets/Graphics/Spritesheets/demonSkull.png");
