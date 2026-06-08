@@ -1,6 +1,5 @@
 #include "GameState.h"
 #include "../StateManager.h"
-#include <algorithm>
 #include <cmath>
 #include <iostream>
 
@@ -20,8 +19,8 @@ void GameState::Init()
     }
 
     m_worldView.setSize(ViewWidth, ViewHeight);
-    ClampCameraToMap();
-    m_worldView.setCenter(m_cameraCenter);
+    WrapCameraToMap();
+    m_worldView.setCenter(std::round(m_cameraCenter.x), std::round(m_cameraCenter.y));
 }
 
 void GameState::HandleInput(sf::Event& event, sf::RenderWindow& window)
@@ -35,8 +34,8 @@ void GameState::HandleInput(sf::Event& event, sf::RenderWindow& window)
     else if(event.type == sf::Event::Resized)
     {
         m_worldView.setSize(ViewWidth, ViewHeight);
-        ClampCameraToMap();
-        m_worldView.setCenter(m_cameraCenter);
+        WrapCameraToMap();
+        m_worldView.setCenter(std::round(m_cameraCenter.x), std::round(m_cameraCenter.y));
     }
 }
 
@@ -84,16 +83,24 @@ void GameState::UpdateCamera(float dt)
         direction.x /= length;
         direction.y /= length;
         m_cameraCenter += direction * CameraSpeed * dt;
-        ClampCameraToMap();
-        m_worldView.setCenter(m_cameraCenter);
+        WrapCameraToMap();
+        m_worldView.setCenter(std::round(m_cameraCenter.x), std::round(m_cameraCenter.y));
     }
 }
 
-void GameState::ClampCameraToMap()
+void GameState::WrapCameraToMap()
 {
-    sf::Vector2f halfView = m_worldView.getSize() / 2.0f;
     sf::Vector2f worldSize = m_tileMap.GetWorldSize();
 
-    m_cameraCenter.x = std::clamp(m_cameraCenter.x, halfView.x, worldSize.x - halfView.x);
-    m_cameraCenter.y = std::clamp(m_cameraCenter.y, halfView.y, worldSize.y - halfView.y);
+    m_cameraCenter.x = std::fmod(m_cameraCenter.x, worldSize.x);
+    m_cameraCenter.y = std::fmod(m_cameraCenter.y, worldSize.y);
+
+    if(m_cameraCenter.x < 0.0f)
+    {
+        m_cameraCenter.x += worldSize.x;
+    }
+    if(m_cameraCenter.y < 0.0f)
+    {
+        m_cameraCenter.y += worldSize.y;
+    }
 }
