@@ -12,7 +12,9 @@ enum class TileId
 class TileMap
 {
 public:
-    static constexpr int TileSize = 32;
+    static constexpr int TileSize = 64;
+    static constexpr int GrassDrawSize = 96;
+    static constexpr int GrassDrawOffset = (GrassDrawSize - TileSize) / 2;
     static constexpr int MapWidth = 80;
     static constexpr int MapHeight = 60;
 

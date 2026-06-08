@@ -29,10 +29,10 @@ void TileMap::Draw(sf::RenderTarget& target, const sf::View& view)
     float right = center.x + size.x / 2.0f;
     float bottom = center.y + size.y / 2.0f;
 
-    int startX = std::max(0, static_cast<int>(std::floor(left / TileSize)));
-    int startY = std::max(0, static_cast<int>(std::floor(top / TileSize)));
-    int endX = std::min(MapWidth - 1, static_cast<int>(std::ceil(right / TileSize)));
-    int endY = std::min(MapHeight - 1, static_cast<int>(std::ceil(bottom / TileSize)));
+    int startX = std::max(0, static_cast<int>(std::floor(left / TileSize)) - 1);
+    int startY = std::max(0, static_cast<int>(std::floor(top / TileSize)) - 1);
+    int endX = std::min(MapWidth - 1, static_cast<int>(std::ceil(right / TileSize)) + 1);
+    int endY = std::min(MapHeight - 1, static_cast<int>(std::ceil(bottom / TileSize)) + 1);
 
     m_visibleVertices.clear();
     m_visibleVertices.setPrimitiveType(sf::Quads);
@@ -68,20 +68,20 @@ sf::IntRect TileMap::GetTextureRect(TileId tile) const
     switch(tile)
     {
         case TileId::Grass:
-            return sf::IntRect(0, 0, 32, 32);
+            return sf::IntRect(0, 0, GrassDrawSize, GrassDrawSize);
     }
 
-    return sf::IntRect(0, 0, 32, 32);
+    return sf::IntRect(0, 0, GrassDrawSize, GrassDrawSize);
 }
 
 void TileMap::AppendTile(sf::VertexArray& vertices, int x, int y, TileId tile) const
 {
     sf::IntRect texRect = GetTextureRect(tile);
 
-    float worldX = static_cast<float>(x * TileSize);
-    float worldY = static_cast<float>(y * TileSize);
-    float worldRight = worldX + TileSize;
-    float worldBottom = worldY + TileSize;
+    float worldX = static_cast<float>(x * TileSize - GrassDrawOffset);
+    float worldY = static_cast<float>(y * TileSize - GrassDrawOffset);
+    float worldRight = worldX + GrassDrawSize;
+    float worldBottom = worldY + GrassDrawSize;
 
     float texLeft = static_cast<float>(texRect.left);
     float texTop = static_cast<float>(texRect.top);
