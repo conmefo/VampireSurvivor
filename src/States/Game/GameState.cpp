@@ -24,7 +24,7 @@ void GameState::Init()
     m_worldView.setCenter(m_cameraCenter);
 }
 
-void GameState::HandleInput(sf::Event& event)
+void GameState::HandleInput(sf::Event& event, sf::RenderWindow& window)
 {
     if(event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
     {
