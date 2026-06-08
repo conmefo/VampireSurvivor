@@ -35,6 +35,18 @@ public:
         InsertResource(id, std::move(resource));
     }
 
+    void LoadFromImage(Identifier id, const sf::Image& image)
+    {
+        std::unique_ptr<Resource> resource(new Resource());
+        
+        if(!resource->loadFromImage(image))
+        {
+            throw std::runtime_error("ResourceManager::LoadFromImage - Failed to load from image");
+        }
+        
+        InsertResource(id, std::move(resource));
+    }
+
     Resource& Get(Identifier id)
     {
         auto found = m_resourceMap.find(id);
@@ -47,6 +59,26 @@ public:
         auto found = m_resourceMap.find(id);
         assert(found != m_resourceMap.end() && "ResourceManager::Get - Resource ID not found!");
         return *found->second;
+    }
+
+    Resource* GetPtr(Identifier id)
+    {
+        auto found = m_resourceMap.find(id);
+        if (found != m_resourceMap.end())
+        {
+            return found->second.get();
+        }
+        return nullptr;
+    }
+
+    const Resource* GetPtr(Identifier id) const
+    {
+        auto found = m_resourceMap.find(id);
+        if (found != m_resourceMap.end())
+        {
+            return found->second.get();
+        }
+        return nullptr;
     }
 
 private:

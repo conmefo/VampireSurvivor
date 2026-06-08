@@ -2,6 +2,7 @@
 
 #include "../BaseState.h"
 #include "../StateContext.h"
+#include "Core/Animation/SpriteAnimator.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -9,63 +10,38 @@
 class LoadingState : public BaseState
 {
 public:
-    struct AssetPaths
-    {
-        std::string fontPath = "assets/fonts/arial.ttf";
-        std::vector<std::string> chestFramePaths = {
-            "assets/textures/chest/frame_0.png",
-            "assets/textures/chest/frame_1.png",
-            "assets/textures/chest/frame_2.png",
-            "assets/textures/chest/frame_3.png"
-        };
-    };
-
-    struct Config
-    {
-        float taskSwitchInterval = 0.5f;
-        float frameDuration = 0.15f;
-        float totalLoadTime = 3.0f;
-        std::vector<std::string> loadingTasks = {
-            "Loading textures",
-            "Parsing configs",
-            "Caching sounds",
-            "Spawning entities",
-            "Initializing engine"
-        };
-    };
-
     explicit LoadingState(StateContext context);
-    LoadingState(StateContext context, const Config& config, const AssetPaths& assetPaths);
     ~LoadingState() override = default;
 
     void Init() override;
-    void HandleInput(sf::Event& event) override;
+    void HandleInput(sf::Event& event, sf::RenderWindow& window) override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
 
 private:
-    void UpdateText();
-    void UpdateChestVisuals();
-
-    Config m_config;
-    AssetPaths m_assetPaths;
-
     sf::Font m_font;
-    sf::Text m_text;
+    sf::Text m_textTop;
+    sf::Text m_textMiddle;
+    sf::Text m_textBottom;
 
-    std::vector<sf::Texture> m_chestTextures;
-    sf::Sprite m_chestSprite;
-    bool m_useTextures;
+    sf::Sprite m_treasureSprite;
+    AnimationData m_treasureAnimData;
+    SpriteAnimator m_treasureAnimator;
 
-    sf::RectangleShape m_chestPlaceholder;
-    sf::RectangleShape m_progressBarOutline;
-    sf::RectangleShape m_progressBarFill;
+    std::vector<std::string> m_dlcNames = {
+        "Legacy of the Moonspell", 
+        "Emergency Meeting", 
+        "Operation Gun", 
+        "Ode to Castlevania", 
+        "Tides of the Foscari", 
+        "Emerald Diorama", 
+        "Ante Chamber"
+    };
 
-    float m_elapsedTime;
-    float m_taskTimer;
-    float m_animTimer;
-    float m_progress;
+    int m_currentDlcIndex;
+    int m_currentPercent;
+    float m_stepTimer;
+    int m_phase; // 0 = Loading DLCs, 1 = Final "Loading" wait
 
-    size_t m_currentTaskIndex;
-    int m_currentFrame;
+    float m_finalWaitTimer;
 };

@@ -47,7 +47,7 @@ void StateManager::ProcessStateChanges()
     }
 }
 
-void StateManager::HandleInput(sf::Event& event)
+void StateManager::HandleInput(sf::Event& event, sf::RenderWindow& window)
 {
     if(m_transitionManager.IsTransitioning())
     {
@@ -56,7 +56,7 @@ void StateManager::HandleInput(sf::Event& event)
 
     if(!m_states.empty())
     {
-        m_states.back()->HandleInput(event);
+        m_states.back()->HandleInput(event, window);
     }
 }
 

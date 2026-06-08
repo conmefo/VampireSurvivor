@@ -1,5 +1,7 @@
 #include "NineSliceComponent.h"
 
+#include "../../Core/Resources/TextureAtlas.h"
+
 NineSliceComponent::NineSliceComponent()
     : m_sourceTexture(nullptr)
     , m_marginLeft(0.0f)
@@ -13,10 +15,21 @@ NineSliceComponent::NineSliceComponent()
 {
 }
 
-void NineSliceComponent::SetTexture(const sf::Texture& texture)
+void NineSliceComponent::SetTexture(const TextureAtlas& atlas, const std::string& assetId)
 {
-    m_sourceTexture = &texture;
-    m_isDirty = true;
+    AssetTextureData data = atlas.GetTextureData(assetId);
+    if(data.texture)
+    {
+        m_sourceTexture = data.texture;
+        m_textureRect = data.rect;
+        
+        if (m_textureRect.width == 0 || m_textureRect.height == 0)
+        {
+            m_textureRect = sf::IntRect(0, 0, m_sourceTexture->getSize().x, m_sourceTexture->getSize().y);
+        }
+        
+        m_isDirty = true;
+    }
 }
 
 void NineSliceComponent::SetMargins(float left, float top, float right, float bottom)
@@ -56,13 +69,22 @@ void NineSliceComponent::RecalculateVertices()
         return;
     }
 
-    sf::Vector2u texSize = m_sourceTexture->getSize();
-
     float xCoords[4] = { 0.0f, m_marginLeft, m_targetSize.x - m_marginRight, m_targetSize.x };
     float yCoords[4] = { 0.0f, m_marginTop, m_targetSize.y - m_marginBottom, m_targetSize.y };
 
-    float uCoords[4] = { 0.0f, m_marginLeft, static_cast<float>(texSize.x) - m_marginRight, static_cast<float>(texSize.x) };
-    float vCoords[4] = { 0.0f, m_marginTop, static_cast<float>(texSize.y) - m_marginBottom, static_cast<float>(texSize.y) };
+    float uCoords[4] = { 
+        static_cast<float>(m_textureRect.left), 
+        static_cast<float>(m_textureRect.left) + m_marginLeft, 
+        static_cast<float>(m_textureRect.left + m_textureRect.width) - m_marginRight, 
+        static_cast<float>(m_textureRect.left + m_textureRect.width) 
+    };
+    
+    float vCoords[4] = { 
+        static_cast<float>(m_textureRect.top), 
+        static_cast<float>(m_textureRect.top) + m_marginTop, 
+        static_cast<float>(m_textureRect.top + m_textureRect.height) - m_marginBottom, 
+        static_cast<float>(m_textureRect.top + m_textureRect.height) 
+    };
 
     int vertexIndex = 0;
 

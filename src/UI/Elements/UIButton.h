@@ -14,7 +14,7 @@ enum class ButtonState
 class UIButton : public UIPanel
 {
 public:
-    UIButton(const sf::Texture& texture, float left, float top, float right, float bottom);
+    UIButton(class TextureAtlas& atlas, const std::string& assetId, float marginLeft = 0.0f, float marginTop = 0.0f, float marginRight = 0.0f, float marginBottom = 0.0f);
     ~UIButton() override = default;
 
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window);

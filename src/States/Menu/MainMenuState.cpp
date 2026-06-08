@@ -1,144 +1,140 @@
 #include "MainMenuState.h"
-#include "../Game/GameState.h"
 #include "../StateManager.h"
 #include <iostream>
+#include "../../Core/WindowSettings.h"
 
-namespace
+MainMenuState::MainMenuState(StateContext context)
+    : BaseState(context)
 {
-    bool LoadMenuFont(sf::Font& font)
-    {
-        const char* fontPaths[] = {
-            "assets/fonts/menu.ttf",
-            "C:/Windows/Fonts/georgiab.ttf",
-            "assets/fonts/arial.ttf"
-        };
-
-        for(const char* path : fontPaths)
-        {
-            if(font.loadFromFile(path))
-            {
-                return true;
-            }
-        }
-
-        return false;
-    }
 }
 
 void MainMenuState::Init()
 {
-    std::cout << "MainMenuState Init" << std::endl;
+    std::cout << "MainMenuState Init\n";
 
-    if(!m_buttonTexture.loadFromFile("assets/images/buttons/blue_button.png"))
+    m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_0"));
+    m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_1"));
+    m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_2"));
+    m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_3"));
+
+    if(!m_cursorFrames.empty() && m_cursorFrames[0])
     {
-        std::cerr << "Failed to load assets/images/buttons/blue_button.png" << std::endl;
-        return;
+        m_leftCursor.setTexture(*m_cursorFrames[0]);
+        m_rightCursor.setTexture(*m_cursorFrames[0]);
+        
+        sf::Vector2u size = m_cursorFrames[0]->getSize();
+        m_leftCursor.setOrigin(size.x / 2.0f, size.y / 2.0f);
+        m_rightCursor.setOrigin(size.x / 2.0f, size.y / 2.0f);
+        m_rightCursor.setScale(-1.0f, 1.0f);
     }
 
-    m_startButton = std::make_unique<UIButton>(m_buttonTexture, 8.0f, 8.0f, 8.0f, 8.0f);
-    m_startButton->SetPosition(sf::Vector2f(285.0f, 330.0f));
-    m_startButton->SetSize(sf::Vector2f(230.0f, 72.0f));
-    m_startButton->SetStateColors(
-        sf::Color::White,
-        sf::Color(230, 235, 255),
-        sf::Color(170, 180, 230),
-        sf::Color(80, 80, 100, 180)
-    );
-
-    if(!LoadMenuFont(m_font))
-    {
-        std::cerr << "Failed to load menu font" << std::endl;
-    }
-
-    m_font.setSmooth(false);
-    m_startText.setFont(m_font);
-    m_startText.setString("START");
-    m_startText.setCharacterSize(32);
-    m_startText.setStyle(sf::Text::Bold);
-    m_startText.setLetterSpacing(0.9f);
-    m_startText.setFillColor(sf::Color::White);
-    m_startText.setOutlineThickness(2.0f);
-    m_startText.setOutlineColor(sf::Color(78, 84, 170));
-    CenterStartText();
+    SetupUI();
 }
 
-void MainMenuState::HandleInput(sf::Event& event)
+void MainMenuState::SetupUI()
 {
-    if(!m_startButton)
+    float width = Core::VIRTUAL_WIDTH;
+    float height = Core::VIRTUAL_HEIGHT;
+    
+    sf::Font& font = m_context.fonts.Get(FontID::Main);
+
+    // --- CENTRAL CLUSTER ---
+    float startY = height * 0.45f;
+    float paddingY = 60.0f;
+    float btnWidth = 200.0f * UI_SCALE;
+    float btnHeight = 50.0f * UI_SCALE;
+    
+    auto createButton = [&](const std::string& assetId, const std::string& text, float x, float y, const sf::Color& normal, const sf::Color& hover) -> UIButton* {
+        auto btn = std::make_unique<UIButton>(m_context.atlas, assetId, 8, 8, 8, 8);
+        btn->SetPosition(sf::Vector2f(x - btnWidth / 2.0f, y - btnHeight / 2.0f));
+        btn->SetSize(sf::Vector2f(btnWidth, btnHeight));
+        btn->SetStateColors(normal, hover, sf::Color(100,100,100), sf::Color(50,50,50,150));
+        btn->SetText(text, font, 24);
+        UIButton* ptr = btn.get();
+        m_uiManager.AddElement(std::move(btn));
+        return ptr;
+    };
+
+    m_centralCluster.push_back(createButton("ButtonBlue", "START", width / 2.0f, startY, sf::Color::White, sf::Color(200, 200, 255)));
+    m_centralCluster.push_back(createButton("ButtonBlue", "ONLINE", width / 2.0f, startY + paddingY, sf::Color::White, sf::Color(200, 200, 255)));
+    m_centralCluster.push_back(createButton("ButtonGreen", "POWER UP", width / 2.0f, startY + paddingY * 2, sf::Color::White, sf::Color(200, 255, 200)));
+    
+    m_centralCluster.push_back(createButton("ButtonBlue", "COLLECTION", width / 2.0f - btnWidth - 20.0f, startY + paddingY * 2, sf::Color::White, sf::Color(200, 200, 255)));
+    m_centralCluster.push_back(createButton("ButtonBlue", "UNLOCKS", width / 2.0f + btnWidth + 20.0f, startY + paddingY * 2, sf::Color::White, sf::Color(200, 200, 255)));
+
+    for(auto* btn : m_centralCluster)
     {
-        return;
+        btn->SetOnClickCallback([]() { std::cout << "Clicked cluster button\n"; });
     }
 
-    if(event.type == sf::Event::MouseMoved)
-    {
-        sf::Vector2f mousePos(static_cast<float>(event.mouseMove.x), static_cast<float>(event.mouseMove.y));
-        m_startButton->SetFocus(m_startButton->Contains(mousePos));
-    }
-    else if(event.type == sf::Event::MouseButtonPressed && event.mouseButton.button == sf::Mouse::Left)
-    {
-        sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
-        if(m_startButton->Contains(mousePos))
-        {
-            m_startButton->SetState(ButtonState::Pressed);
-            m_startPressed = true;
-        }
-    }
-    else if(event.type == sf::Event::MouseButtonReleased && event.mouseButton.button == sf::Mouse::Left)
-    {
-        sf::Vector2f mousePos(static_cast<float>(event.mouseButton.x), static_cast<float>(event.mouseButton.y));
-        bool shouldStart = m_startPressed && m_startButton->Contains(mousePos);
-        m_startPressed = false;
-        m_startButton->SetState(shouldStart ? ButtonState::Hovered : ButtonState::Normal);
+    // --- TOP BAR ---
+    auto quitBtn = createButton("ButtonRed", "QUIT", width * 0.1f, 50.0f, sf::Color::White, sf::Color(255, 100, 100));
+    quitBtn->SetOnClickCallback([this]() { m_context.stateManager.PopState(); });
+    
+    auto optionsBtn = createButton("ButtonBlue", "OPTIONS", width * 0.9f, 50.0f, sf::Color::White, sf::Color(200, 200, 255));
+    optionsBtn->SetOnClickCallback([]() { std::cout << "Options Clicked\n"; });
 
-        if(shouldStart)
-        {
-            StartGame();
-        }
-    }
+    // --- BOTTOM BAR ---
+    auto creditsBtn = createButton("ButtonPill", "CREDITS", width / 2.0f, height - 50.0f, sf::Color::White, sf::Color(220, 220, 220));
+    creditsBtn->SetOnClickCallback([]() { std::cout << "Credits Clicked\n"; });
+
+    // Set staggering delays on faders if needed here.
+    // Currently relying on default fader behavior to just pop in or fade in uniformly.
+}
+
+void MainMenuState::HandleInput(sf::Event& event, sf::RenderWindow& window)
+{
+    m_uiManager.HandleEvent(event, window);
 }
 
 void MainMenuState::Update(float dt)
 {
-    if(m_startButton)
+    m_uiManager.Update(dt);
+    UpdateCursors(dt);
+}
+
+void MainMenuState::UpdateCursors(float dt)
+{
+    m_cursorAnimTimer += dt;
+    if(m_cursorAnimTimer >= CURSOR_FRAME_DURATION)
     {
-        m_startButton->Update(dt);
+        m_cursorAnimTimer = 0.0f;
+        m_currentCursorFrame = (m_currentCursorFrame + 1) % m_cursorFrames.size();
+        
+        m_leftCursor.setTexture(*m_cursorFrames[m_currentCursorFrame]);
+        m_rightCursor.setTexture(*m_cursorFrames[m_currentCursorFrame]);
+    }
+
+    m_cursorsVisible = false;
+    for(UIButton* btn : m_centralCluster)
+    {
+        if(btn->IsFocused())
+        {
+            m_cursorsVisible = true;
+            sf::Vector2f pos = btn->GetPosition();
+            sf::Vector2f size = btn->GetSize();
+            
+            float padding = 40.0f; // offset cursors outside the button bounds
+            m_leftCursor.setPosition(pos.x - padding, pos.y + size.y / 2.0f);
+            m_rightCursor.setPosition(pos.x + size.x + padding, pos.y + size.y / 2.0f);
+            break;
+        }
     }
 }
 
 void MainMenuState::Draw(sf::RenderWindow& window)
 {
-    window.clear(sf::Color(10, 50, 80));
-
-    if(m_startButton)
+    // Background and title are retained implicitly if we don't clear, but state manager might require it.
+    // We'll just draw the UI on top. The TitleState was popped though.
+    // We can re-draw the title composite here if needed, but for now just clear dark blue.
+    window.clear(sf::Color(10, 30, 50));
+    
+    m_uiManager.Draw(window);
+    
+    if(m_cursorsVisible)
     {
-        m_startButton->Draw(window);
-        window.draw(m_startText);
+        window.draw(m_leftCursor);
+        window.draw(m_rightCursor);
     }
 }
 
-void MainMenuState::CenterStartText()
-{
-    if(!m_startButton)
-    {
-        return;
-    }
-
-    sf::FloatRect textBounds = m_startText.getLocalBounds();
-    sf::Vector2f buttonPos = m_startButton->GetPosition();
-    sf::Vector2f buttonSize = m_startButton->GetSize();
-
-    m_startText.setOrigin(
-        textBounds.left + textBounds.width / 2.0f,
-        textBounds.top + textBounds.height / 2.0f
-    );
-    m_startText.setPosition(
-        buttonPos.x + buttonSize.x / 2.0f,
-        buttonPos.y + buttonSize.y / 2.0f - 2.0f
-    );
-}
-
-void MainMenuState::StartGame()
-{
-    m_context.stateManager.PopState();
-    m_context.stateManager.AddState(std::make_unique<GameState>(m_context));
-}

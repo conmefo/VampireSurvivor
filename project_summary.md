@@ -51,3 +51,57 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
   * `ResourceIdentifiers.h`: Houses `TextureID` and `FontID` to eliminate hard-coding.
   * `StateContext`: A central struct used to inject the `StateManager` alongside the Textures and Fonts managers seamlessly into every `BaseState`.
 * **Integration:** Updated `BaseState`, `LoadingState`, `WarningState`, `TitleState`, and `MainMenuState` to completely decouple their I/O requirements, vastly improving runtime memory safety and reducing frame stuttering.
+
+***
+
+## Update: MainMenuState & Dynamic Layout
+* **Text Integration:** Upgraded `UIPanel` and `UIButton` to inherently support centered `sf::Text` components using dynamic alignment recalculations based on their bounding box.
+* **UIManager:** Built a robust `UIManager` for batch-processing updates, rendering, and routing input events to a collection of UI elements.
+* **Cursor Positioning Protocol:** Implemented a direct polling system inside `MainMenuState` where cursor visuals smoothly snap to the bounds of the currently focused button by iterating the central cluster and querying `IsFocused()`, achieving an optimal "Single Source of Truth."
+* **Animated Elements:** Implemented a lightweight animation cycle for the navigation cursors (cycling through frame textures) and used horizontal scale flipping for perfect symmetry without redundant assets.
+
+***
+
+## Update: Texture Atlas & UV Mapping Support
+* **Atlas UV Mapping:** Upgraded the `NineSliceComponent` to calculate UV coordinates relative to a designated `sf::IntRect`, achieving pure Texture Atlas (Sprite Sheet) compatibility for optimal GPU batching without duplicating memory.
+* **Component Pipeline:** Updated `UIPanel` and `UIButton` constructors to seamlessly accept specific rect coordinates, natively allowing UI layout files to extract tiny individual frames from one massive, globally loaded `.png` file.
+* **JSON Deserialization:** Integrated `nlohmann_json` via CMake to parse external `ui_atlas.json` layout files.
+* **TextureAtlas Core Manager:** Built `TextureAtlas` class injected into `StateContext` to natively convert external engine spatial coordinates (Unity bottom-left) into accurate SFML coordinate space (top-left) utilizing deterministic mathematical inversion `(Y_SFML = H_texture - Y_source - H_sprite)`. This cache maps texture sub-rectangles via $O(1)$ string lookups.
+
+***
+
+## Update: Smart Atlas Controller & Asset Factory
+* **Unified String-Based Asset Pool:** Completely eradicated the `TextureID` enum system, refactoring `ResourceManager` to speak natively in `std::string` identifiers. This achieves absolute parity with the JSON layout structure and eliminates manual enumeration management.
+* **Dual-Modality Resolution Engine:** Upgraded `TextureAtlas` into an omniscient asset factory by injecting the `ResourceManager` reference directly into its constructor. The `GetTextureData("assetName")` method now seamlessly checks if an asset is a sliced sub-rectangle (Modality A) or autonomously fetches it from the `ResourceManager` as a full-texture standalone asset (Modality B).
+* **Boilerplate Eradication:** Consolidated UI component constructors (`UIPanel`, `UIButton`). They no longer require complex manual texture passing and geometry configuration; they simply accept `(TextureAtlas& atlas, const std::string& assetId)` and delegate the entire parsing logic to the underlying components.
+
+***
+
+## Update: Virtual Canvas & Fullscreen Geometry Pipeline
+* **Immutable Resolution Constraint:** Enforced a strict logical coordinate space (`1600x1000`, 16:10 aspect ratio) using a new `WindowSettings.h` configuration layer. The engine forces initialization into `sf::Style::Fullscreen` mode automatically.
+* **Hardware Aspect Ratio Adaptation:** Built an autonomous viewport calculator in `main.cpp` that queries the native physical monitor resolution (`sf::VideoMode::getDesktopMode()`) and computes fractional letterboxing or pillarboxing offsets. SFML's native `sf::View` matrix applies this math directly to the GPU without modifying any engine anchors.
+* **Input Isolation Boundary:** Upgraded `UIManager::HandleEvent()` to instantly intercept and drop raw mouse inputs (via `window.mapPixelToCoords()`) if the user's cursor physically lands inside the black pillarbox/letterbox margin zones, guaranteeing no ghost clicks on overlapping elements.
+* **Anchor Decoupling:** Stripped out dynamic positioning logic from `TitleState` and `MainMenuState`, perfectly centering elements deterministically at absolute coordinates (e.g., `800, 500`) relative to the immutable `VIRTUAL_WIDTH` and `VIRTUAL_HEIGHT`.
+
+***
+
+## Update: Hierarchical Sprite Animator System
+* **Projector Pattern Integration:** Implemented the `SpriteAnimator` component. This lightweight, decoupled system isolates playback math (delta time accumulation, looping, and frame indexing) away from entity logic.
+* **Centralized Data Library:** Created `AnimationLibrary`, an offline JSON-driven metadata storage cache that organizes `AnimationData` in a two-tiered Species-to-State hierarchy.
+* **Dependency Chain Security:** Extracted the raw animation parsing logic completely away from SFML rendering calls. The `AnimationLibrary` delegates directly back to the `TextureAtlas` using JSON reference keys (`"orc_walk_01"`), safely bridging abstract data back to the monolithic Texture Atlas without risking duplication or crashes.
+* **Zero Singleton Architecture:** The entire animation library structure sits purely inside `main.cpp` and passes safely downwards via the `StateContext` dependency injection chain, fully eliminating global mutable state.
+
+***
+
+## Update: Asset Directory Architecture Migration
+* **Physical Restructuring:** Migrated all loose monolithic `.png` and `.json` assets from the project root into a strictly categorized Unity-style architecture (`Assets/Data/`, `Assets/Graphics/Spritesheets/`, `Assets/Graphics/Backgrounds/`, etc.). 
+* **Audio Provisioning:** Created `Assets/Audio/SFX/` and `Assets/Audio/Music/` directories to future-proof the engine for the upcoming audio system.
+* **CMake Pipeline Automation:** Updated `CMakeLists.txt` to inject a `POST_BUILD` command. This physically copies the `Assets/` directory into the output build target folder, guaranteeing that all hardcoded engine paths (`"Assets/Data/animations.json"`) resolve correctly relative to the executable without relying on the IDE's working directory.
+
+***
+
+## Update: TitleScreen State Shader & Staggered Reveal
+* **Composite Texture Pipeline:** Re-architected `TitleState` to use `sf::RenderTexture` to pre-bake the `introBG_0.png` and `title.png` into a single flattened buffer at initialization. The background correctly scales (`std::max` ratio) to cover the entire letterboxed view without distortion.
+* **Fragment Shader Integration:** Successfully injected `pixelate.frag` directly into the render loop, passing `u_pixelSize` via SFML uniform hooks. Achieved perfect pixel-snapping abstraction that gracefully degrades back to raw GPU rendering once the resolution clarity threshold is crossed.
+* **Sequential Component Loading:** Re-used `FaderComponent` inside a state-isolated `FadeItem` vector. This allows the newly parsed `illustrations.png` segments to sequentially stagger fade-in only after the shader relinquishes control.
+* **Blinking Feedback Loop:** Re-purposed `FaderComponent` for Ping-Pong alpha rendering, generating a smooth, infinitely blinking "PRESS TO START" prompt that acts as the final input gateway into the `MainMenuState`.

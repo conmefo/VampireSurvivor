@@ -1,56 +1,79 @@
-# Specification: Resource Management System
+# Technical Specification: Sprite Animator System & Hierarchical Animation Library
 
-## 1. Architectural Overview & Philosophy
-The `ResourceManager` is the centralized asset vault for the **antigravity** engine. Its fundamental purpose is to guarantee that heavy assets (Textures, Fonts, Sound Buffers) are loaded from the hard drive exactly once, stored efficiently in RAM, and shared across multiple entities via references.
+## 1. Architectural Overview: The Projector Pattern
+To achieve a robust, scalable animation system that decoupling visual presentation from game logic, we employ the "Projector Pattern" based on **Composition**. Instead of entities (like Monsters) carrying their own complex rendering logic, each interactive entity possesses a `SpriteAnimator` component. This component acts as a "film projector," strictly responsible for cycling through visual data based on time, while remaining entirely agnostic of the entity's underlying game logic.
 
-To maintain strict OOP compliance, this system **strictly forbids the Singleton pattern**. It must be instantiated once at the highest engine level (e.g., the core `Game` or `Engine` class) and passed down to individual States and components using **Dependency Injection** (passing by reference or pointer).
+---
 
-## 2. The Identifier System (Compile-Time Safety)
-To eliminate the risks of string-based lookups (typos causing runtime crashes, expensive hashing algorithms), the system mandates the use of strongly typed enumerations (`enum class`).
+## 2. The Data Layer: Hierarchical Animation Library
+The library acts as a centralized, hierarchical "Archival System" (The Drawer System). It prevents data redundancy and ensures that animation metadata is loaded into memory only when required.
 
-* **Resource IDs:** Distinct enums must be defined for different asset types (e.g., `TextureID`, `FontID`). 
-* **Zero Hard-Coding in States:** UI components, State logic, and Entities must never interact with string-based file paths. They communicate their asset needs to the `ResourceManager` exclusively using these Enum identifiers.
-* **Performance:** Enum keys inherently act as integers, ensuring that map lookups execute with blazingly fast $O(1)$ or $O(\log n)$ time complexity, completely bypassing string comparison overhead.
+### 2.1 The Two-Tiered Data Structure
+To manage a high volume of diverse entities (Goblin, Orc, Boss, etc.), the library implements a nested mapping strategy. This eliminates "flat list" collisions and allows for clean categorization.
+* **Tier 1 (Namespace/Species):** The top-level key corresponds to the entity type (e.g., "Orc", "Goblin"). This functions as an isolated memory "drawer."
+* **Tier 2 (State/Action):** The second-level key corresponds to the animation state (e.g., "Walk", "Attack", "Die").
+* **Storage:** The underlying data is `AnimationData`, an immutable object containing a sequence of `sf::IntRect` coordinates mapped from the global Texture Atlas, frame duration timings, and looping metadata.
 
-## 3. Internal Storage Mechanics
-* **Data Structure:** The internal vault must map the Enum keys to the concrete SFML resource objects (e.g., `sf::Texture`, `sf::Font`) using standard associative containers (like `std::unordered_map` or `std::map`).
-* **Encapsulation:** The storage container must be strictly private. External classes cannot add, remove, or iterate over the assets directly.
+### 2.2 Memory Management Strategy
+* **Initialization:** The system is data-driven, parsing external configuration files (e.g., JSON) to populate the library.
+* **Lazy Loading:** For performance, the library supports deferred loading. Asset files for a specific species (e.g., "Dragon") are only read into memory when the first instance of that species is instantiated in the game world, keeping the footprint minimal during lighter scenes.
 
-## 4. Execution Flow: Loading vs. Retrieval
+---
 
-### Phase 1: The Loading Phase (Pre-computation)
-* **Intent:** I/O operations (reading from the disk) are notoriously slow and must never occur during active gameplay. 
-* **Mechanism:** The system must provide a specific `Load` method that takes an Enum ID and a file path string. This method is called during initialization or loading screens. It reads the file, stores it in the map under the provided Enum ID, and ensures it is ready for immediate use.
+## 3. The Functional Layer: Sprite Animator Component
+The `SpriteAnimator` is a lightweight, stateful component attached to every entity that requires rendering. It does not store the animation data itself; it merely holds a "lens" (a pointer or reference) pointing to the specific `AnimationData` currently being projected.
 
-### Phase 2: The Retrieval Phase (Active Gameplay)
-* **Intent:** Providing lightning-fast access to already loaded assets without redundant memory allocation.
-* **Mechanism:** The system provides a `Get` method (e.g., `GetTexture`, `GetFont`) that accepts an Enum ID. It returns a `const` reference to the requested resource.
-* **Failsafe:** If a system requests an ID that has not been loaded, the `ResourceManager` must throw a definitive runtime exception or assertion immediately. It must **never** attempt to load the file on the fly during the retrieval phase, as this causes catastrophic frame-drops (stuttering).
+### 3.1 Statefulness & Playback Logic
+The component maintains the current playback status, independent of other instances of the same species:
+* **Playback Tracking:** Tracks the accumulated elapsed time to calculate the current frame index, ensuring smooth synchronization regardless of fluctuating framerates.
+* **Looping Control:** A boolean flag dictates whether the animation sequence should restart upon reaching the final frame or freeze on the last image (crucial for "Death" or "Single-trigger" animations).
+* **State Transition API:** Entities trigger visual changes by sending a command (e.g., "Play this state"). The animator immediately switches its internal reference to the new animation sequence, resets the playback timer to zero, and begins the new projection.
 
-## 5. Coding Standards & Engine Manifesto
-Implementation must strictly obey the **antigravity** core manifesto:
-* **Memory Safety:** Prefer returning references (`&`) rather than raw pointers to avoid accidental null-pointer dereferencing, ensuring the caller knows the asset is guaranteed to exist if the function returns successfully.
+---
 
-## Implementation Plan
+## 4. Operational Lifecycle: The Interaction Pipeline
+The system operates through a continuous, decoupled interaction loop:
 
-The proposed `ResourceManager` architecture is a standard, highly effective, and robust way to handle assets without the pitfalls of the Singleton pattern. 
+1.  **Triggering:** The Entity (Monster) logic determines a state change (e.g., Health = 0). The Entity commands its attached `SpriteAnimator` to "Switch to Death State."
+2.  **Retrieval:** The `SpriteAnimator` requests the specific `AnimationData` from the `AnimationLibrary` using the predefined Species and State keys.
+3.  **Projection:** During the `Update` phase, the `SpriteAnimator` consumes `DeltaTime` to advance its internal frame counter. It calculates the correct `sf::IntRect` from the sequence and updates the target `sf::Sprite`.
+4.  **Reporting:** Once the sequence concludes (and if it is non-looping), the animator can optionally signal completion back to the Entity, enabling the Entity to finalize its own lifecycle (e.g., removing the object from the game world or transitioning to a "Corpse" state).
 
-To make this completely generic and strongly typed, I propose utilizing a C++ template class (e.g., `ResourceManager<Resource, Identifier>`). This ensures we don't have to duplicate the logic for Fonts, Textures, and Sounds.
+---
 
-### 1. Resource Identifiers
-- Create `ResourceIdentifiers.h` to define the strong enums:
-  - `enum class TextureID { Background, Title, ButtonUI, ... };`
-  - `enum class FontID { MainFont, ... };`
+## 5. Architectural Advantages
+* **Memory Optimization (Flyweight Pattern):** Thousands of entities share the exact same `AnimationData` instances in the Library. Only the lightweight state (current frame, timer) is duplicated per entity.
+* **Open/Closed Principle:** The engine's core code remains untouched when adding new monsters. To introduce a new creature, one only needs to add a new asset entry in the filesystem and the corresponding JSON configuration.
+* **Decoupling:** The renderer does not need to know if a character is a "Goblin" or an "Orc." It only interacts with the `SpriteAnimator` interface, which is uniform across the entire engine.
+* **Data-Driven Workflow:** Because definitions are stored in external files, visual adjustments to animation speeds or frame sequences can be performed without recompiling the project, significantly accelerating the balancing and tuning phase of development.
 
-### 2. ResourceManager Template
-- Create `ResourceManager.h` defining the template class.
-- **Internal Storage:** `std::unordered_map<Identifier, std::unique_ptr<Resource>> m_resourceMap;` (using `unique_ptr` guarantees resources aren't accidentally copied in memory).
-- **Load Method:** Instantiates the resource, calls `loadFromFile`, and throws an `std::runtime_error` if the I/O fails.
-- **Get Method:** Looks up the map and returns a `const Resource&`. Uses an `assert` or `throw` if the resource isn't found to guarantee fail-fast behavior.
 
-### 3. Dependency Injection & Context
-- Instantiate the Managers (e.g., `ResourceManager<sf::Texture, TextureID> textureManager;`) at the highest level (in `main.cpp` or the core engine wrapper).
-- **Refactoring BaseState:** To prevent method signatures from becoming overwhelmingly large (passing 5 different managers), I propose creating a `struct Context` inside `BaseState.h` or `StateManager.h` containing references to the `StateManager`, `TextureManager`, etc. This `Context` will be injected into all States.
-- Refactor `TitleState` to use the injected `Context` rather than loading "background.png" directly.
+# Implementation Directive: Sprite Animator System
 
-I am ready to proceed once you confirm this strategy!
+## 1. Architectural Foundation
+* **Data-Driven Decoupling:** The `animations.json` must NOT contain raw pixel coordinates (`x, y, w, h`). Instead, it must store **Reference Keys** (e.g., `"orc_walk_01"`). The `AnimationLibrary` must query the `TextureAtlas` using these keys to resolve the final `sf::IntRect`. This ensures that if the Atlas layout changes, we only update the Atlas map, not the animation sequences.
+* **Component-based Animation:** Follow the "Projector Pattern." `SpriteAnimator` is a component. `AnimationLibrary` is the data provider. The Entity is the controller.
+
+## 2. Strict Code Style Guidelines
+Every line of code generated must adhere to these two non-negotiable rules:
+* **Allman-style Braces:** Opening braces `{` must always be on a new line.
+* **No-Space Keyword Formatting:** Strictly remove spaces after keywords (e.g., use `if()`, `for()`, `while()`, `switch()`, `function()` instead of `if ()`).
+
+## 3. Implementation Logic Requirements
+* **Defensive Lookups:** When `AnimationLibrary` resolves keys via `TextureAtlas`, if a key is missing or invalid, the system must log a warning and return a default (empty) `IntRect` instead of crashing.
+* **Callback Safety:** Ensure the `std::function<void()>` completion callback is checked for null before invocation to prevent illegal access errors.
+* **Memory Ownership:** `AnimationLibrary` owns the `AnimationData`. `SpriteAnimator` holds a raw `const*` to the data. Ensure no lifecycle issues (dangling pointers) occur during State destruction.
+* **Injection Principle:** No singletons. All libraries must be passed through `StateContext` or dependency injection to maintain testability and clean architecture.
+
+## 4. JSON Schema Proposal
+The structure of `animations.json` should mirror this hierarchy to maintain the "Drawer System":
+```json
+{
+    "Orc": {
+        "Walk": {
+            "frameDuration": 0.1,
+            "isLooping": true,
+            "frames": ["orc_walk_01", "orc_walk_02", "orc_walk_03"]
+        }
+    }
+}

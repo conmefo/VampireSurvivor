@@ -1,0 +1,9 @@
+{
+    "Orc": {
+        "Walk": {
+            "frameDuration": 0.1,
+            "isLooping": true,
+            "frames": ["orc_walk_01", "orc_walk_02", "orc_walk_03"]
+        }
+    }
+}

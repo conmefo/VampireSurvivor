@@ -1,12 +1,13 @@
 #include "WarningState.h"
-#include "../Menu/MainMenuState.h"
+#include "../Title/TitleState.h"
 #include "../StateManager.h"
+#include "../../Core/WindowSettings.h"
 #include <iostream>
 
 WarningState::WarningState(StateContext context)
-    : BaseState(context)
-    , m_fadeDurationIn(1.5f)
-    , m_fadeDurationOut(1.0f)
+    : BaseState(std::move(context))
+    , m_fadeDurationIn(0.5f)
+    , m_fadeDurationOut(0.3f)
     , m_elapsedTime(0.0f)
     , m_opacity(0.0f)
     , m_fadeState(FadeState::FadeIn)
@@ -16,9 +17,23 @@ WarningState::WarningState(StateContext context)
 
 void WarningState::Init()
 {
-    if(!m_font.loadFromFile("assets/fonts/arial.ttf"))
+    const sf::Font* fontPtr = m_context.fonts.GetPtr(FontID::Warning);
+    if (!fontPtr)
     {
-        std::cerr << "Failed to load font assets/fonts/arial.ttf" << std::endl;
+        try
+        {
+            m_context.fonts.Load(FontID::Warning, "assets/fonts/arial.ttf");
+            fontPtr = m_context.fonts.GetPtr(FontID::Warning);
+        }
+        catch (...)
+        {
+            std::cerr << "Failed to load arial.ttf" << std::endl;
+        }
+    }
+
+    if(fontPtr)
+    {
+        m_font = *fontPtr;
     }
 
     m_headerText.setFont(m_font);
@@ -47,7 +62,7 @@ void WarningState::Init()
     UpdateOpacity(m_opacity);
 }
 
-void WarningState::HandleInput(sf::Event& event)
+void WarningState::HandleInput(sf::Event& event, sf::RenderWindow& window)
 {
     if(m_fadeState == FadeState::Visible && !m_inputLocked)
     {
@@ -83,7 +98,7 @@ void WarningState::Update(float dt)
             m_opacity = 0.0f;
             m_fadeState = FadeState::Finished;
             m_context.stateManager.PopState();
-            m_context.stateManager.AddState(std::make_unique<MainMenuState>(m_context));
+            m_context.stateManager.AddState(std::make_unique<TitleState>(m_context));
         }
         UpdateOpacity(m_opacity);
     }
@@ -93,7 +108,8 @@ void WarningState::Draw(sf::RenderWindow& window)
 {
     window.clear(sf::Color::Black);
 
-    sf::Vector2f center(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    // Use Virtual Resolution center so it perfectly aligns with the letterboxed view
+    sf::Vector2f center(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);
 
     sf::FloatRect headerRect = m_headerText.getLocalBounds();
     m_headerText.setOrigin(headerRect.left + headerRect.width / 2.0f, headerRect.top + headerRect.height / 2.0f);
