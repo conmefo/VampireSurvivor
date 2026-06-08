@@ -10,33 +10,64 @@ MainMenuState::MainMenuState(StateContext context) : BaseState(context) {}
 void MainMenuState::Init() {
   std::cout << "MainMenuState Init\n";
 
-  m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_0"));
-  m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_1"));
-  m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_2"));
-  m_cursorFrames.push_back(m_context.textures.GetPtr("CursorFrame_3"));
+  for (int i = 1; i <= 8; ++i) {
+    m_cursorFrames.push_back(
+        m_context.atlas.GetTextureData("arrow_0" + std::to_string(i)));
+  }
 
-  // Filter out any null pointers returned when the asset is only present in the
-  // atlas (i.e. not a standalone texture). This prevents later dereference of
-  // nullptr.
   {
-    std::vector<const sf::Texture *> validFrames;
-    for (const sf::Texture *t : m_cursorFrames) {
-      if (t)
-        validFrames.push_back(t);
+    std::vector<AssetTextureData> validFrames;
+    for (const auto &data : m_cursorFrames) {
+      if (data.texture)
+        validFrames.push_back(data);
     }
     m_cursorFrames = std::move(validFrames);
   }
 
-  if (!m_cursorFrames.empty() && m_cursorFrames[0]) {
-    m_leftCursor.setTexture(*m_cursorFrames[0]);
-    m_rightCursor.setTexture(*m_cursorFrames[0]);
+  if (!m_cursorFrames.empty() && m_cursorFrames[0].texture) {
+    m_leftCursor.setTexture(*m_cursorFrames[0].texture);
+    m_leftCursor.setTextureRect(m_cursorFrames[0].rect);
+    m_rightCursor.setTexture(*m_cursorFrames[0].texture);
+    m_rightCursor.setTextureRect(m_cursorFrames[0].rect);
 
-    sf::Vector2u size = m_cursorFrames[0]->getSize();
-    m_leftCursor.setOrigin(size.x / 2.0f, size.y / 2.0f);
-    m_rightCursor.setOrigin(size.x / 2.0f, size.y / 2.0f);
+    m_leftCursor.setOrigin(m_cursorFrames[0].rect.width / 2.0f,
+                           m_cursorFrames[0].rect.height / 2.0f);
+    m_rightCursor.setOrigin(m_cursorFrames[0].rect.width / 2.0f,
+                            m_cursorFrames[0].rect.height / 2.0f);
     m_rightCursor.setScale(-1.0f, 1.0f);
   }
 
+  for (int i = 0; i < 3; ++i) {
+    sf::Sprite sprite;
+    std::string key = "illustrations_" + std::to_string(i);
+    AssetTextureData data = m_context.atlas.GetTextureData(key);
+    if (data.texture) {
+      sprite.setTexture(*data.texture);
+      sprite.setTextureRect(data.rect);
+      sprite.setOrigin(data.rect.width / 2.0f, data.rect.height / 2.0f);
+    }
+    
+    sf::Color c = sprite.getColor();
+    if (i == 1) c.a = 90;
+    else if (i == 2) c.a = 150;
+    sprite.setColor(c);
+    
+    m_illustrations.push_back(sprite);
+  }
+
+  float textureGap = Core::VIRTUAL_WIDTH / 3.0f;
+  if (m_illustrations.size() == 3) {
+    m_illustrations[0].setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f + 280.0f);
+    m_illustrations[0].setScale(2.3f, 2.3f);
+    
+    m_illustrations[1].setPosition(Core::VIRTUAL_WIDTH / 2.0f - textureGap, Core::VIRTUAL_HEIGHT / 2.0f + 230.0f);
+    m_illustrations[1].setScale(4.5f, 4.5f);
+    
+    m_illustrations[2].setPosition(Core::VIRTUAL_WIDTH / 2.0f + textureGap, Core::VIRTUAL_HEIGHT / 2.0f);
+    m_illustrations[2].setScale(-2.8f, 2.8f);
+  }
+
+  SetupCompositeBackground();
   SetupUI();
 }
 
@@ -52,14 +83,17 @@ void MainMenuState::SetupUI() {
   float btnWidth = 200.0f * UI_SCALE;
   float btnHeight = 50.0f * UI_SCALE;
 
-  auto createButton = [&](const std::string &assetId, const std::string &text,
-                          float x, float y, const sf::Color &normal,
-                          const sf::Color &hover) -> UIButton * {
-    auto btn = std::make_unique<UIButton>(m_context.atlas, assetId, 8, 8, 8, 8);
-    btn->SetPosition(sf::Vector2f(x - btnWidth / 2.0f, y - btnHeight / 2.0f));
-    btn->SetSize(sf::Vector2f(btnWidth, btnHeight));
-    btn->SetStateColors(normal, hover, sf::Color(100, 100, 100),
-                        sf::Color(50, 50, 50, 150));
+  auto createButton = [&](const std::string &normalAsset,
+                          const std::string &hoverAsset,
+                          const std::string &pressAsset,
+                          const std::string &text, float x, float y, float w, float h) -> UIButton * {
+    auto btn = std::make_unique<UIButton>(m_context.atlas, normalAsset, 10, 10, 10, 10);
+    if (!hoverAsset.empty()) btn->SetHoverTexture(hoverAsset);
+    if (!pressAsset.empty()) btn->SetPressTexture(pressAsset);
+    btn->SetPosition(sf::Vector2f(x - w / 2.0f, y - h / 2.0f));
+    btn->SetSize(sf::Vector2f(w, h));
+    btn->SetStateColors(sf::Color::White, sf::Color::White, sf::Color::White,
+                        sf::Color(100, 100, 100, 150));
     btn->SetText(text, font, 24);
     UIButton *ptr = btn.get();
     m_uiManager.AddElement(std::move(btn));
@@ -67,22 +101,19 @@ void MainMenuState::SetupUI() {
   };
 
   UIButton *startButton =
-      createButton("ButtonBlue", "START", width / 2.0f, startY,
-                   sf::Color::White, sf::Color(200, 200, 255));
+      createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "START", width / 2.0f, startY, btnWidth, btnHeight);
   m_centralCluster.push_back(startButton);
-  m_centralCluster.push_back(createButton("ButtonBlue", "ONLINE", width / 2.0f,
-                                          startY + paddingY, sf::Color::White,
-                                          sf::Color(200, 200, 255)));
+  m_centralCluster.push_back(createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "ONLINE", width / 2.0f,
+                                          startY + paddingY, btnWidth, btnHeight));
   m_centralCluster.push_back(createButton(
-      "ButtonGreen", "POWER UP", width / 2.0f, startY + paddingY * 2,
-      sf::Color::White, sf::Color(200, 255, 200)));
+      "button_c5_normal", "button_c5_mouseover", "button_c5_pressed", "POWER UP", width / 2.0f, startY + paddingY * 2, btnWidth, btnHeight));
 
   m_centralCluster.push_back(createButton(
-      "ButtonBlue", "COLLECTION", width / 2.0f - btnWidth - 20.0f,
-      startY + paddingY * 2, sf::Color::White, sf::Color(200, 200, 255)));
+      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "COLLECTION", width / 2.0f - btnWidth - 20.0f,
+      startY + paddingY * 2, btnWidth, btnHeight));
   m_centralCluster.push_back(createButton(
-      "ButtonBlue", "UNLOCKS", width / 2.0f + btnWidth + 20.0f,
-      startY + paddingY * 2, sf::Color::White, sf::Color(200, 200, 255)));
+      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "UNLOCKS", width / 2.0f + btnWidth + 20.0f,
+      startY + paddingY * 2, btnWidth, btnHeight));
 
   for (auto *btn : m_centralCluster) {
     btn->SetOnClickCallback([]() { std::cout << "Clicked cluster button\n"; });
@@ -94,23 +125,32 @@ void MainMenuState::SetupUI() {
   });
 
   // --- TOP BAR ---
-  auto quitBtn = createButton("ButtonRed", "QUIT", width * 0.1f, 50.0f,
-                              sf::Color::White, sf::Color(255, 100, 100));
+  auto quitBtn = createButton("button_c8_normal", "button_c8_mouseover", "button_c8_pressed", "QUIT", width * 0.1f, 50.0f, 120.0f, 50.0f);
   quitBtn->SetOnClickCallback([this]() { m_context.stateManager.PopState(); });
 
-  auto optionsBtn = createButton("ButtonBlue", "OPTIONS", width * 0.9f, 50.0f,
-                                 sf::Color::White, sf::Color(200, 200, 255));
+  auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.9f, 50.0f, 120.0f, 50.0f);
   optionsBtn->SetOnClickCallback([]() { std::cout << "Options Clicked\n"; });
 
   // --- BOTTOM BAR ---
   auto creditsBtn =
-      createButton("ButtonPill", "CREDITS", width / 2.0f, height - 50.0f,
-                   sf::Color::White, sf::Color(220, 220, 220));
+      createButton("button_c9_normal_mini", "", "", "CREDITS", width / 2.0f, height - 50.0f, 150.0f, 40.0f);
   creditsBtn->SetOnClickCallback([]() { std::cout << "Credits Clicked\n"; });
 
-  // Set staggering delays on faders if needed here.
-  // Currently relying on default fader behavior to just pop in or fade in
-  // uniformly.
+  // --- COIN PANEL ---
+  auto coinPanel = std::make_unique<UIPanel>(m_context.atlas, "frameB9", 12, 12, 12, 12);
+  coinPanel->SetPosition(sf::Vector2f(width - 250.0f, 20.0f));
+  coinPanel->SetSize(sf::Vector2f(230.0f, 60.0f));
+  coinPanel->SetText("12345", font, 24);
+  m_uiManager.AddElement(std::move(coinPanel));
+
+  AssetTextureData moneyData = m_context.atlas.GetTextureData("MoneyPile");
+  if (moneyData.texture) {
+    m_coinIcon.setTexture(*moneyData.texture);
+    m_coinIcon.setTextureRect(moneyData.rect);
+    m_coinIcon.setOrigin(moneyData.rect.width / 2.0f, moneyData.rect.height / 2.0f);
+    m_coinIcon.setPosition(width - 210.0f, 50.0f);
+    m_coinIcon.setScale(1.5f, 1.5f);
+  }
 }
 
 void MainMenuState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -133,8 +173,15 @@ void MainMenuState::UpdateCursors(float dt) {
     m_currentCursorFrame = (m_currentCursorFrame + 1) % m_cursorFrames.size();
 
     // pointer is guaranteed non-null because we filtered in Init
-    m_leftCursor.setTexture(*m_cursorFrames[m_currentCursorFrame]);
-    m_rightCursor.setTexture(*m_cursorFrames[m_currentCursorFrame]);
+    m_leftCursor.setTexture(*m_cursorFrames[m_currentCursorFrame].texture);
+    m_leftCursor.setTextureRect(m_cursorFrames[m_currentCursorFrame].rect);
+    m_leftCursor.setOrigin(m_cursorFrames[m_currentCursorFrame].rect.width / 2.0f,
+                           m_cursorFrames[m_currentCursorFrame].rect.height / 2.0f);
+
+    m_rightCursor.setTexture(*m_cursorFrames[m_currentCursorFrame].texture);
+    m_rightCursor.setTextureRect(m_cursorFrames[m_currentCursorFrame].rect);
+    m_rightCursor.setOrigin(m_cursorFrames[m_currentCursorFrame].rect.width / 2.0f,
+                            m_cursorFrames[m_currentCursorFrame].rect.height / 2.0f);
   }
 
   m_cursorsVisible = false;
@@ -144,7 +191,7 @@ void MainMenuState::UpdateCursors(float dt) {
       sf::Vector2f pos = btn->GetPosition();
       sf::Vector2f size = btn->GetSize();
 
-      float padding = 40.0f; // offset cursors outside the button bounds
+      float padding = 15.0f; // offset cursors outside the button bounds
       m_leftCursor.setPosition(pos.x - padding, pos.y + size.y / 2.0f);
       m_rightCursor.setPosition(pos.x + size.x + padding,
                                 pos.y + size.y / 2.0f);
@@ -154,16 +201,53 @@ void MainMenuState::UpdateCursors(float dt) {
 }
 
 void MainMenuState::Draw(sf::RenderWindow &window) {
-  // Background and title are retained implicitly if we don't clear, but state
-  // manager might require it. We'll just draw the UI on top. The TitleState was
-  // popped though. We can re-draw the title composite here if needed, but for
-  // now just clear dark blue.
-  window.clear(sf::Color(10, 30, 50));
+  window.clear(sf::Color::Black);
+  window.draw(m_compositeSprite);
+
+  for (const auto& sprite : m_illustrations) {
+    window.draw(sprite);
+  }
 
   m_uiManager.Draw(window);
+  window.draw(m_coinIcon);
 
   if (m_cursorsVisible) {
     window.draw(m_leftCursor);
     window.draw(m_rightCursor);
   }
+}
+
+void MainMenuState::SetupCompositeBackground() {
+  m_compositeTexture.create(Core::VIRTUAL_WIDTH, Core::VIRTUAL_HEIGHT);
+  m_compositeTexture.clear(sf::Color::Black);
+
+  const sf::Texture *bgTex = m_context.textures.GetPtr("Background");
+  if (bgTex) {
+    sf::Sprite bgSprite(*bgTex);
+    bgSprite.setOrigin(bgTex->getSize().x / 2.0f, bgTex->getSize().y / 2.0f);
+    bgSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f,
+                         Core::VIRTUAL_HEIGHT / 2.0f);
+
+    float scaleX = Core::VIRTUAL_WIDTH / static_cast<float>(bgTex->getSize().x);
+    float scaleY =
+        Core::VIRTUAL_HEIGHT / static_cast<float>(bgTex->getSize().y);
+    float scale = std::max(scaleX, scaleY);
+    bgSprite.setScale(scale, scale);
+
+    m_compositeTexture.draw(bgSprite);
+  }
+
+  const sf::Texture *titleTex = m_context.textures.GetPtr("Title");
+  if (titleTex) {
+    sf::Sprite titleSprite(*titleTex);
+    titleSprite.setOrigin(titleTex->getSize().x / 2.0f,
+                          titleTex->getSize().y / 2.0f);
+    titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f,
+                            Core::VIRTUAL_HEIGHT / 2.0f - 200.f);
+    titleSprite.setScale(1.7f, 1.7f);
+    m_compositeTexture.draw(titleSprite);
+  }
+
+  m_compositeTexture.display();
+  m_compositeSprite.setTexture(m_compositeTexture.getTexture());
 }
