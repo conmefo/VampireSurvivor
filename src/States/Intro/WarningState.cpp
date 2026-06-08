@@ -22,12 +22,12 @@ void WarningState::Init()
     {
         try
         {
-            m_context.fonts.Load(FontID::Warning, "assets/fonts/arial.ttf");
+            m_context.fonts.Load(FontID::Warning, "assets/fonts/LiberationSans.ttf");
             fontPtr = m_context.fonts.GetPtr(FontID::Warning);
         }
         catch (...)
         {
-            std::cerr << "Failed to load arial.ttf" << std::endl;
+            std::cerr << "Failed to load LiberationSans.ttf" << std::endl;
         }
     }
 
@@ -38,26 +38,46 @@ void WarningState::Init()
 
     m_headerText.setFont(m_font);
     m_headerText.setString("PHOTOSENSITIVITY WARNING");
-    m_headerText.setCharacterSize(32);
+    m_headerText.setCharacterSize(55);
     m_headerText.setFillColor(sf::Color(255, 68, 68));
 
     m_bodyText1.setFont(m_font);
     m_bodyText1.setString("This game contains bright flashing lights. Please immediately stop playing and consult a doctor if you experience lightheadedness, altered vision, eye or face twitching, jerking or shaking of arms or legs, disorientation, confusion, or momentary loss of awareness.");
-    m_bodyText1.setCharacterSize(16);
+    m_bodyText1.setCharacterSize(33);
     m_bodyText1.setFillColor(sf::Color::White);
 
     m_bodyText2.setFont(m_font);
     m_bodyText2.setString("If you or any of your relatives have a history of seizures or epilepsy, consult a doctor before playing.");
-    m_bodyText2.setCharacterSize(16);
+    m_bodyText2.setCharacterSize(33);
     m_bodyText2.setFillColor(sf::Color::White);
 
     m_promptText.setFont(m_font);
     m_promptText.setString("PRESS TO START");
-    m_promptText.setCharacterSize(20);
+    m_promptText.setCharacterSize(35);
     m_promptText.setFillColor(sf::Color::White);
 
-    WrapText(m_bodyText1, 700.0f);
-    WrapText(m_bodyText2, 700.0f);
+    WrapText(m_bodyText1, 1150.0f);
+    WrapText(m_bodyText2, 1150.0f);
+
+    // Calculate origins and positions once after text is wrapped
+    sf::Vector2f center(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);
+
+    sf::FloatRect headerRect = m_headerText.getLocalBounds();
+    m_headerText.setOrigin(headerRect.left + headerRect.width / 2.0f, headerRect.top + headerRect.height / 2.0f);
+    m_headerText.setPosition(center.x, center.y - 280.0f);
+
+
+    sf::FloatRect body1Rect = m_bodyText1.getLocalBounds();
+    m_bodyText1.setOrigin(body1Rect.left + body1Rect.width / 2.0f, body1Rect.top + body1Rect.height / 2.0f);
+    m_bodyText1.setPosition(center.x, center.y - 70.0f);
+
+    sf::FloatRect body2Rect = m_bodyText2.getLocalBounds();
+    m_bodyText2.setOrigin(body2Rect.left + body2Rect.width / 2.0f, body2Rect.top + body2Rect.height / 2.0f);
+    m_bodyText2.setPosition(center.x, center.y + 100.0f);
+
+    sf::FloatRect promptRect = m_promptText.getLocalBounds();
+    m_promptText.setOrigin(promptRect.left + promptRect.width / 2.0f, promptRect.top + promptRect.height / 2.0f);
+    m_promptText.setPosition(center.x, center.y + 310.0f);
 
     UpdateOpacity(m_opacity);
 }
@@ -107,25 +127,6 @@ void WarningState::Update(float dt)
 void WarningState::Draw(sf::RenderWindow& window)
 {
     window.clear(sf::Color::Black);
-
-    // Use Virtual Resolution center so it perfectly aligns with the letterboxed view
-    sf::Vector2f center(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);
-
-    sf::FloatRect headerRect = m_headerText.getLocalBounds();
-    m_headerText.setOrigin(headerRect.left + headerRect.width / 2.0f, headerRect.top + headerRect.height / 2.0f);
-    m_headerText.setPosition(center.x, center.y - 180.0f);
-
-    sf::FloatRect body1Rect = m_bodyText1.getLocalBounds();
-    m_bodyText1.setOrigin(body1Rect.left + body1Rect.width / 2.0f, body1Rect.top + body1Rect.height / 2.0f);
-    m_bodyText1.setPosition(center.x, center.y - 50.0f);
-
-    sf::FloatRect body2Rect = m_bodyText2.getLocalBounds();
-    m_bodyText2.setOrigin(body2Rect.left + body2Rect.width / 2.0f, body2Rect.top + body2Rect.height / 2.0f);
-    m_bodyText2.setPosition(center.x, center.y + 60.0f);
-
-    sf::FloatRect promptRect = m_promptText.getLocalBounds();
-    m_promptText.setOrigin(promptRect.left + promptRect.width / 2.0f, promptRect.top + promptRect.height / 2.0f);
-    m_promptText.setPosition(center.x, center.y + 180.0f);
 
     window.draw(m_headerText);
     window.draw(m_bodyText1);

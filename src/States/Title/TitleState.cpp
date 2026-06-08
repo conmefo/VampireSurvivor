@@ -48,22 +48,22 @@ void TitleState::Init()
         
         item.sprite.setColor(sf::Color(255, 255, 255, 0)); // Start fully transparent
         item.fader = FaderComponent();
-        item.fader.SetDuration(1.0f); // 1 second fade in
+        item.fader.SetDuration(2.0f); // 1 second fade in
         item.delayTimer = i * STAGGER_INTERVAL;
         item.started = false;
 
         m_illustrations.push_back(item);
     }
 
-    float textureGap = Core::VIRTUAL_WIDTH / 4.0f;
-    m_illustrations[0].sprite.setPosition(Core::VIRTUAL_HEIGHT / 2.0f, Core::VIRTUAL_WIDTH / 2.0f + 200.0f);
-    m_illustrations[0].sprite.setScale(3.0f, 3.0f);
+    float textureGap = Core::VIRTUAL_WIDTH / 3.0f;
+    m_illustrations[0].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f + 280.0f);
+    m_illustrations[0].sprite.setScale(2.3f, 2.3f);
     
-    m_illustrations[1].sprite.setPosition(Core::VIRTUAL_HEIGHT / 2.0f - textureGap, Core::VIRTUAL_WIDTH / 2.0f);
-    m_illustrations[1].sprite.setScale(5.0f, 5.0f);
+    m_illustrations[1].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f - textureGap, Core::VIRTUAL_HEIGHT / 2.0f + 230.0f);
+    m_illustrations[1].sprite.setScale(4.5f, 4.5f);
     
-    m_illustrations[2].sprite.setPosition(Core::VIRTUAL_HEIGHT / 2.0f + textureGap, Core::VIRTUAL_WIDTH / 2.0f);
-    m_illustrations[2].sprite.setScale(-5.0f, 5.0f);
+    m_illustrations[2].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f + textureGap, Core::VIRTUAL_HEIGHT / 2.0f);
+    m_illustrations[2].sprite.setScale(-2.8f, 2.8f);
     
 
 
@@ -83,12 +83,12 @@ void TitleState::Init()
 
     m_promptText.setFont(m_font);
     m_promptText.setString("PRESS TO START");
-    m_promptText.setCharacterSize(30);
+    m_promptText.setCharacterSize(45);
     m_promptText.setFillColor(sf::Color(255, 255, 255, 0));
     
     sf::FloatRect bounds = m_promptText.getLocalBounds();
     m_promptText.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
-    m_promptText.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT - 80.0f);
+    m_promptText.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT - 240.0f);
 
     m_promptFader.SetDuration(1.0f);
     m_promptFader.FadeIn();
@@ -120,7 +120,8 @@ void TitleState::SetupCompositeBackground()
     {
         sf::Sprite titleSprite(*titleTex);
         titleSprite.setOrigin(titleTex->getSize().x / 2.0f, titleTex->getSize().y / 2.0f);
-        titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f - 300.f);
+        titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f - 200.f);
+        titleSprite.setScale(1.7f, 1.7f);
         m_compositeTexture.draw(titleSprite);
     }
 
@@ -203,7 +204,11 @@ void TitleState::UpdateFaders(float dt)
             sf::Color c = item.sprite.getColor();
             
             float targetAlpha = 255.0f;
-            if (&item == &m_illustrations[1] || &item == &m_illustrations[2])
+            if (&item == &m_illustrations[1])
+            {
+                targetAlpha = 90.0f;
+            }
+            if(&item == &m_illustrations[2])
             {
                 targetAlpha = 150.0f;
             }
