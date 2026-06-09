@@ -1,5 +1,6 @@
 #include "GameState.h"
 #include "../StateManager.h"
+
 #include <cmath>
 #include <iostream>
 
@@ -9,12 +10,17 @@ GameState::GameState(StateContext context)
 void GameState::Init() {
   std::cout << "GameState Init" << std::endl;
 
-  if (!m_tileMap.Load("assets/images/maps/forest_tiles.png")) {
-    std::cerr << "Failed to load forest tile assets" << std::endl;
+  if (!m_tileMap.Load("assets/Data/maps/forest_map.json")) {
+    std::cerr << "Failed to load forest map" << std::endl;
   }
 
   m_worldView.setSize(ViewWidth, ViewHeight);
   ApplyCameraToView();
+
+  m_enemyPool.Prewarm(EnemyType::Bat1, 1);
+  m_enemyPool.Prewarm(EnemyType::Skeleton, 1);
+  m_enemyPool.Acquire(EnemyType::Bat1, sf::Vector2f(500.0f, 300.0f));
+  m_enemyPool.Acquire(EnemyType::Skeleton, sf::Vector2f(560.0f, 340.0f));
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -29,7 +35,10 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
   }
 }
 
-void GameState::Update(float dt) { UpdateCamera(dt); }
+void GameState::Update(float dt) {
+  UpdateCamera(dt);
+  m_enemyPool.Update(dt, m_cameraCenter);
+}
 
 void GameState::Draw(sf::RenderWindow &window) {
   window.clear(sf::Color(12, 28, 12));
@@ -38,7 +47,7 @@ void GameState::Draw(sf::RenderWindow &window) {
 
   window.setView(m_worldView);
   m_tileMap.Draw(window, m_worldView);
-
+  m_enemyPool.Draw(window);
   window.setView(previousView);
 }
 
