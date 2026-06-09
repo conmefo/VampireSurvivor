@@ -1,5 +1,6 @@
 #include "GameState.h"
 #include "../StateManager.h"
+
 #include <cmath>
 #include <iostream>
 
@@ -15,6 +16,9 @@ void GameState::Init() {
 
   m_worldView.setSize(ViewWidth, ViewHeight);
   ApplyCameraToView();
+
+  m_enemyPool.Prewarm(EnemyType::Bat1, 1);
+  m_enemyPool.Acquire(EnemyType::Bat1, sf::Vector2f(500.0f, 300.0f));
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -29,7 +33,10 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
   }
 }
 
-void GameState::Update(float dt) { UpdateCamera(dt); }
+void GameState::Update(float dt) {
+  UpdateCamera(dt);
+  m_enemyPool.Update(dt, m_cameraCenter);
+}
 
 void GameState::Draw(sf::RenderWindow &window) {
   window.clear(sf::Color(12, 28, 12));
@@ -38,7 +45,7 @@ void GameState::Draw(sf::RenderWindow &window) {
 
   window.setView(m_worldView);
   m_tileMap.Draw(window, m_worldView);
-
+  m_enemyPool.Draw(window);
   window.setView(previousView);
 }
 
