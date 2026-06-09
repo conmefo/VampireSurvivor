@@ -11,6 +11,10 @@ UIButton::UIButton(TextureAtlas& atlas, const std::string& assetId, float margin
     , m_disabledColor(sf::Color(100, 100, 100, 150))
     , m_onClickAction(nullptr)
     , m_isFocused(false)
+    , m_atlas(atlas)
+    , m_idleAssetId(assetId)
+    , m_hoverAssetId("")
+    , m_pressAssetId("")
 {
     UpdateVisuals();
 }
@@ -59,6 +63,18 @@ void UIButton::SetState(ButtonState state)
     UpdateVisuals();
 }
 
+void UIButton::SetHoverTexture(const std::string& assetId)
+{
+    m_hoverAssetId = assetId;
+    UpdateVisuals();
+}
+
+void UIButton::SetPressTexture(const std::string& assetId)
+{
+    m_pressAssetId = assetId;
+    UpdateVisuals();
+}
+
 bool UIButton::Contains(const sf::Vector2f& point) const
 {
     sf::FloatRect bounds(m_position.x, m_position.y, m_size.x, m_size.y);
@@ -70,15 +86,29 @@ void UIButton::UpdateVisuals()
     switch(m_state)
     {
         case ButtonState::Normal:
+            SetTexture(m_atlas, m_idleAssetId);
             SetColor(m_normalColor);
             break;
         case ButtonState::Hovered:
-            SetColor(m_hoverColor);
+            if (!m_hoverAssetId.empty()) {
+                SetTexture(m_atlas, m_hoverAssetId);
+                SetColor(sf::Color::White);
+            } else {
+                SetTexture(m_atlas, m_idleAssetId);
+                SetColor(m_hoverColor);
+            }
             break;
         case ButtonState::Pressed:
-            SetColor(m_pressedColor);
+            if (!m_pressAssetId.empty()) {
+                SetTexture(m_atlas, m_pressAssetId);
+                SetColor(sf::Color::White);
+            } else {
+                SetTexture(m_atlas, m_idleAssetId);
+                SetColor(m_pressedColor);
+            }
             break;
         case ButtonState::Disabled:
+            SetTexture(m_atlas, m_idleAssetId);
             SetColor(m_disabledColor);
             break;
     }

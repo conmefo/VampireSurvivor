@@ -41,7 +41,7 @@ private:
     };
 
     std::vector<FadeItem> m_illustrations;
-    const float STAGGER_INTERVAL = 0.2f;
+    const float STAGGER_INTERVAL = 0.1f;
 
     // Press to start
     sf::Font m_font;

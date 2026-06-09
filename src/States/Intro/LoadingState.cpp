@@ -37,12 +37,12 @@ void LoadingState::Init()
 
     // Initialize texts
     m_textTop.setFont(m_font);
-    m_textTop.setCharacterSize(40);
+    m_textTop.setCharacterSize(35);
     m_textTop.setFillColor(sf::Color::White);
     m_textTop.setString("Loading DLC");
 
     m_textMiddle.setFont(m_font);
-    m_textMiddle.setCharacterSize(24);
+    m_textMiddle.setCharacterSize(22);
     m_textMiddle.setFillColor(sf::Color::White);
 
     m_textBottom.setFont(m_font);
@@ -51,11 +51,11 @@ void LoadingState::Init()
     m_textBottom.setString("v1.14.112 (63587693R)");
 
     // Assemble AnimationData manually
-    m_treasureAnimData.frameDuration = 0.1f; // 10 frames per second
+    m_treasureAnimData.frameDuration = 0.4f; // 2.5 frames per second
     m_treasureAnimData.isLooping = true;
     
-    // TreasureIdle_01 to 08
-    for(int i = 1; i <= 8; ++i)
+    // TreasureIdle_01 to 04
+    for(int i = 1; i <= 4; ++i)
     {
         std::stringstream ss;
         ss << "TreasureIdle_0" << i;
@@ -73,12 +73,12 @@ void LoadingState::Init()
     float vx = Core::VIRTUAL_WIDTH;
     float vy = Core::VIRTUAL_HEIGHT;
 
-    m_treasureSprite.setPosition(vx - 150.0f, vy - 150.0f);
-    m_treasureSprite.setScale(2.0f, 2.0f);
+    m_treasureSprite.setPosition(vx - 175.0f, vy - 120.0f);
+    m_treasureSprite.setScale(4.0f, 3.0f);
 
-    m_textBottom.setPosition(vx - 600.0f, vy - 40.0f);
-    m_textMiddle.setPosition(vx - 600.0f, vy - 80.0f);
-    m_textTop.setPosition(vx - 600.0f, vy - 130.0f);
+    m_textBottom.setPosition(vx - 600.0f, vy - 65.0f);
+    m_textMiddle.setPosition(vx - 600.0f, vy - 98.0f);
+    m_textTop.setPosition(vx - 600.0f, vy - 140.0f);
 }
 
 void LoadingState::HandleInput(sf::Event& event, sf::RenderWindow& window)
@@ -95,7 +95,7 @@ void LoadingState::Update(float dt)
         if(m_stepTimer >= 0.15f) // step fast
         {
             m_stepTimer = 0.0f;
-            m_currentPercent += 10 + (rand() % 15); // random jump
+            m_currentPercent += 10 + (rand() % 70); // random jump
 
             if(m_currentPercent >= 100)
             {
@@ -127,7 +127,7 @@ void LoadingState::Update(float dt)
         m_textMiddle.setString("");
         
         m_textTop.setString("Loading");
-        m_textTop.setPosition(Core::VIRTUAL_WIDTH - 600.0f, Core::VIRTUAL_HEIGHT - 80.0f); // Move to middle line Y
+        m_textTop.setPosition(Core::VIRTUAL_WIDTH - 600.0f, Core::VIRTUAL_HEIGHT - 110.0f); // Move to middle line Y
 
         m_finalWaitTimer += dt;
         if(m_finalWaitTimer >= 1.5f)

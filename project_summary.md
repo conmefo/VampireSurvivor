@@ -105,3 +105,18 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Fragment Shader Integration:** Successfully injected `pixelate.frag` directly into the render loop, passing `u_pixelSize` via SFML uniform hooks. Achieved perfect pixel-snapping abstraction that gracefully degrades back to raw GPU rendering once the resolution clarity threshold is crossed.
 * **Sequential Component Loading:** Re-used `FaderComponent` inside a state-isolated `FadeItem` vector. This allows the newly parsed `illustrations.png` segments to sequentially stagger fade-in only after the shader relinquishes control.
 * **Blinking Feedback Loop:** Re-purposed `FaderComponent` for Ping-Pong alpha rendering, generating a smooth, infinitely blinking "PRESS TO START" prompt that acts as the final input gateway into the `MainMenuState`.
+
+***
+
+## Update: Hybrid State Management for UIButton
+* **Dynamic Texture Priority:** Upgraded `UIButton` to inherently support separate assets for `Hover` and `Press` states, storing a reference to the `TextureAtlas`.
+* **Graceful Degradation:** Modified the internal `UpdateVisuals()` logic to check if a specific state texture exists. If it does, the texture is swapped with opacity forced to 100%. If it does not exist, the button falls back to the default `Idle` texture and applies mathematical color-tinting, ensuring zero visual disruption for UI elements without dedicated hover sprites.
+* **UIPanel Texture Swap:** Enhanced the base `UIPanel` with a public `SetTexture(atlas, assetId)` method, securely allowing the `UIButton` subclass to change the `NineSliceComponent`'s source data post-initialization without breaking encapsulation.
+
+***
+
+## Update: Advanced UI Alignment & Dimensional Control
+* **NineSlice Dynamic Margins:** Exposed `SetMargins()` on `UIPanel` and `UIButton`, securely allowing dynamic recalculation of the 9-Patch protected border regions post-initialization without disrupting the rendering pipeline.
+* **Text Alignment System:** Overhauled text positioning within `UIPanel`. Replaced static centering with a dedicated `TextAlignment` enum (`Left`, `Center`, `Right`). The `AlignText()` logic automatically calculates exact SFML origin offsets and applies standard padding, ensuring text gracefully hugs the correct border of any fluid-width UI container.
+* **Modular MainMenu Creation:** Upgraded the `createButton` helper lambda in `MainMenuState` to dynamically accept individual width, height, and text sizes. This allows distinct button groups (e.g., central clusters vs. header/footer action buttons) to exist cleanly within the same local factory method while using distinct visual layouts.
+* **Layered Compositing Expansion:** Augmented `MainMenuState` to natively support z-indexed rendering. Implemented a semi-transparent `sf::RectangleShape` overlay that draws explicitly behind the `UIManager` but on top of the composite background, natively separating foreground interactive elements from static backdrops.
