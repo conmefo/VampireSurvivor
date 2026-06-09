@@ -45,5 +45,5 @@ private:
     bool m_cursorsVisible = false;
     
     static constexpr float CURSOR_FRAME_DURATION = 0.1f;
-    static constexpr float UI_SCALE = 1.0f;
+    static constexpr float UI_SCALE = 1.08f;
 };

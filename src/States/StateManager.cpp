@@ -72,9 +72,20 @@ void StateManager::Update(float dt)
 
 void StateManager::Draw(sf::RenderWindow& window)
 {
-    if(!m_states.empty())
+    if(m_states.empty())
     {
-        m_states.back()->Draw(window);
+        return;
+    }
+
+    size_t firstToDraw = m_states.size() - 1;
+    while(firstToDraw > 0 && m_states[firstToDraw]->IsOverlay())
+    {
+        firstToDraw--;
+    }
+
+    for(size_t i = firstToDraw; i < m_states.size(); ++i)
+    {
+        m_states[i]->Draw(window);
     }
     
     m_transitionManager.Draw(window);

@@ -38,26 +38,26 @@ void WarningState::Init()
 
     m_headerText.setFont(m_font);
     m_headerText.setString("PHOTOSENSITIVITY WARNING");
-    m_headerText.setCharacterSize(55);
+    m_headerText.setCharacterSize(59);
     m_headerText.setFillColor(sf::Color(255, 68, 68));
 
     m_bodyText1.setFont(m_font);
     m_bodyText1.setString("This game contains bright flashing lights. Please immediately stop playing and consult a doctor if you experience lightheadedness, altered vision, eye or face twitching, jerking or shaking of arms or legs, disorientation, confusion, or momentary loss of awareness.");
-    m_bodyText1.setCharacterSize(33);
+    m_bodyText1.setCharacterSize(36);
     m_bodyText1.setFillColor(sf::Color::White);
 
     m_bodyText2.setFont(m_font);
     m_bodyText2.setString("If you or any of your relatives have a history of seizures or epilepsy, consult a doctor before playing.");
-    m_bodyText2.setCharacterSize(33);
+    m_bodyText2.setCharacterSize(36);
     m_bodyText2.setFillColor(sf::Color::White);
 
     m_promptText.setFont(m_font);
     m_promptText.setString("PRESS TO START");
-    m_promptText.setCharacterSize(35);
+    m_promptText.setCharacterSize(38);
     m_promptText.setFillColor(sf::Color::White);
 
-    WrapText(m_bodyText1, 1150.0f);
-    WrapText(m_bodyText2, 1150.0f);
+    WrapText(m_bodyText1, 1242.0f);
+    WrapText(m_bodyText2, 1242.0f);
 
     // Calculate origins and positions once after text is wrapped
     sf::Vector2f center(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);

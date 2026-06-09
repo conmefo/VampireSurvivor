@@ -57,13 +57,13 @@ void TitleState::Init()
 
     float textureGap = Core::VIRTUAL_WIDTH / 3.0f;
     m_illustrations[0].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f + 280.0f);
-    m_illustrations[0].sprite.setScale(2.3f, 2.3f);
+    m_illustrations[0].sprite.setScale(2.5f, 2.5f);
     
     m_illustrations[1].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f - textureGap, Core::VIRTUAL_HEIGHT / 2.0f + 230.0f);
-    m_illustrations[1].sprite.setScale(4.5f, 4.5f);
+    m_illustrations[1].sprite.setScale(4.9f, 4.9f);
     
     m_illustrations[2].sprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f + textureGap, Core::VIRTUAL_HEIGHT / 2.0f);
-    m_illustrations[2].sprite.setScale(-2.8f, 2.8f);
+    m_illustrations[2].sprite.setScale(-3.0f, 3.0f);
     
 
 
@@ -83,7 +83,7 @@ void TitleState::Init()
 
     m_promptText.setFont(m_font);
     m_promptText.setString("PRESS TO START");
-    m_promptText.setCharacterSize(45);
+    m_promptText.setCharacterSize(49);
     m_promptText.setFillColor(sf::Color(255, 255, 255, 0));
     
     sf::FloatRect bounds = m_promptText.getLocalBounds();
@@ -120,8 +120,9 @@ void TitleState::SetupCompositeBackground()
     {
         sf::Sprite titleSprite(*titleTex);
         titleSprite.setOrigin(titleTex->getSize().x / 2.0f, titleTex->getSize().y / 2.0f);
-        titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f - 200.f);
-        titleSprite.setScale(1.7f, 1.7f);
+        titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f,
+                                Core::VIRTUAL_HEIGHT / 2.0f - 216.f);
+        titleSprite.setScale(1.8f, 1.8f);
         m_compositeTexture.draw(titleSprite);
     }
 
