@@ -1,45 +1,53 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-#include <array>
 #include <string>
 #include <vector>
 
-enum class TileId {
-  Forest = 0,
-  Forest1 = 1,
-  Forest2 = 2,
-  Water1 = 3,
-  Water2 = 4,
-  Water3 = 5,
-  Water4 = 6
-};
-
 class TileMap {
 public:
-  static constexpr int TileSize = 50;
-  static constexpr int MapWidth = 90;
-  static constexpr int MapHeight = 60;
-
-  bool Load(const std::string &texturePath);
+  bool Load(const std::string &mapJsonPath);
   void Draw(sf::RenderTarget &target, const sf::View &view);
 
   sf::Vector2f GetWorldSize() const;
 
 private:
-  void BuildMap();
+  struct Tile {
+    struct Vertex {
+      sf::Vector2f position;
+      sf::Vector2f texCoord;
+    };
+
+    int x = 0;
+    int y = 0;
+    sf::IntRect spriteRect;
+    float e00 = 1.0f;
+    float e01 = 0.0f;
+    float e03 = 0.0f;
+    float e10 = 0.0f;
+    float e11 = 1.0f;
+    float e13 = 0.0f;
+    std::vector<Vertex> vertices;
+    std::vector<unsigned int> indices;
+  };
+
+  struct Layer {
+    std::string name;
+    bool visible = true;
+    std::vector<Tile> tiles;
+  };
+
   bool BuildMapTexture();
-  TileId GetTileFromGridValue(int value) const;
-  sf::IntRect GetTextureRect(TileId tile) const;
-  int WrapIndex(int value, int max) const;
-  void AppendTile(sf::VertexArray &vertices, int drawX, int drawY, int mapX,
-                  int mapY, TileId tile) const;
+  void AppendTile(sf::VertexArray &vertices, const Tile &tile) const;
 
-  static constexpr std::size_t TileTypeCount = 7;
-
-  std::array<sf::Texture, TileTypeCount> m_textures;
-  std::vector<TileId> m_tiles;
-  std::array<sf::VertexArray, TileTypeCount> m_visibleVertices;
+  sf::Texture m_atlasTexture;
+  std::vector<Layer> m_layers;
+  std::vector<sf::FloatRect> m_collisionRects;
   sf::RenderTexture m_mapTexture;
+
+  int m_mapWidth = 0;
+  int m_mapHeight = 0;
+  int m_tileWidth = 0;
+  int m_tileHeight = 0;
   bool m_mapTextureReady = false;
 };

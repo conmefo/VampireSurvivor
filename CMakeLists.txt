@@ -38,6 +38,7 @@ add_executable(VampireSurvivors
     src/Entities/Enemy/EnemyBase.cpp
     src/Entities/Enemy/EnemyFactory.cpp
     src/Entities/Enemy/EnemyPool.cpp
+    src/Entities/Enemy/Skeleton.cpp
     src/UI/UIManager.cpp
     src/States/Menu/MainMenuState.cpp
     src/main.cpp
@@ -78,5 +79,8 @@ add_custom_command(TARGET VampireSurvivors POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/Assets"
         "$<TARGET_FILE_DIR:VampireSurvivors>/Assets"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/assets"
+        "$<TARGET_FILE_DIR:VampireSurvivors>/assets"
     COMMENT "Copying Assets directory to build output..."
 )
