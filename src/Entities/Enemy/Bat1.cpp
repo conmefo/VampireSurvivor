@@ -5,8 +5,21 @@
 
 namespace
 {
-    constexpr const char* BatFrameOnePath = "assets/images/enemies/bat1_1.png";
-    constexpr const char* BatFrameTwoPath = "assets/images/enemies/bat1_2.png";
+    constexpr const char* BatVfxSheetPath = "assets/images/enemies/vs_vfx.png";
+    constexpr const char* EnemySheetPath = "assets/images/enemies/vs_enemies.png";
+
+    struct BatFrame
+    {
+        std::size_t textureIndex;
+        sf::IntRect rect;
+    };
+
+    const std::array<BatFrame, 4> BatFrames = {{
+        {0, sf::IntRect(553, 1700, 19, 21)},
+        {0, sf::IntRect(1485, 1313, 17, 21)},
+        {0, sf::IntRect(949, 1020, 15, 21)},
+        {1, sf::IntRect(700, 391, 17, 21)},
+    }};
 
     std::array<sf::Texture, 2>& GetBatTextures()
     {
@@ -22,8 +35,8 @@ namespace
         if(!attemptedLoad)
         {
             std::array<sf::Texture, 2>& textures = GetBatTextures();
-            loaded = textures[0].loadFromFile(BatFrameOnePath) &&
-                     textures[1].loadFromFile(BatFrameTwoPath);
+            loaded = textures[0].loadFromFile(BatVfxSheetPath) &&
+                     textures[1].loadFromFile(EnemySheetPath);
 
             if(loaded)
             {
@@ -62,7 +75,7 @@ EnemyStats Bat1::GetDefaultStats()
     stats.speed = 95.0f;
     stats.damage = 1.0f;
     stats.mass = 0.7f;
-    stats.collisionRadius = 13.0f;
+    stats.collisionRadius = 12.0f;
     stats.expYield = 1;
     return stats;
 }
@@ -110,12 +123,14 @@ void Bat1::Draw(sf::RenderTarget& target)
 void Bat1::ConfigureSprite()
 {
     std::array<sf::Texture, 2>& textures = GetBatTextures();
-    m_sprite.setTexture(textures[static_cast<std::size_t>(m_currentFrame)], true);
+    const BatFrame& frame = BatFrames[static_cast<std::size_t>(m_currentFrame)];
+    m_sprite.setTexture(textures[frame.textureIndex], false);
+    m_sprite.setTextureRect(frame.rect);
 
     sf::FloatRect bounds = m_sprite.getLocalBounds();
     m_sprite.setOrigin(bounds.left + bounds.width / 2.0f,
                        bounds.top + bounds.height / 2.0f);
-    m_sprite.setScale(1.5f, 1.5f);
+    m_sprite.setScale(2.0f, 2.0f);
 }
 
 void Bat1::UpdateAnimation(float dt)
@@ -127,7 +142,7 @@ void Bat1::UpdateAnimation(float dt)
     }
 
     m_animationTimer = 0.0f;
-    m_currentFrame = (m_currentFrame + 1) % 2;
+    m_currentFrame = (m_currentFrame + 1) % static_cast<int>(BatFrames.size());
     ConfigureSprite();
 }
 
@@ -137,10 +152,10 @@ void Bat1::SyncSpriteToPosition()
 
     if(m_velocity.x < -0.01f)
     {
-        m_sprite.setScale(-1.5f, 1.5f);
+        m_sprite.setScale(-2.0f, 2.0f);
     }
     else if(m_velocity.x > 0.01f)
     {
-        m_sprite.setScale(1.5f, 1.5f);
+        m_sprite.setScale(2.0f, 2.0f);
     }
 }

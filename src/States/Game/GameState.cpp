@@ -18,7 +18,9 @@ void GameState::Init() {
   ApplyCameraToView();
 
   m_enemyPool.Prewarm(EnemyType::Bat1, 1);
+  m_enemyPool.Prewarm(EnemyType::Skeleton, 1);
   m_enemyPool.Acquire(EnemyType::Bat1, sf::Vector2f(500.0f, 300.0f));
+  m_enemyPool.Acquire(EnemyType::Skeleton, sf::Vector2f(560.0f, 340.0f));
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {

@@ -3,5 +3,6 @@
 enum class EnemyType
 {
     Basic,
-    Bat1
+    Bat1,
+    Skeleton
 };

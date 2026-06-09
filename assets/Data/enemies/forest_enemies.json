@@ -1,0 +1,138 @@
+{
+  "atlas": {
+    "bat1_bat1_i01": {
+      "texture": "assets/images/enemies/vs_vfx.png",
+      "x": 553,
+      "y": 1700,
+      "width": 19,
+      "height": 21,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "bat1_bat1_i02": {
+      "texture": "assets/images/enemies/vs_vfx.png",
+      "x": 1485,
+      "y": 1313,
+      "width": 17,
+      "height": 21,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "bat1_bat1_i03": {
+      "texture": "assets/images/enemies/vs_vfx.png",
+      "x": 949,
+      "y": 1020,
+      "width": 15,
+      "height": 21,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "bat1_bat1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 700,
+      "y": 391,
+      "width": 17,
+      "height": 21,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 95,
+      "y": 1117,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 400,
+      "y": 1014,
+      "width": 29,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 911,
+      "y": 880,
+      "width": 30,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 400,
+      "y": 1014,
+      "width": 29,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    }
+  },
+  "animations": {
+    "BAT1": {
+      "name": "Pipeestrello",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "bat1_bat1_i01",
+            "bat1_bat1_i02",
+            "bat1_bat1_i03",
+            "bat1_bat1_i04"
+          ]
+        }
+      }
+    },
+    "SKELETON": {
+      "name": "Skeleton",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "skeleton_skeleton1_i01",
+            "skeleton_skeleton1_i02",
+            "skeleton_skeleton1_i03",
+            "skeleton_skeleton1_i04"
+          ]
+        }
+      }
+    }
+  },
+  "stats": {
+    "BAT1": {
+      "level": 1,
+      "maxHp": 0.1,
+      "speed": 140,
+      "power": 5,
+      "knockback": 1,
+      "xp": 1,
+      "places": [
+        "FOREST",
+        "TOWER"
+      ]
+    },
+    "SKELETON": {
+      "level": 1,
+      "maxHp": 1.5,
+      "speed": 100,
+      "power": 10,
+      "knockback": 1,
+      "xp": 2,
+      "places": [
+        "FOREST",
+        "WAREHOUSE",
+        "TOWER",
+        "BONEZONE"
+      ]
+    }
+  }
+}
