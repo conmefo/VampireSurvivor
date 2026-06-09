@@ -6,6 +6,13 @@
 #include <SFML/Graphics/Text.hpp>
 #include <string>
 
+enum class TextAlignment
+{
+    Left,
+    Center,
+    Right
+};
+
 class UIPanel : public UIElement
 {
 public:
@@ -21,14 +28,17 @@ public:
     void SetTexture(class TextureAtlas& atlas, const std::string& assetId);
     void SetMargins(float left, float top, float right, float bottom);
     void SetText(const std::string& text, const sf::Font& font, unsigned int charSize = 20);
+    void SetTextAlignment(TextAlignment alignment);
+    void SetTextSize(unsigned int size);
 
     FaderComponent& GetFader();
 
 private:
-    void CenterText();
+    void AlignText();
 
     NineSliceComponent m_backgroundRenderer;
     FaderComponent m_fader;
     sf::Text m_text;
     bool m_hasText;
+    TextAlignment m_textAlignment = TextAlignment::Center;
 };

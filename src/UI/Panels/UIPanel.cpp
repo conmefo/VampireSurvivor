@@ -49,13 +49,14 @@ void UIPanel::SetPosition(const sf::Vector2f& pos)
 {
     UIElement::SetPosition(pos);
     m_backgroundRenderer.setPosition(pos);
+    AlignText();
 }
 
 void UIPanel::SetSize(const sf::Vector2f& size)
 {
     UIElement::SetSize(size);
     m_backgroundRenderer.SetSize(size);
-    CenterText();
+    AlignText();
 }
 
 void UIPanel::SetColor(const sf::Color& color)
@@ -84,10 +85,22 @@ void UIPanel::SetText(const std::string& text, const sf::Font& font, unsigned in
     m_text.setString(text);
     m_text.setCharacterSize(charSize);
     m_hasText = true;
-    CenterText();
+    AlignText();
 }
 
-void UIPanel::CenterText()
+void UIPanel::SetTextAlignment(TextAlignment alignment)
+{
+    m_textAlignment = alignment;
+    AlignText();
+}
+
+void UIPanel::SetTextSize(unsigned int size)
+{
+    m_text.setCharacterSize(size);
+    AlignText();
+}
+
+void UIPanel::AlignText()
 {
     if(!m_hasText)
     {
@@ -95,6 +108,18 @@ void UIPanel::CenterText()
     }
 
     sf::FloatRect textRect = m_text.getLocalBounds();
-    m_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
-    m_text.setPosition(m_position.x + m_size.x / 2.0f, m_position.y + m_size.y / 2.0f);
+    float padding = 15.0f; // Padding from the edge for left/right alignment
+
+    if (m_textAlignment == TextAlignment::Center) {
+        m_text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+        m_text.setPosition(m_position.x + m_size.x / 2.0f, m_position.y + m_size.y / 2.0f);
+    }
+    else if (m_textAlignment == TextAlignment::Left) {
+        m_text.setOrigin(textRect.left, textRect.top + textRect.height / 2.0f);
+        m_text.setPosition(m_position.x + padding, m_position.y + m_size.y / 2.0f);
+    }
+    else if (m_textAlignment == TextAlignment::Right) {
+        m_text.setOrigin(textRect.left + textRect.width, textRect.top + textRect.height / 2.0f);
+        m_text.setPosition(m_position.x + m_size.x - padding, m_position.y + m_size.y / 2.0f);
+    }
 }
