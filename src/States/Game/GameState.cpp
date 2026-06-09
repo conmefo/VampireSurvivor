@@ -10,8 +10,8 @@ GameState::GameState(StateContext context)
 void GameState::Init() {
   std::cout << "GameState Init" << std::endl;
 
-  if (!m_tileMap.Load("assets/images/maps/forest_tiles.png")) {
-    std::cerr << "Failed to load forest tile assets" << std::endl;
+  if (!m_tileMap.Load("assets/Data/maps/forest_map.json")) {
+    std::cerr << "Failed to load forest map" << std::endl;
   }
 
   m_worldView.setSize(ViewWidth, ViewHeight);
