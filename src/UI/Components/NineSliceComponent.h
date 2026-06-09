@@ -12,6 +12,7 @@ public:
     void SetMargins(float left, float top, float right, float bottom);
     void SetSize(const sf::Vector2f& size);
     void SetColor(const sf::Color& color);
+    void SetCornerScale(float scale);
     
     void Update();
 
@@ -27,6 +28,7 @@ private:
     float m_marginBottom;
     sf::Vector2f m_targetSize;
     sf::Color m_color;
+    float m_cornerScale;
     
     sf::VertexArray m_vertexArray;
     bool m_isDirty;

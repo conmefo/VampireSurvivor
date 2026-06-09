@@ -2,6 +2,7 @@
 #include "../../Core/WindowSettings.h"
 #include "../Game/GameState.h"
 #include "../StateManager.h"
+#include "PowerUpState.h"
 #include <iostream>
 
 
@@ -34,7 +35,8 @@ void MainMenuState::Init() {
                            m_cursorFrames[0].rect.height / 2.0f);
     m_rightCursor.setOrigin(m_cursorFrames[0].rect.width / 2.0f,
                             m_cursorFrames[0].rect.height / 2.0f);
-    m_rightCursor.setScale(-1.0f, 1.0f);
+    m_leftCursor.setScale(2.0f, 2.0f);
+    m_rightCursor.setScale(-2.0f, 2.0f);
   }
 
   for (int i = 0; i < 3; ++i) {
@@ -58,13 +60,13 @@ void MainMenuState::Init() {
   float textureGap = Core::VIRTUAL_WIDTH / 3.0f;
   if (m_illustrations.size() == 3) {
     m_illustrations[0].setPosition(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f + 280.0f);
-    m_illustrations[0].setScale(2.3f, 2.3f);
+    m_illustrations[0].setScale(2.5f, 2.5f);
     
     m_illustrations[1].setPosition(Core::VIRTUAL_WIDTH / 2.0f - textureGap, Core::VIRTUAL_HEIGHT / 2.0f + 230.0f);
-    m_illustrations[1].setScale(4.5f, 4.5f);
+    m_illustrations[1].setScale(4.9f, 4.9f);
     
     m_illustrations[2].setPosition(Core::VIRTUAL_WIDTH / 2.0f + textureGap, Core::VIRTUAL_HEIGHT / 2.0f);
-    m_illustrations[2].setScale(-2.8f, 2.8f);
+    m_illustrations[2].setScale(-3.0f, 3.0f);
   }
 
   SetupCompositeBackground();
@@ -95,25 +97,27 @@ void MainMenuState::SetupUI() {
     btn->SetStateColors(sf::Color::White, sf::Color::White, sf::Color::White,
                         sf::Color(100, 100, 100, 150));
     btn->SetText(text, font, textSize);
+    btn->SetCornerScale(2.0f);
     UIButton *ptr = btn.get();
     m_uiManager.AddElement(std::move(btn));
     return ptr;
   };
 
   UIButton *startButton =
-      createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "START", width / 2.0f, startY, btnWidth + 50.0f, btnHeight + 20.0f, 40);
+      createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "START", width / 2.0f, startY, btnWidth + 54.0f, btnHeight + 22.0f, 43);
   m_centralCluster.push_back(startButton);
   m_centralCluster.push_back(createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "ONLINE", width / 2.0f,
-                                          startY + paddingY, btnWidth + 25.0f, btnHeight + 5.0f, 33));
-  m_centralCluster.push_back(createButton(
-      "button_c5_normal", "button_c5_mouseover", "button_c5_pressed", "POWER UP", width / 2.0f, startY + paddingY * 2, btnWidth, btnHeight + 15.0f, 33));
+                                          startY + paddingY, btnWidth + 27.0f, btnHeight + 5.0f, 36));
+  UIButton* powerUpBtn = createButton(
+      "button_c5_normal", "button_c5_mouseover", "button_c5_pressed", "POWER UP", width / 2.0f, startY + paddingY * 2, btnWidth, btnHeight + 16.0f, 36);
+  m_centralCluster.push_back(powerUpBtn);
 
   m_centralCluster.push_back(createButton(
-      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "COLLECTION", width / 2.0f - btnWidth - 40.0f,
-      startY + paddingY * 2, btnWidth - 10.0f, btnHeight + 5.0f));
+      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "COLLECTION", width / 2.0f - btnWidth - 43.0f,
+      startY + paddingY * 2, btnWidth - 11.0f, btnHeight + 5.0f, 26));
   m_centralCluster.push_back(createButton(
-      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "UNLOCKS", width / 2.0f + btnWidth + 40.0f,
-      startY + paddingY * 2, btnWidth - 10.0f, btnHeight + 5.0f));
+      "button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "UNLOCKS", width / 2.0f + btnWidth + 43.0f,
+      startY + paddingY * 2, btnWidth - 11.0f, btnHeight + 5.0f, 26));
 
   for (auto *btn : m_centralCluster) {
     btn->SetOnClickCallback([]() { std::cout << "Clicked cluster button\n"; });
@@ -124,28 +128,34 @@ void MainMenuState::SetupUI() {
     m_context.stateManager.AddState(std::make_unique<GameState>(m_context));
   });
 
+  powerUpBtn->SetOnClickCallback([this]() {
+      m_context.stateManager.AddState(std::make_unique<PowerUpState>(m_context));
+  });
+
   // --- TOP BAR ---
-  auto quitBtn = createButton("button_c8_normal", "button_c8_mouseover", "button_c8_pressed", "QUIT", width * 0.35f, 50.0f, 120.0f, 50.0f);
+  auto quitBtn = createButton("button_c8_normal", "", "", "QUIT", width * 0.35f, 54.0f, 130.0f, 54.0f, 26);
+  quitBtn->SetStateColors(sf::Color::White, sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 150), sf::Color(100, 100, 100, 150));
   quitBtn->SetOnClickCallback([this]() { m_context.stateManager.PopState(); });
 
-  auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 50.0f, 120.0f, 50.0f);
+  auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 54.0f, 130.0f, 54.0f, 26);
   optionsBtn->SetOnClickCallback([]() { std::cout << "Options Clicked\n"; });
 
   // --- BOTTOM BAR ---
   auto creditsBtn =
-      createButton("button_c9_normal_mini", "", "", "credits", width / 2.0f, height - 50.0f, 160.0f, 30.0f, 21);
+      createButton("button_c9_normal_mini", "", "", "credits", width / 2.0f, height - 54.0f, 173.0f, 40.0f, 23);
+  creditsBtn->SetStateColors(sf::Color::White, sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 150), sf::Color(100, 100, 100, 150));
   creditsBtn->SetOnClickCallback([]() { std::cout << "Credits Clicked\n"; });
 
   // --- TOP BAR BACKGROUND ---
-  m_topBarBg.setSize(sf::Vector2f(width, 92.0f));
+  m_topBarBg.setSize(sf::Vector2f(width, 99.0f));
   m_topBarBg.setPosition(0.0f, 0.0f);
   m_topBarBg.setFillColor(sf::Color(0, 0, 0, 130));
 
   // --- COIN PANEL ---
   auto coinPanel = std::make_unique<UIPanel>(m_context.atlas, "frameB9", 12, 12, 12, 12);
-  coinPanel->SetPosition(sf::Vector2f(width / 2.0f - 240.0f / 2.0f, 20.0f));
-  coinPanel->SetSize(sf::Vector2f(240.0f, 65.0f));
-  coinPanel->SetText("12345", font, 26);
+  coinPanel->SetPosition(sf::Vector2f(width / 2.0f - 259.0f / 2.0f, 22.0f));
+  coinPanel->SetSize(sf::Vector2f(259.0f, 70.0f));
+  coinPanel->SetText("12345", font, 28);
   coinPanel->SetTextAlignment(TextAlignment::Right);
   m_uiManager.AddElement(std::move(coinPanel));
 
@@ -154,8 +164,8 @@ void MainMenuState::SetupUI() {
     m_coinIcon.setTexture(*moneyData.texture);
     m_coinIcon.setTextureRect(moneyData.rect);
     m_coinIcon.setOrigin(moneyData.rect.width / 2.0f, moneyData.rect.height / 2.0f);
-    m_coinIcon.setPosition(width / 2.0f - 80.0f, 50.0f);
-    m_coinIcon.setScale(1.9f, 1.9f);
+    m_coinIcon.setPosition(width / 2.0f - 86.0f, 54.0f);
+    m_coinIcon.setScale(2.1f, 2.1f);
   }
 }
 
@@ -197,7 +207,7 @@ void MainMenuState::UpdateCursors(float dt) {
       sf::Vector2f pos = btn->GetPosition();
       sf::Vector2f size = btn->GetSize();
 
-      float padding = 15.0f; // offset cursors outside the button bounds
+      float padding = 25.0f; // offset cursors outside the button bounds
       m_leftCursor.setPosition(pos.x - padding, pos.y + size.y / 2.0f);
       m_rightCursor.setPosition(pos.x + size.x + padding,
                                 pos.y + size.y / 2.0f);
@@ -250,8 +260,8 @@ void MainMenuState::SetupCompositeBackground() {
     titleSprite.setOrigin(titleTex->getSize().x / 2.0f,
                           titleTex->getSize().y / 2.0f);
     titleSprite.setPosition(Core::VIRTUAL_WIDTH / 2.0f,
-                            Core::VIRTUAL_HEIGHT / 2.0f - 200.f);
-    titleSprite.setScale(1.7f, 1.7f);
+                            Core::VIRTUAL_HEIGHT / 2.0f - 216.f);
+    titleSprite.setScale(1.8f, 1.8f);
     m_compositeTexture.draw(titleSprite);
   }
 

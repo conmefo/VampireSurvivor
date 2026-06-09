@@ -1,40 +1,55 @@
-# Proposal: Hybrid State Management for `UIButton`
+# Detailed Specification: Dynamic Pixel-Perfect Corner Upscaling for 9-Slice Components
 
-## 1. Context & The Problem
-Currently, our `UIButton` component handles user interactions (Hover, Press) by adjusting the opacity/color of a single texture. However, after parsing the new asset `.json` files, we discovered that some UI elements have dedicated textures for specific states (e.g., separate images for `Hover` and `Press`). 
+This document describes the architectural upgrade for the 9-Slice Sprite Component. The goal is to dynamically calculate a non-distorted, pixel-perfect corner scale based on the target object's dimensions, utilizing an **upward rounding (Ceil)** approach to maintain strong pixel art aesthetics while eliminating pixel bleeding.
 
-If we strictly switch to a "texture-only" approach, buttons without dedicated state textures will lose their interactive feedback. Therefore, we need a flexible solution.
+---
 
-## 2. The Hybrid Solution
-I propose upgrading the `UIButton` to a **Hybrid Fallback System**. The core logic is simple: **Texture Priority with Opacity Fallback**. 
+## 1. Architectural Concept
 
-When the button state changes, the class will evaluate the available assets:
-* **If a specific texture exists** for the current state (Hover/Press), the button will apply that texture and ensure opacity is set to 100%.
-* **If a specific texture does NOT exist**, the button will fall back to using the default (Idle) texture and apply the opacity/color-tinting math to provide visual feedback.
+In pixel art games, standard 9-slice components fail when a small source texture (e.g., $16 \times 16$ pixels with a $3 \times 3$ corner) is upscaled onto a large UI container. The corners remain tiny and unnoticeable, losing their stylized appearance.
 
-## 3. OOP Architecture & Implementation Details
+To fix this, the component must dynamically upscale the corner geometry. By using **Ceil Rounding**, we guarantee that the corners adapt to the scale of the object and lean towards a chunkier, more defined pixel look, rather than shrinking down.
 
-To keep the codebase clean, scalable, and strictly aligned with OOP principles, we should structure the component as follows:
+---
 
-### A. State Enumeration
-Define an internal or public enum (e.g., `ButtonState`) containing `Idle`, `Hover`, and `Pressed`. This centralizes the state tracking and makes the event-handling logic much cleaner than using multiple boolean flags.
+## 2. The Golden Rule of Ceil Rounding
 
-### B. Encapsulated Asset Storage
-The `UIButton` class should hold optional references or pointers to the state textures (e.g., `IdleTexture`, `HoverTexture`, `PressTexture`). 
-* The `IdleTexture` is strictly required.
-* The `HoverTexture` and `PressTexture` are optional and should default to null/empty upon initialization.
+When rounding up the scale factor, the component must satisfy the **Spatial Sufficiency Condition**:
+> The combined size of the upscaled corners must never exceed the total target dimensions of the object.
 
-### C. Flexible Setters (Abstraction)
-Provide explicit setter methods (e.g., `setHoverTexture`, `setPressTexture`) so that the developer constructing the UI can inject these textures only if they exist in the parsed JSON data. If the developer doesn't call these setters, the button gracefully degrades to the opacity logic.
+If the object is too small but the corner scale is rounded up, the center width or center height will become negative ($Center\_Size < 0$). This causes the mesh coordinates to invert, leading to severe visual overlap and glitching. Therefore, the algorithm must include a fallback validation check.
 
-### D. Centralized Update Logic
-The visual updating logic should be abstracted into a single private method (e.g., `updateVisuals()`). This method checks the current `ButtonState` enum and applies the `if(texture exists)` fallback logic internally. This hides the complexity from the rest of the game loop.
+---
 
-## 4. Why This is the Best Approach
-* **High Reusability:** We can use the exact same `UIButton` class for major graphical buttons (Play, Quit) and minor utility buttons (Close, Next) without forcing the design team to create 3 separate sprites for every single minor button.
-* **Bulletproof Scalability:** If an asset path in the JSON breaks or a texture fails to load, the button will simply fall back to the opacity effect. It will never break the UI or leave the player wondering if the game crashed.
-* **Clean API:** The usage remains extremely simple for whoever is building the UI panels. Pass a texture, and it works. Pass three textures, and it still works flawlessly.
+## 3. Step-by-Step Execution Flow
 
-## Implementation Plan
-* **Status:** Completed. 
-* **Details:** We added `SetHoverTexture` and `SetPressTexture` to `UIButton`, storing reference to `TextureAtlas`. The underlying `UIPanel` background texture is automatically swapped during state transitions via `UpdateVisuals()`. If a texture is unassigned, it defaults to color tinting.
+The component upgrade modifies the layout recalculation phase (`Update9Slice`) into four distinct logical phases:
+
+### Phase 1: Raw Ratio Calculation
+First, determine how many times larger the target object is compared to the original sprite texture. Calculate the raw floating-point ratios for both axes independently:
+* $Ratio\_X = Target\_Width \div Original\_Sprite\_Width$
+* $Ratio\_Y = Target\_Height \div Original\_Sprite\_Height$
+
+### Phase 2: Uniform Ceil Rounding
+To prevent corner distortion (stretching on one axis), both axes must share an identical, integer-based scale factor. 
+1. Select the smaller of the two raw ratios ($Ratio\_X$ and $Ratio\_Y$). This ensures the corner scale is bounded by the most restricted dimension of the object.
+2. Apply a ceiling function ($\lceil \dots \rceil$) to this selected ratio to force it to the next highest integer. This integer is your **Target Corner Scale**.
+
+### Phase 3: Spatial Sufficiency Validation (The Fallback Check)
+Before committing to the rounded-up scale, verify that the object can actually fit these larger corners:
+1. Calculate the hypothetical corner size: $Rendered\_Corner\_Size = Original\_Corner\_Size \times Target\_Corner\_Scale$.
+2. Check if twice the $Rendered\_Corner\_Size$ is greater than or equal to either the $Target\_Width$ or $Target\_Height$.
+3. **The Fallback:** If the corners overlap, the ceiling choice was invalid. The component must immediately fall back to a lower integer scale (using a floor function $\lfloor \dots \rfloor$ or subtracting $1$ from the target scale) to protect the UI's structural integrity.
+
+### Phase 4: Geometry Partitioning
+Once the integer scale factor is locked in, allocate the actual pixel spacing for the 9 regions:
+* **The 4 Corners:** Fixed strictly to the calculated integer size. Because they use a uniform integer multiplier, the pixels remain completely square and sharp—**zero distortion, zero pixel bleeding**.
+* **The Edges and Center:** They absorb all remaining sub-pixel fractions and empty space. Since the center and edges are designed to loop (Tile) or stretch, they handle fractional values gracefully without compromising the overall art style.
+
+---
+
+## 4. Summary of Benefits
+
+* **Visual Consistency:** The corner pixels dynamically grow to match the scale of the UI, preserving the chunky, nostalgic pixel art proportions.
+* **Pixel Perfect Precision:** By forcing the corner multiplier to a strict integer, texture coordinates mapping (UVs) align perfectly with screen pixels, completely eliminating fuzzy edges and pixel bleeding.
+* **Automation:** Developers no longer need to manually tweak a scale variable for every single UI element; the component automatically delivers the optimal aesthetic based on size.
