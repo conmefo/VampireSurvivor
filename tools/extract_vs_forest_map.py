@@ -17,6 +17,7 @@ LAYER_NAMES = [
     "FloorOverlay",
     "Walls",
     "FakeWalls",
+    "PlayerWall",
     "Obstacle",
     "Decals",
     "Overlay1",
@@ -29,32 +30,8 @@ EXCLUDED_LAYER_RECTS = {
     ("FloorOverlay", 171, 174, 30, 20),
 }
 
-EXCLUDED_LAYER_REGIONS = [
-    # The lower flower-square around the road junction looks noisy in this port.
-    # Keep the base Floor road/grass, then replace the clutter with curated decor.
-    {"layers": {"FloorOverlay", "FakeWalls", "Obstacle"}, "x1": 20, "y1": 44, "x2": 36, "y2": 50},
-]
-
-CUSTOM_DECORATIONS = [
-    # Compact flower arch around the lower Forest path patch. The center and
-    # bottom stay open so it reads like a garden, not a wall.
-    {"x": 23, "y": 44, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 24, "y": 44, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-    {"x": 25, "y": 44, "rect": {"x": 171, "y": 103, "width": 32, "height": 32}},
-    {"x": 26, "y": 44, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 29, "y": 44, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 30, "y": 44, "rect": {"x": 171, "y": 103, "width": 32, "height": 32}},
-    {"x": 31, "y": 44, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-    {"x": 32, "y": 44, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 23, "y": 45, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-    {"x": 32, "y": 45, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-    {"x": 23, "y": 46, "rect": {"x": 171, "y": 103, "width": 32, "height": 32}},
-    {"x": 32, "y": 46, "rect": {"x": 171, "y": 103, "width": 32, "height": 32}},
-    {"x": 24, "y": 47, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 31, "y": 47, "rect": {"x": 409, "y": 104, "width": 32, "height": 31}},
-    {"x": 25, "y": 48, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-    {"x": 30, "y": 48, "rect": {"x": 137, "y": 178, "width": 31, "height": 16}},
-]
+EXCLUDED_LAYER_REGIONS = []
+CUSTOM_DECORATIONS = []
 
 
 def find_vs_root(repo_root: Path) -> Path:
