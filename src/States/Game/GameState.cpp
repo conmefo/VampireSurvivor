@@ -35,6 +35,9 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
   if (event.type == sf::Event::KeyPressed &&
       event.key.code == sf::Keyboard::Escape) {
     m_context.stateManager.PopState();
+  } else if (event.type == sf::Event::KeyPressed &&
+             event.key.code == sf::Keyboard::H) {
+    m_showHitboxes = !m_showHitboxes;
   } else if (event.type == sf::Event::Resized) {
     m_worldView.setSize(ViewWidth, ViewHeight);
     ApplyCameraToView();
@@ -44,6 +47,11 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 void GameState::Update(float dt) {
   UpdateCamera(dt);
   m_enemyPool.Update(dt, m_cameraCenter);
+
+  const std::vector<sf::FloatRect> obstacles =
+      m_tileMap.GetEnemyCollisionRectsInArea(GetViewBounds());
+  m_enemyPool.ResolveObstacleCollisions(obstacles);
+  m_enemyPool.ResolveEnemyCollisions();
 }
 
 void GameState::Draw(sf::RenderWindow &window) {
@@ -54,6 +62,9 @@ void GameState::Draw(sf::RenderWindow &window) {
   window.setView(m_worldView);
   m_tileMap.Draw(window, m_worldView);
   m_enemyPool.Draw(window);
+  if (m_showHitboxes) {
+    DrawHitboxes(window);
+  }
   window.setView(previousView);
 }
 
@@ -90,4 +101,28 @@ void GameState::UpdateCamera(float dt) {
 void GameState::ApplyCameraToView() {
   m_worldView.setCenter(std::round(m_cameraCenter.x),
                         std::round(m_cameraCenter.y));
+}
+
+sf::FloatRect GameState::GetViewBounds() const {
+  const sf::Vector2f viewSize = m_worldView.getSize();
+  const sf::Vector2f viewCenter = m_worldView.getCenter();
+  return sf::FloatRect(viewCenter.x - viewSize.x / 2.0f,
+                       viewCenter.y - viewSize.y / 2.0f, viewSize.x,
+                       viewSize.y);
+}
+
+void GameState::DrawHitboxes(sf::RenderTarget &target) {
+  sf::RectangleShape obstacleHitbox;
+  obstacleHitbox.setFillColor(sf::Color(255, 40, 40, 35));
+  obstacleHitbox.setOutlineColor(sf::Color(255, 40, 40, 220));
+  obstacleHitbox.setOutlineThickness(1.0f);
+
+  for (const sf::FloatRect &rect :
+       m_tileMap.GetEnemyCollisionRectsInArea(GetViewBounds())) {
+    obstacleHitbox.setPosition(rect.left, rect.top);
+    obstacleHitbox.setSize(sf::Vector2f(rect.width, rect.height));
+    target.draw(obstacleHitbox);
+  }
+
+  m_enemyPool.DrawDebug(target);
 }

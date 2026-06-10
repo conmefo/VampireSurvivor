@@ -1,7 +1,6 @@
 #pragma once
 
 #include "../Agent.h"
-#include "EnemyType.h"
 
 #include <string>
 
@@ -18,8 +17,7 @@ struct EnemyStats
 class EnemyBase : public Agent
 {
 public:
-    explicit EnemyBase(EnemyType type = EnemyType::Basic);
-    EnemyBase(EnemyType type, std::string definitionId);
+    explicit EnemyBase(std::string definitionId = "BASIC");
     ~EnemyBase() override = default;
 
     virtual void Activate(const sf::Vector2f& position, const EnemyStats& stats);
@@ -42,7 +40,6 @@ public:
     float GetDamage() const;
     float GetMass() const;
     int GetExpYield() const;
-    EnemyType GetType() const;
     const std::string& GetDefinitionId() const;
 
 protected:
@@ -53,6 +50,5 @@ protected:
     sf::CircleShape m_body;
     EnemyStats m_stats;
     float m_health;
-    EnemyType m_type;
     std::string m_definitionId;
 };

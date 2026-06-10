@@ -17,15 +17,9 @@ namespace
     }
 }
 
-EnemyBase::EnemyBase(EnemyType type)
-    : EnemyBase(type, "BASIC")
-{
-}
-
-EnemyBase::EnemyBase(EnemyType type, std::string definitionId)
+EnemyBase::EnemyBase(std::string definitionId)
     : m_targetPosition(0.0f, 0.0f),
       m_health(0.0f),
-      m_type(type),
       m_definitionId(std::move(definitionId))
 {
     m_body.setFillColor(sf::Color(180, 45, 60));
@@ -146,11 +140,6 @@ float EnemyBase::GetMass() const
 int EnemyBase::GetExpYield() const
 {
     return m_stats.expYield;
-}
-
-EnemyType EnemyBase::GetType() const
-{
-    return m_type;
 }
 
 const std::string& EnemyBase::GetDefinitionId() const

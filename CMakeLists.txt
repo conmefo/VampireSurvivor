@@ -51,6 +51,7 @@ add_executable(VampireSurvivors
     src/Core/Math/MathUtils.cpp
     src/Core/Animation/Tweener.cpp
     src/Core/Animation/Spring.cpp
+    src/Core/Physics/Collision.cpp
     src/UI/Core/UIElement.cpp
     src/UI/Panels/UIPanel.cpp
     src/UI/Elements/UIButton.cpp
