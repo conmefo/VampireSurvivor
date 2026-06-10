@@ -1,20 +1,21 @@
 #pragma once
 
 #include "EnemyBase.h"
-#include "EnemyType.h"
+#include "EnemyDatabase.h"
 
 #include <memory>
+#include <string>
 #include <vector>
 
 class EnemyPool
 {
 public:
-    explicit EnemyPool(std::size_t initialCapacity = 0);
+    explicit EnemyPool(const EnemyDatabase& enemyDatabase, std::size_t initialCapacity = 0);
     ~EnemyPool() = default;
 
-    void Prewarm(EnemyType type, std::size_t count);
-    EnemyBase& Acquire(EnemyType type, const sf::Vector2f& position);
-    EnemyBase& Acquire(EnemyType type, const sf::Vector2f& position, const EnemyStats& stats);
+    void Prewarm(const std::string& enemyId, std::size_t count);
+    EnemyBase* Acquire(const std::string& enemyId, const sf::Vector2f& position);
+    EnemyBase* Acquire(const std::string& enemyId, const sf::Vector2f& position, const EnemyStats& stats);
     void DeactivateAll();
 
     void Update(float dt, const sf::Vector2f& targetPosition);
@@ -25,7 +26,8 @@ public:
     std::size_t GetCapacity() const;
 
 private:
-    EnemyBase& CreateEnemy(EnemyType type);
+    EnemyBase* CreateEnemy(const std::string& enemyId);
 
+    const EnemyDatabase& m_enemyDatabase;
     std::vector<std::unique_ptr<EnemyBase>> m_enemies;
 };

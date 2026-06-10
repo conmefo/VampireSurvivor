@@ -3,6 +3,8 @@
 #include "../Agent.h"
 #include "EnemyType.h"
 
+#include <string>
+
 struct EnemyStats
 {
     float maxHealth = 10.0f;
@@ -17,6 +19,7 @@ class EnemyBase : public Agent
 {
 public:
     explicit EnemyBase(EnemyType type = EnemyType::Basic);
+    EnemyBase(EnemyType type, std::string definitionId);
     ~EnemyBase() override = default;
 
     virtual void Activate(const sf::Vector2f& position, const EnemyStats& stats);
@@ -40,6 +43,7 @@ public:
     float GetMass() const;
     int GetExpYield() const;
     EnemyType GetType() const;
+    const std::string& GetDefinitionId() const;
 
 protected:
     virtual void UpdateAI(float dt);
@@ -50,4 +54,5 @@ protected:
     EnemyStats m_stats;
     float m_health;
     EnemyType m_type;
+    std::string m_definitionId;
 };

@@ -1,45 +1,51 @@
 #include "EnemyPool.h"
 
-#include "EnemyFactory.h"
+#include "AnimatedEnemy.h"
 
-EnemyPool::EnemyPool(std::size_t initialCapacity)
+EnemyPool::EnemyPool(const EnemyDatabase& enemyDatabase, std::size_t initialCapacity)
+    : m_enemyDatabase(enemyDatabase)
 {
     m_enemies.reserve(initialCapacity);
-
-    for(std::size_t i = 0; i < initialCapacity; ++i)
-    {
-        m_enemies.push_back(EnemyFactory::Create(EnemyType::Basic));
-    }
 }
 
-void EnemyPool::Prewarm(EnemyType type, std::size_t count)
+void EnemyPool::Prewarm(const std::string& enemyId, std::size_t count)
 {
     m_enemies.reserve(m_enemies.size() + count);
 
     for(std::size_t i = 0; i < count; ++i)
     {
-        m_enemies.push_back(EnemyFactory::Create(type));
+        CreateEnemy(enemyId);
     }
 }
 
-EnemyBase& EnemyPool::Acquire(EnemyType type, const sf::Vector2f& position)
+EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& position)
 {
-    return Acquire(type, position, EnemyFactory::GetDefaultStats(type));
+    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(enemyId);
+    if(!definition)
+    {
+        return nullptr;
+    }
+
+    return Acquire(enemyId, position, definition->stats);
 }
 
-EnemyBase& EnemyPool::Acquire(EnemyType type, const sf::Vector2f& position, const EnemyStats& stats)
+EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& position, const EnemyStats& stats)
 {
     for(std::unique_ptr<EnemyBase>& enemy : m_enemies)
     {
-        if(enemy->GetType() == type && !enemy->IsActive())
+        if(enemy->GetDefinitionId() == enemyId && !enemy->IsActive())
         {
             enemy->Activate(position, stats);
-            return *enemy;
+            return enemy.get();
         }
     }
 
-    EnemyBase& enemy = CreateEnemy(type);
-    enemy.Activate(position, stats);
+    EnemyBase* enemy = CreateEnemy(enemyId);
+    if(enemy)
+    {
+        enemy->Activate(position, stats);
+    }
+
     return enemy;
 }
 
@@ -106,8 +112,14 @@ std::size_t EnemyPool::GetCapacity() const
     return m_enemies.size();
 }
 
-EnemyBase& EnemyPool::CreateEnemy(EnemyType type)
+EnemyBase* EnemyPool::CreateEnemy(const std::string& enemyId)
 {
-    m_enemies.push_back(EnemyFactory::Create(type));
-    return *m_enemies.back();
+    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(enemyId);
+    if(!definition)
+    {
+        return nullptr;
+    }
+
+    m_enemies.push_back(std::make_unique<AnimatedEnemy>(*definition));
+    return m_enemies.back().get();
 }
