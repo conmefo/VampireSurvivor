@@ -3,6 +3,39 @@
 
 #include <cmath>
 #include <iostream>
+#include <vector>
+
+namespace {
+const std::vector<const char *> LibraryEnemies = {
+    "GHOST",       "MUD",       "BUER",       "SHADERED",
+    "BOSS_COUNT1", "BOSS_COUNT2", "MUMMY",      "MEDUSA1",
+    "ECTO1",       "DULL0",     "WITCH1",     "WITCH2",
+    "XLMEDUSA",    "XLMUMMY",   "SKULLNOAURA", "MASK_GOLD",
+    "MASK_SILVER", "MASK_LEFT", "MASK_RIGHT", "BOSS_XLDEATH",
+    "BOSS_TRICKSTER_NORMAL"};
+
+const std::vector<const char *> WarehouseEnemies = {
+    "SKELETON",     "MILK",          "ECTO1",       "FISHMAN_1",
+    "LIZARD1_2",    "PILE1",         "LIZARD2_3",   "PILE2",
+    "JELLYFISH",    "SKELENIN1",     "PILE3",       "GOLEM1",
+    "MIGNO1_5",     "MIGNO_3_5SWARM", "ARMORSPEAR_6", "ARMOR_6",
+    "SKELEWING",    "XLTRITON",      "XLCOCKATRICE", "XLGOLEM1",
+    "XLARMOR_SWORD", "MASK_GOLD",     "MASK_SILVER", "MASK_LEFT",
+    "MASK_RIGHT",   "BOSS_XLDEATH",  "BOSS_STALKER_NORMAL"};
+
+const std::vector<const char *> &GetStageEnemies(int stageNumber) {
+  return stageNumber == 3 ? WarehouseEnemies : LibraryEnemies;
+}
+
+const char *GetStageMapPath(int stageNumber) {
+  return stageNumber == 3 ? "assets/Data/maps/plant_map.json"
+                          : "assets/Data/maps/library_map.json";
+}
+
+const char *GetStageName(int stageNumber) {
+  return stageNumber == 3 ? "Dairy Plant" : "Inlaid Library";
+}
+} // namespace
 
 GameState::GameState(StateContext context)
     : BaseState(context),
@@ -12,21 +45,14 @@ GameState::GameState(StateContext context)
 void GameState::Init() {
   std::cout << "GameState Init" << std::endl;
 
-  if (!m_tileMap.Load("assets/Data/maps/forest_map.json")) {
-    std::cerr << "Failed to load forest map" << std::endl;
-  }
-
   m_worldView.setSize(ViewWidth, ViewHeight);
   ApplyCameraToView();
 
-  if (!m_enemyDatabase.LoadFromFile("assets/Data/enemies/forest_enemies.json")) {
-    std::cerr << "Failed to load forest enemies" << std::endl;
+  if (!m_enemyDatabase.LoadFromFile("assets/Data/enemies/stage_enemies.json")) {
+    std::cerr << "Failed to load stage enemies" << std::endl;
   }
 
-  m_enemyPool.Prewarm("BAT1", 1);
-  m_enemyPool.Prewarm("SKELETON", 1);
-  m_enemyPool.Acquire("BAT1", sf::Vector2f(500.0f, 300.0f));
-  m_enemyPool.Acquire("SKELETON", sf::Vector2f(560.0f, 340.0f));
+  LoadStage(2);
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -38,6 +64,14 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
   } else if (event.type == sf::Event::KeyPressed &&
              event.key.code == sf::Keyboard::H) {
     m_showHitboxes = !m_showHitboxes;
+  } else if (event.type == sf::Event::KeyPressed &&
+             (event.key.code == sf::Keyboard::Num2 ||
+              event.key.code == sf::Keyboard::Numpad2)) {
+    LoadStage(2);
+  } else if (event.type == sf::Event::KeyPressed &&
+             (event.key.code == sf::Keyboard::Num3 ||
+              event.key.code == sf::Keyboard::Numpad3)) {
+    LoadStage(3);
   } else if (event.type == sf::Event::Resized) {
     m_worldView.setSize(ViewWidth, ViewHeight);
     ApplyCameraToView();
@@ -66,6 +100,38 @@ void GameState::Draw(sf::RenderWindow &window) {
     DrawHitboxes(window);
   }
   window.setView(previousView);
+}
+
+void GameState::LoadStage(int stageNumber) {
+  m_currentStage = stageNumber;
+  m_enemyPool.DeactivateAll();
+
+  if (!m_tileMap.Load(GetStageMapPath(stageNumber))) {
+    std::cerr << "Failed to load " << GetStageName(stageNumber) << " map"
+              << std::endl;
+  }
+
+  m_cameraCenter = sf::Vector2f(400.0f, 300.0f);
+  ApplyCameraToView();
+
+  const std::vector<const char *> &enemyIds = GetStageEnemies(stageNumber);
+  for (const char *enemyId : enemyIds) {
+    m_enemyPool.Prewarm(enemyId, 1);
+  }
+
+  const int columns = 7;
+  const float spacing = 58.0f;
+  const sf::Vector2f spawnStart(m_cameraCenter.x - 180.0f,
+                                m_cameraCenter.y - 120.0f);
+  for (std::size_t i = 0; i < enemyIds.size(); ++i) {
+    const float x = spawnStart.x + static_cast<float>(i % columns) * spacing;
+    const float y = spawnStart.y + static_cast<float>(i / columns) * spacing;
+    m_enemyPool.Acquire(enemyIds[i], sf::Vector2f(x, y));
+  }
+
+  std::cout << "Loaded stage " << stageNumber << ": "
+            << GetStageName(stageNumber) << " with " << enemyIds.size()
+            << " enemies" << std::endl;
 }
 
 void GameState::UpdateCamera(float dt) {

@@ -111,6 +111,7 @@ bool TileMap::Load(const std::string &mapJsonPath) {
   }
 
   m_collisionRects.clear();
+  std::vector<sf::FloatRect> tmxEnemyCollisionRects;
   for (const nlohmann::json &rectJson :
        mapJson.value("collisionRects", nlohmann::json::array())) {
     sf::FloatRect collisionRect(
@@ -119,6 +120,15 @@ bool TileMap::Load(const std::string &mapJsonPath) {
         static_cast<float>(rectJson.value("width", 0) * m_tileWidth),
         static_cast<float>(rectJson.value("height", 0) * m_tileHeight));
     m_collisionRects.push_back(collisionRect);
+
+    const std::string source = rectJson.value("source", "");
+    if (source.find("_Walls") != std::string::npos) {
+      tmxEnemyCollisionRects.push_back(collisionRect);
+    }
+  }
+
+  if (m_enemyCollisionRects.empty()) {
+    m_enemyCollisionRects = std::move(tmxEnemyCollisionRects);
   }
 
   return BuildMapTexture();

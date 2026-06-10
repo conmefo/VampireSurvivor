@@ -15,6 +15,7 @@ class GameState : public BaseState {
     void Draw(sf::RenderWindow &window) override;
 
   private:
+    void LoadStage(int stageNumber);
     void UpdateCamera(float dt);
     void ApplyCameraToView();
     sf::FloatRect GetViewBounds() const;
@@ -29,5 +30,6 @@ class GameState : public BaseState {
     sf::Vector2f m_cameraCenter;
     EnemyDatabase m_enemyDatabase;
     EnemyPool m_enemyPool;
+    int m_currentStage = 2;
     bool m_showHitboxes = false;
 };

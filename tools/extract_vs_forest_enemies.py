@@ -9,7 +9,29 @@ import shutil
 from pathlib import Path
 
 
-ENEMY_KEYS = ["BAT1", "SKELETON"]
+ENEMY_KEYS = [
+    "BAT1",
+    "SKELETON",
+    "ZOMBIE",
+    "MUDMAN1",
+    "GHOST",
+    "WEREWOLF",
+    "XLBAT",
+    "XLMANTIS",
+    "XLFLOWER",
+]
+
+ENEMY_RUNTIME_DEFAULTS = {
+    "BAT1": {"mass": 0.7, "collisionRadius": 12, "spriteScale": 1},
+    "SKELETON": {"mass": 1, "collisionRadius": 15, "spriteScale": 1},
+    "ZOMBIE": {"mass": 1, "collisionRadius": 14, "spriteScale": 1},
+    "MUDMAN1": {"mass": 1.2, "collisionRadius": 15, "spriteScale": 1},
+    "GHOST": {"mass": 0.6, "collisionRadius": 14, "spriteScale": 1},
+    "WEREWOLF": {"mass": 1.2, "collisionRadius": 16, "spriteScale": 1},
+    "XLBAT": {"mass": 1.6, "collisionRadius": 24, "spriteScale": 1},
+    "XLMANTIS": {"mass": 2.0, "collisionRadius": 26, "spriteScale": 1},
+    "XLFLOWER": {"mass": 2.0, "collisionRadius": 26, "spriteScale": 1},
+}
 
 
 def read_text(path: Path) -> str:
@@ -57,14 +79,24 @@ def texture_guid(sprite_asset: Path) -> str:
     return match.group(1)
 
 
-def guid_asset_path(assets_root: Path, guid: str) -> Path:
-    for meta_path in assets_root.rglob("*.meta"):
-        if f"guid: {guid}" not in read_text(meta_path):
+def build_texture_guid_index(assets_root: Path) -> dict[str, Path]:
+    index: dict[str, Path] = {}
+    for meta_path in assets_root.rglob("*.png.meta"):
+        match = re.search(r"^guid:\s*([0-9a-f]+)", read_text(meta_path), re.MULTILINE)
+        if not match:
             continue
 
         asset_path = Path(str(meta_path)[:-5])
         if asset_path.exists():
-            return asset_path
+            index[match.group(1)] = asset_path
+
+    return index
+
+
+def guid_asset_path(texture_guid_index: dict[str, Path], guid: str) -> Path:
+    asset_path = texture_guid_index.get(guid)
+    if asset_path:
+        return asset_path
 
     raise FileNotFoundError(f"Could not resolve GUID {guid}")
 
@@ -107,6 +139,7 @@ def build_enemy_data(repo_root: Path) -> dict:
     spritesheet_root = assets_root / "Resources" / "spritesheets"
     enemy_data_path = assets_root / "TextAsset" / "ENEMY_DATA.json"
     enemy_data = json.loads(read_text(enemy_data_path))
+    texture_guid_index = build_texture_guid_index(assets_root)
 
     output_texture_dir = repo_root / "assets" / "images" / "enemies"
     output_texture_dir.mkdir(parents=True, exist_ok=True)
@@ -139,7 +172,7 @@ def build_enemy_data(repo_root: Path) -> dict:
             if not sprite_asset.exists():
                 continue
 
-            texture_path = guid_asset_path(assets_root, texture_guid(sprite_asset))
+            texture_path = guid_asset_path(texture_guid_index, texture_guid(sprite_asset))
             texture_width, texture_height = texture_size(texture_path)
             rect = parse_sprite_rect(sprite_asset, texture_height)
 
@@ -182,6 +215,10 @@ def build_enemy_data(repo_root: Path) -> dict:
             "power": enemy.get("power", 1),
             "knockback": enemy.get("knockback", 1),
             "xp": enemy.get("xp", 1),
+            **ENEMY_RUNTIME_DEFAULTS.get(
+                enemy_key,
+                {"mass": 1, "collisionRadius": 14, "spriteScale": 1},
+            ),
             "places": enemy.get("bPlaces", []),
         }
 
