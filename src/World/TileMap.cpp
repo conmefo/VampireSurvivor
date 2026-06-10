@@ -50,6 +50,7 @@ bool TileMap::Load(const std::string &mapJsonPath) {
   }
 
   m_layers.clear();
+  m_enemyCollisionRects.clear();
   for (const nlohmann::json &layerJson : mapJson.value("layers", nlohmann::json::array())) {
     Layer layer;
     layer.name = layerJson.value("name", "");
@@ -86,6 +87,14 @@ bool TileMap::Load(const std::string &mapJsonPath) {
       }
 
       if (tile.spriteRect.width > 0 && tile.spriteRect.height > 0) {
+        if (layer.name == "Walls") {
+          m_enemyCollisionRects.emplace_back(
+              static_cast<float>(tile.x * m_tileWidth),
+              static_cast<float>(tile.y * m_tileHeight),
+              static_cast<float>(m_tileWidth),
+              static_cast<float>(m_tileHeight));
+        }
+
         layer.tiles.push_back(tile);
       }
     }
@@ -102,7 +111,6 @@ bool TileMap::Load(const std::string &mapJsonPath) {
   }
 
   m_collisionRects.clear();
-  m_enemyCollisionRects.clear();
   for (const nlohmann::json &rectJson :
        mapJson.value("collisionRects", nlohmann::json::array())) {
     sf::FloatRect collisionRect(
@@ -111,11 +119,6 @@ bool TileMap::Load(const std::string &mapJsonPath) {
         static_cast<float>(rectJson.value("width", 0) * m_tileWidth),
         static_cast<float>(rectJson.value("height", 0) * m_tileHeight));
     m_collisionRects.push_back(collisionRect);
-
-    const std::string source = rectJson.value("source", "");
-    if (source.find("_Walls") != std::string::npos) {
-      m_enemyCollisionRects.push_back(collisionRect);
-    }
   }
 
   return BuildMapTexture();
