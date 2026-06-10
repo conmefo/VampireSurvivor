@@ -44,6 +44,7 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 void GameState::Update(float dt) {
   UpdateCamera(dt);
   m_enemyPool.Update(dt, m_cameraCenter);
+  m_enemyPool.ResolveEnemyCollisions();
 }
 
 void GameState::Draw(sf::RenderWindow &window) {
