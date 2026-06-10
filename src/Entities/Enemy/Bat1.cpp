@@ -26,7 +26,7 @@ namespace
         static std::array<sf::Texture, 2> textures;
         return textures;
     }
-
+  
     bool LoadBatTextures()
     {
         static bool attemptedLoad = false;

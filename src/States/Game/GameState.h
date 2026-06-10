@@ -1,4 +1,5 @@
 #pragma once
+#include "../../Entities/Enemy/EnemyDatabase.h"
 #include "../../Entities/Enemy/EnemyPool.h"
 #include "../../World/TileMap.h"
 #include "../BaseState.h"
@@ -24,5 +25,6 @@ private:
   TileMap m_tileMap;
   sf::View m_worldView;
   sf::Vector2f m_cameraCenter;
+  EnemyDatabase m_enemyDatabase;
   EnemyPool m_enemyPool;
 };

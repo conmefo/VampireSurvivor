@@ -115,6 +115,9 @@
       "power": 5,
       "knockback": 1,
       "xp": 1,
+      "mass": 0.7,
+      "collisionRadius": 12,
+      "spriteScale": 2,
       "places": [
         "FOREST",
         "TOWER"
@@ -127,6 +130,9 @@
       "power": 10,
       "knockback": 1,
       "xp": 2,
+      "mass": 1,
+      "collisionRadius": 15,
+      "spriteScale": 1.5,
       "places": [
         "FOREST",
         "WAREHOUSE",

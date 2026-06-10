@@ -1,6 +1,7 @@
 #include "EnemyBase.h"
 
 #include <cmath>
+#include <utility>
 
 namespace
 {
@@ -17,9 +18,15 @@ namespace
 }
 
 EnemyBase::EnemyBase(EnemyType type)
+    : EnemyBase(type, "BASIC")
+{
+}
+
+EnemyBase::EnemyBase(EnemyType type, std::string definitionId)
     : m_targetPosition(0.0f, 0.0f),
       m_health(0.0f),
-      m_type(type)
+      m_type(type),
+      m_definitionId(std::move(definitionId))
 {
     m_body.setFillColor(sf::Color(180, 45, 60));
     m_body.setOutlineColor(sf::Color(60, 10, 18));
@@ -144,6 +151,11 @@ int EnemyBase::GetExpYield() const
 EnemyType EnemyBase::GetType() const
 {
     return m_type;
+}
+
+const std::string& EnemyBase::GetDefinitionId() const
+{
+    return m_definitionId;
 }
 
 void EnemyBase::UpdateAI(float dt)

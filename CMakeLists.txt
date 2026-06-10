@@ -34,11 +34,10 @@ FetchContent_MakeAvailable(SFML nlohmann_json)
 
 add_executable(VampireSurvivors
     src/Entities/Agent.cpp
-    src/Entities/Enemy/Bat1.cpp
+    src/Entities/Enemy/AnimatedEnemy.cpp
+    src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp
-    src/Entities/Enemy/EnemyFactory.cpp
     src/Entities/Enemy/EnemyPool.cpp
-    src/Entities/Enemy/Skeleton.cpp
     src/UI/UIManager.cpp
     src/States/Menu/MainMenuState.cpp
     src/main.cpp

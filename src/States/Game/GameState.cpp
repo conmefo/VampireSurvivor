@@ -5,7 +5,9 @@
 #include <iostream>
 
 GameState::GameState(StateContext context)
-    : BaseState(context), m_cameraCenter(400.0f, 300.0f) {}
+    : BaseState(context),
+      m_cameraCenter(400.0f, 300.0f),
+      m_enemyPool(m_enemyDatabase) {}
 
 void GameState::Init() {
   std::cout << "GameState Init" << std::endl;
@@ -17,10 +19,14 @@ void GameState::Init() {
   m_worldView.setSize(ViewWidth, ViewHeight);
   ApplyCameraToView();
 
-  m_enemyPool.Prewarm(EnemyType::Bat1, 1);
-  m_enemyPool.Prewarm(EnemyType::Skeleton, 1);
-  m_enemyPool.Acquire(EnemyType::Bat1, sf::Vector2f(500.0f, 300.0f));
-  m_enemyPool.Acquire(EnemyType::Skeleton, sf::Vector2f(560.0f, 340.0f));
+  if (!m_enemyDatabase.LoadFromFile("assets/Data/enemies/forest_enemies.json")) {
+    std::cerr << "Failed to load forest enemies" << std::endl;
+  }
+
+  m_enemyPool.Prewarm("BAT1", 1);
+  m_enemyPool.Prewarm("SKELETON", 1);
+  m_enemyPool.Acquire("BAT1", sf::Vector2f(500.0f, 300.0f));
+  m_enemyPool.Acquire("SKELETON", sf::Vector2f(560.0f, 340.0f));
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
