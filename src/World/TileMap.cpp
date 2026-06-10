@@ -102,13 +102,20 @@ bool TileMap::Load(const std::string &mapJsonPath) {
   }
 
   m_collisionRects.clear();
+  m_enemyCollisionRects.clear();
   for (const nlohmann::json &rectJson :
        mapJson.value("collisionRects", nlohmann::json::array())) {
-    m_collisionRects.emplace_back(
+    sf::FloatRect collisionRect(
         static_cast<float>(rectJson.value("x", 0) * m_tileWidth),
         static_cast<float>(rectJson.value("y", 0) * m_tileHeight),
         static_cast<float>(rectJson.value("width", 0) * m_tileWidth),
         static_cast<float>(rectJson.value("height", 0) * m_tileHeight));
+    m_collisionRects.push_back(collisionRect);
+
+    const std::string source = rectJson.value("source", "");
+    if (source.find("_Walls") != std::string::npos) {
+      m_enemyCollisionRects.push_back(collisionRect);
+    }
   }
 
   return BuildMapTexture();
@@ -146,6 +153,76 @@ void TileMap::Draw(sf::RenderTarget &target, const sf::View &view) {
 sf::Vector2f TileMap::GetWorldSize() const {
   return sf::Vector2f(static_cast<float>(m_mapWidth * m_tileWidth),
                       static_cast<float>(m_mapHeight * m_tileHeight));
+}
+
+const std::vector<sf::FloatRect> &TileMap::GetCollisionRects() const {
+  return m_collisionRects;
+}
+
+std::vector<sf::FloatRect>
+TileMap::GetCollisionRectsInArea(const sf::FloatRect &area) const {
+  std::vector<sf::FloatRect> rects;
+  const sf::Vector2f worldSize = GetWorldSize();
+  if (worldSize.x <= 0.0f || worldSize.y <= 0.0f) {
+    return rects;
+  }
+
+  const int startX = static_cast<int>(std::floor(area.left / worldSize.x)) - 1;
+  const int startY = static_cast<int>(std::floor(area.top / worldSize.y)) - 1;
+  const int endX =
+      static_cast<int>(std::ceil((area.left + area.width) / worldSize.x)) + 1;
+  const int endY =
+      static_cast<int>(std::ceil((area.top + area.height) / worldSize.y)) + 1;
+
+  for (int y = startY; y <= endY; ++y) {
+    for (int x = startX; x <= endX; ++x) {
+      const sf::Vector2f offset(static_cast<float>(x) * worldSize.x,
+                                static_cast<float>(y) * worldSize.y);
+      for (const sf::FloatRect &baseRect : m_collisionRects) {
+        sf::FloatRect repeatedRect(baseRect.left + offset.x,
+                                   baseRect.top + offset.y, baseRect.width,
+                                   baseRect.height);
+        if (repeatedRect.intersects(area)) {
+          rects.push_back(repeatedRect);
+        }
+      }
+    }
+  }
+
+  return rects;
+}
+
+std::vector<sf::FloatRect>
+TileMap::GetEnemyCollisionRectsInArea(const sf::FloatRect &area) const {
+  std::vector<sf::FloatRect> rects;
+  const sf::Vector2f worldSize = GetWorldSize();
+  if (worldSize.x <= 0.0f || worldSize.y <= 0.0f) {
+    return rects;
+  }
+
+  const int startX = static_cast<int>(std::floor(area.left / worldSize.x)) - 1;
+  const int startY = static_cast<int>(std::floor(area.top / worldSize.y)) - 1;
+  const int endX =
+      static_cast<int>(std::ceil((area.left + area.width) / worldSize.x)) + 1;
+  const int endY =
+      static_cast<int>(std::ceil((area.top + area.height) / worldSize.y)) + 1;
+
+  for (int y = startY; y <= endY; ++y) {
+    for (int x = startX; x <= endX; ++x) {
+      const sf::Vector2f offset(static_cast<float>(x) * worldSize.x,
+                                static_cast<float>(y) * worldSize.y);
+      for (const sf::FloatRect &baseRect : m_enemyCollisionRects) {
+        sf::FloatRect repeatedRect(baseRect.left + offset.x,
+                                   baseRect.top + offset.y, baseRect.width,
+                                   baseRect.height);
+        if (repeatedRect.intersects(area)) {
+          rects.push_back(repeatedRect);
+        }
+      }
+    }
+  }
+
+  return rects;
 }
 
 bool TileMap::BuildMapTexture() {

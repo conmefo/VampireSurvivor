@@ -21,12 +21,14 @@ public:
 
   void Update(float dt, const sf::Vector2f &targetPosition);
   void Draw(sf::RenderTarget &target);
+  void DrawDebug(sf::RenderTarget &target);
 
   std::vector<EnemyBase *> GetActiveEnemies();
   std::size_t GetActiveCount() const;
   std::size_t GetCapacity() const;
 
   void ResolveEnemyCollisions();
+  void ResolveObstacleCollisions(const std::vector<sf::FloatRect> &obstacles);
 
 private:
   EnemyBase *CreateEnemy(const std::string &enemyId);

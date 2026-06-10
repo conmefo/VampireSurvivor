@@ -10,6 +10,11 @@ public:
   void Draw(sf::RenderTarget &target, const sf::View &view);
 
   sf::Vector2f GetWorldSize() const;
+  const std::vector<sf::FloatRect> &GetCollisionRects() const;
+  std::vector<sf::FloatRect>
+  GetCollisionRectsInArea(const sf::FloatRect &area) const;
+  std::vector<sf::FloatRect>
+  GetEnemyCollisionRectsInArea(const sf::FloatRect &area) const;
 
 private:
   struct Tile {
@@ -43,6 +48,7 @@ private:
   sf::Texture m_atlasTexture;
   std::vector<Layer> m_layers;
   std::vector<sf::FloatRect> m_collisionRects;
+  std::vector<sf::FloatRect> m_enemyCollisionRects;
   sf::RenderTexture m_mapTexture;
 
   int m_mapWidth = 0;

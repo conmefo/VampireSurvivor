@@ -17,6 +17,8 @@ class GameState : public BaseState {
   private:
     void UpdateCamera(float dt);
     void ApplyCameraToView();
+    sf::FloatRect GetViewBounds() const;
+    void DrawHitboxes(sf::RenderTarget &target);
 
     static constexpr float CameraSpeed = 200.0f;
     static constexpr float ViewWidth = 640.0f;
@@ -27,4 +29,5 @@ class GameState : public BaseState {
     sf::Vector2f m_cameraCenter;
     EnemyDatabase m_enemyDatabase;
     EnemyPool m_enemyPool;
+    bool m_showHitboxes = false;
 };

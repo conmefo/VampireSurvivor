@@ -66,6 +66,25 @@ void EnemyPool::Draw(sf::RenderTarget &target) {
   }
 }
 
+void EnemyPool::DrawDebug(sf::RenderTarget &target) {
+  sf::CircleShape hitbox;
+  hitbox.setFillColor(sf::Color(0, 255, 80, 35));
+  hitbox.setOutlineColor(sf::Color(0, 255, 80, 220));
+  hitbox.setOutlineThickness(1.0f);
+
+  for (std::unique_ptr<EnemyBase> &enemy : m_enemies) {
+    if (!enemy->IsAlive()) {
+      continue;
+    }
+
+    const float radius = enemy->GetCollisionRadius();
+    hitbox.setRadius(radius);
+    hitbox.setOrigin(radius, radius);
+    hitbox.setPosition(enemy->GetPosition());
+    target.draw(hitbox);
+  }
+}
+
 std::vector<EnemyBase *> EnemyPool::GetActiveEnemies() {
   std::vector<EnemyBase *> activeEnemies;
 
@@ -109,6 +128,23 @@ void EnemyPool::ResolveEnemyCollisions() {
 
       a->ApplyKnockback(separation * 0.5f);
       b->ApplyKnockback(-separation * 0.5f);
+    }
+  }
+}
+
+void EnemyPool::ResolveObstacleCollisions(
+    const std::vector<sf::FloatRect> &obstacles) {
+  std::vector<EnemyBase *> enemies = GetActiveEnemies();
+
+  for (EnemyBase *enemy : enemies) {
+    for (const sf::FloatRect &obstacle : obstacles) {
+      const sf::Vector2f separation = Collision::GetCircleRectSeparation(
+          enemy->GetPosition(), enemy->GetCollisionRadius(), obstacle);
+      if (separation.x == 0.0f && separation.y == 0.0f) {
+        continue;
+      }
+
+      enemy->ApplyKnockback(separation * enemy->GetMass());
     }
   }
 }
