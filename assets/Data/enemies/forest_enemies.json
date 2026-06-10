@@ -117,7 +117,7 @@
       "xp": 1,
       "mass": 0.7,
       "collisionRadius": 12,
-      "spriteScale": 2,
+      "spriteScale": 1,
       "places": [
         "FOREST",
         "TOWER"
@@ -132,7 +132,7 @@
       "xp": 2,
       "mass": 1,
       "collisionRadius": 15,
-      "spriteScale": 1.5,
+      "spriteScale": 1,
       "places": [
         "FOREST",
         "WAREHOUSE",
