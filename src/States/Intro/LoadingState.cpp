@@ -37,16 +37,16 @@ void LoadingState::Init()
 
     // Initialize texts
     m_textTop.setFont(m_font);
-    m_textTop.setCharacterSize(35);
+    m_textTop.setCharacterSize(38);
     m_textTop.setFillColor(sf::Color::White);
     m_textTop.setString("Loading DLC");
 
     m_textMiddle.setFont(m_font);
-    m_textMiddle.setCharacterSize(22);
+    m_textMiddle.setCharacterSize(24);
     m_textMiddle.setFillColor(sf::Color::White);
 
     m_textBottom.setFont(m_font);
-    m_textBottom.setCharacterSize(16);
+    m_textBottom.setCharacterSize(17);
     m_textBottom.setFillColor(sf::Color(150, 150, 150));
     m_textBottom.setString("v1.14.112 (63587693R)");
 
@@ -74,7 +74,7 @@ void LoadingState::Init()
     float vy = Core::VIRTUAL_HEIGHT;
 
     m_treasureSprite.setPosition(vx - 175.0f, vy - 120.0f);
-    m_treasureSprite.setScale(4.0f, 3.0f);
+    m_treasureSprite.setScale(4.3f, 3.2f);
 
     m_textBottom.setPosition(vx - 600.0f, vy - 65.0f);
     m_textMiddle.setPosition(vx - 600.0f, vy - 98.0f);

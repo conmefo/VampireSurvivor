@@ -27,9 +27,11 @@ public:
     virtual void SetColor(const sf::Color& color);
     void SetTexture(class TextureAtlas& atlas, const std::string& assetId);
     void SetMargins(float left, float top, float right, float bottom);
+    void SetCornerScale(float scale);
     void SetText(const std::string& text, const sf::Font& font, unsigned int charSize = 20);
     void SetTextAlignment(TextAlignment alignment);
     void SetTextSize(unsigned int size);
+    void SetTextStyle(sf::Uint32 style);
 
     FaderComponent& GetFader();
 

@@ -74,6 +74,11 @@ void UIPanel::SetMargins(float left, float top, float right, float bottom)
     m_backgroundRenderer.SetMargins(left, top, right, bottom);
 }
 
+void UIPanel::SetCornerScale(float scale)
+{
+    m_backgroundRenderer.SetCornerScale(scale);
+}
+
 FaderComponent& UIPanel::GetFader()
 {
     return m_fader;
@@ -97,6 +102,12 @@ void UIPanel::SetTextAlignment(TextAlignment alignment)
 void UIPanel::SetTextSize(unsigned int size)
 {
     m_text.setCharacterSize(size);
+    AlignText();
+}
+
+void UIPanel::SetTextStyle(sf::Uint32 style)
+{
+    m_text.setStyle(style);
     AlignText();
 }
 

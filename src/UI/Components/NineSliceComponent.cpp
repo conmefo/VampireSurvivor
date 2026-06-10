@@ -1,6 +1,8 @@
 #include "NineSliceComponent.h"
 
 #include "../../Core/Resources/TextureAtlas.h"
+#include <cmath>
+#include <algorithm>
 
 NineSliceComponent::NineSliceComponent()
     : m_sourceTexture(nullptr)
@@ -10,6 +12,7 @@ NineSliceComponent::NineSliceComponent()
     , m_marginBottom(0.0f)
     , m_targetSize(0.0f, 0.0f)
     , m_color(sf::Color::White)
+    , m_cornerScale(1.0f)
     , m_vertexArray(sf::Quads, 36)
     , m_isDirty(true)
 {
@@ -53,6 +56,12 @@ void NineSliceComponent::SetColor(const sf::Color& color)
     m_isDirty = true;
 }
 
+void NineSliceComponent::SetCornerScale(float scale)
+{
+    m_cornerScale = scale;
+    m_isDirty = true;
+}
+
 void NineSliceComponent::Update()
 {
     if(m_isDirty)
@@ -69,8 +78,16 @@ void NineSliceComponent::RecalculateVertices()
         return;
     }
 
-    float xCoords[4] = { 0.0f, m_marginLeft, m_targetSize.x - m_marginRight, m_targetSize.x };
-    float yCoords[4] = { 0.0f, m_marginTop, m_targetSize.y - m_marginBottom, m_targetSize.y };
+    float targetCornerScale = m_cornerScale;
+
+    // Geometry Partitioning
+    float scaledMarginLeft = m_marginLeft * targetCornerScale;
+    float scaledMarginRight = m_marginRight * targetCornerScale;
+    float scaledMarginTop = m_marginTop * targetCornerScale;
+    float scaledMarginBottom = m_marginBottom * targetCornerScale;
+
+    float xCoords[4] = { 0.0f, scaledMarginLeft, m_targetSize.x - scaledMarginRight, m_targetSize.x };
+    float yCoords[4] = { 0.0f, scaledMarginTop, m_targetSize.y - scaledMarginBottom, m_targetSize.y };
 
     float uCoords[4] = { 
         static_cast<float>(m_textureRect.left), 

@@ -45,6 +45,7 @@ add_executable(VampireSurvivors
     src/States/Intro/LoadingState.cpp
     src/States/Intro/WarningState.cpp
     src/States/Menu/MainMenuState.cpp
+    src/States/Menu/PowerUpState.cpp
     src/States/Game/GameState.cpp
     src/World/TileMap.cpp
     src/Core/Math/MathUtils.cpp
@@ -55,6 +56,18 @@ add_executable(VampireSurvivors
     src/UI/Elements/UIButton.cpp
     src/UI/Components/FaderComponent.cpp
     src/UI/Components/NineSliceComponent.cpp
+    src/UI/Components/NineSliceComponent.h
+    src/UI/Components/PowerUpCard.cpp
+    src/UI/Components/PowerUpCard.h
+    src/UI/Components/UIGridLayout.cpp
+    src/UI/Components/UIGridLayout.h
+    src/UI/Components/UIScrollView.cpp
+    src/UI/Components/UIScrollView.h
+    src/UI/Components/UIScrollbar.cpp
+    src/UI/Components/UIScrollbar.h
+    src/UI/Components/UIDetailPanel.cpp
+    src/UI/Components/UIDetailPanel.h
+    src/Core/Data/PowerUpData.h
     src/Core/UI/ScreenTransitionManager.cpp
     src/States/Title/TitleState.cpp
     src/Core/Resources/TextureAtlas.cpp
