@@ -1,7 +1,7 @@
 #include "AnimatedEnemy.h"
 
 AnimatedEnemy::AnimatedEnemy(const EnemyDefinition& definition)
-    : EnemyBase(EnemyType::Basic, definition.id),
+    : EnemyBase(definition.id),
       m_definition(definition),
       m_currentAnimation(nullptr),
       m_animationTimer(0.0f),
