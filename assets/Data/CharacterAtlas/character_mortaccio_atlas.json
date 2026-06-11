@@ -1,0 +1,74 @@
+{
+    "hMortaccio_01": {
+        "x": 1,
+        "y": 91,
+        "width": 30,
+        "height": 36
+    },
+    "hMortaccio_02": {
+        "x": 1,
+        "y": 53,
+        "width": 30,
+        "height": 36
+    },
+    "hMortaccio_03": {
+        "x": 32,
+        "y": 15,
+        "width": 27,
+        "height": 36
+    },
+    "hMortaccio_04": {
+        "x": 1,
+        "y": 15,
+        "width": 29,
+        "height": 36
+    },
+    "madMortaccio_01": {
+        "x": 61,
+        "y": 92,
+        "width": 28,
+        "height": 35
+    },
+    "madMortaccio_02": {
+        "x": 91,
+        "y": 92,
+        "width": 27,
+        "height": 35
+    },
+    "madMortaccio_03": {
+        "x": 90,
+        "y": 56,
+        "width": 25,
+        "height": 34
+    },
+    "madMortaccio_04": {
+        "x": 33,
+        "y": 92,
+        "width": 25,
+        "height": 35
+    },
+    "Mortaccio_01": {
+        "x": 33,
+        "y": 55,
+        "width": 28,
+        "height": 35
+    },
+    "Mortaccio_02": {
+        "x": 61,
+        "y": 18,
+        "width": 27,
+        "height": 35
+    },
+    "Mortaccio_03": {
+        "x": 90,
+        "y": 20,
+        "width": 25,
+        "height": 34
+    },
+    "Mortaccio_04": {
+        "x": 63,
+        "y": 55,
+        "width": 25,
+        "height": 35
+    }
+}

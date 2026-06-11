@@ -18,6 +18,7 @@ public:
     void Draw(sf::RenderTarget& target) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;
     void SetPosition(const sf::Vector2f& pos) override;
+    void SetSize(const sf::Vector2f& size) override;
 
 private:
     std::unique_ptr<UIElement> m_content;

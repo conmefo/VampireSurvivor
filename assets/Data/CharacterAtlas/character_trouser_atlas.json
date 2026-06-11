@@ -1,0 +1,26 @@
+{
+    "Pantalone_01": {
+        "x": 1,
+        "y": 57,
+        "width": 32,
+        "height": 34
+    },
+    "Pantalone_02": {
+        "x": 1,
+        "y": 21,
+        "width": 32,
+        "height": 34
+    },
+    "Pantalone_03": {
+        "x": 35,
+        "y": 57,
+        "width": 32,
+        "height": 34
+    },
+    "Pantalone_04": {
+        "x": 1,
+        "y": 93,
+        "width": 33,
+        "height": 34
+    }
+}

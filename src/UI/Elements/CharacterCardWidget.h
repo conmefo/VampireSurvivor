@@ -25,6 +25,7 @@ private:
     std::string m_characterId;
     CardState m_state;
     bool m_isUnlocked;
+    bool m_isPressed;
 
     NineSliceComponent m_backgroundNormal;
     NineSliceComponent m_backgroundSelected;
@@ -39,7 +40,7 @@ private:
     void UpdateVisuals();
 
 public:
-    CharacterCardWidget(TextureAtlas& atlas, const sf::Font& font, const CharacterProfile& profile, bool isUnlocked);
+    CharacterCardWidget(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterProfile& profile, bool isUnlocked);
     ~CharacterCardWidget() override = default;
 
     void SetState(CardState state);

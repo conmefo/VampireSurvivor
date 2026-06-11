@@ -1,0 +1,122 @@
+{
+    "Imelda_01": {
+        "x": 36,
+        "y": 79,
+        "width": 32,
+        "height": 33
+    },
+    "Imelda_02": {
+        "x": 1,
+        "y": 78,
+        "width": 32,
+        "height": 33
+    },
+    "Imelda_03": {
+        "x": 35,
+        "y": 10,
+        "width": 31,
+        "height": 32
+    },
+    "Imelda_04": {
+        "x": 70,
+        "y": 79,
+        "width": 32,
+        "height": 33
+    },
+    "madImelda_01": {
+        "x": 1,
+        "y": 43,
+        "width": 32,
+        "height": 33
+    },
+    "madImelda_02": {
+        "x": 1,
+        "y": 8,
+        "width": 32,
+        "height": 33
+    },
+    "madImelda_03": {
+        "x": 68,
+        "y": 10,
+        "width": 31,
+        "height": 32
+    },
+    "madImelda_04": {
+        "x": 35,
+        "y": 44,
+        "width": 32,
+        "height": 33
+    },
+    "madnewImelda_01": {
+        "x": 1,
+        "y": 221,
+        "width": 33,
+        "height": 34
+    },
+    "madnewImelda_02": {
+        "x": 36,
+        "y": 221,
+        "width": 33,
+        "height": 34
+    },
+    "madnewImelda_03": {
+        "x": 71,
+        "y": 221,
+        "width": 33,
+        "height": 34
+    },
+    "madnewImelda_04": {
+        "x": 1,
+        "y": 185,
+        "width": 33,
+        "height": 34
+    },
+    "newImelda_01": {
+        "x": 36,
+        "y": 114,
+        "width": 33,
+        "height": 33
+    },
+    "newImelda_02": {
+        "x": 36,
+        "y": 185,
+        "width": 33,
+        "height": 34
+    },
+    "newImelda_03": {
+        "x": 71,
+        "y": 114,
+        "width": 33,
+        "height": 33
+    },
+    "newImelda_04": {
+        "x": 71,
+        "y": 185,
+        "width": 33,
+        "height": 34
+    },
+    "skin_imeldaunblinded_i01": {
+        "x": 1,
+        "y": 149,
+        "width": 33,
+        "height": 34
+    },
+    "skin_imeldaunblinded_i02": {
+        "x": 36,
+        "y": 149,
+        "width": 33,
+        "height": 34
+    },
+    "skin_imeldaunblinded_i03": {
+        "x": 71,
+        "y": 149,
+        "width": 33,
+        "height": 34
+    },
+    "skin_imeldaunblinded_i04": {
+        "x": 1,
+        "y": 113,
+        "width": 33,
+        "height": 34
+    }
+}

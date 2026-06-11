@@ -1,0 +1,50 @@
+{
+    "Assunta_01": {
+        "x": 36,
+        "y": 60,
+        "width": 28,
+        "height": 32
+    },
+    "Assunta_02": {
+        "x": 71,
+        "y": 95,
+        "width": 31,
+        "height": 32
+    },
+    "Assunta_03": {
+        "x": 36,
+        "y": 26,
+        "width": 28,
+        "height": 32
+    },
+    "Assunta_04": {
+        "x": 71,
+        "y": 61,
+        "width": 29,
+        "height": 32
+    },
+    "newAssunta_01": {
+        "x": 1,
+        "y": 22,
+        "width": 33,
+        "height": 33
+    },
+    "newAssunta_02": {
+        "x": 1,
+        "y": 93,
+        "width": 33,
+        "height": 34
+    },
+    "newAssunta_03": {
+        "x": 36,
+        "y": 94,
+        "width": 33,
+        "height": 33
+    },
+    "newAssunta_04": {
+        "x": 1,
+        "y": 57,
+        "width": 33,
+        "height": 34
+    }
+}

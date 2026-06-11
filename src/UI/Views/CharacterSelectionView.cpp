@@ -11,8 +11,8 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager)
-    : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font))
+CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager)
+    : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font, boldFont))
     , m_statsPanel(std::make_unique<StatsPanel>(atlas, font))
     , m_goldDisplay(std::make_unique<GoldDisplayWidget>(atlas, progressionManager, font))
     , m_confirmButton(std::make_unique<UIButton>(atlas, "button_c5_normal", 10, 10, 10, 10))

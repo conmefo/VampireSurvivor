@@ -14,6 +14,9 @@ private:
     int basePrice;
     std::unordered_map<std::string, float> stats;
 
+    bool isAlwaysHidden;
+    bool isBought;
+
 public:
     CharacterProfile(
         const std::string& id,
@@ -22,14 +25,18 @@ public:
         const std::string& portraitTextureId,
         const std::string& startingWeaponId,
         int basePrice,
-        const std::unordered_map<std::string, float>& stats)
+        const std::unordered_map<std::string, float>& stats,
+        bool isAlwaysHidden = false,
+        bool isBought = false)
         : id(id), 
           name(name), 
           description(description), 
           portraitTextureId(portraitTextureId), 
           startingWeaponId(startingWeaponId), 
           basePrice(basePrice), 
-          stats(stats)
+          stats(stats),
+          isAlwaysHidden(isAlwaysHidden),
+          isBought(isBought)
     {
     }
 
@@ -76,5 +83,15 @@ public:
             return it->second;
         }
         return 0.0f;
+    }
+
+    bool IsAlwaysHidden() const
+    {
+        return isAlwaysHidden;
+    }
+
+    bool IsBought() const
+    {
+        return isBought;
     }
 };

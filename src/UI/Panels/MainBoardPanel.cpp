@@ -4,11 +4,16 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font)
+MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont)
     : UIPanel(atlas, "frame5_c4", 12, 12, 12, 12)
-    , m_rosterGrid(std::make_unique<RosterGridPanel>(atlas, font))
+    , m_scrollView(nullptr)
+    , m_rosterGridRaw(nullptr)
     , m_detailPanel(std::make_unique<DetailPanel>(atlas, font))
 {
+    auto rosterGrid = std::make_unique<RosterGridPanel>(atlas, font, boldFont);
+    m_rosterGridRaw = rosterGrid.get();
+    m_scrollView = std::make_unique<UIScrollView>(100.0f, 100.0f, atlas);
+    m_scrollView->SetContent(std::move(rosterGrid));
     m_titleText.setFont(font);
     m_titleText.setString("Character Selection");
     m_titleText.setCharacterSize(40);
@@ -28,10 +33,17 @@ void MainBoardPanel::InitializeLayout(const sf::Vector2f& size)
     float rosterY = m_position.y + PADDING_Y + TITLE_HEIGHT + INNER_SPACING;
     float rosterHeight = size.y - PADDING_Y * 2.0f - TITLE_HEIGHT - INNER_SPACING * 2.0f - DETAIL_HEIGHT;
     
-    if(m_rosterGrid)
+    if(m_scrollView)
     {
-        m_rosterGrid->SetPosition(sf::Vector2f(m_position.x + PADDING_X, rosterY));
-        m_rosterGrid->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f, rosterHeight));
+        m_scrollView->SetPosition(sf::Vector2f(m_position.x + PADDING_X, rosterY));
+        m_scrollView->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f - 7.0f, rosterHeight));
+        m_scrollView->SetPadding(10.0f, 15.0f);
+        
+        // Also ensure the inner grid knows its width to layout
+        if(m_rosterGridRaw)
+        {
+            m_rosterGridRaw->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f - 7.0f, rosterHeight));
+        }
     }
 
     float detailY = rosterY + rosterHeight + INNER_SPACING;
@@ -51,9 +63,9 @@ void MainBoardPanel::SetPosition(const sf::Vector2f& pos)
 void MainBoardPanel::Update(float deltaTime)
 {
     UIPanel::Update(deltaTime);
-    if(m_rosterGrid)
+    if(m_scrollView)
     {
-        m_rosterGrid->Update(deltaTime);
+        m_scrollView->Update(deltaTime);
     }
     if(m_detailPanel)
     {
@@ -64,9 +76,9 @@ void MainBoardPanel::Update(float deltaTime)
 void MainBoardPanel::HandleEvent(const sf::Event& event, const sf::RenderWindow& window)
 {
     UIPanel::HandleEvent(event, window);
-    if(m_rosterGrid)
+    if(m_scrollView)
     {
-        m_rosterGrid->HandleEvent(event, window);
+        m_scrollView->HandleEvent(event, window);
     }
     if(m_detailPanel)
     {
@@ -79,9 +91,9 @@ void MainBoardPanel::Draw(sf::RenderTarget& target)
     UIPanel::Draw(target);
     target.draw(m_titleText);
     
-    if(m_rosterGrid)
+    if(m_scrollView)
     {
-        m_rosterGrid->Draw(target);
+        m_scrollView->Draw(target);
     }
     if(m_detailPanel)
     {

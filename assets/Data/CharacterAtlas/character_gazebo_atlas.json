@@ -1,0 +1,26 @@
+{
+    "Gazebo_01": {
+        "x": 54,
+        "y": 77,
+        "width": 51,
+        "height": 50
+    },
+    "Gazebo_02": {
+        "x": 1,
+        "y": 76,
+        "width": 51,
+        "height": 51
+    },
+    "Gazebo_03": {
+        "x": 54,
+        "y": 24,
+        "width": 50,
+        "height": 51
+    },
+    "Gazebo_04": {
+        "x": 1,
+        "y": 23,
+        "width": 51,
+        "height": 51
+    }
+}

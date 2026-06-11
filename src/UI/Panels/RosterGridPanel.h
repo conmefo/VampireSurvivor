@@ -1,6 +1,6 @@
 #pragma once
 
-#include "UIPanel.h"
+#include "../Core/UIElement.h"
 #include <vector>
 #include <memory>
 #include <string>
@@ -14,7 +14,7 @@ class CharacterDataManager;
 class PlayerProgressionManager;
 namespace sf { class Font; class RenderTarget; class Event; class RenderWindow; }
 
-class RosterGridPanel : public UIPanel
+class RosterGridPanel : public UIElement
 {
 private:
     std::vector<std::unique_ptr<CharacterCardWidget>> m_cards;
@@ -24,16 +24,18 @@ private:
     TextureAtlas& m_atlas;
     const sf::Font& m_font;
 
+    const sf::Font* m_boldFont;
+
     static constexpr int MAX_COLUMNS = 4;
     static constexpr float CARD_SPACING_X = 15.0f;
     static constexpr float CARD_SPACING_Y = 15.0f;
-    static constexpr float GRID_START_OFFSET_X = 20.0f;
+    static constexpr float GRID_START_OFFSET_X = 9.0f;
     static constexpr float GRID_START_OFFSET_Y = 20.0f;
 
     void OnCardClicked(const std::string& characterId);
 
 public:
-    RosterGridPanel(TextureAtlas& atlas, const sf::Font& font);
+    RosterGridPanel(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont = nullptr);
     ~RosterGridPanel() override = default;
 
     void InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager);

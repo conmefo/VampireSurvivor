@@ -1,0 +1,194 @@
+{
+    "random_00": {
+        "x": 20,
+        "y": 95,
+        "width": 32,
+        "height": 32
+    },
+    "random_01": {
+        "x": 41,
+        "y": 47,
+        "width": 19,
+        "height": 28
+    },
+    "random_02": {
+        "x": 79,
+        "y": 48,
+        "width": 19,
+        "height": 27
+    },
+    "random_03": {
+        "x": 54,
+        "y": 101,
+        "width": 21,
+        "height": 26
+    },
+    "random_04": {
+        "x": 77,
+        "y": 102,
+        "width": 21,
+        "height": 25
+    },
+    "random_05": {
+        "x": 100,
+        "y": 103,
+        "width": 21,
+        "height": 24
+    },
+    "random_06": {
+        "x": 100,
+        "y": 78,
+        "width": 21,
+        "height": 23
+    },
+    "random_07": {
+        "x": 77,
+        "y": 77,
+        "width": 21,
+        "height": 23
+    },
+    "random_08": {
+        "x": 54,
+        "y": 77,
+        "width": 21,
+        "height": 22
+    },
+    "random_09": {
+        "x": 77,
+        "y": 77,
+        "width": 21,
+        "height": 23
+    },
+    "random_10": {
+        "x": 100,
+        "y": 78,
+        "width": 21,
+        "height": 23
+    },
+    "random_11": {
+        "x": 100,
+        "y": 103,
+        "width": 21,
+        "height": 24
+    },
+    "random_12": {
+        "x": 77,
+        "y": 102,
+        "width": 21,
+        "height": 25
+    },
+    "random_13": {
+        "x": 54,
+        "y": 101,
+        "width": 21,
+        "height": 26
+    },
+    "random_14": {
+        "x": 79,
+        "y": 48,
+        "width": 19,
+        "height": 27
+    },
+    "random_15": {
+        "x": 41,
+        "y": 47,
+        "width": 19,
+        "height": 28
+    },
+    "random_16": {
+        "x": 20,
+        "y": 45,
+        "width": 19,
+        "height": 30
+    },
+    "random_17": {
+        "x": 100,
+        "y": 45,
+        "width": 19,
+        "height": 31
+    },
+    "random_18": {
+        "x": 39,
+        "y": 11,
+        "width": 17,
+        "height": 32
+    },
+    "random_19": {
+        "x": 20,
+        "y": 10,
+        "width": 17,
+        "height": 33
+    },
+    "random_20": {
+        "x": 1,
+        "y": 19,
+        "width": 17,
+        "height": 34
+    },
+    "random_21": {
+        "x": 1,
+        "y": 92,
+        "width": 17,
+        "height": 35
+    },
+    "random_22": {
+        "x": 1,
+        "y": 55,
+        "width": 17,
+        "height": 35
+    },
+    "random_23": {
+        "x": 1,
+        "y": 55,
+        "width": 17,
+        "height": 35
+    },
+    "random_24": {
+        "x": 1,
+        "y": 55,
+        "width": 17,
+        "height": 35
+    },
+    "random_25": {
+        "x": 1,
+        "y": 92,
+        "width": 17,
+        "height": 35
+    },
+    "random_26": {
+        "x": 1,
+        "y": 19,
+        "width": 17,
+        "height": 34
+    },
+    "random_27": {
+        "x": 20,
+        "y": 10,
+        "width": 17,
+        "height": 33
+    },
+    "random_28": {
+        "x": 39,
+        "y": 11,
+        "width": 17,
+        "height": 32
+    },
+    "random_29": {
+        "x": 100,
+        "y": 45,
+        "width": 19,
+        "height": 31
+    },
+    "random_30": {
+        "x": 20,
+        "y": 45,
+        "width": 19,
+        "height": 30
+    },
+    "random_99": {
+        "x": 58,
+        "y": 15,
+        "width": 19,
+        "height": 28
+    }
+}

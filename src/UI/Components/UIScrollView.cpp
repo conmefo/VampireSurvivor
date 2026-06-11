@@ -33,6 +33,14 @@ void UIScrollView::SetPosition(const sf::Vector2f& pos)
     m_scrollbar->SetPosition(sf::Vector2f(pos.x + m_viewWidth, pos.y - 40.0f));
 }
 
+void UIScrollView::SetSize(const sf::Vector2f& size)
+{
+    UIElement::SetSize(size);
+    m_viewWidth = size.x;
+    m_viewHeight = size.y;
+    m_scrollbar->SetPosition(sf::Vector2f(m_position.x + m_viewWidth, m_position.y - 40.0f));
+}
+
 void UIScrollView::HandleEvent(const sf::Event& event, const sf::RenderWindow& window)
 {
     m_scrollbar->HandleEvent(event, window);

@@ -1,0 +1,146 @@
+{
+    "Krochi_01": {
+        "x": 34,
+        "y": 121,
+        "width": 30,
+        "height": 32
+    },
+    "Krochi_02": {
+        "x": 66,
+        "y": 121,
+        "width": 30,
+        "height": 32
+    },
+    "Krochi_03": {
+        "x": 1,
+        "y": 223,
+        "width": 31,
+        "height": 32
+    },
+    "Krochi_04": {
+        "x": 1,
+        "y": 87,
+        "width": 30,
+        "height": 32
+    },
+    "madKrochi_01": {
+        "x": 1,
+        "y": 53,
+        "width": 30,
+        "height": 32
+    },
+    "madKrochi_02": {
+        "x": 1,
+        "y": 19,
+        "width": 30,
+        "height": 32
+    },
+    "madKrochi_03": {
+        "x": 34,
+        "y": 223,
+        "width": 31,
+        "height": 32
+    },
+    "madKrochi_04": {
+        "x": 33,
+        "y": 87,
+        "width": 30,
+        "height": 32
+    },
+    "madnewKrochiplain_01": {
+        "x": 34,
+        "y": 189,
+        "width": 31,
+        "height": 32
+    },
+    "madnewKrochiplain_02": {
+        "x": 33,
+        "y": 53,
+        "width": 30,
+        "height": 32
+    },
+    "madnewKrochiplain_03": {
+        "x": 67,
+        "y": 189,
+        "width": 31,
+        "height": 32
+    },
+    "madnewKrochiplain_04": {
+        "x": 33,
+        "y": 19,
+        "width": 30,
+        "height": 32
+    },
+    "madnewKrochi_01": {
+        "x": 67,
+        "y": 223,
+        "width": 31,
+        "height": 32
+    },
+    "madnewKrochi_02": {
+        "x": 65,
+        "y": 87,
+        "width": 30,
+        "height": 32
+    },
+    "madnewKrochi_03": {
+        "x": 1,
+        "y": 189,
+        "width": 31,
+        "height": 32
+    },
+    "madnewKrochi_04": {
+        "x": 97,
+        "y": 87,
+        "width": 30,
+        "height": 32
+    },
+    "newKrochiplain_01": {
+        "x": 67,
+        "y": 155,
+        "width": 31,
+        "height": 32
+    },
+    "newKrochiplain_02": {
+        "x": 65,
+        "y": 19,
+        "width": 30,
+        "height": 32
+    },
+    "newKrochiplain_03": {
+        "x": 1,
+        "y": 121,
+        "width": 31,
+        "height": 32
+    },
+    "newKrochiplain_04": {
+        "x": 97,
+        "y": 19,
+        "width": 30,
+        "height": 32
+    },
+    "newKrochi_01": {
+        "x": 1,
+        "y": 155,
+        "width": 31,
+        "height": 32
+    },
+    "newKrochi_02": {
+        "x": 65,
+        "y": 53,
+        "width": 30,
+        "height": 32
+    },
+    "newKrochi_03": {
+        "x": 34,
+        "y": 155,
+        "width": 31,
+        "height": 32
+    },
+    "newKrochi_04": {
+        "x": 97,
+        "y": 53,
+        "width": 30,
+        "height": 32
+    }
+}

@@ -1,0 +1,98 @@
+{
+    "Antonio_01": {
+        "x": 73,
+        "y": 151,
+        "width": 32,
+        "height": 32
+    },
+    "Antonio_02": {
+        "x": 34,
+        "y": 82,
+        "width": 31,
+        "height": 31
+    },
+    "Antonio_03": {
+        "x": 69,
+        "y": 83,
+        "width": 31,
+        "height": 32
+    },
+    "Antonio_04": {
+        "x": 73,
+        "y": 117,
+        "width": 32,
+        "height": 32
+    },
+    "madAntonio_01": {
+        "x": 1,
+        "y": 115,
+        "width": 32,
+        "height": 32
+    },
+    "madAntonio_02": {
+        "x": 67,
+        "y": 50,
+        "width": 31,
+        "height": 31
+    },
+    "madAntonio_03": {
+        "x": 1,
+        "y": 81,
+        "width": 31,
+        "height": 32
+    },
+    "madAntonio_04": {
+        "x": 35,
+        "y": 115,
+        "width": 32,
+        "height": 32
+    },
+    "madnewAntonio_01": {
+        "x": 1,
+        "y": 221,
+        "width": 34,
+        "height": 34
+    },
+    "madnewAntonio_02": {
+        "x": 37,
+        "y": 221,
+        "width": 34,
+        "height": 34
+    },
+    "madnewAntonio_03": {
+        "x": 73,
+        "y": 221,
+        "width": 34,
+        "height": 34
+    },
+    "madnewAntonio_04": {
+        "x": 1,
+        "y": 185,
+        "width": 34,
+        "height": 34
+    },
+    "newAntonio_01": {
+        "x": 37,
+        "y": 185,
+        "width": 34,
+        "height": 34
+    },
+    "newAntonio_02": {
+        "x": 73,
+        "y": 185,
+        "width": 34,
+        "height": 34
+    },
+    "newAntonio_03": {
+        "x": 1,
+        "y": 149,
+        "width": 34,
+        "height": 34
+    },
+    "newAntonio_04": {
+        "x": 37,
+        "y": 149,
+        "width": 34,
+        "height": 34
+    }
+}

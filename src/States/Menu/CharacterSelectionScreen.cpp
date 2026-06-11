@@ -12,11 +12,13 @@ CharacterSelectionScreen::CharacterSelectionScreen(StateContext context)
 void CharacterSelectionScreen::Init()
 {
     const sf::Font* font = m_context.fonts.GetPtr(FontID::Main);
+    const sf::Font* boldFont = m_context.fonts.GetPtr(FontID::Bold);
     if(font)
     {
         m_view = std::make_unique<CharacterSelectionView>(
             m_context.atlas, 
             *font, 
+            boldFont,
             m_context.characterData, 
             &m_context.progressionData
         );

@@ -23,10 +23,11 @@ void LoadingState::Init()
     try
     {
         m_context.fonts.Load(FontID::Main, "Assets/Fonts/Courier_HintedSmooth.ttf");
+        m_context.fonts.Load(FontID::Bold, "Assets/Fonts/courier_bold.ttf");
     }
     catch (...)
     {
-        std::cerr << "Failed to load Courier_HintedSmooth.ttf, falling back to what is available.\n";
+        std::cerr << "Failed to load fonts, falling back to what is available.\n";
     }
 
     const sf::Font* fontPtr = m_context.fonts.GetPtr(FontID::Main);

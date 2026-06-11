@@ -1,0 +1,26 @@
+{
+    "moonrabbit_i01": {
+        "x": 30,
+        "y": 4,
+        "width": 26,
+        "height": 28
+    },
+    "moonrabbit_i02": {
+        "x": 29,
+        "y": 34,
+        "width": 26,
+        "height": 29
+    },
+    "moonrabbit_i03": {
+        "x": 1,
+        "y": 33,
+        "width": 26,
+        "height": 30
+    },
+    "moonrabbit_i04": {
+        "x": 1,
+        "y": 2,
+        "width": 27,
+        "height": 29
+    }
+}

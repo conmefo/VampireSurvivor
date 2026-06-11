@@ -1,0 +1,122 @@
+{
+    "missingL_01": {
+        "x": 1,
+        "y": 56,
+        "width": 40,
+        "height": 47
+    },
+    "missingL_02": {
+        "x": 43,
+        "y": 52,
+        "width": 41,
+        "height": 47
+    },
+    "missingL_03": {
+        "x": 86,
+        "y": 52,
+        "width": 41,
+        "height": 47
+    },
+    "missingL_04": {
+        "x": 1,
+        "y": 3,
+        "width": 41,
+        "height": 47
+    },
+    "Missing_01": {
+        "x": 1,
+        "y": 191,
+        "width": 28,
+        "height": 32
+    },
+    "Missing_02": {
+        "x": 65,
+        "y": 224,
+        "width": 30,
+        "height": 31
+    },
+    "Missing_03": {
+        "x": 1,
+        "y": 225,
+        "width": 30,
+        "height": 30
+    },
+    "Missing_04": {
+        "x": 33,
+        "y": 225,
+        "width": 30,
+        "height": 30
+    },
+    "Missing_05": {
+        "x": 97,
+        "y": 224,
+        "width": 30,
+        "height": 31
+    },
+    "Missing_06": {
+        "x": 31,
+        "y": 191,
+        "width": 28,
+        "height": 32
+    },
+    "Missing_07": {
+        "x": 61,
+        "y": 188,
+        "width": 28,
+        "height": 34
+    },
+    "Missing_08": {
+        "x": 1,
+        "y": 154,
+        "width": 26,
+        "height": 35
+    },
+    "Missing_09": {
+        "x": 57,
+        "y": 150,
+        "width": 26,
+        "height": 36
+    },
+    "Missing_10": {
+        "x": 85,
+        "y": 150,
+        "width": 26,
+        "height": 36
+    },
+    "Missing_11": {
+        "x": 29,
+        "y": 154,
+        "width": 26,
+        "height": 35
+    },
+    "Missing_12": {
+        "x": 91,
+        "y": 188,
+        "width": 28,
+        "height": 34
+    },
+    "_0x00000000_i01": {
+        "x": 1,
+        "y": 105,
+        "width": 41,
+        "height": 47
+    },
+    "_0x00000000_i02": {
+        "x": 44,
+        "y": 101,
+        "width": 40,
+        "height": 47
+    },
+    "_0x00000000_i03": {
+        "x": 86,
+        "y": 101,
+        "width": 41,
+        "height": 47
+    },
+    "_0x00000000_i04": {
+        "x": 44,
+        "y": 2,
+        "width": 41,
+        "height": 48
+    }
+}

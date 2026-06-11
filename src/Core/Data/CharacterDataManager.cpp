@@ -17,7 +17,7 @@ bool CharacterDataManager::LoadData(const std::string& configFilePath)
         return false;
     }
 
-    nlohmann::json jsonData;
+    nlohmann::ordered_json jsonData;
     try
     {
         file >> jsonData;
@@ -29,30 +29,62 @@ bool CharacterDataManager::LoadData(const std::string& configFilePath)
     }
 
     m_characters.clear();
+    m_characterOrder.clear();
 
-    if(jsonData.contains("characters") && jsonData["characters"].is_array())
+    for(auto& el : jsonData.items())
     {
-        for(const auto& charJson : jsonData["characters"])
+        std::string id = el.key();
+        
+        if(!el.value().is_array() || el.value().empty())
         {
-            std::string id = charJson.value("id", "UNKNOWN");
-            std::string name = charJson.value("name", "Unknown");
-            std::string description = charJson.value("description", "");
-            std::string portraitTextureId = charJson.value("portraitTextureId", "");
-            std::string startingWeaponId = charJson.value("startingWeaponId", "");
-            int basePrice = charJson.value("basePrice", 0);
-
-            std::unordered_map<std::string, float> stats;
-            if(charJson.contains("stats") && charJson["stats"].is_object())
-            {
-                for(auto& el : charJson["stats"].items())
-                {
-                    stats[el.key()] = el.value().get<float>();
-                }
-            }
-
-            CharacterProfile profile(id, name, description, portraitTextureId, startingWeaponId, basePrice, stats);
-            m_characters.insert({id, profile});
+            continue;
         }
+
+        m_characterOrder.push_back(id);
+
+        const auto& charJson = el.value()[0];
+
+        std::string charName = charJson.value("charName", "Unknown");
+        std::string surname = charJson.value("surname", "");
+        std::string name = charName;
+        if(!surname.empty())
+        {
+            name += " " + surname;
+        }
+
+        std::string description = charJson.value("description", "");
+        
+        std::string spriteName = charJson.value("spriteName", "");
+        size_t dotPos = spriteName.find_last_of('.');
+        if(dotPos != std::string::npos)
+        {
+            spriteName = spriteName.substr(0, dotPos);
+        }
+        std::string portraitTextureId = spriteName;
+
+        std::string startingWeaponId = charJson.value("startingWeapon", "");
+        int basePrice = charJson.value("price", 0);
+
+        std::unordered_map<std::string, float> stats;
+        std::vector<std::string> statKeys = {
+            "maxHp", "armor", "regen", "moveSpeed", "power", "cooldown",
+            "area", "speed", "duration", "amount", "luck", "growth",
+            "greed", "curse", "magnet", "revivals", "rerolls", "skips", "banish"
+        };
+
+        for(const auto& key : statKeys)
+        {
+            if(charJson.contains(key) && charJson[key].is_number())
+            {
+                stats[key] = charJson[key].get<float>();
+            }
+        }
+
+        bool isAlwaysHidden = charJson.value("alwaysHidden", false);
+        bool isBought = charJson.value("isBought", false);
+
+        CharacterProfile profile(id, name, description, portraitTextureId, startingWeaponId, basePrice, stats, isAlwaysHidden, isBought);
+        m_characters.insert({id, profile});
     }
 
     return true;
@@ -73,4 +105,9 @@ const CharacterProfile& CharacterDataManager::GetCharacterById(const std::string
 const std::unordered_map<std::string, CharacterProfile>& CharacterDataManager::GetAllCharacters() const
 {
     return m_characters;
+}
+
+const std::vector<std::string>& CharacterDataManager::GetCharacterOrder() const
+{
+    return m_characterOrder;
 }

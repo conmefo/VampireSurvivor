@@ -80,9 +80,10 @@ int runSfmlTest()
     animLibrary.LoadFromJson("Assets/Data/animations.json");
 
     CharacterDataManager characterDataManager;
-    characterDataManager.LoadData("Assets/Data/characters.json");
+    characterDataManager.LoadData("Assets/Data/CHARACTER_DATA.json");
     
     PlayerProgressionManager playerProgressionManager;
+    playerProgressionManager.InitializeUnlockedCharacters(characterDataManager.GetAllCharacters());
 
     StateManager stateManager;
     StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager);

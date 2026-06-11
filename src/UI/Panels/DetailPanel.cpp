@@ -6,10 +6,12 @@
 #include <SFML/Graphics/RenderWindow.hpp>
 
 DetailPanel::DetailPanel(TextureAtlas& atlas, const sf::Font& font)
-    : UIPanel(atlas, "frameB9", 10, 10, 10, 10)
+    : UIPanel(atlas, "frame1_c2", 12, 12, 12, 12)
     , m_atlas(atlas)
     , m_hasProfile(false)
 {
+    UIPanel::SetCornerScale(2.0f);
+
     m_nameText.setFont(font);
     m_nameText.setCharacterSize(24);
     m_nameText.setFillColor(sf::Color::White);

@@ -1,0 +1,134 @@
+{
+    "madnewPorta_01": {
+        "x": 1,
+        "y": 221,
+        "width": 28,
+        "height": 34
+    },
+    "madnewPorta_02": {
+        "x": 31,
+        "y": 221,
+        "width": 28,
+        "height": 34
+    },
+    "madnewPorta_03": {
+        "x": 61,
+        "y": 221,
+        "width": 28,
+        "height": 34
+    },
+    "madnewPorta_04": {
+        "x": 91,
+        "y": 221,
+        "width": 28,
+        "height": 34
+    },
+    "madPorta_01": {
+        "x": 1,
+        "y": 80,
+        "width": 25,
+        "height": 33
+    },
+    "madPorta_02": {
+        "x": 1,
+        "y": 150,
+        "width": 26,
+        "height": 33
+    },
+    "madPorta_03": {
+        "x": 29,
+        "y": 150,
+        "width": 26,
+        "height": 33
+    },
+    "madPorta_04": {
+        "x": 61,
+        "y": 151,
+        "width": 27,
+        "height": 33
+    },
+    "madPorta_05": {
+        "x": 57,
+        "y": 116,
+        "width": 26,
+        "height": 33
+    },
+    "madPorta_06": {
+        "x": 85,
+        "y": 116,
+        "width": 26,
+        "height": 33
+    },
+    "madPorta_07": {
+        "x": 28,
+        "y": 80,
+        "width": 25,
+        "height": 33
+    },
+    "newPorta_01": {
+        "x": 61,
+        "y": 186,
+        "width": 28,
+        "height": 33
+    },
+    "newPorta_02": {
+        "x": 1,
+        "y": 185,
+        "width": 28,
+        "height": 34
+    },
+    "newPorta_03": {
+        "x": 91,
+        "y": 186,
+        "width": 28,
+        "height": 33
+    },
+    "newPorta_04": {
+        "x": 31,
+        "y": 185,
+        "width": 28,
+        "height": 34
+    },
+    "Porta_01": {
+        "x": 1,
+        "y": 45,
+        "width": 25,
+        "height": 33
+    },
+    "Porta_02": {
+        "x": 1,
+        "y": 115,
+        "width": 26,
+        "height": 33
+    },
+    "Porta_03": {
+        "x": 29,
+        "y": 115,
+        "width": 26,
+        "height": 33
+    },
+    "Porta_04": {
+        "x": 90,
+        "y": 151,
+        "width": 27,
+        "height": 33
+    },
+    "Porta_05": {
+        "x": 57,
+        "y": 81,
+        "width": 26,
+        "height": 33
+    },
+    "Porta_06": {
+        "x": 85,
+        "y": 81,
+        "width": 26,
+        "height": 33
+    },
+    "Porta_07": {
+        "x": 1,
+        "y": 10,
+        "width": 25,
+        "height": 33
+    }
+}

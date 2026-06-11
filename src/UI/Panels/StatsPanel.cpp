@@ -13,25 +13,25 @@ StatsPanel::StatsPanel(TextureAtlas& atlas, const sf::Font& font)
     , m_font(font)
 {
     m_statKeys = {
-        "MaxHealth",
-        "Recovery",
-        "Armor",
-        "MoveSpeed",
-        "Might",
-        "Speed",
-        "Duration",
-        "Area",
-        "Cooldown",
-        "Amount",
-        "Revival",
-        "Magnet",
-        "Luck",
-        "Growth",
-        "Greed",
-        "Curse",
-        "Reroll",
-        "Skip",
-        "Banish"
+        "maxHp",
+        "regen",
+        "armor",
+        "moveSpeed",
+        "power",
+        "speed",
+        "duration",
+        "area",
+        "cooldown",
+        "amount",
+        "revivals",
+        "magnet",
+        "luck",
+        "growth",
+        "greed",
+        "curse",
+        "rerolls",
+        "skips",
+        "banish"
     };
 
     if(!s_boldFontLoaded)
@@ -68,12 +68,31 @@ StatsPanel::StatsPanel(TextureAtlas& atlas, const sf::Font& font)
 
         m_rows.push_back(row);
     }
+
+    UIPanel::SetCornerScale(1.3f);
 }
 
 std::string StatsPanel::FormatLabelName(const std::string& key) const
 {
-    if(key == "MaxHealth") return "Max Health";
-    if(key == "MoveSpeed") return "Move Speed";
+    if(key == "maxHp") return "Max Health";
+    if(key == "moveSpeed") return "Move Speed";
+    if(key == "regen") return "Recovery";
+    if(key == "power") return "Might";
+    if(key == "speed") return "Speed";
+    if(key == "duration") return "Duration";
+    if(key == "area") return "Area";
+    if(key == "cooldown") return "Cooldown";
+    if(key == "amount") return "Amount";
+    if(key == "revivals") return "Revival";
+    if(key == "magnet") return "Magnet";
+    if(key == "luck") return "Luck";
+    if(key == "growth") return "Growth";
+    if(key == "greed") return "Greed";
+    if(key == "curse") return "Curse";
+    if(key == "rerolls") return "Reroll";
+    if(key == "skips") return "Skip";
+    if(key == "banish") return "Banish";
+    if(key == "armor") return "Armor";
     return key;
 }
 
@@ -99,15 +118,23 @@ void StatsPanel::FormatStatText(StatRow& row, float value) const
 
     std::ostringstream oss;
     
-    if(row.key == "Speed" || row.key == "Might" || row.key == "Duration" || row.key == "Area" || row.key == "Cooldown" || row.key == "Luck" || row.key == "Growth" || row.key == "Greed" || row.key == "Curse")
+    if(row.key == "speed" || row.key == "power" || row.key == "duration" || row.key == "area" || row.key == "cooldown" || row.key == "luck" || row.key == "growth" || row.key == "greed" || row.key == "curse")
     {
-        if(value > 0.0f)
+        // Many multipliers start at 1.0 (meaning 0% bonus), we subtract 1.0f to get the % difference
+        float diff = value - 1.0f;
+        if(std::abs(diff) < 0.001f) // Effectively 0
+        {
+            row.valueText.setString("-");
+            return;
+        }
+
+        if(diff > 0.0f)
         {
             oss << "+";
         }
-        oss << static_cast<int>(value * 100.0f) << "%";
+        oss << static_cast<int>(diff * 100.0f) << "%";
     }
-    else if(row.key == "Amount" || row.key == "Revival" || row.key == "Reroll" || row.key == "Skip" || row.key == "Banish" || row.key == "Armor" || row.key == "Magnet")
+    else if(row.key == "amount" || row.key == "revivals" || row.key == "rerolls" || row.key == "skips" || row.key == "banish" || row.key == "armor" || row.key == "magnet")
     {
         if(value > 0.0f)
         {
@@ -138,7 +165,7 @@ void StatsPanel::SetPosition(const sf::Vector2f& pos)
         
         currentY += ROW_PADDING;
         
-        if(row.key == "MoveSpeed" || row.key == "Area" || row.key == "Magnet" || row.key == "Curse")
+        if(row.key == "moveSpeed" || row.key == "area" || row.key == "magnet" || row.key == "curse")
         {
             currentY += ROW_PADDING * 0.75f; // Add a small visual gap for groupings
         }

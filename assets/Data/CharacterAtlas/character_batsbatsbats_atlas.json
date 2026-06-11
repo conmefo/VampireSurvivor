@@ -1,0 +1,128 @@
+{
+    "BatsBatsBatsSelect": {
+        "x": 123,
+        "y": 119,
+        "width": 50,
+        "height": 40
+    },
+    "bbbats_2_Back_01": {
+        "x": 1,
+        "y": 230,
+        "width": 64,
+        "height": 25
+    },
+    "bbbats_2_Back_02": {
+        "x": 1,
+        "y": 204,
+        "width": 61,
+        "height": 24
+    },
+    "bbbats_2_Back_03": {
+        "x": 130,
+        "y": 181,
+        "width": 58,
+        "height": 25
+    },
+    "bbbats_2_Back_04": {
+        "x": 133,
+        "y": 230,
+        "width": 62,
+        "height": 25
+    },
+    "bbbats_2_Front_01": {
+        "x": 236,
+        "y": 133,
+        "width": 16,
+        "height": 15
+    },
+    "bbbats_2_Front_02": {
+        "x": 203,
+        "y": 128,
+        "width": 24,
+        "height": 13
+    },
+    "bbbats_2_Front_03": {
+        "x": 175,
+        "y": 129,
+        "width": 26,
+        "height": 12
+    },
+    "bbbats_2_Front_04": {
+        "x": 236,
+        "y": 150,
+        "width": 19,
+        "height": 15
+    },
+    "bbbats_3_Back_01": {
+        "x": 180,
+        "y": 143,
+        "width": 54,
+        "height": 22
+    },
+    "bbbats_3_Back_02": {
+        "x": 123,
+        "y": 161,
+        "width": 55,
+        "height": 18
+    },
+    "bbbats_3_Back_03": {
+        "x": 1,
+        "y": 161,
+        "width": 57,
+        "height": 17
+    },
+    "bbbats_3_Back_04": {
+        "x": 193,
+        "y": 194,
+        "width": 60,
+        "height": 19
+    },
+    "bbbats_3_Front_01": {
+        "x": 190,
+        "y": 167,
+        "width": 56,
+        "height": 25
+    },
+    "bbbats_3_Front_02": {
+        "x": 130,
+        "y": 208,
+        "width": 61,
+        "height": 20
+    },
+    "bbbats_3_Front_03": {
+        "x": 67,
+        "y": 235,
+        "width": 64,
+        "height": 20
+    },
+    "bbbats_3_Front_04": {
+        "x": 1,
+        "y": 180,
+        "width": 61,
+        "height": 22
+    },
+    "bbbats_i01": {
+        "x": 67,
+        "y": 192,
+        "width": 61,
+        "height": 41
+    },
+    "bbbats_i02": {
+        "x": 1,
+        "y": 113,
+        "width": 56,
+        "height": 46
+    },
+    "bbbats_i03": {
+        "x": 64,
+        "y": 147,
+        "width": 57,
+        "height": 43
+    },
+    "bbbats_i04": {
+        "x": 197,
+        "y": 215,
+        "width": 58,
+        "height": 40
+    }
+}

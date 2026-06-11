@@ -1,0 +1,26 @@
+{
+    "player_ziappunta_01": {
+        "x": 1,
+        "y": 93,
+        "width": 34,
+        "height": 34
+    },
+    "player_ziappunta_02": {
+        "x": 1,
+        "y": 57,
+        "width": 34,
+        "height": 34
+    },
+    "player_ziappunta_03": {
+        "x": 1,
+        "y": 21,
+        "width": 34,
+        "height": 34
+    },
+    "player_ziappunta_04": {
+        "x": 37,
+        "y": 93,
+        "width": 34,
+        "height": 34
+    }
+}

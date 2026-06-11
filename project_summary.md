@@ -217,3 +217,11 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 ## Update: Font Typography Refinements
 * **Font Asset Expansion:** Integrated `assets/fonts/courier_bold.ttf` alongside the primary font, utilizing a robust static fallback loading pattern to prevent runtime crashes if the asset path is unresolved.
 * **StatsPanel Readability:** Applied the bold font dynamically to the procedurally generated statistic values inside `StatsPanel`, guaranteeing visual contrast against the standard property labels while retaining global encapsulation standards.
+
+***
+
+## Update: Authentic Character Data Integration
+* **Data Migration:** Replaced the mock character JSON loading pipeline with direct integration of the authentic, original `CHARACTER_DATA.json` asset from the game.
+* **JSON Pre-processing:** Implemented parsing logic to drill into the specific array schemas, extracting exactly the base profile strings (`charName`, `surname`, `description`, `spriteName`) and float-based stats needed to perfectly map to our `CharacterProfile` class.
+* **Sanitization:** Added automatic `.png` stripping for image asset references to ensure compatibility with our internal `TextureAtlas` ID formatting.
+* **UI Math & Formatting Optimization:** Standardized UI parsing across `StatsPanel.cpp` to accurately match camelCase keys natively loaded from the new data format. Implemented dynamic arithmetic to correctly translate internal `1.1f` data constraints into explicit `+10%` display outputs for variables like `Might` and `Speed`.

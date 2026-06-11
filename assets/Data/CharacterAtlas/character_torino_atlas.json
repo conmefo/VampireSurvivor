@@ -1,0 +1,80 @@
+{
+    "Torino2_i01": {
+        "x": 1,
+        "y": 11,
+        "width": 35,
+        "height": 34
+    },
+    "Torino2_i02": {
+        "x": 1,
+        "y": 84,
+        "width": 37,
+        "height": 35
+    },
+    "Torino2_i03": {
+        "x": 1,
+        "y": 121,
+        "width": 38,
+        "height": 34
+    },
+    "Torino2_i04": {
+        "x": 1,
+        "y": 47,
+        "width": 37,
+        "height": 35
+    },
+    "Torino3_i01": {
+        "x": 1,
+        "y": 207,
+        "width": 47,
+        "height": 48
+    },
+    "Torino3_i02": {
+        "x": 50,
+        "y": 207,
+        "width": 47,
+        "height": 48
+    },
+    "Torino3_i03": {
+        "x": 1,
+        "y": 157,
+        "width": 47,
+        "height": 48
+    },
+    "Torino3_i04": {
+        "x": 50,
+        "y": 158,
+        "width": 47,
+        "height": 47
+    },
+    "Torino3_i05": {
+        "x": 50,
+        "y": 109,
+        "width": 47,
+        "height": 47
+    },
+    "Torino_i01": {
+        "x": 70,
+        "y": 82,
+        "width": 31,
+        "height": 25
+    },
+    "Torino_i02": {
+        "x": 38,
+        "y": 19,
+        "width": 30,
+        "height": 26
+    },
+    "Torino_i03": {
+        "x": 99,
+        "y": 202,
+        "width": 26,
+        "height": 25
+    },
+    "Torino_i04": {
+        "x": 99,
+        "y": 229,
+        "width": 26,
+        "height": 26
+    }
+}
