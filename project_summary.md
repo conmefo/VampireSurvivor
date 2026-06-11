@@ -120,3 +120,27 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Text Alignment System:** Overhauled text positioning within `UIPanel`. Replaced static centering with a dedicated `TextAlignment` enum (`Left`, `Center`, `Right`). The `AlignText()` logic automatically calculates exact SFML origin offsets and applies standard padding, ensuring text gracefully hugs the correct border of any fluid-width UI container.
 * **Modular MainMenu Creation:** Upgraded the `createButton` helper lambda in `MainMenuState` to dynamically accept individual width, height, and text sizes. This allows distinct button groups (e.g., central clusters vs. header/footer action buttons) to exist cleanly within the same local factory method while using distinct visual layouts.
 * **Layered Compositing Expansion:** Augmented `MainMenuState` to natively support z-indexed rendering. Implemented a semi-transparent `sf::RectangleShape` overlay that draws explicitly behind the `UIManager` but on top of the composite background, natively separating foreground interactive elements from static backdrops.
+
+***
+
+## Update: Character Data Model Implementation
+* **Created:** `CharacterProfile` data class located in `src/Core/Data/CharacterProfile.h`.
+* **Manifesto Compliance:** Designed strictly as a pure data container following Absolute Encapsulation (all members private with public `const` getters). Utilizes Allman bracing style.
+* **Data-Driven Pillars:** Extracted standard RPG variables (max health, move speed) into a dynamic dictionary (`std::unordered_map<std::string, float> stats;`) to enforce zero hard-coded stats in C++.
+* **Added Properties:** Supported the UI system by including `portraitTextureId`, `startingWeaponId`, and `basePrice` fields to represent unlock progression and distinct visual traits natively decoupled from `sf::Texture`.
+
+***
+
+## Update: Virtual Button System & Detail Panel (Phase 3.1)
+* **O(1) Matrix Detection:** Implemented `sf::Event::MouseButtonPressed` routing inside `UIGridLayout` to figure out which card was clicked using division/remainder bounds checking instead of iterating through visual hitboxes.
+* **Dynamic Draw-Time Tints:** Implemented the Flyweight render pass in `UIGridLayout`. Right before `m_stampCard.Draw` is executed for index `i`, we dynamically swap its inner `m_bgNineSlice` color! On Press, we drop it to a tinted `150,150,150`. On Release, it stamps the bright yellow `selectionSquare_03` `NineSliceComponent` right over the bounds of the card.
+* **`UIDetailPanel` Architecture:** Constructed a bottom layout spanning the entire width of the scrolling frame (`750px`). The layout anchors exactly at the bottom border of `UIScrollView` and spans down `155px` to rest identically parallel to the main background margin. The layout reads data emitted from the `m_onSelectionChanged` grid callback.
+
+***
+
+## Update: UI Layout Polish & Dynamic 9-Slice Geometry
+* **Dynamic Corner Scaling:** Upgraded `NineSliceComponent` to replace automatic ratio calculations with explicit, integer-based `SetCornerScale()`, ensuring pixel-art frames upscale dynamically without geometry distortion. Exposed this scale parameter through the `UIPanel` and `UIButton` hierarchy.
+* **Scroll View Boundaries:** Added comprehensive padding parameters (`m_paddingLeft`, `m_paddingTop`, `m_paddingBottom`) to `UIScrollView`. Mouse clicks are now strictly clipped inside the visible render rect, and out-of-bounds dragging passes fake `MouseMoved` events to reliably un-hover nested UI elements.
+* **PowerUpState Enhancements:** Expanded the main `UIGridLayout` boundaries with precise scrollview offsets to achieve a 15px topmost overscroll threshold. Grid selection now defaults to the first item (`Index 0`) instantly upon load.
+* **Detail Panel Upgrade:** Swapped raw descriptive text for dynamically sized item icons (`sf::Sprite`) and framed them perfectly using texture coordinates extracted directly from the layout JSON. The "Buy" button was fully upgraded with transparent hover opacities and 2x pixel corners.
+* **MainMenu Polish:** Fixed texture-swap priority issues on transparent buttons and scaled the animated selection arrows `2.0x` while increasing their positional padding bounds to prevent clipping.
