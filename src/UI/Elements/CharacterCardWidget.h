@@ -44,6 +44,7 @@ public:
 
     void SetState(CardState state);
     CardState GetState() const;
+    const std::string& GetCharacterId() const;
 
     void SetOnClickCallback(std::function<void(const std::string&)> callback);
 

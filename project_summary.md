@@ -186,3 +186,11 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
   * **Selected/Normal:** Dynamically swaps between two distinct `NineSliceComponent` instances (`"frameB9"` for the bright gold selection border and `"frame5_c4"` for standard display).
 * **Decoupled Callbacks:** Integrates an `m_onClickCallback` (`std::function`) to safely bubble up click events with the specific `m_characterId`, completely avoiding hard-coded state transitions within the card itself.
 * **Layout Composition:** Safely composes and positions multiple layers within the widget bounds: the name label, portrait sprite, weapon preview icon, and nine-slice borders.
+
+***
+
+## Update: RosterGridPanel Implementation (Task 8)
+* **Dynamic Grid Layout:** Dynamically loops through characters and maps them to a responsive UI grid layout (`MAX_COLUMNS = 4`) using strict math constraints without absolute positioning magic numbers.
+* **Data Hydration:** Implemented the `InitializeRoster` method, retrieving profile data from `CharacterDataManager` and mapping unlock statuses directly via `PlayerProgressionManager`.
+* **Single-Selection Mediator Flow:** Wrote a unified mediator callback that seamlessly resets previous selections, sets the current widget state to `Selected`, and cleanly propagates the change to the parent View without circular dependencies.
+* **Cascading Lifecycle Operations:** Encapsulated `Update`, `HandleEvent`, and `Draw` seamlessly to all instantiated child `CharacterCardWidget` elements using simple vector iteration.

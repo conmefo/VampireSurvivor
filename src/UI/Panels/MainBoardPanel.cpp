@@ -6,7 +6,7 @@
 
 MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font)
     : UIPanel(atlas, "frame5_c4", 12, 12, 12, 12)
-    , m_rosterGrid(std::make_unique<RosterGridPanel>(atlas))
+    , m_rosterGrid(std::make_unique<RosterGridPanel>(atlas, font))
     , m_detailPanel(std::make_unique<DetailPanel>(atlas))
 {
     m_titleText.setFont(font);

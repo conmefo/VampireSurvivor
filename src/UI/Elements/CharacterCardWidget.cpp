@@ -53,6 +53,11 @@ CardState CharacterCardWidget::GetState() const
     return m_state;
 }
 
+const std::string& CharacterCardWidget::GetCharacterId() const
+{
+    return m_characterId;
+}
+
 void CharacterCardWidget::SetOnClickCallback(std::function<void(const std::string&)> callback)
 {
     m_onClickCallback = std::move(callback);

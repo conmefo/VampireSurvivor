@@ -1,32 +1,32 @@
-**Context:** We are developing a Vampire Survivors clone in C++ using SFML. We strictly adhere to our `Core Manifesto` (Allman bracing style, Zero-Space control flow rule, and absolute Encapsulation). We have successfully implemented the `StatsPanel` and the high-level layout controller.
+**Context:** We are developing a Vampire Survivors clone in C++ using SFML. We strictly adhere to our `Core Manifesto` (Allman bracing style, Zero-Space control flow rule, and absolute Encapsulation). We have successfully implemented the single `CharacterCardWidget`.
 
-**Current Task (Task 7): Implement the CharacterCardWidget Class**
+**Current Task (Task 8): Implement the RosterGridPanel Class**
 
-Please write the complete, production-ready C++ code (both Header and Source files) for the `CharacterCardWidget` class. This class represents a single interactive grid slot/button for an individual character within the character roster.
+Please write the complete, production-ready C++ code (both Header and Source files) for the `RosterGridPanel` class, replacing its previous stub. This class is responsible for arranging multiple `CharacterCardWidget` components into a clean, responsive grid layout inside the main board.
 
 **Architectural Guidelines & Requirements:**
-1. **State Management:** The widget must track its own visual state using an internal enum:
-   ```cpp
-   enum class CardState
-   {
-       Normal,
-       Selected,
-       Locked
-   };
-   ```
-2. **Data Ingestion & Visual Setup:**
-   - The constructor or initializer must accept a `const CharacterProfile&` and a boolean flag indicating whether the character is unlocked (queried from `PlayerProgressionManager`).
-   - If the character is **Locked**, the card must render the character's sprite as a solid black silhouette (using `sf::Sprite::setColor(sf::Color::Black)`) as seen with Gennaro in the mockup.
-   - If the character is **Selected**, the card must display a distinct thick gold selection border highlighted around its bounding frame (as seen with Pasqualina).
-3. **Interactive Capabilities (Click Detection):**
-   - Implement `HandleEvent(const sf::Event& event, const sf::RenderWindow& window)` to capture mouse interactions.
-   - It must detect when the player hovers over or clicks inside the card's local bounding box.
-   - **Decoupled Callbacks:** Do NOT hard-code any screen transition or selection logic inside this class. Instead, provide a mechanism to register a click callback, such as `std::function<void(const std::string& characterId)> m_onClickCallback;`. When clicked (and not locked), it executes this callback, passing its own character ID upwards to the parent container.
-4. **Layout Composition:** Each card compositionally owns its visual components: an outer border texture/panel, the character inner sprite, and the tiny starting weapon preview icon drawn adjacent to it.
+1. **Grid Layout Generation & Dynamic Math:**
+   - The panel must dynamically calculate the positions of its child cards using loop indices. Do NOT hard-code absolute positions for individual cards.
+   - Define strict grid constraints using `private static constexpr` values in the header (Tier 2 Constant Management), such as `MAX_COLUMNS = 4`, `CARD_SPACING_X = 15.0f`, `CARD_SPACING_Y = 15.0f`, and `GRID_START_OFFSET`.
+   - Formula logic: For each card at index `i`, its local grid column is `i % MAX_COLUMNS` and its row is `i / MAX_COLUMNS`.
+
+2. **Data Hydration:**
+   - The panel must provide an initialization method that accepts references to both `CharacterDataManager` and `PlayerProgressionManager`.
+   - It will iterate through all profiles from the manager, check their unlock status, instantiate a `std::unique_ptr<CharacterCardWidget>` for each, and store them in an internal `std::vector`.
+
+3. **Single-Selection Logic & Mediator Pattern:**
+   - Track the currently active selection using a `std::string m_selectedCharacterId` member variable.
+   - When creating child cards, bind a custom callback lambda to each card's click event. 
+   - When a card is clicked, the `RosterGridPanel` must intercept the event, loop through all other cards to reset their state to `Normal` (or `Locked`), set the clicked card's state to `Selected`, update `m_selectedCharacterId`, and propagate the selection changed event upwards to the parent `CharacterSelectionView` using a registered parent callback (`std::function<void(const std::string&)>`).
+
+4. **Lifecycle Cascading:**
+   - Standardize on `Update(float deltaTime)`, `HandleEvent(const sf::Event& event, const sf::RenderWindow& window)`, and `Draw(sf::RenderWindow& window)`.
+   - These methods must seamlessly loop through the internal vector and cascade the calls down to every child card.
+
 5. **Coding Standards Compliance (Non-Negotiable):**
-   - **Allman Bracing:** Every single opening and closing brace `{}` must reside on its own dedicated line, vertically aligned.
+   - **Allman Bracing Style:** Every opening and closing brace `{}` must reside on its own dedicated line, vertically aligned.
    - **Zero-Space Rule:** No spaces between control flow keywords and their opening parentheses (e.g., use `if()`, `for()`, `while()`).
-   - **Encapsulation:** All internal graphical dimensions, sprite textures, states, and callback handlers must be strictly `private`.
+   - **Encapsulation:** Keep the vector of child cards, constraints, and selection states strictly `private`.
 
 **Deliverable:**
-Provide the complete C++ implementation split into `CharacterCardWidget.h` and `CharacterCardWidget.cpp`. Ensure seamless integration and compliance with the project's rendering flow.
+Provide the complete C++ implementation split into `RosterGridPanel.h` and `RosterGridPanel.cpp`. Ensure full compatibility with the existing UI view system and compile using cmake.

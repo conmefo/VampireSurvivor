@@ -17,4 +17,13 @@ public:
     {
         m_gold += amount;
     }
+
+    bool IsCharacterUnlocked(const std::string& characterId) const
+    {
+        if (characterId.find("gennaro") != std::string::npos || characterId.find("Gennaro") != std::string::npos)
+        {
+            return false;
+        }
+        return true;
+    }
 };

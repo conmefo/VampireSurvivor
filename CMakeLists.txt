@@ -78,6 +78,7 @@ add_executable(VampireSurvivors
     src/UI/Elements/CharacterCardWidget.cpp
     src/Core/Data/CharacterDataManager.cpp
     src/UI/Panels/MainBoardPanel.cpp
+    src/UI/Panels/RosterGridPanel.cpp
     src/UI/Panels/StatsPanel.cpp
     src/UI/Views/CharacterSelectionView.cpp
 )
