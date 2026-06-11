@@ -29,6 +29,9 @@ public:
 
     void InitializeLayout(const sf::Vector2f& size);
 
+    RosterGridPanel* GetRosterGrid() const { return m_rosterGrid.get(); }
+    DetailPanel* GetDetailPanel() const { return m_detailPanel.get(); }
+
     void Update(float deltaTime) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;
     void Draw(sf::RenderTarget& target) override;

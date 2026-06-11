@@ -45,8 +45,8 @@ add_executable(VampireSurvivors
     src/States/StateManager.cpp
     src/States/Intro/LoadingState.cpp
     src/States/Intro/WarningState.cpp
-    src/States/Menu/MainMenuState.cpp
     src/States/Menu/PowerUpState.cpp
+    src/States/Menu/CharacterSelectionScreen.cpp
     src/States/Game/GameState.cpp
     src/World/TileMap.cpp
     src/Core/Math/MathUtils.cpp

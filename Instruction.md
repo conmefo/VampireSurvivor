@@ -1,27 +1,29 @@
-**Context:** We are developing a Vampire Survivors clone in C++ using SFML. We strictly adhere to our `Core Manifesto` (Allman bracing style, Zero-Space control flow rule, and absolute Encapsulation). We have successfully implemented the character card grid, and now we need to complete the last inner component of the main board.
+**Context:** We are developing a Vampire Survivors clone in C++ using SFML. We strictly adhere to our `Core Manifesto` (Allman bracing style, Zero-Space control flow rule, and absolute Encapsulation). All underlying data managers, core layout panels (`StatsPanel`, `RosterGridPanel`, `DetailPanel`), and widgets are now fully operational.
 
-**Current Task (Task 9): Implement the DetailPanel Class**
+**Current Task (Task 10): Implement Action Buttons and Final State Integration**
 
-Please flesh out the complete, production-ready C++ code (both Header and Source files) for the `DetailPanel` class, replacing its previous stub. This panel sits at the bottom inside the `MainBoardPanel` and displays the selected character's full name, starting weapon icon, and dynamic passive description text.
+Please write the complete, production-ready C++ code to implement the standalone functional buttons ("BACK", "Confirm") within the view layout, and fully construct the master `CharacterSelectionScreen` state class to wire the entire system together.
 
 **Architectural Guidelines & Requirements:**
-1. **Visual Composition:** The panel must internalize and arrange:
-   - An `sf::Text` for the character's full display name.
-   - An `sf::Sprite` (and optional framing box) to render the character's starting weapon icon based on the profile's `startingWeaponId`.
-   - An `sf::Text` wrapper supporting multi-line description string formatting for the passive skill.
-2. **Interface for Selection Changes:**
-   - Provide a public method: `void SetCharacterProfile(const CharacterProfile& profile)`.
-   - When called, the panel must immediately refresh its internal text strings and query the asset manager (passed during initialization) to change the starting weapon sprite texture.
-3. **Internal Layout Metrics (Anti-Hard-Coding):**
-   - Relative positioning is mandatory. Define internal offsets using `private static constexpr float` metrics within the header file (e.g., `TEXT_PADDING_X`, `ICON_SIZE`, `SPACE_BETWEEN_ELEMENTS`).
-   - The weapon icon box and text blocks must align perfectly with respect to the panel's own relative bounding box. No raw magic numbers allowed in the `.cpp` file layout math.
-4. **Lifecycle Methods:**
-   - Implement standard `Update(float deltaTime)`, `HandleEvent(const sf::Event& event)` (can be empty), and `Draw(sf::RenderWindow& window)`.
-   - The `Draw` method must render the sub-panel background/borders first, followed by the text elements and the weapon icon sprite.
-5. **Coding Standards Compliance (Non-Negotiable):**
+1. **Button Core Integration:**
+   - Instantiate and position the "BACK" button and the "Confirm" button within the `CharacterSelectionView` orchestrator. 
+   - Position them relative to the viewport boundaries using `private static constexpr` layout markers to ensure pixel-perfect conversion across different resolutions.
+   - The "Confirm" button's visibility or active state should dynamically change based on selection (e.g., disabled/greyed out if no character is selected or if the selected character is currently locked).
+
+2. **Master State Construction (`CharacterSelectionScreen`):**
+   - Implement the actual game state class inheriting from your project's base `State` class.
+   - It must encapsulate the `CharacterSelectionView` using a lifetime manager (`std::unique_ptr`).
+   - In its initialization phase, use Dependency Injection to query the static `CharacterDataManager` and dynamic `PlayerProgressionManager` from the overarching `StateContext` and pass them into the view.
+
+3. **Decoupled Event Routing & Transitions:**
+   - Wire lambda callbacks upward from the view into the `CharacterSelectionScreen` to handle state routing cleanly:
+     - **On "BACK" Clicked:** The state must intercept this and command the state machine to pop the overlay, smoothly resuming the underlying `MainMenuState`.
+     - **On "Confirm" Clicked:** The state must query the currently selected and validated character ID, save this selection context into the global game session, and trigger a state transition to launch the active gameplay phase.
+
+4. **Coding Standards Compliance (Non-Negotiable):**
    - **Allman Bracing Style:** Every opening and closing brace `{}` must reside on its own dedicated line, vertically aligned.
-   - **Zero-Space Rule:** No spaces between control flow keywords and their opening parentheses (e.g., use `if()`, `for()`, `while()`).
-   - **Encapsulation:** Keep all internal SFML graphical elements, text configurations, and dimensions strictly `private`.
+   - **Zero-Space Rule:** No spaces between control flow keywords and their opening parentheses (e.g., use `if()`, `for()`, `while()`, `switch()`).
+   - **Encapsulation:** Protect all internal states, button configurations, and core context views as private members.
 
 **Deliverable:**
-Provide the complete C++ implementation split into `DetailPanel.h` and `DetailPanel.cpp`. Ensure clean compilation with the existing layout system.
+Provide the complete C++ implementation split into `CharacterSelectionScreen.h` and `CharacterSelectionScreen.cpp`, alongside any final layout adjustments inside `CharacterSelectionView`. Ensure the entire character selection lifecycle compiles flawlessly and is ready for execution.

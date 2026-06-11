@@ -203,3 +203,11 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Internal Layout Metrics:** Replaced magic numbers with strict `private static constexpr` metrics (`TEXT_PADDING_X`, `SPACE_BETWEEN_ELEMENTS`, etc.).
 * **Cascading Positioning:** Leveraged `SetPosition()` to recalculate layout dynamically based on text bounds, keeping the weapon icon and description text neatly aligned.
 * **Coding Standards:** Ensured strict Allman bracing and Zero-Space control flow compatibility.
+
+***
+
+## Update: Action Buttons and Final State Integration (Task 10)
+* **Dependency Injection:** Expanded the overarching `StateContext` struct and `main.cpp` entry point to statically instantiate and distribute the `CharacterDataManager` and `PlayerProgressionManager` throughout all states cleanly.
+* **CharacterSelectionView Buttons:** Successfully integrated and laid out the "BACK" and "Confirm" `UIButton` elements within `CharacterSelectionView`, strictly using relative `constexpr` positioning for viewport scaling.
+* **Dynamic Confirm Validation:** Wired the "Confirm" button to validate against the `PlayerProgressionManager` dynamically. When an unlocked character is selected, it shifts its `ButtonState` to `Normal`. For locked characters (e.g. Gennaro), it resets to `Disabled`.
+* **State Encapsulation:** Created the official `CharacterSelectionScreen` state object managing the `CharacterSelectionView` overlay. It cleanly passes its initialized dependencies down into the View and intercepts the upward bubbling lambda callbacks to either pop the state context (BACK) or advance the state machine into gameplay (Confirm).
