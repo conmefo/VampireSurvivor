@@ -194,3 +194,12 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Data Hydration:** Implemented the `InitializeRoster` method, retrieving profile data from `CharacterDataManager` and mapping unlock statuses directly via `PlayerProgressionManager`.
 * **Single-Selection Mediator Flow:** Wrote a unified mediator callback that seamlessly resets previous selections, sets the current widget state to `Selected`, and cleanly propagates the change to the parent View without circular dependencies.
 * **Cascading Lifecycle Operations:** Encapsulated `Update`, `HandleEvent`, and `Draw` seamlessly to all instantiated child `CharacterCardWidget` elements using simple vector iteration.
+
+***
+
+## Update: DetailPanel Implementation (Task 9)
+* **Visual Composition:** Built the panel with private encapsulated `sf::Text` and `sf::Sprite` elements to display the selected character's name, description, and starting weapon preview.
+* **Dynamic Updates:** Created `SetCharacterProfile(...)` which instantly synchronizes all strings and spawns a new sprite for the weapon icon using the `TextureAtlas`.
+* **Internal Layout Metrics:** Replaced magic numbers with strict `private static constexpr` metrics (`TEXT_PADDING_X`, `SPACE_BETWEEN_ELEMENTS`, etc.).
+* **Cascading Positioning:** Leveraged `SetPosition()` to recalculate layout dynamically based on text bounds, keeping the weapon icon and description text neatly aligned.
+* **Coding Standards:** Ensured strict Allman bracing and Zero-Space control flow compatibility.
