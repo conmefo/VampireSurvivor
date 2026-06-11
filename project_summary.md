@@ -144,3 +144,27 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **PowerUpState Enhancements:** Expanded the main `UIGridLayout` boundaries with precise scrollview offsets to achieve a 15px topmost overscroll threshold. Grid selection now defaults to the first item (`Index 0`) instantly upon load.
 * **Detail Panel Upgrade:** Swapped raw descriptive text for dynamically sized item icons (`sf::Sprite`) and framed them perfectly using texture coordinates extracted directly from the layout JSON. The "Buy" button was fully upgraded with transparent hover opacities and 2x pixel corners.
 * **MainMenu Polish:** Fixed texture-swap priority issues on transparent buttons and scaled the animated selection arrows `2.0x` while increasing their positional padding bounds to prevent clipping.
+
+***
+
+## Update: Character Data Management & Parsing (Task 2)
+* **Created:** `CharacterDataManager` core logic in `src/Core/Data/CharacterDataManager.h` and `.cpp`.
+* **Manifesto Compliance:** Achieved 100% adherence to Allman bracing and the Zero-Space control flow rule. Designed entirely independent of `GetInstance()` Singleton architecture to support strict dependency injection.
+* **JSON Hydration:** Implemented dynamic external data loading using `nlohmann_json`, mapping the `characters` JSON array directly into an encapsulated `std::unordered_map<std::string, CharacterProfile>`.
+* **Safe Operations:** Implemented graceful failure handling within `GetCharacterById()` by returning a statically constructed `m_fallbackProfile` and logging an error if an invalid `id` is queried, preventing runtime segmentation faults while satisfying the `const CharacterProfile&` return signature constraint.
+
+***
+
+## Update: GoldDisplayWidget & Overlay UI (Task 4)
+* **Created:** Reusable `GoldDisplayWidget` class in `src/UI/Elements/GoldDisplayWidget.h` and `.cpp`.
+* **Composition & Reusability:** Inherits directly from `UIPanel` to automatically leverage the `NineSliceComponent` architecture, ensuring pixel-perfect parity with `MainMenuState` without duplicating draw logic.
+* **Performance Optimization:** Implemented a dirty-flag polling system (`m_lastKnownGold`). The widget constantly monitors the injected `PlayerProgressionManager` but only executes expensive string allocations and `sf::Text` updates when the balance physically changes.
+* **Seamless Overlay Architecture:** Exposed `DEFAULT_X` and `DEFAULT_Y` layout constants directly derived from the `MainMenuState` coordinates. When instantiated over the `CharacterSelectionScreen`, the widget perfectly aligns, providing a flicker-free visual anchor during state transitions.
+
+***
+
+## Update: View / Screen Layout Controller Pattern (Task 5)
+* **Created:** `CharacterSelectionView` as the top-level layout orchestrator and `MainBoardPanel` for the central character selection blue-purple board.
+* **Strict Encapsulation:** Decoupled layout math from the state layer. The `CharacterSelectionView` coordinates standalone components (`StatsPanel`, `MainBoardPanel`, `GoldDisplayWidget`, `ConfirmButton`) as structural siblings, passing exact layout coordinates relative to the screen size.
+* **Anti-Hard-Coding Compliance:** Replaced all magic numbers with `private static constexpr` layout metrics (e.g., `BOARD_WIDTH`, `STATS_MARGIN_RIGHT`). `StatsPanel` is now elegantly positioned to the left of the main board dynamically without using negative coordinates or visual clipping hacks.
+* **Cascading Lifecycle:** Both the View and the Panel accurately cascade standard lifecycle events (`Update`, `HandleEvent`, `Draw`) to all instantiated unique pointers, guaranteeing deterministic rendering order and event capture.

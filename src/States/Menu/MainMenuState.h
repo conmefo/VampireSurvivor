@@ -27,7 +27,6 @@ private:
     sf::Sprite m_compositeSprite;
     
     std::vector<sf::Sprite> m_illustrations;
-    sf::Sprite m_coinIcon;
     sf::RectangleShape m_topBarBg;
 
     UIManager m_uiManager;

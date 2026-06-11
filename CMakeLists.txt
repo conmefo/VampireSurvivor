@@ -74,6 +74,10 @@ add_executable(VampireSurvivors
     src/Core/Resources/TextureAtlas.cpp
     src/Core/Animation/AnimationLibrary.cpp
     src/Core/Animation/SpriteAnimator.cpp
+    src/UI/Elements/GoldDisplayWidget.cpp
+    src/Core/Data/CharacterDataManager.cpp
+    src/UI/Panels/MainBoardPanel.cpp
+    src/UI/Views/CharacterSelectionView.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 
