@@ -1,0 +1,182 @@
+{
+    "Tarantella_F_kick_i01": {
+        "x": 60,
+        "y": 61,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_kick_i02": {
+        "x": 33,
+        "y": 135,
+        "width": 29,
+        "height": 38
+    },
+    "Tarantella_F_kick_i03": {
+        "x": 97,
+        "y": 135,
+        "width": 29,
+        "height": 39
+    },
+    "Tarantella_F_kick_i04": {
+        "x": 60,
+        "y": 61,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_kick_i05": {
+        "x": 33,
+        "y": 175,
+        "width": 30,
+        "height": 38
+    },
+    "Tarantella_F_kick_i06": {
+        "x": 1,
+        "y": 174,
+        "width": 30,
+        "height": 39
+    },
+    "Tarantella_F_spin_i01": {
+        "x": 60,
+        "y": 61,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_spin_i02": {
+        "x": 64,
+        "y": 98,
+        "width": 26,
+        "height": 36
+    },
+    "Tarantella_F_spin_i03": {
+        "x": 29,
+        "y": 60,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_spin_i04": {
+        "x": 32,
+        "y": 97,
+        "width": 26,
+        "height": 36
+    },
+    "Tarantella_F_spin_i05": {
+        "x": 1,
+        "y": 59,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_tamborine_i01": {
+        "x": 60,
+        "y": 61,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_F_tamborine_i02": {
+        "x": 1,
+        "y": 23,
+        "width": 26,
+        "height": 34
+    },
+    "Tarantella_F_tamborine_i03": {
+        "x": 1,
+        "y": 215,
+        "width": 30,
+        "height": 40
+    },
+    "Tarantella_F_tamborine_i04": {
+        "x": 33,
+        "y": 215,
+        "width": 30,
+        "height": 40
+    },
+    "Tarantella_M_kick_i01": {
+        "x": 88,
+        "y": 60,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_kick_i02": {
+        "x": 64,
+        "y": 136,
+        "width": 29,
+        "height": 37
+    },
+    "Tarantella_M_kick_i03": {
+        "x": 1,
+        "y": 134,
+        "width": 29,
+        "height": 38
+    },
+    "Tarantella_M_kick_i04": {
+        "x": 88,
+        "y": 60,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_kick_i05": {
+        "x": 97,
+        "y": 176,
+        "width": 30,
+        "height": 37
+    },
+    "Tarantella_M_kick_i06": {
+        "x": 65,
+        "y": 175,
+        "width": 30,
+        "height": 38
+    },
+    "Tarantella_M_spin_i01": {
+        "x": 88,
+        "y": 60,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_spin_i02": {
+        "x": 1,
+        "y": 96,
+        "width": 26,
+        "height": 36
+    },
+    "Tarantella_M_spin_i03": {
+        "x": 57,
+        "y": 24,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_spin_i04": {
+        "x": 92,
+        "y": 97,
+        "width": 26,
+        "height": 36
+    },
+    "Tarantella_M_spin_i05": {
+        "x": 29,
+        "y": 23,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_tamborin_i01": {
+        "x": 88,
+        "y": 60,
+        "width": 26,
+        "height": 35
+    },
+    "Tarantella_M_tamborin_i02": {
+        "x": 85,
+        "y": 24,
+        "width": 26,
+        "height": 34
+    },
+    "Tarantella_M_tamborin_i03": {
+        "x": 65,
+        "y": 215,
+        "width": 30,
+        "height": 40
+    },
+    "Tarantella_M_tamborin_i04": {
+        "x": 97,
+        "y": 215,
+        "width": 30,
+        "height": 40
+    }
+}

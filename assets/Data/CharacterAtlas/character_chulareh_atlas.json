@@ -1,0 +1,110 @@
+{
+    "chulareh_i01": {
+        "x": 1,
+        "y": 162,
+        "width": 28,
+        "height": 36
+    },
+    "chulareh_i02": {
+        "x": 31,
+        "y": 162,
+        "width": 28,
+        "height": 36
+    },
+    "chulareh_i03": {
+        "x": 61,
+        "y": 162,
+        "width": 28,
+        "height": 36
+    },
+    "chulareh_i04": {
+        "x": 61,
+        "y": 125,
+        "width": 28,
+        "height": 35
+    },
+    "dice1": {
+        "x": 61,
+        "y": 104,
+        "width": 19,
+        "height": 19
+    },
+    "dice2": {
+        "x": 82,
+        "y": 104,
+        "width": 19,
+        "height": 19
+    },
+    "dice3": {
+        "x": 103,
+        "y": 104,
+        "width": 19,
+        "height": 19
+    },
+    "dice4": {
+        "x": 1,
+        "y": 103,
+        "width": 19,
+        "height": 19
+    },
+    "dice5": {
+        "x": 22,
+        "y": 103,
+        "width": 19,
+        "height": 19
+    },
+    "dice6": {
+        "x": 43,
+        "y": 83,
+        "width": 19,
+        "height": 19
+    },
+    "dice_lucky": {
+        "x": 1,
+        "y": 200,
+        "width": 55,
+        "height": 55
+    },
+    "dice_skull": {
+        "x": 1,
+        "y": 82,
+        "width": 19,
+        "height": 19
+    },
+    "dice_unknown": {
+        "x": 22,
+        "y": 82,
+        "width": 19,
+        "height": 19
+    },
+    "dice_unlucky": {
+        "x": 58,
+        "y": 200,
+        "width": 55,
+        "height": 55
+    },
+    "secretino_i01": {
+        "x": 91,
+        "y": 162,
+        "width": 28,
+        "height": 36
+    },
+    "secretino_i02": {
+        "x": 1,
+        "y": 124,
+        "width": 28,
+        "height": 36
+    },
+    "secretino_i03": {
+        "x": 31,
+        "y": 124,
+        "width": 28,
+        "height": 36
+    },
+    "secretino_i04": {
+        "x": 91,
+        "y": 125,
+        "width": 28,
+        "height": 35
+    }
+}

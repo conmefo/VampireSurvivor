@@ -120,3 +120,108 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Text Alignment System:** Overhauled text positioning within `UIPanel`. Replaced static centering with a dedicated `TextAlignment` enum (`Left`, `Center`, `Right`). The `AlignText()` logic automatically calculates exact SFML origin offsets and applies standard padding, ensuring text gracefully hugs the correct border of any fluid-width UI container.
 * **Modular MainMenu Creation:** Upgraded the `createButton` helper lambda in `MainMenuState` to dynamically accept individual width, height, and text sizes. This allows distinct button groups (e.g., central clusters vs. header/footer action buttons) to exist cleanly within the same local factory method while using distinct visual layouts.
 * **Layered Compositing Expansion:** Augmented `MainMenuState` to natively support z-indexed rendering. Implemented a semi-transparent `sf::RectangleShape` overlay that draws explicitly behind the `UIManager` but on top of the composite background, natively separating foreground interactive elements from static backdrops.
+
+***
+
+## Update: Character Data Model Implementation
+* **Created:** `CharacterProfile` data class located in `src/Core/Data/CharacterProfile.h`.
+* **Manifesto Compliance:** Designed strictly as a pure data container following Absolute Encapsulation (all members private with public `const` getters). Utilizes Allman bracing style.
+* **Data-Driven Pillars:** Extracted standard RPG variables (max health, move speed) into a dynamic dictionary (`std::unordered_map<std::string, float> stats;`) to enforce zero hard-coded stats in C++.
+* **Added Properties:** Supported the UI system by including `portraitTextureId`, `startingWeaponId`, and `basePrice` fields to represent unlock progression and distinct visual traits natively decoupled from `sf::Texture`.
+
+***
+
+## Update: Virtual Button System & Detail Panel (Phase 3.1)
+* **O(1) Matrix Detection:** Implemented `sf::Event::MouseButtonPressed` routing inside `UIGridLayout` to figure out which card was clicked using division/remainder bounds checking instead of iterating through visual hitboxes.
+* **Dynamic Draw-Time Tints:** Implemented the Flyweight render pass in `UIGridLayout`. Right before `m_stampCard.Draw` is executed for index `i`, we dynamically swap its inner `m_bgNineSlice` color! On Press, we drop it to a tinted `150,150,150`. On Release, it stamps the bright yellow `selectionSquare_03` `NineSliceComponent` right over the bounds of the card.
+* **`UIDetailPanel` Architecture:** Constructed a bottom layout spanning the entire width of the scrolling frame (`750px`). The layout anchors exactly at the bottom border of `UIScrollView` and spans down `155px` to rest identically parallel to the main background margin. The layout reads data emitted from the `m_onSelectionChanged` grid callback.
+
+***
+
+## Update: UI Layout Polish & Dynamic 9-Slice Geometry
+* **Dynamic Corner Scaling:** Upgraded `NineSliceComponent` to replace automatic ratio calculations with explicit, integer-based `SetCornerScale()`, ensuring pixel-art frames upscale dynamically without geometry distortion. Exposed this scale parameter through the `UIPanel` and `UIButton` hierarchy.
+* **Scroll View Boundaries:** Added comprehensive padding parameters (`m_paddingLeft`, `m_paddingTop`, `m_paddingBottom`) to `UIScrollView`. Mouse clicks are now strictly clipped inside the visible render rect, and out-of-bounds dragging passes fake `MouseMoved` events to reliably un-hover nested UI elements.
+* **PowerUpState Enhancements:** Expanded the main `UIGridLayout` boundaries with precise scrollview offsets to achieve a 15px topmost overscroll threshold. Grid selection now defaults to the first item (`Index 0`) instantly upon load.
+* **Detail Panel Upgrade:** Swapped raw descriptive text for dynamically sized item icons (`sf::Sprite`) and framed them perfectly using texture coordinates extracted directly from the layout JSON. The "Buy" button was fully upgraded with transparent hover opacities and 2x pixel corners.
+* **MainMenu Polish:** Fixed texture-swap priority issues on transparent buttons and scaled the animated selection arrows `2.0x` while increasing their positional padding bounds to prevent clipping.
+
+***
+
+## Update: Character Data Management & Parsing (Task 2)
+* **Created:** `CharacterDataManager` core logic in `src/Core/Data/CharacterDataManager.h` and `.cpp`.
+* **Manifesto Compliance:** Achieved 100% adherence to Allman bracing and the Zero-Space control flow rule. Designed entirely independent of `GetInstance()` Singleton architecture to support strict dependency injection.
+* **JSON Hydration:** Implemented dynamic external data loading using `nlohmann_json`, mapping the `characters` JSON array directly into an encapsulated `std::unordered_map<std::string, CharacterProfile>`.
+* **Safe Operations:** Implemented graceful failure handling within `GetCharacterById()` by returning a statically constructed `m_fallbackProfile` and logging an error if an invalid `id` is queried, preventing runtime segmentation faults while satisfying the `const CharacterProfile&` return signature constraint.
+
+***
+
+## Update: GoldDisplayWidget & Overlay UI (Task 4)
+* **Created:** Reusable `GoldDisplayWidget` class in `src/UI/Elements/GoldDisplayWidget.h` and `.cpp`.
+* **Composition & Reusability:** Inherits directly from `UIPanel` to automatically leverage the `NineSliceComponent` architecture, ensuring pixel-perfect parity with `MainMenuState` without duplicating draw logic.
+* **Performance Optimization:** Implemented a dirty-flag polling system (`m_lastKnownGold`). The widget constantly monitors the injected `PlayerProgressionManager` but only executes expensive string allocations and `sf::Text` updates when the balance physically changes.
+* **Seamless Overlay Architecture:** Exposed `DEFAULT_X` and `DEFAULT_Y` layout constants directly derived from the `MainMenuState` coordinates. When instantiated over the `CharacterSelectionScreen`, the widget perfectly aligns, providing a flicker-free visual anchor during state transitions.
+
+***
+
+## Update: View / Screen Layout Controller Pattern (Task 5)
+* **Created:** `CharacterSelectionView` as the top-level layout orchestrator and `MainBoardPanel` for the central character selection blue-purple board.
+* **Strict Encapsulation:** Decoupled layout math from the state layer. The `CharacterSelectionView` coordinates standalone components (`StatsPanel`, `MainBoardPanel`, `GoldDisplayWidget`, `ConfirmButton`) as structural siblings, passing exact layout coordinates relative to the screen size.
+* **Anti-Hard-Coding Compliance:** Replaced all magic numbers with `private static constexpr` layout metrics (e.g., `BOARD_WIDTH`, `STATS_MARGIN_RIGHT`). `StatsPanel` is now elegantly positioned to the left of the main board dynamically without using negative coordinates or visual clipping hacks.
+* **Cascading Lifecycle:** Both the View and the Panel accurately cascade standard lifecycle events (`Update`, `HandleEvent`, `Draw`) to all instantiated unique pointers, guaranteeing deterministic rendering order and event capture.
+
+***
+
+## Update: StatsPanel Data-Driven Implementation (Task 6)
+* **Dynamic Data Ingestion:** Updated `CharacterProfile` with a `GetStat()` helper method for direct access to individual attributes.
+* **Procedural Row Formatting:** `StatsPanel` loops through an internal vector of stat keys to procedurally generate and align 19 rows of `sf::Text` instead of relying on hard-coded individual text variables.
+* **Smart String Formatting:** The panel dynamically formats attribute values with appropriate `+` or `%` symbols depending on the specific stat (e.g., adding a percentage sign to 'Might' and 'Speed', while leaving 'MaxHealth' as a flat integer).
+* **Relative Vertical Layout:** Uses strict class-scoped constants (`ROW_PADDING`, `START_Y_OFFSET`) to calculate perfect vertical alignment, along with explicitly grouped visual gaps to match the game's exact UI layout.
+
+***
+
+## Update: CharacterCardWidget Interactive Element (Task 7)
+* **State Management:** Implemented an internal `CardState` enum (`Normal`, `Selected`, `Locked`) to drive visual state changes without external logic leaking into the component.
+* **Visual Fidelity:**
+  * **Locked:** Instantly applies `sf::Color::Black` to the character sprite, rendering it as a dark silhouette, and dims the character name.
+  * **Selected/Normal:** Dynamically swaps between two distinct `NineSliceComponent` instances (`"frameB9"` for the bright gold selection border and `"frame5_c4"` for standard display).
+* **Decoupled Callbacks:** Integrates an `m_onClickCallback` (`std::function`) to safely bubble up click events with the specific `m_characterId`, completely avoiding hard-coded state transitions within the card itself.
+* **Layout Composition:** Safely composes and positions multiple layers within the widget bounds: the name label, portrait sprite, weapon preview icon, and nine-slice borders.
+
+***
+
+## Update: RosterGridPanel Implementation (Task 8)
+* **Dynamic Grid Layout:** Dynamically loops through characters and maps them to a responsive UI grid layout (`MAX_COLUMNS = 4`) using strict math constraints without absolute positioning magic numbers.
+* **Data Hydration:** Implemented the `InitializeRoster` method, retrieving profile data from `CharacterDataManager` and mapping unlock statuses directly via `PlayerProgressionManager`.
+* **Single-Selection Mediator Flow:** Wrote a unified mediator callback that seamlessly resets previous selections, sets the current widget state to `Selected`, and cleanly propagates the change to the parent View without circular dependencies.
+* **Cascading Lifecycle Operations:** Encapsulated `Update`, `HandleEvent`, and `Draw` seamlessly to all instantiated child `CharacterCardWidget` elements using simple vector iteration.
+
+***
+
+## Update: DetailPanel Implementation (Task 9)
+* **Visual Composition:** Built the panel with private encapsulated `sf::Text` and `sf::Sprite` elements to display the selected character's name, description, and starting weapon preview.
+* **Dynamic Updates:** Created `SetCharacterProfile(...)` which instantly synchronizes all strings and spawns a new sprite for the weapon icon using the `TextureAtlas`.
+* **Internal Layout Metrics:** Replaced magic numbers with strict `private static constexpr` metrics (`TEXT_PADDING_X`, `SPACE_BETWEEN_ELEMENTS`, etc.).
+* **Cascading Positioning:** Leveraged `SetPosition()` to recalculate layout dynamically based on text bounds, keeping the weapon icon and description text neatly aligned.
+* **Coding Standards:** Ensured strict Allman bracing and Zero-Space control flow compatibility.
+
+***
+
+## Update: Action Buttons and Final State Integration (Task 10)
+* **Dependency Injection:** Expanded the overarching `StateContext` struct and `main.cpp` entry point to statically instantiate and distribute the `CharacterDataManager` and `PlayerProgressionManager` throughout all states cleanly.
+* **CharacterSelectionView Buttons:** Successfully integrated and laid out the "BACK" and "Confirm" `UIButton` elements within `CharacterSelectionView`, strictly using relative `constexpr` positioning for viewport scaling.
+* **Dynamic Confirm Validation:** Wired the "Confirm" button to validate against the `PlayerProgressionManager` dynamically. When an unlocked character is selected, it shifts its `ButtonState` to `Normal`. For locked characters (e.g. Gennaro), it resets to `Disabled`.
+* **State Encapsulation:** Created the official `CharacterSelectionScreen` state object managing the `CharacterSelectionView` overlay. It cleanly passes its initialized dependencies down into the View and intercepts the upward bubbling lambda callbacks to either pop the state context (BACK) or advance the state machine into gameplay (Confirm).
+
+***
+
+## Update: Font Typography Refinements
+* **Font Asset Expansion:** Integrated `assets/fonts/courier_bold.ttf` alongside the primary font, utilizing a robust static fallback loading pattern to prevent runtime crashes if the asset path is unresolved.
+* **StatsPanel Readability:** Applied the bold font dynamically to the procedurally generated statistic values inside `StatsPanel`, guaranteeing visual contrast against the standard property labels while retaining global encapsulation standards.
+
+***
+
+## Update: Authentic Character Data Integration
+* **Data Migration:** Replaced the mock character JSON loading pipeline with direct integration of the authentic, original `CHARACTER_DATA.json` asset from the game.
+* **JSON Pre-processing:** Implemented parsing logic to drill into the specific array schemas, extracting exactly the base profile strings (`charName`, `surname`, `description`, `spriteName`) and float-based stats needed to perfectly map to our `CharacterProfile` class.
+* **Sanitization:** Added automatic `.png` stripping for image asset references to ensure compatibility with our internal `TextureAtlas` ID formatting.
+* **UI Math & Formatting Optimization:** Standardized UI parsing across `StatsPanel.cpp` to accurately match camelCase keys natively loaded from the new data format. Implemented dynamic arithmetic to correctly translate internal `1.1f` data constraints into explicit `+10%` display outputs for variables like `Might` and `Speed`.

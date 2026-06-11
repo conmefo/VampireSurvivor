@@ -1,0 +1,98 @@
+{
+    "madnewPoppea_01": {
+        "x": 1,
+        "y": 95,
+        "width": 30,
+        "height": 32
+    },
+    "madnewPoppea_02": {
+        "x": 1,
+        "y": 61,
+        "width": 30,
+        "height": 32
+    },
+    "madnewPoppea_03": {
+        "x": 1,
+        "y": 27,
+        "width": 30,
+        "height": 32
+    },
+    "madnewPoppea_04": {
+        "x": 1,
+        "y": 61,
+        "width": 30,
+        "height": 32
+    },
+    "madPoppea_01": {
+        "x": 33,
+        "y": 62,
+        "width": 22,
+        "height": 31
+    },
+    "madPoppea_02": {
+        "x": 33,
+        "y": 29,
+        "width": 22,
+        "height": 31
+    },
+    "madPoppea_03": {
+        "x": 57,
+        "y": 62,
+        "width": 22,
+        "height": 31
+    },
+    "madPoppea_04": {
+        "x": 81,
+        "y": 29,
+        "width": 21,
+        "height": 31
+    },
+    "newPoppea_01": {
+        "x": 33,
+        "y": 95,
+        "width": 30,
+        "height": 32
+    },
+    "newPoppea_02": {
+        "x": 65,
+        "y": 95,
+        "width": 30,
+        "height": 32
+    },
+    "newPoppea_03": {
+        "x": 97,
+        "y": 95,
+        "width": 30,
+        "height": 32
+    },
+    "newPoppea_04": {
+        "x": 65,
+        "y": 95,
+        "width": 30,
+        "height": 32
+    },
+    "Poppea_01": {
+        "x": 81,
+        "y": 62,
+        "width": 22,
+        "height": 31
+    },
+    "Poppea_02": {
+        "x": 105,
+        "y": 62,
+        "width": 22,
+        "height": 31
+    },
+    "Poppea_03": {
+        "x": 57,
+        "y": 29,
+        "width": 22,
+        "height": 31
+    },
+    "Poppea_04": {
+        "x": 104,
+        "y": 29,
+        "width": 21,
+        "height": 31
+    }
+}

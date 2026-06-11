@@ -7,6 +7,7 @@
 #include "../../UI/Elements/UIButton.h"
 #include "../../UI/Components/UIScrollView.h"
 #include "../../UI/Components/UIDetailPanel.h"
+#include "../../UI/Elements/GoldDisplayWidget.h"
 #include "../../Core/Data/PowerUpData.h"
 #include <vector>
 
@@ -102,6 +103,9 @@ void PowerUpState::Init()
     m_uiManager.AddElement(std::move(refundButton));
     m_uiManager.AddElement(std::move(scrollView));
     m_uiManager.AddElement(std::move(detailPanel));
+    
+    auto goldDisplay = std::make_unique<GoldDisplayWidget>(m_context.atlas, nullptr, m_context.fonts.Get(FontID::Main));
+    m_uiManager.AddElement(std::move(goldDisplay));
 }
 
 void PowerUpState::HandleInput(sf::Event& event, sf::RenderWindow& window)

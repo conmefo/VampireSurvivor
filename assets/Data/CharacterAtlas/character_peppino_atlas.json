@@ -1,0 +1,32 @@
+{
+    "DecPeppino_01": {
+        "x": 1,
+        "y": 191,
+        "width": 41,
+        "height": 64
+    },
+    "DecPeppino_02": {
+        "x": 44,
+        "y": 191,
+        "width": 41,
+        "height": 64
+    },
+    "DecPeppino_03": {
+        "x": 1,
+        "y": 125,
+        "width": 41,
+        "height": 64
+    },
+    "DecPeppino_04": {
+        "x": 44,
+        "y": 125,
+        "width": 41,
+        "height": 64
+    },
+    "Peppino_01": {
+        "x": 87,
+        "y": 191,
+        "width": 32,
+        "height": 64
+    }
+}

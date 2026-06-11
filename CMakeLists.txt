@@ -44,8 +44,8 @@ add_executable(VampireSurvivors
     src/States/StateManager.cpp
     src/States/Intro/LoadingState.cpp
     src/States/Intro/WarningState.cpp
-    src/States/Menu/MainMenuState.cpp
     src/States/Menu/PowerUpState.cpp
+    src/States/Menu/CharacterSelectionScreen.cpp
     src/States/Game/GameState.cpp
     src/World/TileMap.cpp
     src/Core/Math/MathUtils.cpp
@@ -74,6 +74,14 @@ add_executable(VampireSurvivors
     src/Core/Resources/TextureAtlas.cpp
     src/Core/Animation/AnimationLibrary.cpp
     src/Core/Animation/SpriteAnimator.cpp
+    src/UI/Elements/GoldDisplayWidget.cpp
+    src/UI/Elements/CharacterCardWidget.cpp
+    src/Core/Data/CharacterDataManager.cpp
+    src/UI/Panels/MainBoardPanel.cpp
+    src/UI/Panels/RosterGridPanel.cpp
+    src/UI/Panels/DetailPanel.cpp
+    src/UI/Panels/StatsPanel.cpp
+    src/UI/Views/CharacterSelectionView.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

@@ -1,0 +1,98 @@
+{
+    "Gennaro_01": {
+        "x": 69,
+        "y": 155,
+        "width": 29,
+        "height": 32
+    },
+    "Gennaro_02": {
+        "x": 1,
+        "y": 121,
+        "width": 29,
+        "height": 32
+    },
+    "Gennaro_03": {
+        "x": 32,
+        "y": 121,
+        "width": 29,
+        "height": 32
+    },
+    "Gennaro_04": {
+        "x": 63,
+        "y": 121,
+        "width": 29,
+        "height": 32
+    },
+    "madGennaro_01": {
+        "x": 94,
+        "y": 121,
+        "width": 29,
+        "height": 32
+    },
+    "madGennaro_02": {
+        "x": 1,
+        "y": 87,
+        "width": 29,
+        "height": 32
+    },
+    "madGennaro_03": {
+        "x": 1,
+        "y": 53,
+        "width": 29,
+        "height": 32
+    },
+    "madGennaro_04": {
+        "x": 1,
+        "y": 19,
+        "width": 29,
+        "height": 32
+    },
+    "madnewGennaro_01": {
+        "x": 1,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGennaro_02": {
+        "x": 35,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGennaro_03": {
+        "x": 69,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGennaro_04": {
+        "x": 1,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "newGennaro_01": {
+        "x": 35,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "newGennaro_02": {
+        "x": 69,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "newGennaro_03": {
+        "x": 1,
+        "y": 155,
+        "width": 32,
+        "height": 32
+    },
+    "newGennaro_04": {
+        "x": 35,
+        "y": 155,
+        "width": 32,
+        "height": 32
+    }
+}

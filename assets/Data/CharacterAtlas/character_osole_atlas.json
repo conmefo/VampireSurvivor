@@ -1,0 +1,92 @@
+{
+    "Dog_01": {
+        "x": 35,
+        "y": 105,
+        "width": 32,
+        "height": 22
+    },
+    "Dog_02": {
+        "x": 1,
+        "y": 8,
+        "width": 28,
+        "height": 23
+    },
+    "Dog_03": {
+        "x": 1,
+        "y": 33,
+        "width": 29,
+        "height": 22
+    },
+    "Dog_04": {
+        "x": 69,
+        "y": 82,
+        "width": 32,
+        "height": 21
+    },
+    "Dog_05": {
+        "x": 69,
+        "y": 59,
+        "width": 32,
+        "height": 21
+    },
+    "hDog_01": {
+        "x": 69,
+        "y": 105,
+        "width": 32,
+        "height": 22
+    },
+    "hDog_02": {
+        "x": 1,
+        "y": 104,
+        "width": 32,
+        "height": 23
+    },
+    "hDog_03": {
+        "x": 35,
+        "y": 81,
+        "width": 32,
+        "height": 22
+    },
+    "hDog_04": {
+        "x": 35,
+        "y": 58,
+        "width": 32,
+        "height": 21
+    },
+    "hDog_05": {
+        "x": 1,
+        "y": 57,
+        "width": 32,
+        "height": 21
+    },
+    "madDog_01": {
+        "x": 1,
+        "y": 80,
+        "width": 32,
+        "height": 22
+    },
+    "madDog_02": {
+        "x": 31,
+        "y": 8,
+        "width": 28,
+        "height": 23
+    },
+    "madDog_03": {
+        "x": 61,
+        "y": 11,
+        "width": 29,
+        "height": 22
+    },
+    "madDog_04": {
+        "x": 69,
+        "y": 36,
+        "width": 32,
+        "height": 21
+    },
+    "madDog_05": {
+        "x": 35,
+        "y": 35,
+        "width": 32,
+        "height": 21
+    }
+}

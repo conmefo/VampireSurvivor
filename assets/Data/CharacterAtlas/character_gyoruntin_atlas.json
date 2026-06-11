@@ -1,0 +1,38 @@
+{
+    "GyoruntinSelect": {
+        "x": 63,
+        "y": 99,
+        "width": 50,
+        "height": 43
+    },
+    "Gyoruntin_01": {
+        "x": 1,
+        "y": 144,
+        "width": 60,
+        "height": 54
+    },
+    "Gyoruntin_02": {
+        "x": 1,
+        "y": 89,
+        "width": 60,
+        "height": 53
+    },
+    "Gyoruntin_03": {
+        "x": 63,
+        "y": 144,
+        "width": 60,
+        "height": 54
+    },
+    "Gyoruntin_04": {
+        "x": 1,
+        "y": 200,
+        "width": 60,
+        "height": 55
+    },
+    "Gyoruntin_05": {
+        "x": 63,
+        "y": 200,
+        "width": 60,
+        "height": 55
+    }
+}

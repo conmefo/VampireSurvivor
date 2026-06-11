@@ -1,0 +1,26 @@
+{
+    "Minnah_01": {
+        "x": 1,
+        "y": 95,
+        "width": 31,
+        "height": 32
+    },
+    "Minnah_02": {
+        "x": 1,
+        "y": 61,
+        "width": 31,
+        "height": 32
+    },
+    "Minnah_03": {
+        "x": 1,
+        "y": 27,
+        "width": 31,
+        "height": 32
+    },
+    "Minnah_04": {
+        "x": 34,
+        "y": 95,
+        "width": 31,
+        "height": 32
+    }
+}

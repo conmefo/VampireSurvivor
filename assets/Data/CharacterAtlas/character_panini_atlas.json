@@ -1,0 +1,38 @@
+{
+    "uExdash_01": {
+        "x": 34,
+        "y": 97,
+        "width": 29,
+        "height": 30
+    },
+    "uExdash_02": {
+        "x": 1,
+        "y": 34,
+        "width": 30,
+        "height": 30
+    },
+    "uExdash_03": {
+        "x": 1,
+        "y": 66,
+        "width": 31,
+        "height": 29
+    },
+    "uExdash_04": {
+        "x": 1,
+        "y": 97,
+        "width": 31,
+        "height": 30
+    },
+    "uExdash_05": {
+        "x": 33,
+        "y": 33,
+        "width": 30,
+        "height": 30
+    },
+    "uExdash_06": {
+        "x": 34,
+        "y": 65,
+        "width": 29,
+        "height": 30
+    }
+}

@@ -1,0 +1,74 @@
+{
+    "FollowerBrownie_i01": {
+        "x": 1,
+        "y": 55,
+        "width": 27,
+        "height": 35
+    },
+    "FollowerBrownie_i02": {
+        "x": 1,
+        "y": 18,
+        "width": 27,
+        "height": 35
+    },
+    "FollowerBrownie_i03": {
+        "x": 1,
+        "y": 92,
+        "width": 28,
+        "height": 35
+    },
+    "FollowerBrownie_i04": {
+        "x": 30,
+        "y": 55,
+        "width": 27,
+        "height": 35
+    },
+    "FollowerGoblin_i01": {
+        "x": 31,
+        "y": 101,
+        "width": 32,
+        "height": 26
+    },
+    "FollowerGoblin_i02": {
+        "x": 30,
+        "y": 1,
+        "width": 31,
+        "height": 25
+    },
+    "FollowerGoblin_i03": {
+        "x": 63,
+        "y": 2,
+        "width": 32,
+        "height": 24
+    },
+    "FollowerGoblin_i04": {
+        "x": 30,
+        "y": 28,
+        "width": 32,
+        "height": 25
+    },
+    "FollowerTrowH_i01": {
+        "x": 97,
+        "y": 103,
+        "width": 22,
+        "height": 24
+    },
+    "FollowerTrowH_i02": {
+        "x": 97,
+        "y": 78,
+        "width": 22,
+        "height": 23
+    },
+    "FollowerTrowH_i03": {
+        "x": 65,
+        "y": 103,
+        "width": 22,
+        "height": 24
+    },
+    "FollowerTrowH_i04": {
+        "x": 65,
+        "y": 78,
+        "width": 22,
+        "height": 23
+    }
+}

@@ -1,0 +1,122 @@
+{
+    "Arca_01": {
+        "x": 96,
+        "y": 116,
+        "width": 27,
+        "height": 33
+    },
+    "Arca_02": {
+        "x": 64,
+        "y": 115,
+        "width": 27,
+        "height": 33
+    },
+    "Arca_03": {
+        "x": 99,
+        "y": 222,
+        "width": 28,
+        "height": 33
+    },
+    "Arca_04": {
+        "x": 33,
+        "y": 151,
+        "width": 30,
+        "height": 33
+    },
+    "Arca_05": {
+        "x": 65,
+        "y": 150,
+        "width": 29,
+        "height": 33
+    },
+    "Arca_06": {
+        "x": 32,
+        "y": 81,
+        "width": 27,
+        "height": 33
+    },
+    "madArca_01": {
+        "x": 1,
+        "y": 80,
+        "width": 27,
+        "height": 33
+    },
+    "madArca_02": {
+        "x": 93,
+        "y": 81,
+        "width": 27,
+        "height": 33
+    },
+    "madArca_03": {
+        "x": 99,
+        "y": 187,
+        "width": 28,
+        "height": 33
+    },
+    "madArca_04": {
+        "x": 1,
+        "y": 150,
+        "width": 30,
+        "height": 33
+    },
+    "madArca_05": {
+        "x": 33,
+        "y": 116,
+        "width": 29,
+        "height": 33
+    },
+    "madArca_06": {
+        "x": 61,
+        "y": 80,
+        "width": 27,
+        "height": 33
+    },
+    "madnewArca_01": {
+        "x": 98,
+        "y": 151,
+        "width": 29,
+        "height": 34
+    },
+    "madnewArca_02": {
+        "x": 67,
+        "y": 221,
+        "width": 30,
+        "height": 34
+    },
+    "madnewArca_03": {
+        "x": 1,
+        "y": 221,
+        "width": 31,
+        "height": 34
+    },
+    "madnewArca_04": {
+        "x": 34,
+        "y": 186,
+        "width": 30,
+        "height": 34
+    },
+    "newArca_01": {
+        "x": 1,
+        "y": 115,
+        "width": 29,
+        "height": 33
+    },
+    "newArca_02": {
+        "x": 1,
+        "y": 185,
+        "width": 30,
+        "height": 34
+    },
+    "newArca_03": {
+        "x": 34,
+        "y": 222,
+        "width": 31,
+        "height": 33
+    },
+    "newArca_04": {
+        "x": 66,
+        "y": 185,
+        "width": 30,
+        "height": 34
+    }
+}

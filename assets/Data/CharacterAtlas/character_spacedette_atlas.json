@@ -1,0 +1,74 @@
+{
+    "moonduck_i01": {
+        "x": 61,
+        "y": 102,
+        "width": 24,
+        "height": 25
+    },
+    "moonduck_i02": {
+        "x": 60,
+        "y": 76,
+        "width": 23,
+        "height": 24
+    },
+    "moonduck_i03": {
+        "x": 87,
+        "y": 102,
+        "width": 24,
+        "height": 25
+    },
+    "moonduck_i04": {
+        "x": 60,
+        "y": 50,
+        "width": 23,
+        "height": 24
+    },
+    "moonrabbit_i01": {
+        "x": 32,
+        "y": 68,
+        "width": 26,
+        "height": 28
+    },
+    "moonrabbit_i02": {
+        "x": 32,
+        "y": 98,
+        "width": 26,
+        "height": 29
+    },
+    "moonrabbit_i03": {
+        "x": 1,
+        "y": 33,
+        "width": 26,
+        "height": 30
+    },
+    "moonrabbit_i04": {
+        "x": 32,
+        "y": 3,
+        "width": 27,
+        "height": 29
+    },
+    "SDette_i01": {
+        "x": 1,
+        "y": 2,
+        "width": 29,
+        "height": 29
+    },
+    "SDette_i02": {
+        "x": 1,
+        "y": 97,
+        "width": 29,
+        "height": 30
+    },
+    "SDette_i03": {
+        "x": 29,
+        "y": 34,
+        "width": 29,
+        "height": 29
+    },
+    "SDette_i04": {
+        "x": 1,
+        "y": 65,
+        "width": 29,
+        "height": 30
+    }
+}

@@ -1,0 +1,110 @@
+{
+    "Giovanna_01": {
+        "x": 1,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "Giovanna_02": {
+        "x": 35,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "Giovanna_03": {
+        "x": 69,
+        "y": 87,
+        "width": 31,
+        "height": 32
+    },
+    "Giovanna_04": {
+        "x": 69,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "madGiovanna_01": {
+        "x": 1,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "madGiovanna_02": {
+        "x": 35,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "madGiovanna_03": {
+        "x": 35,
+        "y": 53,
+        "width": 31,
+        "height": 32
+    },
+    "madGiovanna_04": {
+        "x": 69,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGiovanna_01": {
+        "x": 1,
+        "y": 155,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGiovanna_02": {
+        "x": 35,
+        "y": 155,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGiovanna_03": {
+        "x": 69,
+        "y": 155,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGiovanna_04": {
+        "x": 1,
+        "y": 121,
+        "width": 32,
+        "height": 32
+    },
+    "madnewGiovanna_05": {
+        "x": 35,
+        "y": 121,
+        "width": 32,
+        "height": 32
+    },
+    "newGiovanna_01": {
+        "x": 69,
+        "y": 121,
+        "width": 32,
+        "height": 32
+    },
+    "newGiovanna_02": {
+        "x": 1,
+        "y": 87,
+        "width": 32,
+        "height": 32
+    },
+    "newGiovanna_03": {
+        "x": 1,
+        "y": 53,
+        "width": 32,
+        "height": 32
+    },
+    "newGiovanna_04": {
+        "x": 1,
+        "y": 19,
+        "width": 32,
+        "height": 32
+    },
+    "newGiovanna_05": {
+        "x": 35,
+        "y": 87,
+        "width": 32,
+        "height": 32
+    }
+}

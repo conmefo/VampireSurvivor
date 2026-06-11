@@ -1,0 +1,74 @@
+{
+    "hRamba_01": {
+        "x": 65,
+        "y": 36,
+        "width": 27,
+        "height": 29
+    },
+    "hRamba_02": {
+        "x": 65,
+        "y": 67,
+        "width": 29,
+        "height": 29
+    },
+    "hRamba_03": {
+        "x": 63,
+        "y": 98,
+        "width": 31,
+        "height": 29
+    },
+    "hRamba_04": {
+        "x": 65,
+        "y": 67,
+        "width": 29,
+        "height": 29
+    },
+    "madRamba_01": {
+        "x": 34,
+        "y": 93,
+        "width": 27,
+        "height": 34
+    },
+    "madRamba_02": {
+        "x": 1,
+        "y": 21,
+        "width": 29,
+        "height": 34
+    },
+    "madRamba_03": {
+        "x": 1,
+        "y": 93,
+        "width": 31,
+        "height": 34
+    },
+    "madRamba_04": {
+        "x": 32,
+        "y": 21,
+        "width": 29,
+        "height": 34
+    },
+    "Ramba_01": {
+        "x": 96,
+        "y": 57,
+        "width": 27,
+        "height": 34
+    },
+    "Ramba_02": {
+        "x": 34,
+        "y": 57,
+        "width": 29,
+        "height": 34
+    },
+    "Ramba_03": {
+        "x": 1,
+        "y": 57,
+        "width": 31,
+        "height": 34
+    },
+    "Ramba_04": {
+        "x": 96,
+        "y": 93,
+        "width": 29,
+        "height": 34
+    }
+}

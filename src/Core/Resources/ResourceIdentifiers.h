@@ -5,5 +5,6 @@
 enum class FontID
 {
     Main,
+    Bold,
     Warning
 };

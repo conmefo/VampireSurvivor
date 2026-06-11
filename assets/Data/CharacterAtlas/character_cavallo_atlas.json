@@ -1,0 +1,74 @@
+{
+    "Cavallo_01": {
+        "x": 1,
+        "y": 145,
+        "width": 30,
+        "height": 32
+    },
+    "Cavallo_02": {
+        "x": 34,
+        "y": 184,
+        "width": 31,
+        "height": 32
+    },
+    "Cavallo_03": {
+        "x": 66,
+        "y": 121,
+        "width": 30,
+        "height": 32
+    },
+    "Cavallo_04": {
+        "x": 69,
+        "y": 223,
+        "width": 32,
+        "height": 32
+    },
+    "hCavallo_01": {
+        "x": 34,
+        "y": 145,
+        "width": 30,
+        "height": 37
+    },
+    "hCavallo_02": {
+        "x": 1,
+        "y": 218,
+        "width": 32,
+        "height": 37
+    },
+    "hCavallo_03": {
+        "x": 1,
+        "y": 179,
+        "width": 31,
+        "height": 37
+    },
+    "hCavallo_04": {
+        "x": 35,
+        "y": 218,
+        "width": 32,
+        "height": 37
+    },
+    "madCavallo_01": {
+        "x": 1,
+        "y": 111,
+        "width": 30,
+        "height": 32
+    },
+    "madCavallo_02": {
+        "x": 67,
+        "y": 155,
+        "width": 31,
+        "height": 32
+    },
+    "madCavallo_03": {
+        "x": 33,
+        "y": 111,
+        "width": 30,
+        "height": 32
+    },
+    "madCavallo_04": {
+        "x": 69,
+        "y": 189,
+        "width": 32,
+        "height": 32
+    }
+}

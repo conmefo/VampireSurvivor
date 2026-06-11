@@ -1,8 +1,10 @@
 #include "MainMenuState.h"
 #include "../../Core/WindowSettings.h"
 #include "../Game/GameState.h"
+#include "CharacterSelectionScreen.h"
 #include "../StateManager.h"
 #include "PowerUpState.h"
+#include "../../UI/Elements/GoldDisplayWidget.h"
 #include <iostream>
 
 
@@ -124,8 +126,7 @@ void MainMenuState::SetupUI() {
   }
 
   startButton->SetOnClickCallback([this]() {
-    m_context.stateManager.PopState();
-    m_context.stateManager.AddState(std::make_unique<GameState>(m_context));
+    m_context.stateManager.AddState(std::make_unique<CharacterSelectionScreen>(m_context));
   });
 
   powerUpBtn->SetOnClickCallback([this]() {
@@ -152,21 +153,8 @@ void MainMenuState::SetupUI() {
   m_topBarBg.setFillColor(sf::Color(0, 0, 0, 130));
 
   // --- COIN PANEL ---
-  auto coinPanel = std::make_unique<UIPanel>(m_context.atlas, "frameB9", 12, 12, 12, 12);
-  coinPanel->SetPosition(sf::Vector2f(width / 2.0f - 259.0f / 2.0f, 22.0f));
-  coinPanel->SetSize(sf::Vector2f(259.0f, 70.0f));
-  coinPanel->SetText("12345", font, 28);
-  coinPanel->SetTextAlignment(TextAlignment::Right);
+  auto coinPanel = std::make_unique<GoldDisplayWidget>(m_context.atlas, nullptr, font);
   m_uiManager.AddElement(std::move(coinPanel));
-
-  AssetTextureData moneyData = m_context.atlas.GetTextureData("MoneyPile");
-  if (moneyData.texture) {
-    m_coinIcon.setTexture(*moneyData.texture);
-    m_coinIcon.setTextureRect(moneyData.rect);
-    m_coinIcon.setOrigin(moneyData.rect.width / 2.0f, moneyData.rect.height / 2.0f);
-    m_coinIcon.setPosition(width / 2.0f - 86.0f, 54.0f);
-    m_coinIcon.setScale(2.1f, 2.1f);
-  }
 }
 
 void MainMenuState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -226,7 +214,6 @@ void MainMenuState::Draw(sf::RenderWindow &window) {
 
   window.draw(m_topBarBg);
   m_uiManager.Draw(window);
-  window.draw(m_coinIcon);
 
   if (m_cursorsVisible) {
     window.draw(m_leftCursor);

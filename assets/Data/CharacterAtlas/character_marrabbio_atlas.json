@@ -1,0 +1,26 @@
+{
+    "Marrabbio_01": {
+        "x": 1,
+        "y": 95,
+        "width": 29,
+        "height": 32
+    },
+    "Marrabbio_02": {
+        "x": 32,
+        "y": 95,
+        "width": 29,
+        "height": 32
+    },
+    "Marrabbio_03": {
+        "x": 1,
+        "y": 61,
+        "width": 29,
+        "height": 32
+    },
+    "Marrabbio_04": {
+        "x": 32,
+        "y": 61,
+        "width": 29,
+        "height": 32
+    }
+}

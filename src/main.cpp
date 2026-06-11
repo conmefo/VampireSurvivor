@@ -7,6 +7,8 @@
 #include "States/StateContext.h"
 #include "Core/WindowSettings.h"
 #include "Core/Animation/AnimationLibrary.h"
+#include "Core/Data/CharacterDataManager.h"
+#include "Core/Data/PlayerProgressionManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 
@@ -77,8 +79,14 @@ int runSfmlTest()
     // In a real scenario, this path would be absolute or relative to the executable.
     animLibrary.LoadFromJson("Assets/Data/animations.json");
 
+    CharacterDataManager characterDataManager;
+    characterDataManager.LoadData("Assets/Data/CHARACTER_DATA.json");
+    
+    PlayerProgressionManager playerProgressionManager;
+    playerProgressionManager.InitializeUnlockedCharacters(characterDataManager.GetAllCharacters());
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager);
 
     stateManager.AddState(std::make_unique<LoadingState>(context));
     stateManager.ProcessStateChanges();

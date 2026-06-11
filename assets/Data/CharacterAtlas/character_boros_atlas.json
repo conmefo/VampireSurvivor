@@ -1,0 +1,32 @@
+{
+    "Gains_01": {
+        "x": 1,
+        "y": 108,
+        "width": 48,
+        "height": 47
+    },
+    "Gains_02": {
+        "x": 1,
+        "y": 207,
+        "width": 48,
+        "height": 48
+    },
+    "Gains_03": {
+        "x": 1,
+        "y": 59,
+        "width": 48,
+        "height": 47
+    },
+    "Gains_04": {
+        "x": 1,
+        "y": 157,
+        "width": 48,
+        "height": 48
+    },
+    "Gains_05": {
+        "x": 1,
+        "y": 10,
+        "width": 48,
+        "height": 47
+    }
+}
