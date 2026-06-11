@@ -29,10 +29,11 @@ private:
 
     std::string m_selectedCharacterId;
 
-    static constexpr float BOARD_WIDTH = 700.0f;
-    static constexpr float BOARD_HEIGHT = 800.0f;
-    static constexpr float STATS_WIDTH = 300.0f;
-    static constexpr float STATS_MARGIN_RIGHT = 30.0f;
+    static constexpr float BOARD_WIDTH = 805.0f;
+    static constexpr float BOARD_HEIGHT = 980.0f;
+    static constexpr float STATS_WIDTH = 320.0f;
+    static constexpr float STATS_HEIGHT = 640.0f;
+    static constexpr float STATS_MARGIN_RIGHT = 80.0f;
     static constexpr float BUTTON_WIDTH = 200.0f;
     static constexpr float BUTTON_HEIGHT = 60.0f;
     static constexpr float BUTTON_MARGIN_BOTTOM = 20.0f;

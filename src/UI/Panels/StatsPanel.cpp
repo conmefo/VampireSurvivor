@@ -3,9 +3,13 @@
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <sstream>
 #include <iomanip>
+#include <iostream>
+
+static sf::Font s_boldFont;
+static bool s_boldFontLoaded = false;
 
 StatsPanel::StatsPanel(TextureAtlas& atlas, const sf::Font& font)
-    : UIPanel(atlas, "frameB9", 10, 10, 10, 10)
+    : UIPanel(atlas, "frame1_c2", 10, 10, 10, 10)
     , m_font(font)
 {
     m_statKeys = {
@@ -30,20 +34,37 @@ StatsPanel::StatsPanel(TextureAtlas& atlas, const sf::Font& font)
         "Banish"
     };
 
+    if(!s_boldFontLoaded)
+    {
+        if(s_boldFont.loadFromFile("Assets/Fonts/courier_bold.ttf"))
+        {
+            s_boldFontLoaded = true;
+        }
+        else
+        {
+            std::cerr << "Failed to load bold font for StatsPanel." << std::endl;
+            s_boldFont = m_font; // fallback
+            s_boldFontLoaded = true;
+        }
+    }
+
     for(const std::string& key : m_statKeys)
     {
         StatRow row;
         row.key = key;
 
-        row.labelText.setFont(m_font);
+        row.labelText.setFont(s_boldFont);
         row.labelText.setCharacterSize(TEXT_SIZE);
         row.labelText.setString(FormatLabelName(key));
         row.labelText.setFillColor(sf::Color(220, 220, 220));
 
-        row.valueText.setFont(m_font);
         row.valueText.setCharacterSize(TEXT_SIZE);
         row.valueText.setString("-");
         row.valueText.setFillColor(sf::Color::White);
+        
+
+        
+        row.valueText.setFont(s_boldFont);
 
         m_rows.push_back(row);
     }
@@ -119,7 +140,7 @@ void StatsPanel::SetPosition(const sf::Vector2f& pos)
         
         if(row.key == "MoveSpeed" || row.key == "Area" || row.key == "Magnet" || row.key == "Curse")
         {
-            currentY += ROW_PADDING * 0.5f; // Add a small visual gap for groupings
+            currentY += ROW_PADDING * 0.75f; // Add a small visual gap for groupings
         }
     }
 }

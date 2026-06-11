@@ -1,6 +1,7 @@
 #include "MainMenuState.h"
 #include "../../Core/WindowSettings.h"
 #include "../Game/GameState.h"
+#include "CharacterSelectionScreen.h"
 #include "../StateManager.h"
 #include "PowerUpState.h"
 #include "../../UI/Elements/GoldDisplayWidget.h"
@@ -125,8 +126,7 @@ void MainMenuState::SetupUI() {
   }
 
   startButton->SetOnClickCallback([this]() {
-    m_context.stateManager.PopState();
-    m_context.stateManager.AddState(std::make_unique<GameState>(m_context));
+    m_context.stateManager.AddState(std::make_unique<CharacterSelectionScreen>(m_context));
   });
 
   powerUpBtn->SetOnClickCallback([this]() {

@@ -24,8 +24,8 @@ private:
     std::vector<std::string> m_statKeys;
     const sf::Font& m_font;
 
-    static constexpr float ROW_PADDING = 25.0f;
-    static constexpr unsigned int TEXT_SIZE = 18;
+    static constexpr float ROW_PADDING = 27.0f;
+    static constexpr unsigned int TEXT_SIZE = 24;
     static constexpr float START_Y_OFFSET = 20.0f;
     static constexpr float PADDING_X = 20.0f;
 

@@ -15,8 +15,8 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
     : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font))
     , m_statsPanel(std::make_unique<StatsPanel>(atlas, font))
     , m_goldDisplay(std::make_unique<GoldDisplayWidget>(atlas, progressionManager, font))
-    , m_confirmButton(std::make_unique<UIButton>(atlas, "button_c9_normal", 10, 10, 10, 10))
-    , m_backButton(std::make_unique<UIButton>(atlas, "button_c9_normal", 10, 10, 10, 10))
+    , m_confirmButton(std::make_unique<UIButton>(atlas, "button_c5_normal", 10, 10, 10, 10))
+    , m_backButton(std::make_unique<UIButton>(atlas, "button_c8_normal", 10, 10, 10, 10))
 {
     m_confirmButton->SetText("Confirm", font, 24);
     m_backButton->SetText("BACK", font, 24);
@@ -78,7 +78,7 @@ void CharacterSelectionView::InitializeLayout(const sf::Vector2f& viewportSize)
     SetSize(viewportSize);
 
     float boardX = (viewportSize.x - BOARD_WIDTH) / 2.0f;
-    float boardY = (viewportSize.y - BOARD_HEIGHT) / 2.0f;
+    float boardY = (viewportSize.y - BOARD_HEIGHT) / 2.0f + 50.0f;
     
     if(m_mainBoard)
     {
@@ -89,8 +89,8 @@ void CharacterSelectionView::InitializeLayout(const sf::Vector2f& viewportSize)
     float statsX = boardX - STATS_WIDTH - STATS_MARGIN_RIGHT;
     if(m_statsPanel)
     {
-        m_statsPanel->SetPosition(sf::Vector2f(statsX, boardY));
-        m_statsPanel->SetSize(sf::Vector2f(STATS_WIDTH, BOARD_HEIGHT));
+        m_statsPanel->SetPosition(sf::Vector2f(statsX, boardY + 100.0f));
+        m_statsPanel->SetSize(sf::Vector2f(STATS_WIDTH, STATS_HEIGHT));
     }
 
     float buttonX = viewportSize.x - BUTTON_WIDTH - BUTTON_MARGIN_RIGHT;

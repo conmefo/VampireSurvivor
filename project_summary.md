@@ -211,3 +211,9 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **CharacterSelectionView Buttons:** Successfully integrated and laid out the "BACK" and "Confirm" `UIButton` elements within `CharacterSelectionView`, strictly using relative `constexpr` positioning for viewport scaling.
 * **Dynamic Confirm Validation:** Wired the "Confirm" button to validate against the `PlayerProgressionManager` dynamically. When an unlocked character is selected, it shifts its `ButtonState` to `Normal`. For locked characters (e.g. Gennaro), it resets to `Disabled`.
 * **State Encapsulation:** Created the official `CharacterSelectionScreen` state object managing the `CharacterSelectionView` overlay. It cleanly passes its initialized dependencies down into the View and intercepts the upward bubbling lambda callbacks to either pop the state context (BACK) or advance the state machine into gameplay (Confirm).
+
+***
+
+## Update: Font Typography Refinements
+* **Font Asset Expansion:** Integrated `assets/fonts/courier_bold.ttf` alongside the primary font, utilizing a robust static fallback loading pattern to prevent runtime crashes if the asset path is unresolved.
+* **StatsPanel Readability:** Applied the bold font dynamically to the procedurally generated statistic values inside `StatsPanel`, guaranteeing visual contrast against the standard property labels while retaining global encapsulation standards.
