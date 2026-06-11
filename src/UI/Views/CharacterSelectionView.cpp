@@ -9,7 +9,7 @@
 
 CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const PlayerProgressionManager* progressionManager)
     : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font))
-    , m_statsPanel(std::make_unique<StatsPanel>(atlas))
+    , m_statsPanel(std::make_unique<StatsPanel>(atlas, font))
     , m_goldDisplay(std::make_unique<GoldDisplayWidget>(atlas, progressionManager, font))
     , m_confirmButton(std::make_unique<UIButton>(atlas, "button_c9_normal", 10, 10, 10, 10))
 {

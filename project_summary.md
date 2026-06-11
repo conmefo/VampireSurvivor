@@ -168,3 +168,21 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Strict Encapsulation:** Decoupled layout math from the state layer. The `CharacterSelectionView` coordinates standalone components (`StatsPanel`, `MainBoardPanel`, `GoldDisplayWidget`, `ConfirmButton`) as structural siblings, passing exact layout coordinates relative to the screen size.
 * **Anti-Hard-Coding Compliance:** Replaced all magic numbers with `private static constexpr` layout metrics (e.g., `BOARD_WIDTH`, `STATS_MARGIN_RIGHT`). `StatsPanel` is now elegantly positioned to the left of the main board dynamically without using negative coordinates or visual clipping hacks.
 * **Cascading Lifecycle:** Both the View and the Panel accurately cascade standard lifecycle events (`Update`, `HandleEvent`, `Draw`) to all instantiated unique pointers, guaranteeing deterministic rendering order and event capture.
+
+***
+
+## Update: StatsPanel Data-Driven Implementation (Task 6)
+* **Dynamic Data Ingestion:** Updated `CharacterProfile` with a `GetStat()` helper method for direct access to individual attributes.
+* **Procedural Row Formatting:** `StatsPanel` loops through an internal vector of stat keys to procedurally generate and align 19 rows of `sf::Text` instead of relying on hard-coded individual text variables.
+* **Smart String Formatting:** The panel dynamically formats attribute values with appropriate `+` or `%` symbols depending on the specific stat (e.g., adding a percentage sign to 'Might' and 'Speed', while leaving 'MaxHealth' as a flat integer).
+* **Relative Vertical Layout:** Uses strict class-scoped constants (`ROW_PADDING`, `START_Y_OFFSET`) to calculate perfect vertical alignment, along with explicitly grouped visual gaps to match the game's exact UI layout.
+
+***
+
+## Update: CharacterCardWidget Interactive Element (Task 7)
+* **State Management:** Implemented an internal `CardState` enum (`Normal`, `Selected`, `Locked`) to drive visual state changes without external logic leaking into the component.
+* **Visual Fidelity:**
+  * **Locked:** Instantly applies `sf::Color::Black` to the character sprite, rendering it as a dark silhouette, and dims the character name.
+  * **Selected/Normal:** Dynamically swaps between two distinct `NineSliceComponent` instances (`"frameB9"` for the bright gold selection border and `"frame5_c4"` for standard display).
+* **Decoupled Callbacks:** Integrates an `m_onClickCallback` (`std::function`) to safely bubble up click events with the specific `m_characterId`, completely avoiding hard-coded state transitions within the card itself.
+* **Layout Composition:** Safely composes and positions multiple layers within the widget bounds: the name label, portrait sprite, weapon preview icon, and nine-slice borders.

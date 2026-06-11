@@ -67,4 +67,14 @@ public:
     {
         return stats;
     }
+
+    float GetStat(const std::string& statName) const
+    {
+        auto it = stats.find(statName);
+        if(it != stats.end())
+        {
+            return it->second;
+        }
+        return 0.0f;
+    }
 };
