@@ -26,16 +26,36 @@ const std::vector<const char *> WarehouseEnemies = {
     "MASK_GOLD",    "MASK_SILVER",    "MASK_LEFT",
     "MASK_RIGHT",   "BOSS_XLDEATH",   "BOSS_STALKER_NORMAL"};
 
+const std::vector<const char *> ForestEnemies = {
+    "BAT1", "SKELETON", "ZOMBIE", "MUDMAN1", "GHOST", "XLBAT"};
+
 const std::vector<const char *> &GetStageEnemies(int stageNumber) {
+    if (stageNumber == 1) {
+        return ForestEnemies;
+    }
+
     return stageNumber == 3 ? WarehouseEnemies : LibraryEnemies;
 }
 
+const char *GetStageEnemyPath(int stageNumber) {
+    return stageNumber == 1 ? "assets/Data/enemies/forest_enemies.json"
+                            : "assets/Data/enemies/stage_enemies.json";
+}
+
 const char *GetStageMapPath(int stageNumber) {
+    if (stageNumber == 1) {
+        return "assets/Data/maps/forest_map.json";
+    }
+
     return stageNumber == 3 ? "assets/Data/maps/plant_map.json"
                             : "assets/Data/maps/library_map.json";
 }
 
 const char *GetStageName(int stageNumber) {
+    if (stageNumber == 1) {
+        return "Mad Forest";
+    }
+
     return stageNumber == 3 ? "Dairy Plant" : "Inlaid Library";
 }
 } // namespace
@@ -48,10 +68,6 @@ void GameState::Init() {
 
     m_worldView.setSize(ViewWidth, ViewHeight);
     ApplyCameraToView();
-
-    if (!m_enemyDatabase.LoadFromFile("assets/Data/enemies/stage_enemies.json")) {
-        std::cerr << "Failed to load stage enemies" << std::endl;
-    }
 
     LoadStage(1);
 }
@@ -69,6 +85,9 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
     } else if (event.type == sf::Event::KeyPressed &&
                (event.key.code == sf::Keyboard::Num3 || event.key.code == sf::Keyboard::Numpad3)) {
         LoadStage(3);
+    } else if (event.type == sf::Event::KeyPressed &&
+               (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)) {
+        LoadStage(1);
     } else if (event.type == sf::Event::Resized) {
         m_worldView.setSize(ViewWidth, ViewHeight);
         ApplyCameraToView();
@@ -101,7 +120,11 @@ void GameState::Draw(sf::RenderWindow &window) {
 
 void GameState::LoadStage(int stageNumber) {
     m_currentStage = stageNumber;
-    m_enemyPool.DeactivateAll();
+    m_enemyPool.Clear();
+
+    if (!m_enemyDatabase.LoadFromFile(GetStageEnemyPath(stageNumber))) {
+        std::cerr << "Failed to load " << GetStageName(stageNumber) << " enemies" << std::endl;
+    }
 
     if (!m_tileMap.Load(GetStageMapPath(stageNumber))) {
         std::cerr << "Failed to load " << GetStageName(stageNumber) << " map" << std::endl;

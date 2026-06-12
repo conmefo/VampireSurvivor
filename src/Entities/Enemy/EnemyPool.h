@@ -17,6 +17,7 @@ public:
   EnemyBase *Acquire(const std::string &enemyId, const sf::Vector2f &position);
   EnemyBase *Acquire(const std::string &enemyId, const sf::Vector2f &position,
                      const EnemyStats &stats);
+  void Clear();
   void DeactivateAll();
 
   void Update(float dt, const sf::Vector2f &targetPosition);

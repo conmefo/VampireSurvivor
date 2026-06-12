@@ -30,6 +30,6 @@ class GameState : public BaseState {
     sf::Vector2f m_cameraCenter;
     EnemyDatabase m_enemyDatabase;
     EnemyPool m_enemyPool;
-    int m_currentStage = 2;
+    int m_currentStage = 1;
     bool m_showHitboxes = false;
 };

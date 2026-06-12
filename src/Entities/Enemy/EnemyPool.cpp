@@ -17,6 +17,8 @@ void EnemyPool::Prewarm(const std::string &enemyId, std::size_t count) {
   }
 }
 
+void EnemyPool::Clear() { m_enemies.clear(); }
+
 EnemyBase *EnemyPool::Acquire(const std::string &enemyId,
                               const sf::Vector2f &position) {
   const EnemyDefinition *definition = m_enemyDatabase.GetDefinition(enemyId);
