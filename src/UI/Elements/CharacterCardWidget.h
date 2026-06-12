@@ -10,6 +10,7 @@
 // Forward declarations
 class TextureAtlas;
 class CharacterProfile;
+class WeaponDataManager;
 namespace sf { class RenderTarget; class Event; class RenderWindow; class Font; }
 
 enum class CardState
@@ -40,7 +41,7 @@ private:
     void UpdateVisuals();
 
 public:
-    CharacterCardWidget(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterProfile& profile, bool isUnlocked);
+    CharacterCardWidget(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterProfile& profile, bool isUnlocked, const WeaponDataManager* weaponManager = nullptr);
     ~CharacterCardWidget() override = default;
 
     void SetState(CardState state);

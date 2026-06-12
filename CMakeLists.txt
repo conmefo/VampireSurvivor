@@ -81,7 +81,10 @@ add_executable(VampireSurvivors
     src/UI/Panels/RosterGridPanel.cpp
     src/UI/Panels/DetailPanel.cpp
     src/UI/Panels/StatsPanel.cpp
+    src/UI/Core/TextUtility.cpp
     src/UI/Views/CharacterSelectionView.cpp
+    src/Core/Data/WeaponProfile.cpp
+    src/Core/Data/WeaponDataManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

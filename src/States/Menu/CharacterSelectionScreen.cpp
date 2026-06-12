@@ -20,7 +20,8 @@ void CharacterSelectionScreen::Init()
             *font, 
             boldFont,
             m_context.characterData, 
-            &m_context.progressionData
+            &m_context.progressionData,
+            &m_context.weaponData
         );
 
         m_view->InitializeLayout(sf::Vector2f(Core::VIRTUAL_WIDTH, Core::VIRTUAL_HEIGHT));

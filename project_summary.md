@@ -225,3 +225,19 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **JSON Pre-processing:** Implemented parsing logic to drill into the specific array schemas, extracting exactly the base profile strings (`charName`, `surname`, `description`, `spriteName`) and float-based stats needed to perfectly map to our `CharacterProfile` class.
 * **Sanitization:** Added automatic `.png` stripping for image asset references to ensure compatibility with our internal `TextureAtlas` ID formatting.
 * **UI Math & Formatting Optimization:** Standardized UI parsing across `StatsPanel.cpp` to accurately match camelCase keys natively loaded from the new data format. Implemented dynamic arithmetic to correctly translate internal `1.1f` data constraints into explicit `+10%` display outputs for variables like `Might` and `Speed`.
+
+***
+
+## Update: Weapon Data Integration & Dynamic Asset Loading
+* **Weapon Data Model:** Implemented `WeaponProfile` and `WeaponDataManager` to natively load `WEAPON_DATA.json`. This abstracts weapon stats and links the raw weapon internal names to their explicit rendering frame names (e.g., `WHIP` -> `whip_frame`).
+* **Dynamic Sprite System:** Upgraded `main.cpp` to utilize `std::filesystem::directory_iterator` for autonomous loading. The engine now parses the entire `Assets/Graphics/Characters` directory, loads each texture individually, and automatically cross-references and parses its matching JSON map from `Assets/Data/CharacterAtlas` if available.
+* **Sprite Coordinate Mapping:** Integrated the newly loaded texture mappings seamlessly with `CharacterProfile`. The engine safely requests exact bounding boxes (`92x92px`) from the `TextureAtlas` dynamically, completely bypassing monolithic hardcoding for all 60 character files.
+* **UI Scaling Consistency:** Embedded mathematical bounding box scaling (`.getLocalBounds()`) directly inside UI element constructors, guaranteeing that regardless of the native asset size, all UI icons clamp exactly to design specs (`92x92` for portraits, `42x42` for items) without distorting resolution or padding.
+
+***
+
+## Update: DetailPanel UI Revamp & Shared Text Utility
+* **NineSlice Background Borders:** Replaced standard bounding frames with the `NineSliceComponent` engine, utilizing `"frameB10"` dynamically anchored to an `80x80` footprint for the item preview block inside the `DetailPanel`. Configured dirty-flag updates to reliably flush math calculations natively inside the layout loops.
+* **Drop Shadow Rendering:** Advanced `CharacterCardWidget` to dynamically render multi-pass drop shadows exclusively for item icons using `sf::Color::Black` offset tinting before drawing the standard sprite overlay.
+* **Global Text Wrapping Support:** Abstracted text wrapping calculations away from specific states into a globally accessible namespace (`UI::TextUtility`). This allows responsive paragraph recalculations directly aligned to specific `MaxWidth` pixel thresholds anywhere in the engine.
+* **Layout Mathematics Integration:** Refined relative layout flows in `DetailPanel` to securely calculate remaining window sizes based on dynamic padding limits, perfectly scaling font boundaries for long character descriptions and matching all label font sizes appropriately.

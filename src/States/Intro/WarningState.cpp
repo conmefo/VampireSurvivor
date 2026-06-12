@@ -2,6 +2,7 @@
 #include "../Title/TitleState.h"
 #include "../StateManager.h"
 #include "../../Core/WindowSettings.h"
+#include "../../UI/Core/TextUtility.h"
 #include <iostream>
 
 WarningState::WarningState(StateContext context)
@@ -56,8 +57,8 @@ void WarningState::Init()
     m_promptText.setCharacterSize(38);
     m_promptText.setFillColor(sf::Color::White);
 
-    WrapText(m_bodyText1, 1242.0f);
-    WrapText(m_bodyText2, 1242.0f);
+    UI::TextUtility::WrapText(m_bodyText1, 1242.0f);
+    UI::TextUtility::WrapText(m_bodyText2, 1242.0f);
 
     // Calculate origins and positions once after text is wrapped
     sf::Vector2f center(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);
@@ -132,62 +133,6 @@ void WarningState::Draw(sf::RenderWindow& window)
     window.draw(m_bodyText1);
     window.draw(m_bodyText2);
     window.draw(m_promptText);
-}
-
-void WarningState::WrapText(sf::Text& text, float maxWidth)
-{
-    std::string sourceStr = text.getString().toAnsiString();
-    std::string resultStr = "";
-    std::string currentLine = "";
-    std::string word = "";
-
-    for(char c : sourceStr)
-    {
-        if(c == ' ' || c == '\n')
-        {
-            if(!word.empty())
-            {
-                std::string testLine = currentLine.empty() ? word : currentLine + " " + word;
-                text.setString(testLine);
-                if(text.getLocalBounds().width > maxWidth)
-                {
-                    resultStr += currentLine + "\n";
-                    currentLine = word;
-                }
-                else
-                {
-                    currentLine = testLine;
-                }
-                word = "";
-            }
-            if(c == '\n')
-            {
-                resultStr += currentLine + "\n";
-                currentLine = "";
-            }
-        }
-        else
-        {
-            word += c;
-        }
-    }
-
-    if(!word.empty())
-    {
-        std::string testLine = currentLine.empty() ? word : currentLine + " " + word;
-        text.setString(testLine);
-        if(text.getLocalBounds().width > maxWidth)
-        {
-            resultStr += currentLine + "\n";
-            currentLine = word;
-        }
-        else
-        {
-            currentLine = testLine;
-        }
-    }
-    resultStr += currentLine;
-    text.setString(resultStr);
 }
 
 void WarningState::UpdateOpacity(float opacity)

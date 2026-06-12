@@ -9,8 +9,10 @@
 #include "Core/Animation/AnimationLibrary.h"
 #include "Core/Data/CharacterDataManager.h"
 #include "Core/Data/PlayerProgressionManager.h"
+#include "Core/Data/WeaponDataManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <filesystem>
 
 int runSfmlTest()
 {
@@ -56,6 +58,7 @@ int runSfmlTest()
         textureManager.Load("CharacterDecoration_2", "Assets/Graphics/Spritesheets/demonSkull.png");
 
         textureManager.Load("Illustrations", "Assets/Graphics/Spritesheets/illustrations.png");
+        textureManager.Load("Items", "Assets/Graphics/Spritesheets/items.png");
     }
     catch (const std::exception& e)
     {
@@ -75,6 +78,38 @@ int runSfmlTest()
         textureAtlas.LoadFromFile("Assets/Data/illustration_atlas.json", "Illustrations", illTex->getSize().y);
     }
 
+    const sf::Texture* itemTex = textureManager.GetPtr("Items");
+    if (itemTex)
+    {
+        textureAtlas.LoadFromFile("Assets/Data/items_atlas.json", "Items", itemTex->getSize().y);
+    }
+
+    // Dynamically load all character textures and atlases
+    for (const auto& entry : std::filesystem::directory_iterator("Assets/Graphics/Characters"))
+    {
+        if (entry.path().extension() == ".png")
+        {
+            std::string filename = entry.path().stem().string();
+            try
+            {
+                textureManager.Load(filename, entry.path().string());
+                const sf::Texture* tex = textureManager.GetPtr(filename);
+                if (tex)
+                {
+                    std::string atlasPath = "Assets/Data/CharacterAtlas/" + filename + "_atlas.json";
+                    if (std::filesystem::exists(atlasPath))
+                    {
+                        textureAtlas.LoadFromFile(atlasPath, filename, tex->getSize().y);
+                    }
+                }
+            }
+            catch (const std::exception& e)
+            {
+                std::cerr << "Failed to load character texture " << filename << ": " << e.what() << "\n";
+            }
+        }
+    }
+
     AnimationLibrary animLibrary(textureAtlas);
     // In a real scenario, this path would be absolute or relative to the executable.
     animLibrary.LoadFromJson("Assets/Data/animations.json");
@@ -85,8 +120,11 @@ int runSfmlTest()
     PlayerProgressionManager playerProgressionManager;
     playerProgressionManager.InitializeUnlockedCharacters(characterDataManager.GetAllCharacters());
 
+    WeaponDataManager weaponDataManager;
+    weaponDataManager.LoadData("Assets/Data/WEAPON_DATA.json");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager);
 
     stateManager.AddState(std::make_unique<LoadingState>(context));
     stateManager.ProcessStateChanges();

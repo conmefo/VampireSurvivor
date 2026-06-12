@@ -11,7 +11,7 @@
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager)
+CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager, const WeaponDataManager* weaponManager)
     : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font, boldFont))
     , m_statsPanel(std::make_unique<StatsPanel>(atlas, font))
     , m_goldDisplay(std::make_unique<GoldDisplayWidget>(atlas, progressionManager, font))
@@ -27,17 +27,17 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
     {
         if(progressionManager)
         {
-            m_mainBoard->GetRosterGrid()->InitializeRoster(characterData, *progressionManager);
+            m_mainBoard->GetRosterGrid()->InitializeRoster(characterData, *progressionManager, weaponManager);
         }
         
-        m_mainBoard->GetRosterGrid()->SetOnSelectionChanged([this, &characterData, progressionManager](const std::string& characterId)
+        m_mainBoard->GetRosterGrid()->SetOnSelectionChanged([this, &characterData, progressionManager, weaponManager](const std::string& characterId)
         {
             m_selectedCharacterId = characterId;
             const CharacterProfile& profile = characterData.GetCharacterById(characterId);
             
             if(m_mainBoard->GetDetailPanel())
             {
-                m_mainBoard->GetDetailPanel()->SetCharacterProfile(profile);
+                m_mainBoard->GetDetailPanel()->SetCharacterProfile(profile, weaponManager);
             }
 
             if(progressionManager && progressionManager->IsCharacterUnlocked(characterId))

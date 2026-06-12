@@ -17,7 +17,6 @@ public:
     void Draw(sf::RenderWindow& window) override;
 
 private:
-    void WrapText(sf::Text& text, float maxWidth);
     void UpdateOpacity(float opacity);
 
     sf::Font m_font;

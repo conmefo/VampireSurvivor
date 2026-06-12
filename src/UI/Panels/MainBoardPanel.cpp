@@ -8,7 +8,7 @@ MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font, const 
     : UIPanel(atlas, "frame5_c4", 12, 12, 12, 12)
     , m_scrollView(nullptr)
     , m_rosterGridRaw(nullptr)
-    , m_detailPanel(std::make_unique<DetailPanel>(atlas, font))
+    , m_detailPanel(std::make_unique<DetailPanel>(atlas, font, boldFont))
 {
     auto rosterGrid = std::make_unique<RosterGridPanel>(atlas, font, boldFont);
     m_rosterGridRaw = rosterGrid.get();
