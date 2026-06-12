@@ -17,6 +17,7 @@ enum class CardState
 {
     Normal,
     Selected,
+    Confirmed,
     Locked
 };
 
@@ -46,6 +47,7 @@ public:
 
     void SetState(CardState state);
     CardState GetState() const;
+    void SetTint(sf::Color color);
     const std::string& GetCharacterId() const;
 
     void SetOnClickCallback(std::function<void(const std::string&)> callback);

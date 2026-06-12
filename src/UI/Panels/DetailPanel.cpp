@@ -134,3 +134,8 @@ void DetailPanel::Draw(sf::RenderTarget& target)
         target.draw(m_descriptionText);
     }
 }
+
+void DetailPanel::SetTint(sf::Color color)
+{
+    UIPanel::SetColor(color);
+}

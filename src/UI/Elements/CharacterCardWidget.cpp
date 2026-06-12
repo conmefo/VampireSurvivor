@@ -81,6 +81,11 @@ void CharacterCardWidget::SetState(CardState state)
     UpdateVisuals();
 }
 
+void CharacterCardWidget::SetTint(sf::Color color)
+{
+    m_backgroundSelected.SetColor(color);
+}
+
 CardState CharacterCardWidget::GetState() const
 {
     return m_state;
@@ -99,8 +104,17 @@ void CharacterCardWidget::SetOnClickCallback(std::function<void(const std::strin
 void CharacterCardWidget::UpdateVisuals()
 {
     sf::Color tint = m_isPressed ? sf::Color(150, 150, 150) : sf::Color::White;
-    m_backgroundNormal.SetColor(tint);
-    m_backgroundSelected.SetColor(tint);
+    
+    if (m_state == CardState::Confirmed)
+    {
+        m_backgroundNormal.SetColor(sf::Color(220, 180, 0)); // Brighter gold background
+        m_backgroundSelected.SetColor(sf::Color::White);
+    }
+    else
+    {
+        m_backgroundNormal.SetColor(tint);
+        m_backgroundSelected.SetColor(tint);
+    }
 
     if(!m_isUnlocked)
     {
@@ -198,7 +212,7 @@ void CharacterCardWidget::Draw(sf::RenderTarget& target)
 {
     target.draw(m_backgroundNormal);
 
-    if(m_state == CardState::Selected)
+    if(m_state == CardState::Selected || m_state == CardState::Confirmed)
     {
         target.draw(m_backgroundSelected);
     }

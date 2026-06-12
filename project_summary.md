@@ -250,3 +250,11 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Save State Serialization:** Built native `Save()` and `Load()` methods into `PlayerProgressionManager`, serializing gold, unlocked characters, and purchased power-ups securely into a local `save_data.json` file.
 * **StatsPanel Sync & Gold Rendering:** Fully connected the `StatsPanel` within the `CharacterSelectionView` directly to the active `PowerUpDataManager`. The panel dynamically maps base properties (white text) alongside aggregated power-up buffs formatted in gold text (`sf::Color(255, 215, 0)`), perfectly matching the original UI aesthetics.
 * **PowerUpState Reactivity:** Completely rewired `PowerUpState.cpp` to iterate real profiles loaded dynamically. Buying or refunding updates the backend state instantly, saving to disk, and cascading UI `.RefreshData()` calls to accurately lock buttons or update textual inflation costs in real-time.
+
+***
+
+## Update: Co-op Mode UI Integration & Layout Polish
+* **Dynamic Co-op Resizing:** Enhanced `CharacterSelectionView` to dynamically shrink the `MainBoardPanel` by 240px and spawn two separate 181x200 player cards (`UIPlayerCoopCard`) seamlessly when transitioning into Co-op mode.
+* **Component Encapsulation & Bug Fixes:** Fixed severe selection state bugs where the `Enter Co-op` button is autonomously disabled if `ReadyToStart` is triggered in single-player mode, preventing invisible UI layout crashes. Refined `RosterGridPanel` to properly reset confirmed cards back to a normal state if the user clicks a different character.
+* **Compositing Consistency:** Upgraded `CharacterSelectionScreen` to abandon the dark overlay pattern. It now perfectly mimics `MainMenuState` by directly recreating the composite background texture, appending the 3 title illustrations, and explicitly drawing the identical `m_topBarBg` black bar, creating a perfectly seamless transition.
+* **PowerUp Text Flow Control:** Leveraged the shared `UI::TextUtility` globally inside `UIDetailPanel` for PowerUps. Dynamically calculates `maxDescWidth` via floating boundaries to automatically wrap description strings so they never intersect with the `Buy` button.

@@ -1,5 +1,6 @@
 #include "UIDetailPanel.h"
 #include <iostream>
+#include "../Core/TextUtility.h"
 
 UIDetailPanel::UIDetailPanel(TextureAtlas& atlas, const sf::Font& font)
     : m_atlas(atlas), m_font(font)
@@ -118,8 +119,14 @@ void UIDetailPanel::UpdateLayout()
     float iconY = m_position.y + 95.0f;
     m_innerFrameSprite.setPosition(iconX, iconY);
     m_iconSprite.setPosition(iconX, iconY);
-    
-    m_descText.setPosition(iconX + 80.0f, iconY - 30.0f);
+    m_descText.setPosition(iconX + 80.0f, iconY - 60.0f);
+
+    m_descText.setString(m_currentData.description);
+    float maxDescWidth = m_size.x - 360.0f; // Leaves space before the Buy button
+    if (maxDescWidth > 0)
+    {
+        UI::TextUtility::WrapText(m_descText, maxDescWidth);
+    }
 
     m_coinIcon.setPosition(m_position.x + m_size.x - 120.0f, m_position.y + 35.0f);
     m_priceText.setPosition(m_position.x + m_size.x - 90.0f, m_position.y + 20.0f);

@@ -43,4 +43,5 @@ public:
 
     void SetPosition(const sf::Vector2f& pos) override;
     void SetSize(const sf::Vector2f& size) override;
+    void SetTint(sf::Color color);
 };

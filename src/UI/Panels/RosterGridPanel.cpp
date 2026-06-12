@@ -51,7 +51,7 @@ void RosterGridPanel::OnCardClicked(const std::string& characterId)
 
     for(auto& card : m_cards)
     {
-        if(card->GetState() == CardState::Selected)
+        if(card->GetState() == CardState::Selected || card->GetState() == CardState::Confirmed)
         {
             // Reset previously selected
             card->SetState(CardState::Normal);
@@ -70,6 +70,24 @@ void RosterGridPanel::OnCardClicked(const std::string& characterId)
     if(m_onSelectionChanged)
     {
         m_onSelectionChanged(m_selectedCharacterId);
+    }
+}
+
+void RosterGridPanel::SetCardConfirmedState(bool confirmed)
+{
+    for(auto& card : m_cards)
+    {
+        if(card->GetCharacterId() == m_selectedCharacterId)
+        {
+            if (confirmed)
+            {
+                card->SetState(CardState::Confirmed);
+            }
+            else
+            {
+                card->SetState(CardState::Selected);
+            }
+        }
     }
 }
 
