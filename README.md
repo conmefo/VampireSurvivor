@@ -1,6 +1,8 @@
 # Vampire Survivors Clone
 
-# Project Structure
+## Project Structure
+
+```
 VampireSurvivorsClone/
 ├── CMakeLists.txt                  # Cấu hình biên dịch (Build configuration)
 ├── data/                           # Dữ liệu tĩnh và file lưu game (Persistent Data)
@@ -67,3 +69,4 @@ VampireSurvivorsClone/
 │       ├── UIManager.h             # Lắng nghe sự kiện (Event-driven UI)
 │       ├── UIManager.cpp
 │       └── Components/             # HealthBar, ExpBar, FloatingText
+```
