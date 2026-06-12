@@ -71,6 +71,258 @@
       "height": 34,
       "sourceWidth": 2048,
       "sourceHeight": 2048
+    },
+    "zombie_ghoul1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 854,
+      "y": 822,
+      "width": 32,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "zombie_ghoul1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 113,
+      "y": 916,
+      "width": 33,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "zombie_ghoul1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1877,
+      "y": 1316,
+      "width": 34,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "zombie_ghoul1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 113,
+      "y": 916,
+      "width": 33,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mudman1_mudman1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 382,
+      "y": 709,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mudman1_mudman1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1669,
+      "y": 1154,
+      "width": 35,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mudman1_mudman1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1362,
+      "y": 980,
+      "width": 37,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mudman1_mudman1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1669,
+      "y": 1154,
+      "width": 35,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 388,
+      "y": 1050,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 385,
+      "y": 1084,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 793,
+      "y": 954,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 385,
+      "y": 1084,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "werewolf_werewolf1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 889,
+      "y": 786,
+      "width": 32,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "werewolf_werewolf1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 408,
+      "y": 833,
+      "width": 33,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "werewolf_werewolf1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1789,
+      "y": 1147,
+      "width": 35,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "werewolf_werewolf1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 408,
+      "y": 833,
+      "width": 33,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlbat_xlbat_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1341,
+      "y": 420,
+      "width": 50,
+      "height": 39,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlbat_xlbat_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1393,
+      "y": 458,
+      "width": 50,
+      "height": 37,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlbat_xlbat_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1360,
+      "y": 276,
+      "width": 51,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlbat_xlbat_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1393,
+      "y": 458,
+      "width": 50,
+      "height": 37,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmantis_xlmantis_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1814,
+      "y": 575,
+      "width": 48,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmantis_xlmantis_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1246,
+      "y": 270,
+      "width": 51,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmantis_xlmantis_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 563,
+      "y": 274,
+      "width": 57,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmantis_xlmantis_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1246,
+      "y": 270,
+      "width": 51,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlflower_xlflower1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1599,
+      "y": 170,
+      "width": 51,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlflower_xlflower1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1652,
+      "y": 170,
+      "width": 51,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlflower_xlflower1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1705,
+      "y": 202,
+      "width": 51,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlflower_xlflower1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1870,
+      "y": 242,
+      "width": 51,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
     }
   },
   "animations": {
@@ -102,6 +354,118 @@
             "skeleton_skeleton1_i02",
             "skeleton_skeleton1_i03",
             "skeleton_skeleton1_i04"
+          ]
+        }
+      }
+    },
+    "ZOMBIE": {
+      "name": "Zombie",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "zombie_ghoul1_i01",
+            "zombie_ghoul1_i02",
+            "zombie_ghoul1_i03",
+            "zombie_ghoul1_i04"
+          ]
+        }
+      }
+    },
+    "MUDMAN1": {
+      "name": "Mudman",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mudman1_mudman1_i01",
+            "mudman1_mudman1_i02",
+            "mudman1_mudman1_i03",
+            "mudman1_mudman1_i04"
+          ]
+        }
+      }
+    },
+    "GHOST": {
+      "name": "Ghost",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "ghost_ghost_i01",
+            "ghost_ghost_i02",
+            "ghost_ghost_i03",
+            "ghost_ghost_i04"
+          ]
+        }
+      }
+    },
+    "WEREWOLF": {
+      "name": "Werewolf",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "werewolf_werewolf1_i01",
+            "werewolf_werewolf1_i02",
+            "werewolf_werewolf1_i03",
+            "werewolf_werewolf1_i04"
+          ]
+        }
+      }
+    },
+    "XLBAT": {
+      "name": "Giant Bat",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlbat_xlbat_i01",
+            "xlbat_xlbat_i02",
+            "xlbat_xlbat_i03",
+            "xlbat_xlbat_i04"
+          ]
+        }
+      }
+    },
+    "XLMANTIS": {
+      "name": "Mantichana",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlmantis_xlmantis_i01",
+            "xlmantis_xlmantis_i02",
+            "xlmantis_xlmantis_i03",
+            "xlmantis_xlmantis_i04"
+          ]
+        }
+      }
+    },
+    "XLFLOWER": {
+      "name": "Venus",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlflower_xlflower1_i01",
+            "xlflower_xlflower1_i02",
+            "xlflower_xlflower1_i03",
+            "xlflower_xlflower1_i04"
           ]
         }
       }
@@ -138,6 +502,106 @@
         "WAREHOUSE",
         "TOWER",
         "BONEZONE"
+      ]
+    },
+    "ZOMBIE": {
+      "level": 1,
+      "maxHp": 1,
+      "speed": 100,
+      "power": 10,
+      "knockback": 0.8,
+      "xp": 1,
+      "mass": 1,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
+      ]
+    },
+    "MUDMAN1": {
+      "level": 1,
+      "maxHp": 7,
+      "speed": 100,
+      "power": 10,
+      "knockback": 0.3,
+      "xp": 2.5,
+      "mass": 1.2,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
+      ]
+    },
+    "GHOST": {
+      "level": 1,
+      "maxHp": 1,
+      "speed": 200,
+      "power": 5,
+      "knockback": 0,
+      "xp": 1.5,
+      "mass": 0.6,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "FOREST",
+        "LIBRARY",
+        "TOWER"
+      ]
+    },
+    "WEREWOLF": {
+      "level": 1,
+      "maxHp": 18,
+      "speed": 130,
+      "power": 14,
+      "knockback": 0.8,
+      "xp": 2,
+      "mass": 1.2,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
+      ]
+    },
+    "XLBAT": {
+      "level": 10,
+      "maxHp": 27,
+      "speed": 140,
+      "power": 10,
+      "knockback": 0.1,
+      "xp": 2.5,
+      "mass": 1.6,
+      "collisionRadius": 24,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
+      ]
+    },
+    "XLMANTIS": {
+      "level": 10,
+      "maxHp": 50,
+      "speed": 80,
+      "power": 20,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 2.0,
+      "collisionRadius": 26,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
+      ]
+    },
+    "XLFLOWER": {
+      "level": 10,
+      "maxHp": 50,
+      "speed": 80,
+      "power": 20,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 2.0,
+      "collisionRadius": 26,
+      "spriteScale": 1,
+      "places": [
+        "FOREST"
       ]
     }
   }

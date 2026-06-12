@@ -13,7 +13,7 @@ namespace
 
     int GetIntOrDefault(const nlohmann::json& json, const char* key, int fallback)
     {
-        return json.contains(key) ? json[key].get<int>() : fallback;
+        return json.contains(key) ? static_cast<int>(json[key].get<float>()) : fallback;
     }
 }
 

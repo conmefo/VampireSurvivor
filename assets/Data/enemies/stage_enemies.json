@@ -1,0 +1,2958 @@
+{
+  "atlas": {
+    "skeleton_skeleton1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 95,
+      "y": 1117,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 400,
+      "y": 1014,
+      "width": 29,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 911,
+      "y": 880,
+      "width": 30,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skeleton_skeleton1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 400,
+      "y": 1014,
+      "width": 29,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 388,
+      "y": 1050,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 385,
+      "y": 1084,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 793,
+      "y": 954,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ghost_ghost_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 385,
+      "y": 1084,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mud_mud_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 809,
+      "y": 921,
+      "width": 30,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mud_mud_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 129,
+      "y": 1104,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mud_mud_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1768,
+      "y": 1034,
+      "width": 27,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mud_mud_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 129,
+      "y": 1104,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "buer_buer_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1,
+      "y": 1241,
+      "width": 26,
+      "height": 30,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "buer_buer_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 355,
+      "y": 636,
+      "width": 25,
+      "height": 29,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "buer_buer_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 115,
+      "y": 1244,
+      "width": 26,
+      "height": 29,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "buer_buer_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 29,
+      "y": 1241,
+      "width": 26,
+      "height": 30,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "milk_milk_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 777,
+      "y": 921,
+      "width": 30,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "milk_milk_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 163,
+      "y": 1084,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "milk_milk_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 690,
+      "y": 605,
+      "width": 27,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "milk_milk_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 163,
+      "y": 1084,
+      "width": 28,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "shadered_shadered_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 973,
+      "y": 959,
+      "width": 30,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "shadered_shadered_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 405,
+      "y": 950,
+      "width": 31,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "shadered_shadered_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 159,
+      "y": 1119,
+      "width": 28,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_count1_hag_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1964,
+      "y": 552,
+      "width": 48,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_count1_hag_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1914,
+      "y": 553,
+      "width": 48,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_count1_hag_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1964,
+      "y": 601,
+      "width": 48,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_count1_hag_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1684,
+      "y": 561,
+      "width": 48,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_count2_xlfritto_i01": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 499,
+      "y": 1499,
+      "width": 40,
+      "height": 48,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_count2_xlfritto_i02": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 370,
+      "y": 1344,
+      "width": 43,
+      "height": 48,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_count2_xlfritto_i03": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 457,
+      "y": 1422,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_count2_xlfritto_i04": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 415,
+      "y": 1368,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "mummy_mummy_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 744,
+      "y": 887,
+      "width": 31,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mummy_mummy_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 574,
+      "y": 703,
+      "width": 34,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mummy_mummy_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1654,
+      "y": 1013,
+      "width": 36,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mummy_mummy_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 574,
+      "y": 703,
+      "width": 34,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "medusa1_medusa1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1661,
+      "y": 685,
+      "width": 21,
+      "height": 26,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "medusa1_medusa1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1005,
+      "y": 969,
+      "width": 25,
+      "height": 29,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "medusa1_medusa1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 57,
+      "y": 1243,
+      "width": 26,
+      "height": 30,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "medusa1_medusa1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1005,
+      "y": 969,
+      "width": 25,
+      "height": 29,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ecto1_ecto1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1997,
+      "y": 1082,
+      "width": 20,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ecto1_ecto1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1957,
+      "y": 1015,
+      "width": 20,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ecto1_ecto1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1957,
+      "y": 980,
+      "width": 20,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "ecto1_ecto1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1957,
+      "y": 1015,
+      "width": 20,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "dull0_dullahan0_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1322,
+      "y": 1240,
+      "width": 33,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "dull0_dullahan0_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1252,
+      "y": 1120,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "dull0_dullahan0_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 924,
+      "y": 1002,
+      "width": 36,
+      "height": 38,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "dull0_dullahan0_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1252,
+      "y": 1120,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch1_witch1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 133,
+      "y": 1068,
+      "width": 28,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch1_witch1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 623,
+      "y": 904,
+      "width": 31,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch1_witch1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 155,
+      "y": 900,
+      "width": 33,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch1_witch1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 589,
+      "y": 929,
+      "width": 31,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch2_witch2_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 977,
+      "y": 818,
+      "width": 32,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch2_witch2_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1763,
+      "y": 1300,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch2_witch2_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1737,
+      "y": 968,
+      "width": 36,
+      "height": 38,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "witch2_witch2_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1763,
+      "y": 1300,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmedusa_xlmedusa_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1764,
+      "y": 490,
+      "width": 48,
+      "height": 49,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmedusa_xlmedusa_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1237,
+      "y": 354,
+      "width": 50,
+      "height": 52,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmedusa_xlmedusa_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1413,
+      "y": 305,
+      "width": 50,
+      "height": 54,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmedusa_xlmedusa_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1237,
+      "y": 354,
+      "width": 50,
+      "height": 52,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmummy_xlmummy_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1381,
+      "y": 850,
+      "width": 37,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmummy_xlmummy_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1336,
+      "y": 860,
+      "width": 37,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmummy_xlmummy_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1290,
+      "y": 871,
+      "width": 37,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlmummy_xlmummy_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1336,
+      "y": 860,
+      "width": 37,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "fishman_1_fishman_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1265,
+      "y": 1089,
+      "width": 31,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "fishman_1_fishman_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 162,
+      "y": 863,
+      "width": 33,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "fishman_1_fishman_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1799,
+      "y": 1324,
+      "width": 34,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "fishman_1_fishman_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 162,
+      "y": 863,
+      "width": 33,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard1_2_lizard1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 574,
+      "y": 632,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard1_2_lizard1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1414,
+      "y": 932,
+      "width": 37,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard1_2_lizard1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1636,
+      "y": 789,
+      "width": 39,
+      "height": 39,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard1_2_lizard1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1368,
+      "y": 942,
+      "width": 37,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile1_pile1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 522,
+      "y": 1062,
+      "width": 23,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile1_pile1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 599,
+      "y": 1034,
+      "width": 23,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile1_pile1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 244,
+      "y": 245,
+      "width": 23,
+      "height": 38,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile1_pile1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 599,
+      "y": 1034,
+      "width": 23,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard2_3_lizard2_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 678,
+      "y": 678,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard2_3_lizard2_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1242,
+      "y": 941,
+      "width": 37,
+      "height": 37,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard2_3_lizard2_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1837,
+      "y": 928,
+      "width": 38,
+      "height": 39,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "lizard2_3_lizard2_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1543,
+      "y": 871,
+      "width": 37,
+      "height": 37,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile2_pile2_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 151,
+      "y": 1173,
+      "width": 26,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile2_pile2_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1331,
+      "y": 1115,
+      "width": 26,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile2_pile2_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 691,
+      "y": 527,
+      "width": 26,
+      "height": 38,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile2_pile2_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 123,
+      "y": 1172,
+      "width": 26,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "jellyfish_jelly2_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 246,
+      "y": 816,
+      "width": 19,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "jellyfish_jelly2_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 302,
+      "y": 1103,
+      "width": 18,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "jellyfish_jelly2_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 281,
+      "y": 1110,
+      "width": 18,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "jellyfish_jelly2_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 302,
+      "y": 1103,
+      "width": 18,
+      "height": 31,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelenin1_skeletonn1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 210,
+      "y": 779,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelenin1_skeletonn1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1826,
+      "y": 1175,
+      "width": 35,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelenin1_skeletonn1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1937,
+      "y": 1179,
+      "width": 35,
+      "height": 30,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelenin1_skeletonn1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1826,
+      "y": 1175,
+      "width": 35,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile3_pile3_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 323,
+      "y": 1077,
+      "width": 29,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile3_pile3_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1578,
+      "y": 1232,
+      "width": 31,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile3_pile3_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1392,
+      "y": 1135,
+      "width": 31,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "pile3_pile3_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1611,
+      "y": 1245,
+      "width": 31,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "golem1_golem1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 182,
+      "y": 963,
+      "width": 32,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "golem1_golem1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1917,
+      "y": 1021,
+      "width": 38,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "golem1_golem1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 719,
+      "y": 610,
+      "width": 44,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "golem1_golem1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1917,
+      "y": 1021,
+      "width": 38,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno1_5_migno1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 70,
+      "y": 997,
+      "width": 32,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno1_5_migno1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1678,
+      "y": 1116,
+      "width": 35,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno1_5_migno1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1323,
+      "y": 952,
+      "width": 37,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno1_5_migno1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1678,
+      "y": 1116,
+      "width": 35,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno_3_5swarm_migno3_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 70,
+      "y": 997,
+      "width": 32,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno_3_5swarm_migno3_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1752,
+      "y": 1107,
+      "width": 35,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno_3_5swarm_migno3_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1281,
+      "y": 963,
+      "width": 37,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "migno_3_5swarm_migno3_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1715,
+      "y": 1143,
+      "width": 35,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armorspear_6_armorspear_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1943,
+      "y": 1371,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armorspear_6_armorspear_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1733,
+      "y": 1261,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armorspear_6_armorspear_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1835,
+      "y": 1010,
+      "width": 36,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armorspear_6_armorspear_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1733,
+      "y": 1261,
+      "width": 34,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armor_6_armor_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 2009,
+      "y": 1376,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armor_6_armor_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1587,
+      "y": 1158,
+      "width": 35,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armor_6_armor_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1979,
+      "y": 1011,
+      "width": 38,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "armor_6_armor_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1587,
+      "y": 1158,
+      "width": 35,
+      "height": 35,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelewing_skeletonw_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 168,
+      "y": 827,
+      "width": 34,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelewing_skeletonw_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1692,
+      "y": 1008,
+      "width": 36,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelewing_skeletonw_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1382,
+      "y": 814,
+      "width": 38,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skelewing_skeletonw_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1692,
+      "y": 1008,
+      "width": 36,
+      "height": 33,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xltriton_xltriton_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 382,
+      "y": 559,
+      "width": 46,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xltriton_xltriton_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1127,
+      "y": 408,
+      "width": 46,
+      "height": 52,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xltriton_xltriton_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 943,
+      "y": 340,
+      "width": 46,
+      "height": 54,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xltriton_xltriton_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1175,
+      "y": 425,
+      "width": 46,
+      "height": 52,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlcockatrice_xlcockatrice1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1395,
+      "y": 414,
+      "width": 50,
+      "height": 42,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlcockatrice_xlcockatrice1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1533,
+      "y": 213,
+      "width": 51,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlcockatrice_xlcockatrice1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1493,
+      "y": 113,
+      "width": 52,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlcockatrice_xlcockatrice1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1586,
+      "y": 222,
+      "width": 51,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1267,
+      "y": 570,
+      "width": 45,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1003,
+      "y": 290,
+      "width": 47,
+      "height": 49,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1868,
+      "y": 294,
+      "width": 49,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1267,
+      "y": 570,
+      "width": 45,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i05": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1814,
+      "y": 474,
+      "width": 48,
+      "height": 49,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlgolem1_xlgolem1_i06": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1923,
+      "y": 242,
+      "width": 51,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlarmor_sword_xlarmorsword_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 502,
+      "y": 529,
+      "width": 46,
+      "height": 50,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlarmor_sword_xlarmorsword_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 991,
+      "y": 341,
+      "width": 46,
+      "height": 53,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlarmor_sword_xlarmorsword_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1961,
+      "y": 773,
+      "width": 47,
+      "height": 56,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "xlarmor_sword_xlarmorsword_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 817,
+      "y": 375,
+      "width": 46,
+      "height": 58,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skullnoaura_skullnoaura_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1275,
+      "y": 1346,
+      "width": 26,
+      "height": 32,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skullnoaura_skullnoaura_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1337,
+      "y": 1364,
+      "width": 26,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skullnoaura_skullnoaura_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1209,
+      "y": 1357,
+      "width": 26,
+      "height": 36,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "skullnoaura_skullnoaura_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1337,
+      "y": 1364,
+      "width": 26,
+      "height": 34,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_gold_capegold_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1769,
+      "y": 1261,
+      "width": 40,
+      "height": 45,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_gold_capegold_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1708,
+      "y": 1057,
+      "width": 41,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_gold_capegold_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1371,
+      "y": 968,
+      "width": 43,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_gold_capegold_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 309,
+      "y": 933,
+      "width": 38,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_silver_capesilver_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1811,
+      "y": 1321,
+      "width": 40,
+      "height": 45,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_silver_capesilver_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1798,
+      "y": 1060,
+      "width": 41,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_silver_capesilver_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1467,
+      "y": 969,
+      "width": 43,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_silver_capesilver_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 117,
+      "y": 1020,
+      "width": 38,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_left_capeleft_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1727,
+      "y": 1306,
+      "width": 40,
+      "height": 45,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_left_capeleft_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1660,
+      "y": 1061,
+      "width": 41,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_left_capeleft_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1312,
+      "y": 994,
+      "width": 43,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_left_capeleft_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 243,
+      "y": 963,
+      "width": 38,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_right_caperight_i01": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1769,
+      "y": 1308,
+      "width": 40,
+      "height": 45,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_right_caperight_i02": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1798,
+      "y": 1014,
+      "width": 41,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_right_caperight_i03": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 1253,
+      "y": 1002,
+      "width": 43,
+      "height": 43,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "mask_right_caperight_i04": {
+      "texture": "assets/images/enemies/vs_enemies2.png",
+      "x": 183,
+      "y": 990,
+      "width": 38,
+      "height": 44,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1936,
+      "y": 881,
+      "width": 41,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1807,
+      "y": 834,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1850,
+      "y": 879,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1893,
+      "y": 914,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i05": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1979,
+      "y": 912,
+      "width": 41,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i06": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1936,
+      "y": 931,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i07": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1850,
+      "y": 879,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_xldeath_xlreaper_i08": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1979,
+      "y": 962,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i01": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 458,
+      "y": 1372,
+      "width": 42,
+      "height": 48,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i02": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 323,
+      "y": 1484,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i03": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 595,
+      "y": 1335,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i04": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 639,
+      "y": 1338,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i05": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 413,
+      "y": 1417,
+      "width": 42,
+      "height": 48,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i06": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 595,
+      "y": 1384,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i07": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 547,
+      "y": 1387,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_trickster_normal_trickster_i08": {
+      "texture": "assets/images/enemies/vs_enemies3.png",
+      "x": 502,
+      "y": 1405,
+      "width": 42,
+      "height": 47,
+      "sourceWidth": 1024,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i01": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1998,
+      "y": 862,
+      "width": 41,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i02": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1521,
+      "y": 706,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i03": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1564,
+      "y": 706,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i04": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1607,
+      "y": 714,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i05": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1893,
+      "y": 864,
+      "width": 41,
+      "height": 48,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i06": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1650,
+      "y": 740,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i07": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1564,
+      "y": 706,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    },
+    "boss_stalker_normal_stalker_i08": {
+      "texture": "assets/images/enemies/vs_enemies.png",
+      "x": 1764,
+      "y": 791,
+      "width": 41,
+      "height": 47,
+      "sourceWidth": 2048,
+      "sourceHeight": 2048
+    }
+  },
+  "animations": {
+    "SKELETON": {
+      "name": "Skeleton",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "skeleton_skeleton1_i01",
+            "skeleton_skeleton1_i02",
+            "skeleton_skeleton1_i03",
+            "skeleton_skeleton1_i04"
+          ]
+        }
+      }
+    },
+    "GHOST": {
+      "name": "Ghost",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "ghost_ghost_i01",
+            "ghost_ghost_i02",
+            "ghost_ghost_i03",
+            "ghost_ghost_i04"
+          ]
+        }
+      }
+    },
+    "MUD": {
+      "name": "Dust Elemental",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mud_mud_i01",
+            "mud_mud_i02",
+            "mud_mud_i03",
+            "mud_mud_i04"
+          ]
+        }
+      }
+    },
+    "BUER": {
+      "name": "Lionhead",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "buer_buer_i01",
+            "buer_buer_i02",
+            "buer_buer_i03",
+            "buer_buer_i04"
+          ]
+        }
+      }
+    },
+    "MILK": {
+      "name": "Milk Elemental",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "milk_milk_i01",
+            "milk_milk_i02",
+            "milk_milk_i03",
+            "milk_milk_i04"
+          ]
+        }
+      }
+    },
+    "SHADERED": {
+      "name": "Sig.ra Rossi",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "shadered_shadered_i01",
+            "shadered_shadered_i02",
+            "shadered_shadered_i03"
+          ]
+        }
+      }
+    },
+    "BOSS_COUNT1": {
+      "name": "Hag",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "boss_count1_hag_i01",
+            "boss_count1_hag_i02",
+            "boss_count1_hag_i03",
+            "boss_count1_hag_i04"
+          ]
+        }
+      }
+    },
+    "BOSS_COUNT2": {
+      "name": "Nesufritto",
+      "textureName": "enemies3",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "boss_count2_xlfritto_i01",
+            "boss_count2_xlfritto_i02",
+            "boss_count2_xlfritto_i03",
+            "boss_count2_xlfritto_i04"
+          ]
+        }
+      }
+    },
+    "MUMMY": {
+      "name": "Mummy",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mummy_mummy_i01",
+            "mummy_mummy_i02",
+            "mummy_mummy_i03",
+            "mummy_mummy_i04"
+          ]
+        }
+      }
+    },
+    "MEDUSA1": {
+      "name": "Sneaky Head",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "medusa1_medusa1_i01",
+            "medusa1_medusa1_i02",
+            "medusa1_medusa1_i03",
+            "medusa1_medusa1_i04"
+          ]
+        }
+      }
+    },
+    "ECTO1": {
+      "name": "Musc Musc",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "ecto1_ecto1_i01",
+            "ecto1_ecto1_i02",
+            "ecto1_ecto1_i03",
+            "ecto1_ecto1_i04"
+          ]
+        }
+      }
+    },
+    "DULL0": {
+      "name": "Testa di Mano",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "dull0_dullahan0_i01",
+            "dull0_dullahan0_i02",
+            "dull0_dullahan0_i03",
+            "dull0_dullahan0_i04"
+          ]
+        }
+      }
+    },
+    "WITCH1": {
+      "name": "Undead Witch",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "witch1_witch1_i01",
+            "witch1_witch1_i02",
+            "witch1_witch1_i03",
+            "witch1_witch1_i04"
+          ]
+        }
+      }
+    },
+    "WITCH2": {
+      "name": "Undead Sassy Witch",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "witch2_witch2_i01",
+            "witch2_witch2_i02",
+            "witch2_witch2_i03",
+            "witch2_witch2_i04"
+          ]
+        }
+      }
+    },
+    "XLMEDUSA": {
+      "name": "Merdusa",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlmedusa_xlmedusa_i01",
+            "xlmedusa_xlmedusa_i02",
+            "xlmedusa_xlmedusa_i03",
+            "xlmedusa_xlmedusa_i04"
+          ]
+        }
+      }
+    },
+    "XLMUMMY": {
+      "name": "Big Mummy",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlmummy_xlmummy_i01",
+            "xlmummy_xlmummy_i02",
+            "xlmummy_xlmummy_i03",
+            "xlmummy_xlmummy_i04"
+          ]
+        }
+      }
+    },
+    "FISHMAN_1": {
+      "name": "Merman",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "fishman_1_fishman_i01",
+            "fishman_1_fishman_i02",
+            "fishman_1_fishman_i03",
+            "fishman_1_fishman_i04"
+          ]
+        }
+      }
+    },
+    "LIZARD1_2": {
+      "name": "Lizard Pawn",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "lizard1_2_lizard1_i01",
+            "lizard1_2_lizard1_i02",
+            "lizard1_2_lizard1_i03",
+            "lizard1_2_lizard1_i04"
+          ]
+        }
+      }
+    },
+    "PILE1": {
+      "name": "Twin Snakes",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "pile1_pile1_i01",
+            "pile1_pile1_i02",
+            "pile1_pile1_i03",
+            "pile1_pile1_i04"
+          ]
+        }
+      }
+    },
+    "LIZARD2_3": {
+      "name": "Lizard Rook",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "lizard2_3_lizard2_i01",
+            "lizard2_3_lizard2_i02",
+            "lizard2_3_lizard2_i03",
+            "lizard2_3_lizard2_i04"
+          ]
+        }
+      }
+    },
+    "PILE2": {
+      "name": "Twin Demons",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "pile2_pile2_i01",
+            "pile2_pile2_i02",
+            "pile2_pile2_i03",
+            "pile2_pile2_i04"
+          ]
+        }
+      }
+    },
+    "JELLYFISH": {
+      "name": "Jellyfish",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "jellyfish_jelly2_i01",
+            "jellyfish_jelly2_i02",
+            "jellyfish_jelly2_i03",
+            "jellyfish_jelly2_i04"
+          ]
+        }
+      }
+    },
+    "SKELENIN1": {
+      "name": "Skeleton Ninja",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "skelenin1_skeletonn1_i01",
+            "skelenin1_skeletonn1_i02",
+            "skelenin1_skeletonn1_i03",
+            "skelenin1_skeletonn1_i04"
+          ]
+        }
+      }
+    },
+    "PILE3": {
+      "name": "Lost Twin",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "pile3_pile3_i01",
+            "pile3_pile3_i02",
+            "pile3_pile3_i03",
+            "pile3_pile3_i04"
+          ]
+        }
+      }
+    },
+    "GOLEM1": {
+      "name": "Melone",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "golem1_golem1_i01",
+            "golem1_golem1_i02",
+            "golem1_golem1_i03",
+            "golem1_golem1_i04"
+          ]
+        }
+      }
+    },
+    "MIGNO1_5": {
+      "name": "Minotaur",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "migno1_5_migno1_i01",
+            "migno1_5_migno1_i02",
+            "migno1_5_migno1_i03",
+            "migno1_5_migno1_i04"
+          ]
+        }
+      }
+    },
+    "MIGNO_3_5SWARM": {
+      "name": "Mignotaur",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "migno_3_5swarm_migno3_i01",
+            "migno_3_5swarm_migno3_i02",
+            "migno_3_5swarm_migno3_i03",
+            "migno_3_5swarm_migno3_i04"
+          ]
+        }
+      }
+    },
+    "ARMORSPEAR_6": {
+      "name": "Archon Lancia",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "armorspear_6_armorspear_i01",
+            "armorspear_6_armorspear_i02",
+            "armorspear_6_armorspear_i03",
+            "armorspear_6_armorspear_i04"
+          ]
+        }
+      }
+    },
+    "ARMOR_6": {
+      "name": "Archon Ascia",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "armor_6_armor_i01",
+            "armor_6_armor_i02",
+            "armor_6_armor_i03",
+            "armor_6_armor_i04"
+          ]
+        }
+      }
+    },
+    "SKELEWING": {
+      "name": "Skelewing",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "skelewing_skeletonw_i01",
+            "skelewing_skeletonw_i02",
+            "skelewing_skeletonw_i03",
+            "skelewing_skeletonw_i04"
+          ]
+        }
+      }
+    },
+    "XLTRITON": {
+      "name": "Tritont",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xltriton_xltriton_i01",
+            "xltriton_xltriton_i02",
+            "xltriton_xltriton_i03",
+            "xltriton_xltriton_i04"
+          ]
+        }
+      }
+    },
+    "XLCOCKATRICE": {
+      "name": "Gallotrice",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlcockatrice_xlcockatrice1_i01",
+            "xlcockatrice_xlcockatrice1_i02",
+            "xlcockatrice_xlcockatrice1_i03",
+            "xlcockatrice_xlcockatrice1_i04"
+          ]
+        }
+      }
+    },
+    "XLGOLEM1": {
+      "name": "Big Golem",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlgolem1_xlgolem1_i01",
+            "xlgolem1_xlgolem1_i02",
+            "xlgolem1_xlgolem1_i03",
+            "xlgolem1_xlgolem1_i04",
+            "xlgolem1_xlgolem1_i05",
+            "xlgolem1_xlgolem1_i06"
+          ]
+        }
+      }
+    },
+    "XLARMOR_SWORD": {
+      "name": "Sword Guardian",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "xlarmor_sword_xlarmorsword_i01",
+            "xlarmor_sword_xlarmorsword_i02",
+            "xlarmor_sword_xlarmorsword_i03",
+            "xlarmor_sword_xlarmorsword_i04"
+          ]
+        }
+      }
+    },
+    "SKULLNOAURA": {
+      "name": "Skullone",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "skullnoaura_skullnoaura_i01",
+            "skullnoaura_skullnoaura_i02",
+            "skullnoaura_skullnoaura_i03",
+            "skullnoaura_skullnoaura_i04"
+          ]
+        }
+      }
+    },
+    "MASK_GOLD": {
+      "name": "Sun Atlantean",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mask_gold_capegold_i01",
+            "mask_gold_capegold_i02",
+            "mask_gold_capegold_i03",
+            "mask_gold_capegold_i04"
+          ]
+        }
+      }
+    },
+    "MASK_SILVER": {
+      "name": "Moon Atlantean",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mask_silver_capesilver_i01",
+            "mask_silver_capesilver_i02",
+            "mask_silver_capesilver_i03",
+            "mask_silver_capesilver_i04"
+          ]
+        }
+      }
+    },
+    "MASK_LEFT": {
+      "name": "City Atlantean",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mask_left_capeleft_i01",
+            "mask_left_capeleft_i02",
+            "mask_left_capeleft_i03",
+            "mask_left_capeleft_i04"
+          ]
+        }
+      }
+    },
+    "MASK_RIGHT": {
+      "name": "Volcano Atlantean",
+      "textureName": "enemies2",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "mask_right_caperight_i01",
+            "mask_right_caperight_i02",
+            "mask_right_caperight_i03",
+            "mask_right_caperight_i04"
+          ]
+        }
+      }
+    },
+    "BOSS_XLDEATH": {
+      "name": "The Reaper",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "boss_xldeath_xlreaper_i01",
+            "boss_xldeath_xlreaper_i02",
+            "boss_xldeath_xlreaper_i03",
+            "boss_xldeath_xlreaper_i04",
+            "boss_xldeath_xlreaper_i05",
+            "boss_xldeath_xlreaper_i06",
+            "boss_xldeath_xlreaper_i07",
+            "boss_xldeath_xlreaper_i08"
+          ]
+        }
+      }
+    },
+    "BOSS_TRICKSTER_NORMAL": {
+      "name": "The Trickster",
+      "textureName": "enemies3",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "boss_trickster_normal_trickster_i01",
+            "boss_trickster_normal_trickster_i02",
+            "boss_trickster_normal_trickster_i03",
+            "boss_trickster_normal_trickster_i04",
+            "boss_trickster_normal_trickster_i05",
+            "boss_trickster_normal_trickster_i06",
+            "boss_trickster_normal_trickster_i07",
+            "boss_trickster_normal_trickster_i08"
+          ]
+        }
+      }
+    },
+    "BOSS_STALKER_NORMAL": {
+      "name": "The Stalker",
+      "textureName": "enemies",
+      "states": {
+        "idle": {
+          "frameDuration": 0.16,
+          "isLooping": true,
+          "frames": [
+            "boss_stalker_normal_stalker_i01",
+            "boss_stalker_normal_stalker_i02",
+            "boss_stalker_normal_stalker_i03",
+            "boss_stalker_normal_stalker_i04",
+            "boss_stalker_normal_stalker_i05",
+            "boss_stalker_normal_stalker_i06",
+            "boss_stalker_normal_stalker_i07",
+            "boss_stalker_normal_stalker_i08"
+          ]
+        }
+      }
+    }
+  },
+  "stats": {
+    "SKELETON": {
+      "level": 1,
+      "maxHp": 1.5,
+      "speed": 100,
+      "power": 10,
+      "knockback": 1,
+      "xp": 2,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "FOREST",
+        "WAREHOUSE",
+        "TOWER",
+        "BONEZONE"
+      ]
+    },
+    "GHOST": {
+      "level": 1,
+      "maxHp": 1,
+      "speed": 200,
+      "power": 5,
+      "knockback": 0,
+      "xp": 1.5,
+      "mass": 1.0,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "FOREST",
+        "LIBRARY",
+        "TOWER"
+      ]
+    },
+    "MUD": {
+      "level": 1,
+      "maxHp": 0.5,
+      "speed": 140,
+      "power": 5,
+      "knockback": 1,
+      "xp": 1,
+      "mass": 1.0,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "BUER": {
+      "level": 1,
+      "maxHp": 0.3,
+      "speed": 200,
+      "power": 3,
+      "knockback": 1,
+      "xp": 2,
+      "mass": 1.0,
+      "collisionRadius": 13,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "MILK": {
+      "level": 1,
+      "maxHp": 0.5,
+      "speed": 140,
+      "power": 5,
+      "knockback": 1,
+      "xp": 1,
+      "mass": 1.0,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "SHADERED": {
+      "level": 1,
+      "maxHp": 1.1,
+      "speed": 330,
+      "power": 3,
+      "knockback": 1,
+      "xp": 2,
+      "mass": 1.0,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "BOSS_COUNT1": {
+      "level": 30,
+      "maxHp": 25,
+      "speed": 210,
+      "power": 30,
+      "knockback": 0,
+      "xp": 50,
+      "mass": 1.3,
+      "collisionRadius": 21,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "BOSS_COUNT2": {
+      "level": 30,
+      "maxHp": 20,
+      "speed": 160,
+      "power": 30,
+      "knockback": 0,
+      "xp": 50,
+      "mass": 1.3,
+      "collisionRadius": 21,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "MUMMY": {
+      "level": 1,
+      "maxHp": 1.5,
+      "speed": 140,
+      "power": 3,
+      "knockback": 1,
+      "xp": 2,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "MEDUSA1": {
+      "level": 1,
+      "maxHp": 0.1,
+      "speed": 240,
+      "power": 1,
+      "knockback": 1,
+      "xp": 1,
+      "mass": 1.0,
+      "collisionRadius": 13,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "ECTO1": {
+      "level": 1,
+      "maxHp": 0.1,
+      "speed": 160,
+      "power": 2,
+      "knockback": 1,
+      "xp": 1,
+      "mass": 1.0,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "WAREHOUSE"
+      ]
+    },
+    "DULL0": {
+      "level": 1,
+      "maxHp": 3.5,
+      "speed": 100,
+      "power": 8,
+      "knockback": 0.3,
+      "xp": 1,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "TOWER"
+      ]
+    },
+    "WITCH1": {
+      "level": 1,
+      "maxHp": 22,
+      "speed": 130,
+      "power": 14,
+      "knockback": 0.8,
+      "xp": 3,
+      "mass": 1.0,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "TOWER"
+      ]
+    },
+    "WITCH2": {
+      "level": 10,
+      "maxHp": 50,
+      "speed": 200,
+      "power": 20,
+      "knockback": 1.5,
+      "xp": 3,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "TOWER"
+      ]
+    },
+    "XLMEDUSA": {
+      "level": 10,
+      "maxHp": 80,
+      "speed": 150,
+      "power": 15,
+      "knockback": 1,
+      "xp": 3,
+      "mass": 2.0,
+      "collisionRadius": 24,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "XLMUMMY": {
+      "level": 10,
+      "maxHp": 50,
+      "speed": 80,
+      "power": 20,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 1.3,
+      "collisionRadius": 22,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY"
+      ]
+    },
+    "FISHMAN_1": {
+      "level": 1,
+      "maxHp": 0.5,
+      "speed": 140,
+      "power": 4,
+      "knockback": 1,
+      "xp": 1,
+      "mass": 1.0,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "SINKING"
+      ]
+    },
+    "LIZARD1_2": {
+      "level": 2,
+      "maxHp": 1.5,
+      "speed": 100,
+      "power": 6,
+      "knockback": 1,
+      "xp": 2.2,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "PILE1": {
+      "level": 2,
+      "maxHp": 2.5,
+      "speed": 0,
+      "power": 10,
+      "knockback": 0,
+      "xp": 1.5,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "LIZARD2_3": {
+      "level": 3,
+      "maxHp": 12,
+      "speed": 100,
+      "power": 7,
+      "knockback": 0,
+      "xp": 4,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "PILE2": {
+      "level": 3,
+      "maxHp": 15,
+      "speed": 0,
+      "power": 10,
+      "knockback": 0,
+      "xp": 1.75,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "JELLYFISH": {
+      "level": 4,
+      "maxHp": 14,
+      "speed": 200,
+      "power": 6,
+      "knockback": 0.2,
+      "xp": 2.5,
+      "mass": 1.0,
+      "collisionRadius": 14,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "SINKING"
+      ]
+    },
+    "SKELENIN1": {
+      "level": 4,
+      "maxHp": 13,
+      "speed": 200,
+      "power": 8,
+      "knockback": 1,
+      "xp": 4,
+      "mass": 1.0,
+      "collisionRadius": 15,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "BONEZONE"
+      ]
+    },
+    "PILE3": {
+      "level": 4,
+      "maxHp": 18,
+      "speed": 0,
+      "power": 10,
+      "knockback": 0,
+      "xp": 2,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "BONEZONE"
+      ]
+    },
+    "GOLEM1": {
+      "level": 5,
+      "maxHp": 30,
+      "speed": 100,
+      "power": 11,
+      "knockback": 0,
+      "xp": 3.5,
+      "mass": 1.3,
+      "collisionRadius": 19,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "MIGNO1_5": {
+      "level": 5,
+      "maxHp": 25,
+      "speed": 130,
+      "power": 10,
+      "knockback": 0.5,
+      "xp": 2.75,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "MIGNO_3_5SWARM": {
+      "level": 5,
+      "maxHp": 25,
+      "speed": 600,
+      "power": 9,
+      "knockback": 0.5,
+      "xp": 2.25,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "ARMORSPEAR_6": {
+      "level": 6,
+      "maxHp": 30,
+      "speed": 160,
+      "power": 15,
+      "knockback": 1,
+      "xp": 3,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "ARMOR_6": {
+      "level": 6,
+      "maxHp": 30,
+      "speed": 140,
+      "power": 15,
+      "knockback": 0,
+      "xp": 2.5,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "SKELEWING": {
+      "level": 6,
+      "maxHp": 35,
+      "speed": 160,
+      "power": 10,
+      "knockback": 0,
+      "xp": 2.5,
+      "mass": 1.3,
+      "collisionRadius": 17,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "TOWER",
+        "BONEZONE"
+      ]
+    },
+    "XLTRITON": {
+      "level": 7,
+      "maxHp": 50,
+      "speed": 150,
+      "power": 15,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 2.0,
+      "collisionRadius": 24,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "XLCOCKATRICE": {
+      "level": 7,
+      "maxHp": 70,
+      "speed": 140,
+      "power": 15,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 1.3,
+      "collisionRadius": 23,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "TOWER"
+      ]
+    },
+    "XLGOLEM1": {
+      "level": 7,
+      "maxHp": 70,
+      "speed": 140,
+      "power": 20,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 1.3,
+      "collisionRadius": 22,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "XLARMOR_SWORD": {
+      "level": 7,
+      "maxHp": 70,
+      "speed": 140,
+      "power": 20,
+      "knockback": 0,
+      "xp": 3,
+      "mass": 2.0,
+      "collisionRadius": 26,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE"
+      ]
+    },
+    "SKULLNOAURA": {
+      "level": 1,
+      "maxHp": 3,
+      "speed": 100,
+      "power": 10,
+      "knockback": 0.3,
+      "xp": 2,
+      "mass": 1.3,
+      "collisionRadius": 16,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "BONEZONE"
+      ]
+    },
+    "MASK_GOLD": {
+      "level": 99,
+      "maxHp": 3000,
+      "speed": 200,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 20,
+      "spriteScale": 1,
+      "places": [
+        "SINKING",
+        "FOREST",
+        "LIBRARY",
+        "WAREHOUSE",
+        "TOWER",
+        "CHAPEL"
+      ]
+    },
+    "MASK_SILVER": {
+      "level": 99,
+      "maxHp": 3000,
+      "speed": 200,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 20,
+      "spriteScale": 1,
+      "places": [
+        "SINKING",
+        "FOREST",
+        "LIBRARY",
+        "WAREHOUSE",
+        "TOWER",
+        "CHAPEL"
+      ]
+    },
+    "MASK_LEFT": {
+      "level": 99,
+      "maxHp": 3000,
+      "speed": 200,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 20,
+      "spriteScale": 1,
+      "places": [
+        "SINKING",
+        "FOREST",
+        "LIBRARY",
+        "WAREHOUSE",
+        "TOWER",
+        "CHAPEL"
+      ]
+    },
+    "MASK_RIGHT": {
+      "level": 99,
+      "maxHp": 3000,
+      "speed": 200,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 20,
+      "spriteScale": 1,
+      "places": [
+        "SINKING",
+        "FOREST",
+        "LIBRARY",
+        "WAREHOUSE",
+        "TOWER",
+        "CHAPEL"
+      ]
+    },
+    "BOSS_XLDEATH": {
+      "level": 100,
+      "maxHp": 65535,
+      "speed": 1200,
+      "power": 65535,
+      "knockback": -0.5,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 21,
+      "spriteScale": 1,
+      "places": [
+        "FOREST",
+        "LIBRARY",
+        "WAREHOUSE",
+        "TOWER",
+        "CHAPEL",
+        "MOLISE",
+        "SINKING",
+        "GREENACRES",
+        "BONEZONE"
+      ]
+    },
+    "BOSS_TRICKSTER_NORMAL": {
+      "level": 100,
+      "maxHp": 255,
+      "speed": 150,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 21,
+      "spriteScale": 1,
+      "places": [
+        "LIBRARY",
+        "CHAPEL"
+      ]
+    },
+    "BOSS_STALKER_NORMAL": {
+      "level": 100,
+      "maxHp": 255,
+      "speed": 150,
+      "power": 50,
+      "knockback": 0,
+      "xp": 0,
+      "mass": 1.3,
+      "collisionRadius": 21,
+      "spriteScale": 1,
+      "places": [
+        "WAREHOUSE",
+        "CHAPEL",
+        "BONEZONE"
+      ]
+    }
+  }
+}
