@@ -2,14 +2,11 @@
 
 #include "../BaseState.h"
 #include "../../UI/Views/CharacterSelectionView.h"
-#include <memory>
 #include <SFML/Graphics.hpp>
+#include <vector>
 
 class CharacterSelectionScreen : public BaseState
 {
-private:
-    std::unique_ptr<CharacterSelectionView> m_view;
-
 public:
     explicit CharacterSelectionScreen(StateContext context);
     ~CharacterSelectionScreen() override = default;
@@ -19,5 +16,12 @@ public:
     void Update(float dt) override;
     void Draw(sf::RenderWindow& window) override;
 
-    bool IsOverlay() const override { return true; }
+private:
+    void SetupCompositeBackground();
+
+    std::unique_ptr<CharacterSelectionView> m_view;
+    sf::RenderTexture m_compositeTexture;
+    sf::Sprite m_compositeSprite;
+    std::vector<sf::Sprite> m_illustrations;
+    sf::RectangleShape m_topBarBg;
 };

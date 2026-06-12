@@ -12,6 +12,7 @@
 class TextureAtlas;
 class CharacterDataManager;
 class PlayerProgressionManager;
+class WeaponDataManager;
 namespace sf { class Font; class RenderTarget; class Event; class RenderWindow; }
 
 class RosterGridPanel : public UIElement
@@ -38,8 +39,9 @@ public:
     RosterGridPanel(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont = nullptr);
     ~RosterGridPanel() override = default;
 
-    void InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager);
+    void InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager, const WeaponDataManager* weaponManager = nullptr);
     void SetOnSelectionChanged(std::function<void(const std::string&)> callback);
+    void SetCardConfirmedState(bool confirmed);
 
     void Update(float deltaTime) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;

@@ -8,7 +8,7 @@ MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font, const 
     : UIPanel(atlas, "frame5_c4", 12, 12, 12, 12)
     , m_scrollView(nullptr)
     , m_rosterGridRaw(nullptr)
-    , m_detailPanel(std::make_unique<DetailPanel>(atlas, font))
+    , m_detailPanel(std::make_unique<DetailPanel>(atlas, font, boldFont))
 {
     auto rosterGrid = std::make_unique<RosterGridPanel>(atlas, font, boldFont);
     m_rosterGridRaw = rosterGrid.get();
@@ -36,7 +36,7 @@ void MainBoardPanel::InitializeLayout(const sf::Vector2f& size)
     if(m_scrollView)
     {
         m_scrollView->SetPosition(sf::Vector2f(m_position.x + PADDING_X, rosterY));
-        m_scrollView->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f - 7.0f, rosterHeight));
+        m_scrollView->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f - 7.0f, rosterHeight + 5.0f));
         m_scrollView->SetPadding(10.0f, 15.0f);
         
         // Also ensure the inner grid knows its width to layout

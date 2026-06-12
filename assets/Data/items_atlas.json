@@ -1,0 +1,3632 @@
+{
+    "00": {
+        "x": 334,
+        "y": 768,
+        "width": 8,
+        "height": 7
+    },
+    "01": {
+        "x": 353,
+        "y": 841,
+        "width": 6,
+        "height": 10
+    },
+    "02": {
+        "x": 181,
+        "y": 440,
+        "width": 10,
+        "height": 10
+    },
+    "03": {
+        "x": 286,
+        "y": 343,
+        "width": 12,
+        "height": 10
+    },
+    "04": {
+        "x": 256,
+        "y": 395,
+        "width": 13,
+        "height": 10
+    },
+    "05": {
+        "x": 123,
+        "y": 345,
+        "width": 10,
+        "height": 10
+    },
+    "06": {
+        "x": 256,
+        "y": 382,
+        "width": 13,
+        "height": 10
+    },
+    "07": {
+        "x": 97,
+        "y": 153,
+        "width": 16,
+        "height": 10
+    },
+    "08": {
+        "x": 78,
+        "y": 144,
+        "width": 16,
+        "height": 10
+    },
+    "09": {
+        "x": 256,
+        "y": 369,
+        "width": 13,
+        "height": 10
+    },
+    "10": {
+        "x": 123,
+        "y": 332,
+        "width": 10,
+        "height": 10
+    },
+    "11": {
+        "x": 136,
+        "y": 366,
+        "width": 13,
+        "height": 10
+    },
+    "12": {
+        "x": 59,
+        "y": 134,
+        "width": 16,
+        "height": 10
+    },
+    "13": {
+        "x": 40,
+        "y": 133,
+        "width": 16,
+        "height": 10
+    },
+    "14": {
+        "x": 21,
+        "y": 124,
+        "width": 16,
+        "height": 10
+    },
+    "15": {
+        "x": 2,
+        "y": 119,
+        "width": 16,
+        "height": 10
+    },
+    "16": {
+        "x": 135,
+        "y": 156,
+        "width": 16,
+        "height": 10
+    },
+    "17": {
+        "x": 408,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "18": {
+        "x": 427,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "19": {
+        "x": 446,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "20": {
+        "x": 465,
+        "y": 184,
+        "width": 16,
+        "height": 10
+    },
+    "21": {
+        "x": 484,
+        "y": 184,
+        "width": 16,
+        "height": 10
+    },
+    "22": {
+        "x": 334,
+        "y": 768,
+        "width": 8,
+        "height": 7
+    },
+    "23": {
+        "x": 353,
+        "y": 841,
+        "width": 6,
+        "height": 10
+    },
+    "24": {
+        "x": 181,
+        "y": 440,
+        "width": 10,
+        "height": 10
+    },
+    "25": {
+        "x": 286,
+        "y": 343,
+        "width": 12,
+        "height": 10
+    },
+    "26": {
+        "x": 256,
+        "y": 395,
+        "width": 13,
+        "height": 10
+    },
+    "27": {
+        "x": 123,
+        "y": 345,
+        "width": 10,
+        "height": 10
+    },
+    "28": {
+        "x": 256,
+        "y": 382,
+        "width": 13,
+        "height": 10
+    },
+    "29": {
+        "x": 97,
+        "y": 153,
+        "width": 16,
+        "height": 10
+    },
+    "2Badge": {
+        "x": 213,
+        "y": 197,
+        "width": 16,
+        "height": 15
+    },
+    "2FlashArrow": {
+        "x": 320,
+        "y": 197,
+        "width": 16,
+        "height": 9
+    },
+    "2insatiable": {
+        "x": 316,
+        "y": 570,
+        "width": 14,
+        "height": 15
+    },
+    "2Legionnaire": {
+        "x": 208,
+        "y": 341,
+        "width": 16,
+        "height": 16
+    },
+    "2Luminaire": {
+        "x": 227,
+        "y": 341,
+        "width": 16,
+        "height": 16
+    },
+    "2Millionaire": {
+        "x": 187,
+        "y": 335,
+        "width": 16,
+        "height": 16
+    },
+    "2Ophion": {
+        "x": 151,
+        "y": 320,
+        "width": 16,
+        "height": 16
+    },
+    "2Party": {
+        "x": 151,
+        "y": 301,
+        "width": 16,
+        "height": 16
+    },
+    "2Party2": {
+        "x": 123,
+        "y": 298,
+        "width": 16,
+        "height": 16
+    },
+    "2PrismaticMissile": {
+        "x": 173,
+        "y": 190,
+        "width": 16,
+        "height": 15
+    },
+    "2ShadowServant": {
+        "x": 92,
+        "y": 289,
+        "width": 16,
+        "height": 16
+    },
+    "2ShadowServant_Counter": {
+        "x": 61,
+        "y": 279,
+        "width": 16,
+        "height": 16
+    },
+    "2SpellStream": {
+        "x": 429,
+        "y": 429,
+        "width": 16,
+        "height": 16
+    },
+    "2SpellStrike": {
+        "x": 448,
+        "y": 429,
+        "width": 16,
+        "height": 16
+    },
+    "2SpellString": {
+        "x": 181,
+        "y": 453,
+        "width": 10,
+        "height": 12
+    },
+    "2SpellStrom": {
+        "x": 485,
+        "y": 424,
+        "width": 16,
+        "height": 16
+    },
+    "2Sword": {
+        "x": 429,
+        "y": 410,
+        "width": 16,
+        "height": 16
+    },
+    "30": {
+        "x": 78,
+        "y": 144,
+        "width": 16,
+        "height": 10
+    },
+    "31": {
+        "x": 256,
+        "y": 369,
+        "width": 13,
+        "height": 10
+    },
+    "32": {
+        "x": 123,
+        "y": 332,
+        "width": 10,
+        "height": 10
+    },
+    "33": {
+        "x": 136,
+        "y": 366,
+        "width": 13,
+        "height": 10
+    },
+    "34": {
+        "x": 59,
+        "y": 134,
+        "width": 16,
+        "height": 10
+    },
+    "35": {
+        "x": 40,
+        "y": 133,
+        "width": 16,
+        "height": 10
+    },
+    "36": {
+        "x": 21,
+        "y": 124,
+        "width": 16,
+        "height": 10
+    },
+    "37": {
+        "x": 2,
+        "y": 119,
+        "width": 16,
+        "height": 10
+    },
+    "38": {
+        "x": 135,
+        "y": 156,
+        "width": 16,
+        "height": 10
+    },
+    "39": {
+        "x": 408,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "40": {
+        "x": 427,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "41": {
+        "x": 446,
+        "y": 189,
+        "width": 16,
+        "height": 10
+    },
+    "42": {
+        "x": 465,
+        "y": 184,
+        "width": 16,
+        "height": 10
+    },
+    "43": {
+        "x": 484,
+        "y": 184,
+        "width": 16,
+        "height": 10
+    },
+    "acquazzone": {
+        "x": 395,
+        "y": 398,
+        "width": 16,
+        "height": 16
+    },
+    "animaAmbrojoe": {
+        "x": 448,
+        "y": 410,
+        "width": 16,
+        "height": 16
+    },
+    "animaMortaccio": {
+        "x": 485,
+        "y": 405,
+        "width": 16,
+        "height": 16
+    },
+    "animaOsole": {
+        "x": 429,
+        "y": 391,
+        "width": 16,
+        "height": 16
+    },
+    "animaRamba": {
+        "x": 395,
+        "y": 379,
+        "width": 16,
+        "height": 16
+    },
+    "animaYattaCavallo": {
+        "x": 448,
+        "y": 391,
+        "width": 16,
+        "height": 16
+    },
+    "Antidote": {
+        "x": 485,
+        "y": 386,
+        "width": 16,
+        "height": 16
+    },
+    "antipyretic": {
+        "x": 429,
+        "y": 372,
+        "width": 16,
+        "height": 16
+    },
+    "Apoplexy": {
+        "x": 448,
+        "y": 372,
+        "width": 16,
+        "height": 16
+    },
+    "armadio": {
+        "x": 485,
+        "y": 367,
+        "width": 16,
+        "height": 16
+    },
+    "ArmorIron": {
+        "x": 429,
+        "y": 353,
+        "width": 16,
+        "height": 16
+    },
+    "atlas": {
+        "x": 448,
+        "y": 353,
+        "width": 16,
+        "height": 16
+    },
+    "Axe": {
+        "x": 485,
+        "y": 348,
+        "width": 16,
+        "height": 16
+    },
+    "banger": {
+        "x": 352,
+        "y": 360,
+        "width": 16,
+        "height": 16
+    },
+    "Banish": {
+        "x": 232,
+        "y": 187,
+        "width": 16,
+        "height": 14
+    },
+    "batt1": {
+        "x": 78,
+        "y": 127,
+        "width": 15,
+        "height": 14
+    },
+    "batt2": {
+        "x": 323,
+        "y": 351,
+        "width": 16,
+        "height": 16
+    },
+    "bestiary": {
+        "x": 302,
+        "y": 349,
+        "width": 16,
+        "height": 16
+    },
+    "blackDot": {
+        "x": 254,
+        "y": 966,
+        "width": 1,
+        "height": 1
+    },
+    "blurBlack": {
+        "x": 267,
+        "y": 337,
+        "width": 16,
+        "height": 16
+    },
+    "bocce": {
+        "x": 246,
+        "y": 329,
+        "width": 16,
+        "height": 16
+    },
+    "Bone": {
+        "x": 301,
+        "y": 189,
+        "width": 16,
+        "height": 9
+    },
+    "Book2": {
+        "x": 206,
+        "y": 322,
+        "width": 16,
+        "height": 16
+    },
+    "BoxArcana": {
+        "x": 154,
+        "y": 184,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpen": {
+        "x": 192,
+        "y": 190,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpen2": {
+        "x": 116,
+        "y": 169,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpen3": {
+        "x": 97,
+        "y": 166,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpen4": {
+        "x": 78,
+        "y": 157,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpenItems3": {
+        "x": 59,
+        "y": 147,
+        "width": 16,
+        "height": 15
+    },
+    "BoxOpenItems5": {
+        "x": 40,
+        "y": 146,
+        "width": 16,
+        "height": 15
+    },
+    "bracelet1": {
+        "x": 38,
+        "y": 101,
+        "width": 14,
+        "height": 14
+    },
+    "bracelet2": {
+        "x": 187,
+        "y": 316,
+        "width": 16,
+        "height": 16
+    },
+    "bracelet3": {
+        "x": 225,
+        "y": 322,
+        "width": 16,
+        "height": 16
+    },
+    "bravestory": {
+        "x": 371,
+        "y": 360,
+        "width": 16,
+        "height": 16
+    },
+    "Brazier1": {
+        "x": 179,
+        "y": 661,
+        "width": 21,
+        "height": 31
+    },
+    "Brazier2": {
+        "x": 179,
+        "y": 627,
+        "width": 21,
+        "height": 31
+    },
+    "Brazier21": {
+        "x": 485,
+        "y": 573,
+        "width": 21,
+        "height": 31
+    },
+    "Brazier22": {
+        "x": 485,
+        "y": 539,
+        "width": 21,
+        "height": 31
+    },
+    "Brazier23": {
+        "x": 485,
+        "y": 505,
+        "width": 21,
+        "height": 31
+    },
+    "Brazier3": {
+        "x": 485,
+        "y": 607,
+        "width": 21,
+        "height": 31
+    },
+    "bsleft": {
+        "x": 390,
+        "y": 360,
+        "width": 16,
+        "height": 16
+    },
+    "bsright": {
+        "x": 409,
+        "y": 351,
+        "width": 16,
+        "height": 16
+    },
+    "bubble": {
+        "x": 59,
+        "y": 117,
+        "width": 15,
+        "height": 14
+    },
+    "bubble2": {
+        "x": 428,
+        "y": 334,
+        "width": 16,
+        "height": 16
+    },
+    "C1_SHRINK_CREWMA": {
+        "x": 116,
+        "y": 137,
+        "width": 15,
+        "height": 15
+    },
+    "C1_SHRINK_ENGINE": {
+        "x": 432,
+        "y": 448,
+        "width": 15,
+        "height": 16
+    },
+    "C1_SHRINK_GHOSTT": {
+        "x": 186,
+        "y": 841,
+        "width": 14,
+        "height": 16
+    },
+    "C1_SHRINK_GUARDI": {
+        "x": 447,
+        "y": 334,
+        "width": 16,
+        "height": 16
+    },
+    "C1_SHRINK_HORSEE": {
+        "x": 21,
+        "y": 137,
+        "width": 16,
+        "height": 15
+    },
+    "C1_SHRINK_IMPOST": {
+        "x": 467,
+        "y": 429,
+        "width": 15,
+        "height": 16
+    },
+    "C1_SHRINK_SCIENT": {
+        "x": 97,
+        "y": 135,
+        "width": 15,
+        "height": 15
+    },
+    "C1_SHRINK_SHAPES": {
+        "x": 2,
+        "y": 132,
+        "width": 16,
+        "height": 15
+    },
+    "cAltemanna": {
+        "x": 466,
+        "y": 334,
+        "width": 16,
+        "height": 16
+    },
+    "Candelabra": {
+        "x": 467,
+        "y": 410,
+        "width": 15,
+        "height": 16
+    },
+    "Candelabrone1": {
+        "x": 432,
+        "y": 591,
+        "width": 15,
+        "height": 38
+    },
+    "Candelabrone2": {
+        "x": 432,
+        "y": 550,
+        "width": 15,
+        "height": 38
+    },
+    "Candelabrone3": {
+        "x": 432,
+        "y": 509,
+        "width": 15,
+        "height": 38
+    },
+    "candybox": {
+        "x": 485,
+        "y": 329,
+        "width": 16,
+        "height": 16
+    },
+    "candybox2": {
+        "x": 342,
+        "y": 341,
+        "width": 16,
+        "height": 16
+    },
+    "cape": {
+        "x": 321,
+        "y": 332,
+        "width": 16,
+        "height": 16
+    },
+    "CarloCartBack": {
+        "x": 362,
+        "y": 879,
+        "width": 48,
+        "height": 48
+    },
+    "CarloCartBackBreak_0": {
+        "x": 2,
+        "y": 858,
+        "width": 51,
+        "height": 51
+    },
+    "CarloCartBackBreak_1": {
+        "x": 203,
+        "y": 970,
+        "width": 53,
+        "height": 52
+    },
+    "CarloCartBackBreak_10": {
+        "x": 2,
+        "y": 551,
+        "width": 38,
+        "height": 37
+    },
+    "CarloCartBackBreak_11": {
+        "x": 334,
+        "y": 716,
+        "width": 25,
+        "height": 43
+    },
+    "CarloCartBackBreak_12": {
+        "x": 485,
+        "y": 722,
+        "width": 25,
+        "height": 29
+    },
+    "CarloCartBackBreak_13": {
+        "x": 318,
+        "y": 664,
+        "width": 12,
+        "height": 22
+    },
+    "CarloCartBackBreak_14": {
+        "x": 305,
+        "y": 925,
+        "width": 3,
+        "height": 3
+    },
+    "CarloCartBackBreak_2": {
+        "x": 56,
+        "y": 848,
+        "width": 48,
+        "height": 51
+    },
+    "CarloCartBackBreak_3": {
+        "x": 313,
+        "y": 943,
+        "width": 49,
+        "height": 37
+    },
+    "CarloCartBackBreak_4": {
+        "x": 299,
+        "y": 778,
+        "width": 43,
+        "height": 38
+    },
+    "CarloCartBackBreak_5": {
+        "x": 136,
+        "y": 755,
+        "width": 44,
+        "height": 40
+    },
+    "CarloCartBackBreak_6": {
+        "x": 138,
+        "y": 948,
+        "width": 53,
+        "height": 42
+    },
+    "CarloCartBackBreak_7": {
+        "x": 251,
+        "y": 779,
+        "width": 45,
+        "height": 42
+    },
+    "CarloCartBackBreak_8": {
+        "x": 203,
+        "y": 815,
+        "width": 45,
+        "height": 43
+    },
+    "CarloCartBackBreak_9": {
+        "x": 85,
+        "y": 549,
+        "width": 37,
+        "height": 44
+    },
+    "CarloCartFrontBreak_0": {
+        "x": 259,
+        "y": 971,
+        "width": 51,
+        "height": 51
+    },
+    "CarloCartFrontBreak_1": {
+        "x": 57,
+        "y": 902,
+        "width": 51,
+        "height": 53
+    },
+    "CarloCartFrontBreak_10": {
+        "x": 410,
+        "y": 829,
+        "width": 43,
+        "height": 40
+    },
+    "CarloCartFrontBreak_11": {
+        "x": 203,
+        "y": 861,
+        "width": 48,
+        "height": 31
+    },
+    "CarloCartFrontBreak_12": {
+        "x": 127,
+        "y": 613,
+        "width": 38,
+        "height": 34
+    },
+    "CarloCartFrontBreak_13": {
+        "x": 272,
+        "y": 356,
+        "width": 27,
+        "height": 26
+    },
+    "CarloCartFrontBreak_14": {
+        "x": 353,
+        "y": 828,
+        "width": 4,
+        "height": 10
+    },
+    "CarloCartFrontBreak_2": {
+        "x": 313,
+        "y": 983,
+        "width": 51,
+        "height": 39
+    },
+    "CarloCartFrontBreak_3": {
+        "x": 259,
+        "y": 931,
+        "width": 49,
+        "height": 37
+    },
+    "CarloCartFrontBreak_4": {
+        "x": 254,
+        "y": 889,
+        "width": 48,
+        "height": 39
+    },
+    "CarloCartFrontBreak_5": {
+        "x": 367,
+        "y": 981,
+        "width": 50,
+        "height": 41
+    },
+    "CarloCartFrontBreak_6": {
+        "x": 51,
+        "y": 747,
+        "width": 46,
+        "height": 52
+    },
+    "CarloCartFrontBreak_7": {
+        "x": 53,
+        "y": 802,
+        "width": 47,
+        "height": 43
+    },
+    "CarloCartFrontBreak_8": {
+        "x": 2,
+        "y": 912,
+        "width": 52,
+        "height": 43
+    },
+    "CarloCartFrontBreak_9": {
+        "x": 51,
+        "y": 705,
+        "width": 44,
+        "height": 39
+    },
+    "CarloCartFront": {
+        "x": 413,
+        "y": 872,
+        "width": 48,
+        "height": 48
+    },
+    "Carnage": {
+        "x": 301,
+        "y": 330,
+        "width": 16,
+        "height": 16
+    },
+    "Cart1": {
+        "x": 2,
+        "y": 627,
+        "width": 39,
+        "height": 41
+    },
+    "Cart2": {
+        "x": 2,
+        "y": 627,
+        "width": 39,
+        "height": 41
+    },
+    "Cart3": {
+        "x": 2,
+        "y": 627,
+        "width": 39,
+        "height": 41
+    },
+    "CartWheel": {
+        "x": 265,
+        "y": 318,
+        "width": 16,
+        "height": 16
+    },
+    "cat2_i01": {
+        "x": 323,
+        "y": 370,
+        "width": 26,
+        "height": 15
+    },
+    "cat2_i02": {
+        "x": 94,
+        "y": 386,
+        "width": 26,
+        "height": 14
+    },
+    "cat2_i03": {
+        "x": 65,
+        "y": 371,
+        "width": 26,
+        "height": 14
+    },
+    "cat2_i04": {
+        "x": 140,
+        "y": 432,
+        "width": 26,
+        "height": 15
+    },
+    "cat3_i01": {
+        "x": 140,
+        "y": 414,
+        "width": 26,
+        "height": 15
+    },
+    "cat3_i02": {
+        "x": 33,
+        "y": 361,
+        "width": 26,
+        "height": 14
+    },
+    "cat3_i03": {
+        "x": 2,
+        "y": 356,
+        "width": 26,
+        "height": 14
+    },
+    "cat3_i04": {
+        "x": 100,
+        "y": 403,
+        "width": 26,
+        "height": 15
+    },
+    "cateye": {
+        "x": 244,
+        "y": 310,
+        "width": 16,
+        "height": 16
+    },
+    "Cat": {
+        "x": 173,
+        "y": 174,
+        "width": 16,
+        "height": 13
+    },
+    "Cat_counter": {
+        "x": 154,
+        "y": 168,
+        "width": 16,
+        "height": 13
+    },
+    "cat_i01": {
+        "x": 65,
+        "y": 388,
+        "width": 26,
+        "height": 15
+    },
+    "cat_i02": {
+        "x": 158,
+        "y": 381,
+        "width": 26,
+        "height": 14
+    },
+    "cat_i03": {
+        "x": 123,
+        "y": 379,
+        "width": 26,
+        "height": 14
+    },
+    "cat_i04": {
+        "x": 129,
+        "y": 396,
+        "width": 26,
+        "height": 15
+    },
+    "cEgg": {
+        "x": 206,
+        "y": 303,
+        "width": 16,
+        "height": 16
+    },
+    "cheese": {
+        "x": 187,
+        "y": 297,
+        "width": 16,
+        "height": 16
+    },
+    "chequered0": {
+        "x": 401,
+        "y": 639,
+        "width": 32,
+        "height": 160
+    },
+    "Cherry": {
+        "x": 225,
+        "y": 303,
+        "width": 16,
+        "height": 16
+    },
+    "cLazulia": {
+        "x": 142,
+        "y": 282,
+        "width": 16,
+        "height": 16
+    },
+    "Clover": {
+        "x": 161,
+        "y": 282,
+        "width": 16,
+        "height": 16
+    },
+    "Clover2": {
+        "x": 111,
+        "y": 279,
+        "width": 16,
+        "height": 16
+    },
+    "cMalachite": {
+        "x": 80,
+        "y": 270,
+        "width": 16,
+        "height": 16
+    },
+    "Coffin": {
+        "x": 450,
+        "y": 650,
+        "width": 32,
+        "height": 63
+    },
+    "CoffinLid": {
+        "x": 362,
+        "y": 637,
+        "width": 32,
+        "height": 55
+    },
+    "CoffinLidW": {
+        "x": 397,
+        "y": 581,
+        "width": 32,
+        "height": 55
+    },
+    "CoffinW": {
+        "x": 450,
+        "y": 584,
+        "width": 32,
+        "height": 63
+    },
+    "Coff": {
+        "x": 61,
+        "y": 260,
+        "width": 16,
+        "height": 16
+    },
+    "coin-spin-gold_01": {
+        "x": 186,
+        "y": 822,
+        "width": 14,
+        "height": 16
+    },
+    "coin-spin-gold_02": {
+        "x": 318,
+        "y": 645,
+        "width": 12,
+        "height": 16
+    },
+    "coin-spin-gold_03": {
+        "x": 168,
+        "y": 631,
+        "width": 8,
+        "height": 16
+    },
+    "coin-spin-gold_04": {
+        "x": 194,
+        "y": 947,
+        "width": 6,
+        "height": 16
+    },
+    "coin-spin-gold_05": {
+        "x": 318,
+        "y": 626,
+        "width": 12,
+        "height": 16
+    },
+    "coin-spin-silver_01": {
+        "x": 186,
+        "y": 803,
+        "width": 14,
+        "height": 16
+    },
+    "coin-spin-silver_02": {
+        "x": 257,
+        "y": 497,
+        "width": 12,
+        "height": 16
+    },
+    "coin-spin-silver_03": {
+        "x": 168,
+        "y": 612,
+        "width": 8,
+        "height": 16
+    },
+    "coin-spin-silver_04": {
+        "x": 353,
+        "y": 873,
+        "width": 6,
+        "height": 16
+    },
+    "coin-spin-silver_05": {
+        "x": 257,
+        "y": 478,
+        "width": 12,
+        "height": 16
+    },
+    "Coin": {
+        "x": 181,
+        "y": 484,
+        "width": 10,
+        "height": 13
+    },
+    "CoinGold": {
+        "x": 414,
+        "y": 385,
+        "width": 12,
+        "height": 12
+    },
+    "CoinSilver": {
+        "x": 414,
+        "y": 370,
+        "width": 12,
+        "height": 12
+    },
+    "corn": {
+        "x": 21,
+        "y": 269,
+        "width": 16,
+        "height": 18
+    },
+    "cRosalia": {
+        "x": 40,
+        "y": 259,
+        "width": 16,
+        "height": 16
+    },
+    "Cross": {
+        "x": 21,
+        "y": 250,
+        "width": 16,
+        "height": 16
+    },
+    "Crown": {
+        "x": 2,
+        "y": 245,
+        "width": 16,
+        "height": 16
+    },
+    "Curse": {
+        "x": 467,
+        "y": 391,
+        "width": 15,
+        "height": 16
+    },
+    "CursedSoul": {
+        "x": 135,
+        "y": 169,
+        "width": 16,
+        "height": 15
+    },
+    "decrease": {
+        "x": 353,
+        "y": 854,
+        "width": 6,
+        "height": 16
+    },
+    "Diamond2": {
+        "x": 256,
+        "y": 424,
+        "width": 13,
+        "height": 13
+    },
+    "Dice": {
+        "x": 467,
+        "y": 372,
+        "width": 15,
+        "height": 16
+    },
+    "dominion": {
+        "x": 361,
+        "y": 341,
+        "width": 16,
+        "height": 16
+    },
+    "dummyBarrel": {
+        "x": 380,
+        "y": 341,
+        "width": 16,
+        "height": 16
+    },
+    "dummyBlood": {
+        "x": 208,
+        "y": 378,
+        "width": 14,
+        "height": 15
+    },
+    "dummyCart": {
+        "x": 399,
+        "y": 332,
+        "width": 16,
+        "height": 16
+    },
+    "dummyDivine": {
+        "x": 208,
+        "y": 360,
+        "width": 14,
+        "height": 15
+    },
+    "dummyFire": {
+        "x": 170,
+        "y": 319,
+        "width": 14,
+        "height": 15
+    },
+    "dummyIce": {
+        "x": 170,
+        "y": 301,
+        "width": 14,
+        "height": 15
+    },
+    "dummyMMoon": {
+        "x": 303,
+        "y": 312,
+        "width": 14,
+        "height": 15
+    },
+    "dummySarabande": {
+        "x": 340,
+        "y": 322,
+        "width": 16,
+        "height": 16
+    },
+    "dummyWindow": {
+        "x": 320,
+        "y": 313,
+        "width": 16,
+        "height": 16
+    },
+    "dummyWJB": {
+        "x": 303,
+        "y": 294,
+        "width": 14,
+        "height": 15
+    },
+    "dummyYell": {
+        "x": 21,
+        "y": 106,
+        "width": 14,
+        "height": 15
+    },
+    "eggeye_0": {
+        "x": 42,
+        "y": 278,
+        "width": 16,
+        "height": 19
+    },
+    "eggeye_1": {
+        "x": 307,
+        "y": 515,
+        "width": 18,
+        "height": 20
+    },
+    "eggeye_10": {
+        "x": 450,
+        "y": 783,
+        "width": 33,
+        "height": 43
+    },
+    "eggeye_11": {
+        "x": 98,
+        "y": 698,
+        "width": 35,
+        "height": 44
+    },
+    "eggeye_12": {
+        "x": 100,
+        "y": 745,
+        "width": 33,
+        "height": 48
+    },
+    "eggeye_13": {
+        "x": 43,
+        "y": 520,
+        "width": 37,
+        "height": 41
+    },
+    "eggeye_14": {
+        "x": 295,
+        "y": 731,
+        "width": 36,
+        "height": 44
+    },
+    "eggeye_15": {
+        "x": 127,
+        "y": 564,
+        "width": 37,
+        "height": 46
+    },
+    "eggeye_16": {
+        "x": 44,
+        "y": 564,
+        "width": 38,
+        "height": 49
+    },
+    "eggeye_17": {
+        "x": 471,
+        "y": 971,
+        "width": 39,
+        "height": 51
+    },
+    "eggeye_18": {
+        "x": 86,
+        "y": 596,
+        "width": 38,
+        "height": 54
+    },
+    "eggeye_19": {
+        "x": 136,
+        "y": 650,
+        "width": 40,
+        "height": 57
+    },
+    "eggeye_2": {
+        "x": 180,
+        "y": 720,
+        "width": 20,
+        "height": 22
+    },
+    "eggeye_20": {
+        "x": 203,
+        "y": 654,
+        "width": 40,
+        "height": 67
+    },
+    "eggeye_21": {
+        "x": 2,
+        "y": 671,
+        "width": 43,
+        "height": 62
+    },
+    "eggeye_22": {
+        "x": 250,
+        "y": 714,
+        "width": 42,
+        "height": 62
+    },
+    "eggeye_23": {
+        "x": 467,
+        "y": 902,
+        "width": 43,
+        "height": 66
+    },
+    "eggeye_24": {
+        "x": 254,
+        "y": 824,
+        "width": 45,
+        "height": 62
+    },
+    "eggeye_25": {
+        "x": 305,
+        "y": 819,
+        "width": 45,
+        "height": 70
+    },
+    "eggeye_26": {
+        "x": 136,
+        "y": 798,
+        "width": 47,
+        "height": 72
+    },
+    "eggeye_27": {
+        "x": 362,
+        "y": 809,
+        "width": 45,
+        "height": 67
+    },
+    "eggeye_28": {
+        "x": 2,
+        "y": 736,
+        "width": 46,
+        "height": 68
+    },
+    "eggeye_29": {
+        "x": 464,
+        "y": 829,
+        "width": 46,
+        "height": 70
+    },
+    "eggeye_3": {
+        "x": 180,
+        "y": 695,
+        "width": 20,
+        "height": 22
+    },
+    "eggeye_30": {
+        "x": 305,
+        "y": 919,
+        "width": 3,
+        "height": 3
+    },
+    "eggeye_4": {
+        "x": 111,
+        "y": 908,
+        "width": 23,
+        "height": 25
+    },
+    "eggeye_5": {
+        "x": 485,
+        "y": 691,
+        "width": 25,
+        "height": 28
+    },
+    "eggeye_6": {
+        "x": 333,
+        "y": 681,
+        "width": 26,
+        "height": 32
+    },
+    "eggeye_7": {
+        "x": 225,
+        "y": 381,
+        "width": 28,
+        "height": 34
+    },
+    "eggeye_8": {
+        "x": 194,
+        "y": 494,
+        "width": 29,
+        "height": 37
+    },
+    "eggeye_9": {
+        "x": 361,
+        "y": 379,
+        "width": 31,
+        "height": 40
+    },
+    "Eggman": {
+        "x": 167,
+        "y": 575,
+        "width": 32,
+        "height": 34
+    },
+    "EmblemEye": {
+        "x": 284,
+        "y": 311,
+        "width": 16,
+        "height": 16
+    },
+    "EX_AMMO1": {
+        "x": 263,
+        "y": 299,
+        "width": 16,
+        "height": 16
+    },
+    "EX_AMMO2": {
+        "x": 244,
+        "y": 291,
+        "width": 16,
+        "height": 16
+    },
+    "EX_AMMO_COUNTER": {
+        "x": 206,
+        "y": 284,
+        "width": 16,
+        "height": 16
+    },
+    "fb_A1_long": {
+        "x": 306,
+        "y": 494,
+        "width": 18,
+        "height": 18
+    },
+    "fb_A1_short": {
+        "x": 432,
+        "y": 488,
+        "width": 15,
+        "height": 18
+    },
+    "fb_A2_prototype": {
+        "x": 306,
+        "y": 473,
+        "width": 18,
+        "height": 18
+    },
+    "fb_A3_prototype": {
+        "x": 306,
+        "y": 452,
+        "width": 18,
+        "height": 18
+    },
+    "fb_B1_crush": {
+        "x": 485,
+        "y": 443,
+        "width": 18,
+        "height": 18
+    },
+    "fb_B1_diver": {
+        "x": 183,
+        "y": 763,
+        "width": 17,
+        "height": 18
+    },
+    "fb_B1_homing": {
+        "x": 303,
+        "y": 431,
+        "width": 18,
+        "height": 18
+    },
+    "fb_B1_homingRed": {
+        "x": 303,
+        "y": 410,
+        "width": 18,
+        "height": 18
+    },
+    "fb_B2_multistage": {
+        "x": 302,
+        "y": 389,
+        "width": 18,
+        "height": 18
+    },
+    "fb_C1_sonic": {
+        "x": 302,
+        "y": 368,
+        "width": 18,
+        "height": 18
+    },
+    "fb_C1_wave": {
+        "x": 225,
+        "y": 284,
+        "width": 16,
+        "height": 16
+    },
+    "fb_C2_death": {
+        "x": 211,
+        "y": 180,
+        "width": 16,
+        "height": 14
+    },
+    "fb_claw1": {
+        "x": 169,
+        "y": 419,
+        "width": 18,
+        "height": 18
+    },
+    "fb_claw2": {
+        "x": 169,
+        "y": 398,
+        "width": 18,
+        "height": 18
+    },
+    "fb_cross1": {
+        "x": 94,
+        "y": 365,
+        "width": 18,
+        "height": 18
+    },
+    "fb_cross2": {
+        "x": 180,
+        "y": 278,
+        "width": 16,
+        "height": 16
+    },
+    "fb_fire1": {
+        "x": 62,
+        "y": 350,
+        "width": 18,
+        "height": 18
+    },
+    "fb_fire2": {
+        "x": 31,
+        "y": 340,
+        "width": 18,
+        "height": 18
+    },
+    "fb_laser1": {
+        "x": 2,
+        "y": 335,
+        "width": 18,
+        "height": 18
+    },
+    "fb_laser2": {
+        "x": 187,
+        "y": 375,
+        "width": 18,
+        "height": 18
+    },
+    "fb_prism1": {
+        "x": 225,
+        "y": 360,
+        "width": 18,
+        "height": 18
+    },
+    "fb_prism2": {
+        "x": 432,
+        "y": 467,
+        "width": 15,
+        "height": 18
+    },
+    "fb_prismCounter": {
+        "x": 246,
+        "y": 348,
+        "width": 18,
+        "height": 18
+    },
+    "fb_spread1": {
+        "x": 152,
+        "y": 360,
+        "width": 18,
+        "height": 18
+    },
+    "fb_spread2": {
+        "x": 187,
+        "y": 354,
+        "width": 18,
+        "height": 18
+    },
+    "fb_weaponup": {
+        "x": 359,
+        "y": 322,
+        "width": 16,
+        "height": 16
+    },
+    "flame1": {
+        "x": 378,
+        "y": 322,
+        "width": 16,
+        "height": 16
+    },
+    "flame2": {
+        "x": 130,
+        "y": 263,
+        "width": 16,
+        "height": 16
+    },
+    "flame3": {
+        "x": 99,
+        "y": 260,
+        "width": 16,
+        "height": 16
+    },
+    "flower": {
+        "x": 80,
+        "y": 251,
+        "width": 16,
+        "height": 16
+    },
+    "fourSeasons": {
+        "x": 59,
+        "y": 241,
+        "width": 16,
+        "height": 16
+    },
+    "fourSeasons2": {
+        "x": 40,
+        "y": 240,
+        "width": 16,
+        "height": 16
+    },
+    "Friendship": {
+        "x": 21,
+        "y": 231,
+        "width": 16,
+        "height": 16
+    },
+    "FrozenSoul": {
+        "x": 415,
+        "y": 202,
+        "width": 16,
+        "height": 15
+    },
+    "f_lantern": {
+        "x": 186,
+        "y": 784,
+        "width": 14,
+        "height": 16
+    },
+    "Garbage1": {
+        "x": 2,
+        "y": 226,
+        "width": 16,
+        "height": 16
+    },
+    "Garbage2": {
+        "x": 149,
+        "y": 263,
+        "width": 16,
+        "height": 16
+    },
+    "Garlic": {
+        "x": 256,
+        "y": 408,
+        "width": 13,
+        "height": 13
+    },
+    "Gauntlet": {
+        "x": 418,
+        "y": 315,
+        "width": 16,
+        "height": 16
+    },
+    "Gem1": {
+        "x": 189,
+        "y": 911,
+        "width": 11,
+        "height": 14
+    },
+    "Gem10": {
+        "x": 436,
+        "y": 700,
+        "width": 11,
+        "height": 14
+    },
+    "Gem11": {
+        "x": 436,
+        "y": 683,
+        "width": 11,
+        "height": 14
+    },
+    "Gem2": {
+        "x": 189,
+        "y": 894,
+        "width": 11,
+        "height": 14
+    },
+    "Gem3": {
+        "x": 189,
+        "y": 877,
+        "width": 11,
+        "height": 14
+    },
+    "Gem4": {
+        "x": 189,
+        "y": 860,
+        "width": 11,
+        "height": 14
+    },
+    "Gem5": {
+        "x": 436,
+        "y": 785,
+        "width": 11,
+        "height": 14
+    },
+    "Gem6": {
+        "x": 436,
+        "y": 768,
+        "width": 11,
+        "height": 14
+    },
+    "Gem7": {
+        "x": 436,
+        "y": 751,
+        "width": 11,
+        "height": 14
+    },
+    "Gem8": {
+        "x": 436,
+        "y": 734,
+        "width": 11,
+        "height": 14
+    },
+    "Gem9": {
+        "x": 436,
+        "y": 717,
+        "width": 11,
+        "height": 14
+    },
+    "GemBlue": {
+        "x": 436,
+        "y": 666,
+        "width": 11,
+        "height": 14
+    },
+    "GemGreen": {
+        "x": 436,
+        "y": 649,
+        "width": 11,
+        "height": 14
+    },
+    "GemRed": {
+        "x": 436,
+        "y": 632,
+        "width": 11,
+        "height": 14
+    },
+    "Ggaze": {
+        "x": 397,
+        "y": 313,
+        "width": 16,
+        "height": 16
+    },
+    "ggospel": {
+        "x": 437,
+        "y": 315,
+        "width": 16,
+        "height": 16
+    },
+    "Gilded0": {
+        "x": 456,
+        "y": 315,
+        "width": 16,
+        "height": 16
+    },
+    "Gilded1": {
+        "x": 475,
+        "y": 310,
+        "width": 16,
+        "height": 16
+    },
+    "Gilded2": {
+        "x": 494,
+        "y": 310,
+        "width": 16,
+        "height": 16
+    },
+    "Gilded3": {
+        "x": 339,
+        "y": 303,
+        "width": 16,
+        "height": 16
+    },
+    "glassmask": {
+        "x": 183,
+        "y": 745,
+        "width": 17,
+        "height": 15
+    },
+    "goldenegg": {
+        "x": 467,
+        "y": 353,
+        "width": 15,
+        "height": 16
+    },
+    "goldenFinger0": {
+        "x": 345,
+        "y": 800,
+        "width": 14,
+        "height": 16
+    },
+    "goldenFinger1": {
+        "x": 345,
+        "y": 781,
+        "width": 14,
+        "height": 16
+    },
+    "goldenFinger2": {
+        "x": 345,
+        "y": 762,
+        "width": 14,
+        "height": 16
+    },
+    "goldenFinger3": {
+        "x": 345,
+        "y": 781,
+        "width": 14,
+        "height": 16
+    },
+    "goldring": {
+        "x": 320,
+        "y": 294,
+        "width": 16,
+        "height": 16
+    },
+    "grimoire": {
+        "x": 282,
+        "y": 292,
+        "width": 16,
+        "height": 16
+    },
+    "Gshroud": {
+        "x": 263,
+        "y": 280,
+        "width": 16,
+        "height": 16
+    },
+    "Guns2": {
+        "x": 358,
+        "y": 303,
+        "width": 16,
+        "height": 16
+    },
+    "Guns2_counter": {
+        "x": 377,
+        "y": 303,
+        "width": 16,
+        "height": 16
+    },
+    "Guns3": {
+        "x": 199,
+        "y": 265,
+        "width": 16,
+        "height": 16
+    },
+    "Guns": {
+        "x": 244,
+        "y": 272,
+        "width": 16,
+        "height": 16
+    },
+    "Guns_counter": {
+        "x": 218,
+        "y": 265,
+        "width": 16,
+        "height": 16
+    },
+    "HatCollection": {
+        "x": 168,
+        "y": 259,
+        "width": 16,
+        "height": 16
+    },
+    "Healer": {
+        "x": 202,
+        "y": 569,
+        "width": 32,
+        "height": 32
+    },
+    "HeartBlack": {
+        "x": 434,
+        "y": 202,
+        "width": 16,
+        "height": 15
+    },
+    "HeartMini": {
+        "x": 123,
+        "y": 321,
+        "width": 10,
+        "height": 8
+    },
+    "HeartRuby": {
+        "x": 269,
+        "y": 166,
+        "width": 14,
+        "height": 12
+    },
+    "HeavenSword": {
+        "x": 118,
+        "y": 244,
+        "width": 16,
+        "height": 16
+    },
+    "Hellfire": {
+        "x": 99,
+        "y": 241,
+        "width": 16,
+        "height": 16
+    },
+    "HolyBook": {
+        "x": 257,
+        "y": 459,
+        "width": 12,
+        "height": 16
+    },
+    "HolyWater": {
+        "x": 78,
+        "y": 232,
+        "width": 16,
+        "height": 16
+    },
+    "icon_echonight": {
+        "x": 59,
+        "y": 222,
+        "width": 16,
+        "height": 16
+    },
+    "icon_equals": {
+        "x": 136,
+        "y": 355,
+        "width": 13,
+        "height": 8
+    },
+    "icon_gazeofgaea": {
+        "x": 397,
+        "y": 313,
+        "width": 16,
+        "height": 16
+    },
+    "icon_masquerade": {
+        "x": 192,
+        "y": 174,
+        "width": 16,
+        "height": 13
+    },
+    "icon_plus": {
+        "x": 19,
+        "y": 89,
+        "width": 14,
+        "height": 14
+    },
+    "icon_shawlofgaea": {
+        "x": 263,
+        "y": 280,
+        "width": 16,
+        "height": 16
+    },
+    "icon_summonnight": {
+        "x": 40,
+        "y": 221,
+        "width": 16,
+        "height": 16
+    },
+    "jubilee": {
+        "x": 21,
+        "y": 212,
+        "width": 16,
+        "height": 16
+    },
+    "Knife": {
+        "x": 116,
+        "y": 155,
+        "width": 16,
+        "height": 11
+    },
+    "Knife2": {
+        "x": 2,
+        "y": 207,
+        "width": 16,
+        "height": 16
+    },
+    "kyrastone": {
+        "x": 137,
+        "y": 244,
+        "width": 16,
+        "height": 16
+    },
+    "labDoorA1": {
+        "x": 203,
+        "y": 895,
+        "width": 48,
+        "height": 72
+    },
+    "labDoorA2": {
+        "x": 203,
+        "y": 895,
+        "width": 48,
+        "height": 72
+    },
+    "labDoorA3": {
+        "x": 203,
+        "y": 895,
+        "width": 48,
+        "height": 72
+    },
+    "labDoorB1": {
+        "x": 138,
+        "y": 873,
+        "width": 48,
+        "height": 72
+    },
+    "Lampost1": {
+        "x": 150,
+        "y": 450,
+        "width": 28,
+        "height": 47
+    },
+    "Lampost2": {
+        "x": 109,
+        "y": 421,
+        "width": 28,
+        "height": 47
+    },
+    "Lampost3": {
+        "x": 69,
+        "y": 406,
+        "width": 28,
+        "height": 47
+    },
+    "Lampost4": {
+        "x": 109,
+        "y": 421,
+        "width": 28,
+        "height": 47
+    },
+    "Lancet": {
+        "x": 416,
+        "y": 296,
+        "width": 16,
+        "height": 16
+    },
+    "Lantern1": {
+        "x": 34,
+        "y": 378,
+        "width": 28,
+        "height": 46
+    },
+    "Lantern2": {
+        "x": 2,
+        "y": 373,
+        "width": 28,
+        "height": 46
+    },
+    "Lantern3": {
+        "x": 226,
+        "y": 467,
+        "width": 28,
+        "height": 46
+    },
+    "Lantern4": {
+        "x": 2,
+        "y": 373,
+        "width": 28,
+        "height": 46
+    },
+    "LanternInv1": {
+        "x": 194,
+        "y": 445,
+        "width": 28,
+        "height": 46
+    },
+    "LanternInv2": {
+        "x": 225,
+        "y": 418,
+        "width": 28,
+        "height": 46
+    },
+    "LanternInv3": {
+        "x": 194,
+        "y": 396,
+        "width": 28,
+        "height": 46
+    },
+    "LanternInv4": {
+        "x": 225,
+        "y": 418,
+        "width": 28,
+        "height": 46
+    },
+    "larobba": {
+        "x": 256,
+        "y": 440,
+        "width": 13,
+        "height": 16
+    },
+    "Larobba01": {
+        "x": 272,
+        "y": 385,
+        "width": 27,
+        "height": 30
+    },
+    "Larobba02": {
+        "x": 2,
+        "y": 958,
+        "width": 65,
+        "height": 64
+    },
+    "Larobba03": {
+        "x": 167,
+        "y": 540,
+        "width": 32,
+        "height": 32
+    },
+    "Larobba04": {
+        "x": 73,
+        "y": 298,
+        "width": 16,
+        "height": 46
+    },
+    "Larobba05": {
+        "x": 485,
+        "y": 464,
+        "width": 19,
+        "height": 21
+    },
+    "Larobba06": {
+        "x": 333,
+        "y": 612,
+        "width": 26,
+        "height": 31
+    },
+    "Larobba07": {
+        "x": 362,
+        "y": 695,
+        "width": 32,
+        "height": 57
+    },
+    "Larobba08": {
+        "x": 485,
+        "y": 641,
+        "width": 22,
+        "height": 20
+    },
+    "Larobba09": {
+        "x": 194,
+        "y": 966,
+        "width": 6,
+        "height": 24
+    },
+    "Larobba10": {
+        "x": 485,
+        "y": 664,
+        "width": 22,
+        "height": 24
+    },
+    "Larobba11": {
+        "x": 83,
+        "y": 347,
+        "width": 18,
+        "height": 15
+    },
+    "Larobba12": {
+        "x": 42,
+        "y": 300,
+        "width": 16,
+        "height": 29
+    },
+    "Larobba13": {
+        "x": 308,
+        "y": 538,
+        "width": 18,
+        "height": 29
+    },
+    "Larobba14": {
+        "x": 329,
+        "y": 520,
+        "width": 30,
+        "height": 23
+    },
+    "Larobba15": {
+        "x": 333,
+        "y": 546,
+        "width": 26,
+        "height": 29
+    },
+    "Larobba16": {
+        "x": 333,
+        "y": 578,
+        "width": 26,
+        "height": 31
+    },
+    "Larobba17": {
+        "x": 333,
+        "y": 646,
+        "width": 26,
+        "height": 32
+    },
+    "Larobba18": {
+        "x": 125,
+        "y": 529,
+        "width": 32,
+        "height": 32
+    },
+    "Larobba19": {
+        "x": 138,
+        "y": 993,
+        "width": 62,
+        "height": 29
+    },
+    "Larobba20": {
+        "x": 83,
+        "y": 514,
+        "width": 32,
+        "height": 32
+    },
+    "Larobba21": {
+        "x": 450,
+        "y": 716,
+        "width": 32,
+        "height": 64
+    },
+    "Larobba22": {
+        "x": 272,
+        "y": 418,
+        "width": 28,
+        "height": 46
+    },
+    "Larobba23": {
+        "x": 324,
+        "y": 388,
+        "width": 27,
+        "height": 30
+    },
+    "Laurel": {
+        "x": 396,
+        "y": 294,
+        "width": 16,
+        "height": 16
+    },
+    "Leaf": {
+        "x": 136,
+        "y": 336,
+        "width": 12,
+        "height": 16
+    },
+    "LEM_DISK": {
+        "x": 435,
+        "y": 296,
+        "width": 16,
+        "height": 16
+    },
+    "Lever1": {
+        "x": 42,
+        "y": 485,
+        "width": 32,
+        "height": 32
+    },
+    "Lever2": {
+        "x": 2,
+        "y": 472,
+        "width": 32,
+        "height": 32
+    },
+    "Lever3": {
+        "x": 42,
+        "y": 485,
+        "width": 32,
+        "height": 32
+    },
+    "LighningRing": {
+        "x": 454,
+        "y": 296,
+        "width": 16,
+        "height": 16
+    },
+    "lire": {
+        "x": 179,
+        "y": 612,
+        "width": 16,
+        "height": 12
+    },
+    "listone1": {
+        "x": 248,
+        "y": 159,
+        "width": 11,
+        "height": 7
+    },
+    "listone2": {
+        "x": 229,
+        "y": 158,
+        "width": 11,
+        "height": 7
+    },
+    "listone3": {
+        "x": 208,
+        "y": 151,
+        "width": 11,
+        "height": 7
+    },
+    "listone4": {
+        "x": 191,
+        "y": 146,
+        "width": 11,
+        "height": 7
+    },
+    "listone5": {
+        "x": 172,
+        "y": 145,
+        "width": 11,
+        "height": 7
+    },
+    "magistone": {
+        "x": 473,
+        "y": 291,
+        "width": 16,
+        "height": 16
+    },
+    "Map": {
+        "x": 492,
+        "y": 291,
+        "width": 16,
+        "height": 16
+    },
+    "Map_AS": {
+        "x": 339,
+        "y": 284,
+        "width": 16,
+        "height": 16
+    },
+    "Map_Chal": {
+        "x": 301,
+        "y": 275,
+        "width": 16,
+        "height": 16
+    },
+    "Map_FB": {
+        "x": 282,
+        "y": 273,
+        "width": 16,
+        "height": 16
+    },
+    "Map_FS": {
+        "x": 263,
+        "y": 261,
+        "width": 16,
+        "height": 16
+    },
+    "Map_IS": {
+        "x": 320,
+        "y": 275,
+        "width": 16,
+        "height": 16
+    },
+    "Map_MS": {
+        "x": 237,
+        "y": 253,
+        "width": 16,
+        "height": 16
+    },
+    "Mask": {
+        "x": 286,
+        "y": 330,
+        "width": 12,
+        "height": 10
+    },
+    "Medical1": {
+        "x": 358,
+        "y": 284,
+        "width": 16,
+        "height": 16
+    },
+    "Medical2": {
+        "x": 377,
+        "y": 284,
+        "width": 16,
+        "height": 16
+    },
+    "merchant": {
+        "x": 187,
+        "y": 246,
+        "width": 16,
+        "height": 16
+    },
+    "merchant2": {
+        "x": 156,
+        "y": 240,
+        "width": 16,
+        "height": 16
+    },
+    "mindbender": {
+        "x": 206,
+        "y": 246,
+        "width": 16,
+        "height": 16
+    },
+    "mirageRobe": {
+        "x": 118,
+        "y": 225,
+        "width": 16,
+        "height": 16
+    },
+    "mirageRobe2": {
+        "x": 189,
+        "y": 928,
+        "width": 11,
+        "height": 16
+    },
+    "mirror": {
+        "x": 137,
+        "y": 225,
+        "width": 16,
+        "height": 16
+    },
+    "mmmeat": {
+        "x": 111,
+        "y": 936,
+        "width": 24,
+        "height": 19
+    },
+    "MoneyBagColor": {
+        "x": 97,
+        "y": 222,
+        "width": 16,
+        "height": 16
+    },
+    "MoneyBagGreen": {
+        "x": 78,
+        "y": 213,
+        "width": 16,
+        "height": 16
+    },
+    "MoneyBagRed": {
+        "x": 316,
+        "y": 607,
+        "width": 14,
+        "height": 16
+    },
+    "MoneyPile": {
+        "x": 103,
+        "y": 796,
+        "width": 30,
+        "height": 30
+    },
+    "Nft1": {
+        "x": 453,
+        "y": 202,
+        "width": 16,
+        "height": 15
+    },
+    "Nft2": {
+        "x": 472,
+        "y": 197,
+        "width": 16,
+        "height": 15
+    },
+    "Nft3": {
+        "x": 491,
+        "y": 197,
+        "width": 16,
+        "height": 15
+    },
+    "Nft4": {
+        "x": 472,
+        "y": 197,
+        "width": 16,
+        "height": 15
+    },
+    "nightSword": {
+        "x": 59,
+        "y": 203,
+        "width": 16,
+        "height": 16
+    },
+    "nightSword2": {
+        "x": 40,
+        "y": 202,
+        "width": 16,
+        "height": 16
+    },
+    "OrbGlow": {
+        "x": 2,
+        "y": 84,
+        "width": 14,
+        "height": 14
+    },
+    "OrbOrange": {
+        "x": 2,
+        "y": 101,
+        "width": 14,
+        "height": 15
+    },
+    "Overlay": {
+        "x": 70,
+        "y": 958,
+        "width": 65,
+        "height": 64
+    },
+    "Page": {
+        "x": 270,
+        "y": 181,
+        "width": 15,
+        "height": 16
+    },
+    "Pantalone": {
+        "x": 238,
+        "y": 586,
+        "width": 32,
+        "height": 34
+    },
+    "PantaloneRun_01": {
+        "x": 2,
+        "y": 591,
+        "width": 39,
+        "height": 33
+    },
+    "PantaloneRun_02": {
+        "x": 246,
+        "y": 674,
+        "width": 34,
+        "height": 37
+    },
+    "parma": {
+        "x": 21,
+        "y": 193,
+        "width": 16,
+        "height": 16
+    },
+    "Pentagram": {
+        "x": 2,
+        "y": 188,
+        "width": 16,
+        "height": 16
+    },
+    "Pentagram2": {
+        "x": 415,
+        "y": 277,
+        "width": 16,
+        "height": 16
+    },
+    "peshin1": {
+        "x": 396,
+        "y": 275,
+        "width": 16,
+        "height": 16
+    },
+    "phaser": {
+        "x": 434,
+        "y": 277,
+        "width": 16,
+        "height": 16
+    },
+    "phaser2": {
+        "x": 251,
+        "y": 179,
+        "width": 15,
+        "height": 16
+    },
+    "pie": {
+        "x": 453,
+        "y": 277,
+        "width": 16,
+        "height": 16
+    },
+    "Pizza": {
+        "x": 273,
+        "y": 552,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaA": {
+        "x": 237,
+        "y": 551,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaB": {
+        "x": 202,
+        "y": 534,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaBoss": {
+        "x": 362,
+        "y": 501,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaBossFoscari": {
+        "x": 397,
+        "y": 496,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaC": {
+        "x": 272,
+        "y": 517,
+        "width": 32,
+        "height": 32
+    },
+    "PizzaTime": {
+        "x": 237,
+        "y": 516,
+        "width": 32,
+        "height": 32
+    },
+    "PocketWatch": {
+        "x": 472,
+        "y": 272,
+        "width": 16,
+        "height": 16
+    },
+    "PocketWatch1": {
+        "x": 472,
+        "y": 272,
+        "width": 16,
+        "height": 16
+    },
+    "PocketWatch2": {
+        "x": 491,
+        "y": 272,
+        "width": 16,
+        "height": 16
+    },
+    "PocketWatch3": {
+        "x": 415,
+        "y": 258,
+        "width": 16,
+        "height": 16
+    },
+    "portal": {
+        "x": 434,
+        "y": 258,
+        "width": 16,
+        "height": 16
+    },
+    "propBarrelExplo1": {
+        "x": 486,
+        "y": 754,
+        "width": 22,
+        "height": 32
+    },
+    "propBarrelExplo2": {
+        "x": 486,
+        "y": 754,
+        "width": 22,
+        "height": 32
+    },
+    "propBarrelExplo3": {
+        "x": 486,
+        "y": 754,
+        "width": 22,
+        "height": 32
+    },
+    "propBarrelExplo_break_0": {
+        "x": 107,
+        "y": 829,
+        "width": 26,
+        "height": 36
+    },
+    "propBarrelExplo_break_1": {
+        "x": 160,
+        "y": 500,
+        "width": 31,
+        "height": 37
+    },
+    "propBarrelExplo_break_10": {
+        "x": 410,
+        "y": 802,
+        "width": 37,
+        "height": 24
+    },
+    "propBarrelExplo_break_11": {
+        "x": 305,
+        "y": 913,
+        "width": 3,
+        "height": 3
+    },
+    "propBarrelExplo_break_2": {
+        "x": 295,
+        "y": 689,
+        "width": 35,
+        "height": 39
+    },
+    "propBarrelExplo_break_3": {
+        "x": 2,
+        "y": 507,
+        "width": 37,
+        "height": 41
+    },
+    "propBarrelExplo_break_4": {
+        "x": 203,
+        "y": 724,
+        "width": 42,
+        "height": 43
+    },
+    "propBarrelExplo_break_5": {
+        "x": 48,
+        "y": 659,
+        "width": 40,
+        "height": 43
+    },
+    "propBarrelExplo_break_6": {
+        "x": 136,
+        "y": 710,
+        "width": 41,
+        "height": 42
+    },
+    "propBarrelExplo_break_7": {
+        "x": 203,
+        "y": 770,
+        "width": 44,
+        "height": 42
+    },
+    "propBarrelExplo_break_8": {
+        "x": 91,
+        "y": 653,
+        "width": 39,
+        "height": 42
+    },
+    "propBarrelExplo_break_9": {
+        "x": 44,
+        "y": 616,
+        "width": 39,
+        "height": 40
+    },
+    "propCarExplo1": {
+        "x": 486,
+        "y": 754,
+        "width": 22,
+        "height": 32
+    },
+    "pumpkin": {
+        "x": 453,
+        "y": 258,
+        "width": 16,
+        "height": 16
+    },
+    "p_secretino": {
+        "x": 115,
+        "y": 358,
+        "width": 18,
+        "height": 18
+    },
+    "QuestionMark": {
+        "x": 414,
+        "y": 400,
+        "width": 12,
+        "height": 14
+    },
+    "relic_emerald_disk": {
+        "x": 472,
+        "y": 253,
+        "width": 16,
+        "height": 16
+    },
+    "Report1": {
+        "x": 491,
+        "y": 253,
+        "width": 16,
+        "height": 16
+    },
+    "Report2": {
+        "x": 339,
+        "y": 265,
+        "width": 16,
+        "height": 16
+    },
+    "Ring": {
+        "x": 339,
+        "y": 192,
+        "width": 14,
+        "height": 14
+    },
+    "Roast": {
+        "x": 301,
+        "y": 256,
+        "width": 16,
+        "height": 16
+    },
+    "Rosary1": {
+        "x": 282,
+        "y": 254,
+        "width": 16,
+        "height": 16
+    },
+    "Rosary2": {
+        "x": 320,
+        "y": 256,
+        "width": 16,
+        "height": 16
+    },
+    "Rosary3": {
+        "x": 256,
+        "y": 242,
+        "width": 16,
+        "height": 16
+    },
+    "Samples1": {
+        "x": 225,
+        "y": 234,
+        "width": 16,
+        "height": 16
+    },
+    "Samples2": {
+        "x": 358,
+        "y": 265,
+        "width": 16,
+        "height": 16
+    },
+    "scrolls": {
+        "x": 377,
+        "y": 265,
+        "width": 16,
+        "height": 16
+    },
+    "Scythe": {
+        "x": 396,
+        "y": 256,
+        "width": 16,
+        "height": 16
+    },
+    "seal": {
+        "x": 175,
+        "y": 227,
+        "width": 16,
+        "height": 16
+    },
+    "sealIcon2": {
+        "x": 156,
+        "y": 221,
+        "width": 16,
+        "height": 16
+    },
+    "sealIcon3": {
+        "x": 194,
+        "y": 227,
+        "width": 16,
+        "height": 16
+    },
+    "sealIcon4": {
+        "x": 485,
+        "y": 488,
+        "width": 20,
+        "height": 14
+    },
+    "ShadowSpot": {
+        "x": 248,
+        "y": 169,
+        "width": 12,
+        "height": 7
+    },
+    "Silf1": {
+        "x": 332,
+        "y": 209,
+        "width": 16,
+        "height": 15
+    },
+    "Silf1_counter": {
+        "x": 351,
+        "y": 209,
+        "width": 16,
+        "height": 15
+    },
+    "Silf2": {
+        "x": 370,
+        "y": 209,
+        "width": 16,
+        "height": 15
+    },
+    "Silf2_counter": {
+        "x": 389,
+        "y": 200,
+        "width": 16,
+        "height": 15
+    },
+    "Silf3": {
+        "x": 52,
+        "y": 332,
+        "width": 18,
+        "height": 15
+    },
+    "silverring": {
+        "x": 116,
+        "y": 206,
+        "width": 16,
+        "height": 16
+    },
+    "silverWind": {
+        "x": 97,
+        "y": 203,
+        "width": 16,
+        "height": 16
+    },
+    "silverWind2": {
+        "x": 78,
+        "y": 194,
+        "width": 16,
+        "height": 16
+    },
+    "SingleLampost1": {
+        "x": 23,
+        "y": 290,
+        "width": 16,
+        "height": 47
+    },
+    "SingleLampost2": {
+        "x": 2,
+        "y": 285,
+        "width": 16,
+        "height": 47
+    },
+    "SingleLampost3": {
+        "x": 104,
+        "y": 308,
+        "width": 16,
+        "height": 47
+    },
+    "sjavelin": {
+        "x": 59,
+        "y": 184,
+        "width": 16,
+        "height": 16
+    },
+    "sjavelin2": {
+        "x": 40,
+        "y": 183,
+        "width": 16,
+        "height": 16
+    },
+    "sjavelinCounter": {
+        "x": 21,
+        "y": 174,
+        "width": 16,
+        "height": 16
+    },
+    "Skip": {
+        "x": 2,
+        "y": 169,
+        "width": 16,
+        "height": 16
+    },
+    "SkullToken": {
+        "x": 173,
+        "y": 337,
+        "width": 11,
+        "height": 10
+    },
+    "solesolution": {
+        "x": 230,
+        "y": 168,
+        "width": 15,
+        "height": 16
+    },
+    "Song": {
+        "x": 135,
+        "y": 206,
+        "width": 16,
+        "height": 16
+    },
+    "Song2": {
+        "x": 415,
+        "y": 239,
+        "width": 16,
+        "height": 16
+    },
+    "sorbetto": {
+        "x": 211,
+        "y": 161,
+        "width": 15,
+        "height": 16
+    },
+    "sorbetto1": {
+        "x": 211,
+        "y": 161,
+        "width": 15,
+        "height": 16
+    },
+    "sorbetto2": {
+        "x": 173,
+        "y": 155,
+        "width": 15,
+        "height": 16
+    },
+    "sorbetto3": {
+        "x": 154,
+        "y": 149,
+        "width": 15,
+        "height": 16
+    },
+    "SpearIce": {
+        "x": 434,
+        "y": 239,
+        "width": 16,
+        "height": 16
+    },
+    "SpearIce2": {
+        "x": 453,
+        "y": 239,
+        "width": 16,
+        "height": 16
+    },
+    "speedup": {
+        "x": 472,
+        "y": 234,
+        "width": 16,
+        "height": 16
+    },
+    "summonNight": {
+        "x": 40,
+        "y": 221,
+        "width": 16,
+        "height": 16
+    },
+    "summonNight2": {
+        "x": 59,
+        "y": 222,
+        "width": 16,
+        "height": 16
+    },
+    "SVCard1": {
+        "x": 362,
+        "y": 466,
+        "width": 32,
+        "height": 32
+    },
+    "SVCard2": {
+        "x": 397,
+        "y": 461,
+        "width": 32,
+        "height": 32
+    },
+    "SVCard4": {
+        "x": 397,
+        "y": 461,
+        "width": 32,
+        "height": 32
+    },
+    "SwipeCard1": {
+        "x": 301,
+        "y": 201,
+        "width": 16,
+        "height": 14
+    },
+    "SwipeCard2": {
+        "x": 491,
+        "y": 234,
+        "width": 16,
+        "height": 16
+    },
+    "TarotCard3": {
+        "x": 283,
+        "y": 700,
+        "width": 9,
+        "height": 11
+    },
+    "TarotCard3_Anim copy": {
+        "x": 450,
+        "y": 448,
+        "width": 32,
+        "height": 32
+    },
+    "Tarots": {
+        "x": 339,
+        "y": 246,
+        "width": 16,
+        "height": 16
+    },
+    "Tarots2": {
+        "x": 301,
+        "y": 237,
+        "width": 16,
+        "height": 16
+    },
+    "Tarots3": {
+        "x": 320,
+        "y": 237,
+        "width": 16,
+        "height": 16
+    },
+    "Tear": {
+        "x": 135,
+        "y": 137,
+        "width": 15,
+        "height": 16
+    },
+    "tetraforce": {
+        "x": 275,
+        "y": 235,
+        "width": 16,
+        "height": 16
+    },
+    "Thunderloop": {
+        "x": 244,
+        "y": 223,
+        "width": 16,
+        "height": 16
+    },
+    "TimeToken": {
+        "x": 320,
+        "y": 180,
+        "width": 14,
+        "height": 14
+    },
+    "TimeToken2": {
+        "x": 288,
+        "y": 172,
+        "width": 14,
+        "height": 14
+    },
+    "Tiramisu": {
+        "x": 213,
+        "y": 215,
+        "width": 16,
+        "height": 16
+    },
+    "TiramisuBite": {
+        "x": 181,
+        "y": 468,
+        "width": 10,
+        "height": 13
+    },
+    "Tongue1": {
+        "x": 282,
+        "y": 200,
+        "width": 16,
+        "height": 15
+    },
+    "Tongue2": {
+        "x": 175,
+        "y": 208,
+        "width": 16,
+        "height": 16
+    },
+    "TongueCounter": {
+        "x": 251,
+        "y": 198,
+        "width": 16,
+        "height": 15
+    },
+    "torrone": {
+        "x": 194,
+        "y": 208,
+        "width": 16,
+        "height": 16
+    },
+    "TP_HYDROSTORM": {
+        "x": 154,
+        "y": 202,
+        "width": 16,
+        "height": 16
+    },
+    "TP_HYDROSTORM2": {
+        "x": 116,
+        "y": 187,
+        "width": 16,
+        "height": 16
+    },
+    "TP_RELIC_BLACK_DISK": {
+        "x": 97,
+        "y": 184,
+        "width": 16,
+        "height": 16
+    },
+    "TP_RELIC_MASK_BLACK": {
+        "x": 152,
+        "y": 339,
+        "width": 18,
+        "height": 18
+    },
+    "TP_RELIC_MASK_CITY": {
+        "x": 173,
+        "y": 365,
+        "width": 11,
+        "height": 13
+    },
+    "TP_RELIC_MASK_MOON": {
+        "x": 191,
+        "y": 156,
+        "width": 14,
+        "height": 15
+    },
+    "TP_RELIC_MASK_SEAWINDS": {
+        "x": 40,
+        "y": 118,
+        "width": 15,
+        "height": 12
+    },
+    "TP_RELIC_MASK_STONE": {
+        "x": 173,
+        "y": 350,
+        "width": 11,
+        "height": 12
+    },
+    "TP_RELIC_MASK_SUN": {
+        "x": 2,
+        "y": 264,
+        "width": 16,
+        "height": 18
+    },
+    "TP_RELIC_MASK_VOLCANO": {
+        "x": 305,
+        "y": 176,
+        "width": 12,
+        "height": 10
+    },
+    "trapano": {
+        "x": 316,
+        "y": 588,
+        "width": 14,
+        "height": 16
+    },
+    "trapano2": {
+        "x": 78,
+        "y": 175,
+        "width": 16,
+        "height": 16
+    },
+    "trisection": {
+        "x": 59,
+        "y": 165,
+        "width": 16,
+        "height": 16
+    },
+    "trumpet": {
+        "x": 40,
+        "y": 164,
+        "width": 16,
+        "height": 16
+    },
+    "UnholyBook": {
+        "x": 136,
+        "y": 317,
+        "width": 12,
+        "height": 16
+    },
+    "Vacuum1": {
+        "x": 21,
+        "y": 155,
+        "width": 16,
+        "height": 16
+    },
+    "Vacuum2": {
+        "x": 2,
+        "y": 150,
+        "width": 16,
+        "height": 16
+    },
+    "Vacuum3": {
+        "x": 135,
+        "y": 187,
+        "width": 16,
+        "height": 16
+    },
+    "Vent1": {
+        "x": 358,
+        "y": 246,
+        "width": 16,
+        "height": 16
+    },
+    "Vent2": {
+        "x": 377,
+        "y": 246,
+        "width": 16,
+        "height": 16
+    },
+    "victory1": {
+        "x": 396,
+        "y": 237,
+        "width": 16,
+        "height": 16
+    },
+    "WandBall": {
+        "x": 415,
+        "y": 220,
+        "width": 16,
+        "height": 16
+    },
+    "WandFire": {
+        "x": 434,
+        "y": 220,
+        "width": 16,
+        "height": 16
+    },
+    "WandFire2": {
+        "x": 453,
+        "y": 220,
+        "width": 16,
+        "height": 16
+    },
+    "WandHoly": {
+        "x": 472,
+        "y": 215,
+        "width": 16,
+        "height": 16
+    },
+    "WandHoly2": {
+        "x": 491,
+        "y": 215,
+        "width": 16,
+        "height": 16
+    },
+    "Water2": {
+        "x": 339,
+        "y": 227,
+        "width": 16,
+        "height": 16
+    },
+    "waxFetish": {
+        "x": 358,
+        "y": 227,
+        "width": 16,
+        "height": 16
+    },
+    "WeatherNode1": {
+        "x": 118,
+        "y": 471,
+        "width": 29,
+        "height": 55
+    },
+    "WeatherNode2": {
+        "x": 77,
+        "y": 456,
+        "width": 29,
+        "height": 55
+    },
+    "WeatherNode3": {
+        "x": 37,
+        "y": 427,
+        "width": 29,
+        "height": 55
+    },
+    "WheelIcon": {
+        "x": 377,
+        "y": 227,
+        "width": 16,
+        "height": 16
+    },
+    "Whip": {
+        "x": 396,
+        "y": 218,
+        "width": 16,
+        "height": 16
+    },
+    "Whip2": {
+        "x": 294,
+        "y": 218,
+        "width": 16,
+        "height": 16
+    },
+    "Whip3": {
+        "x": 313,
+        "y": 218,
+        "width": 16,
+        "height": 16
+    },
+    "Whip4": {
+        "x": 263,
+        "y": 216,
+        "width": 16,
+        "height": 16
+    },
+    "windowPieces1": {
+        "x": 111,
+        "y": 868,
+        "width": 22,
+        "height": 37
+    },
+    "windowPieces2": {
+        "x": 486,
+        "y": 789,
+        "width": 22,
+        "height": 37
+    },
+    "windowPieces3": {
+        "x": 111,
+        "y": 868,
+        "width": 22,
+        "height": 37
+    },
+    "Wing": {
+        "x": 232,
+        "y": 204,
+        "width": 16,
+        "height": 16
+    },
+    "yellowsign": {
+        "x": 305,
+        "y": 919,
+        "width": 3,
+        "height": 3
+    },
+    "ziappunta_prop1": {
+        "x": 450,
+        "y": 533,
+        "width": 32,
+        "height": 48
+    },
+    "ziappunta_prop2": {
+        "x": 362,
+        "y": 536,
+        "width": 32,
+        "height": 47
+    },
+    "ziappunta_prop3": {
+        "x": 397,
+        "y": 531,
+        "width": 32,
+        "height": 47
+    },
+    "ziappunta_prop4": {
+        "x": 283,
+        "y": 638,
+        "width": 32,
+        "height": 48
+    },
+    "ziappunta_prop_break_0": {
+        "x": 362,
+        "y": 755,
+        "width": 36,
+        "height": 51
+    },
+    "ziappunta_prop_break_1": {
+        "x": 328,
+        "y": 470,
+        "width": 31,
+        "height": 47
+    },
+    "ziappunta_prop_break_10": {
+        "x": 361,
+        "y": 422,
+        "width": 31,
+        "height": 41
+    },
+    "ziappunta_prop_break_11": {
+        "x": 395,
+        "y": 417,
+        "width": 31,
+        "height": 41
+    },
+    "ziappunta_prop_break_2": {
+        "x": 327,
+        "y": 421,
+        "width": 31,
+        "height": 46
+    },
+    "ziappunta_prop_break_3": {
+        "x": 2,
+        "y": 422,
+        "width": 29,
+        "height": 47
+    },
+    "ziappunta_prop_break_4": {
+        "x": 450,
+        "y": 483,
+        "width": 32,
+        "height": 47
+    },
+    "ziappunta_prop_break_5": {
+        "x": 362,
+        "y": 586,
+        "width": 32,
+        "height": 48
+    },
+    "ziappunta_prop_break_6": {
+        "x": 203,
+        "y": 604,
+        "width": 32,
+        "height": 47
+    },
+    "ziappunta_prop_break_7": {
+        "x": 246,
+        "y": 623,
+        "width": 32,
+        "height": 48
+    },
+    "ziappunta_prop_break_8": {
+        "x": 281,
+        "y": 587,
+        "width": 32,
+        "height": 48
+    },
+    "ziappunta_prop_break_9": {
+        "x": 272,
+        "y": 467,
+        "width": 31,
+        "height": 47
+    },
+    "_Accel1": {
+        "x": 2,
+        "y": 807,
+        "width": 48,
+        "height": 48
+    },
+    "_Accel2": {
+        "x": 420,
+        "y": 974,
+        "width": 48,
+        "height": 48
+    },
+    "_Accel3": {
+        "x": 365,
+        "y": 930,
+        "width": 48,
+        "height": 48
+    },
+    "_Accel4": {
+        "x": 420,
+        "y": 974,
+        "width": 48,
+        "height": 48
+    },
+    "_FS_CART_BACK": {
+        "x": 311,
+        "y": 892,
+        "width": 48,
+        "height": 48
+    },
+    "_FS_CART_FRONT": {
+        "x": 416,
+        "y": 923,
+        "width": 48,
+        "height": 48
+    }
+}

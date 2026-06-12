@@ -13,7 +13,7 @@ RosterGridPanel::RosterGridPanel(TextureAtlas& atlas, const sf::Font& font, cons
 {
 }
 
-void RosterGridPanel::InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager)
+void RosterGridPanel::InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager, const WeaponDataManager* weaponManager)
 {
     m_cards.clear();
 
@@ -27,11 +27,10 @@ void RosterGridPanel::InitializeRoster(const CharacterDataManager& dataManager, 
             continue;
         }
         
-        bool isUnlocked = progManager.IsCharacterUnlocked(profile.GetId());
-
-        auto card = std::make_unique<CharacterCardWidget>(m_atlas, m_font, m_boldFont, profile, isUnlocked);
+        bool isUnlocked = progManager.IsCharacterUnlocked(id);
+        auto card = std::make_unique<CharacterCardWidget>(m_atlas, m_font, m_boldFont, profile, isUnlocked, weaponManager);
         
-        // Bind the mediator callback
+        card->SetSize(sf::Vector2f(171.0f, 171.0f));
         card->SetOnClickCallback([this](const std::string& characterId)
         {
             this->OnCardClicked(characterId);
@@ -52,7 +51,7 @@ void RosterGridPanel::OnCardClicked(const std::string& characterId)
 
     for(auto& card : m_cards)
     {
-        if(card->GetState() == CardState::Selected)
+        if(card->GetState() == CardState::Selected || card->GetState() == CardState::Confirmed)
         {
             // Reset previously selected
             card->SetState(CardState::Normal);
@@ -71,6 +70,24 @@ void RosterGridPanel::OnCardClicked(const std::string& characterId)
     if(m_onSelectionChanged)
     {
         m_onSelectionChanged(m_selectedCharacterId);
+    }
+}
+
+void RosterGridPanel::SetCardConfirmedState(bool confirmed)
+{
+    for(auto& card : m_cards)
+    {
+        if(card->GetCharacterId() == m_selectedCharacterId)
+        {
+            if (confirmed)
+            {
+                card->SetState(CardState::Confirmed);
+            }
+            else
+            {
+                card->SetState(CardState::Selected);
+            }
+        }
     }
 }
 

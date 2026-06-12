@@ -9,10 +9,12 @@
 class StateManager;
 class CharacterDataManager;
 class PlayerProgressionManager;
+class WeaponDataManager;
+class PowerUpDataManager;
 
 struct StateContext
 {
-    StateContext(StateManager& sm, ResourceManager<sf::Texture, std::string>& tex, ResourceManager<sf::Font, FontID>& fnt, TextureAtlas& atl, class AnimationLibrary& anims, CharacterDataManager& cdm, PlayerProgressionManager& ppm)
+    StateContext(StateManager& sm, ResourceManager<sf::Texture, std::string>& tex, ResourceManager<sf::Font, FontID>& fnt, TextureAtlas& atl, class AnimationLibrary& anims, CharacterDataManager& cdm, PlayerProgressionManager& ppm, WeaponDataManager& wdm, PowerUpDataManager& pudm)
         : stateManager(sm)
         , textures(tex)
         , fonts(fnt)
@@ -20,6 +22,8 @@ struct StateContext
         , animationLibrary(anims)
         , characterData(cdm)
         , progressionData(ppm)
+        , weaponData(wdm)
+        , powerUpData(pudm)
     {
     }
 
@@ -30,4 +34,6 @@ struct StateContext
     class AnimationLibrary& animationLibrary;
     CharacterDataManager& characterData;
     PlayerProgressionManager& progressionData;
+    WeaponDataManager& weaponData;
+    PowerUpDataManager& powerUpData;
 };

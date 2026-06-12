@@ -13,6 +13,7 @@ class UIDetailPanel : public UIElement
 public:
     UIDetailPanel(TextureAtlas& atlas, const sf::Font& font);
     void UpdateContent(const PowerUpData& data);
+    void SetOnBuyClicked(std::function<void(const std::string&)> callback);
 
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window);
     void Update(float deltaTime) override;
@@ -37,6 +38,9 @@ private:
     sf::Sprite m_iconSprite;
     sf::Vector2f m_innerFrameBaseScale;
     sf::Vector2f m_iconBaseScale;
+
+    PowerUpData m_currentData;
+    std::function<void(const std::string&)> m_onBuyClicked;
 
     void UpdateLayout();
 };

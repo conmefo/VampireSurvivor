@@ -225,3 +225,36 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **JSON Pre-processing:** Implemented parsing logic to drill into the specific array schemas, extracting exactly the base profile strings (`charName`, `surname`, `description`, `spriteName`) and float-based stats needed to perfectly map to our `CharacterProfile` class.
 * **Sanitization:** Added automatic `.png` stripping for image asset references to ensure compatibility with our internal `TextureAtlas` ID formatting.
 * **UI Math & Formatting Optimization:** Standardized UI parsing across `StatsPanel.cpp` to accurately match camelCase keys natively loaded from the new data format. Implemented dynamic arithmetic to correctly translate internal `1.1f` data constraints into explicit `+10%` display outputs for variables like `Might` and `Speed`.
+
+***
+
+## Update: Weapon Data Integration & Dynamic Asset Loading
+* **Weapon Data Model:** Implemented `WeaponProfile` and `WeaponDataManager` to natively load `WEAPON_DATA.json`. This abstracts weapon stats and links the raw weapon internal names to their explicit rendering frame names (e.g., `WHIP` -> `whip_frame`).
+* **Dynamic Sprite System:** Upgraded `main.cpp` to utilize `std::filesystem::directory_iterator` for autonomous loading. The engine now parses the entire `Assets/Graphics/Characters` directory, loads each texture individually, and automatically cross-references and parses its matching JSON map from `Assets/Data/CharacterAtlas` if available.
+* **Sprite Coordinate Mapping:** Integrated the newly loaded texture mappings seamlessly with `CharacterProfile`. The engine safely requests exact bounding boxes (`92x92px`) from the `TextureAtlas` dynamically, completely bypassing monolithic hardcoding for all 60 character files.
+* **UI Scaling Consistency:** Embedded mathematical bounding box scaling (`.getLocalBounds()`) directly inside UI element constructors, guaranteeing that regardless of the native asset size, all UI icons clamp exactly to design specs (`92x92` for portraits, `42x42` for items) without distorting resolution or padding.
+
+***
+
+## Update: DetailPanel UI Revamp & Shared Text Utility
+* **NineSlice Background Borders:** Replaced standard bounding frames with the `NineSliceComponent` engine, utilizing `"frameB10"` dynamically anchored to an `80x80` footprint for the item preview block inside the `DetailPanel`. Configured dirty-flag updates to reliably flush math calculations natively inside the layout loops.
+* **Drop Shadow Rendering:** Advanced `CharacterCardWidget` to dynamically render multi-pass drop shadows exclusively for item icons using `sf::Color::Black` offset tinting before drawing the standard sprite overlay.
+* **Global Text Wrapping Support:** Abstracted text wrapping calculations away from specific states into a globally accessible namespace (`UI::TextUtility`). This allows responsive paragraph recalculations directly aligned to specific `MaxWidth` pixel thresholds anywhere in the engine.
+* **Layout Mathematics Integration:** Refined relative layout flows in `DetailPanel` to securely calculate remaining window sizes based on dynamic padding limits, perfectly scaling font boundaries for long character descriptions and matching all label font sizes appropriately.
+
+***
+
+## Update: Authentic PowerUp Data & Dynamic UI Sync (Phase 4)
+* **PowerUp Data Manager:** Implemented `PowerUpProfile` and `PowerUpDataManager` to load `POWERUP_DATA.json` authentically via `nlohmann_json`. This architecture gracefully handles dynamic stat arrays, bypassing hardcoded UI loop constraints.
+* **Dynamic Pricing Engine:** Expanded `PlayerProgressionManager` to calculate power-up upgrade inflation based on the original game's formula: `BasePrice * (1 + 0.1 * TotalPurchasedPowerUps)`. 
+* **Save State Serialization:** Built native `Save()` and `Load()` methods into `PlayerProgressionManager`, serializing gold, unlocked characters, and purchased power-ups securely into a local `save_data.json` file.
+* **StatsPanel Sync & Gold Rendering:** Fully connected the `StatsPanel` within the `CharacterSelectionView` directly to the active `PowerUpDataManager`. The panel dynamically maps base properties (white text) alongside aggregated power-up buffs formatted in gold text (`sf::Color(255, 215, 0)`), perfectly matching the original UI aesthetics.
+* **PowerUpState Reactivity:** Completely rewired `PowerUpState.cpp` to iterate real profiles loaded dynamically. Buying or refunding updates the backend state instantly, saving to disk, and cascading UI `.RefreshData()` calls to accurately lock buttons or update textual inflation costs in real-time.
+
+***
+
+## Update: Co-op Mode UI Integration & Layout Polish
+* **Dynamic Co-op Resizing:** Enhanced `CharacterSelectionView` to dynamically shrink the `MainBoardPanel` by 240px and spawn two separate 181x200 player cards (`UIPlayerCoopCard`) seamlessly when transitioning into Co-op mode.
+* **Component Encapsulation & Bug Fixes:** Fixed severe selection state bugs where the `Enter Co-op` button is autonomously disabled if `ReadyToStart` is triggered in single-player mode, preventing invisible UI layout crashes. Refined `RosterGridPanel` to properly reset confirmed cards back to a normal state if the user clicks a different character.
+* **Compositing Consistency:** Upgraded `CharacterSelectionScreen` to abandon the dark overlay pattern. It now perfectly mimics `MainMenuState` by directly recreating the composite background texture, appending the 3 title illustrations, and explicitly drawing the identical `m_topBarBg` black bar, creating a perfectly seamless transition.
+* **PowerUp Text Flow Control:** Leveraged the shared `UI::TextUtility` globally inside `UIDetailPanel` for PowerUps. Dynamically calculates `maxDescWidth` via floating boundaries to automatically wrap description strings so they never intersect with the `Buy` button.

@@ -4,6 +4,9 @@
 #include <sstream>
 #include <iomanip>
 #include <iostream>
+#include <cmath>
+#include "../../Core/Data/PlayerProgressionManager.h"
+#include "../../Core/Data/PowerUpDataManager.h"
 
 static sf::Font s_boldFont;
 static bool s_boldFontLoaded = false;
@@ -61,10 +64,12 @@ StatsPanel::StatsPanel(TextureAtlas& atlas, const sf::Font& font)
         row.valueText.setCharacterSize(TEXT_SIZE);
         row.valueText.setString("-");
         row.valueText.setFillColor(sf::Color::White);
-        
-
-        
         row.valueText.setFont(s_boldFont);
+
+        row.buffText.setCharacterSize(TEXT_SIZE);
+        row.buffText.setString("");
+        row.buffText.setFillColor(sf::Color(255, 215, 0)); // Gold color
+        row.buffText.setFont(s_boldFont);
 
         m_rows.push_back(row);
     }
@@ -96,19 +101,26 @@ std::string StatsPanel::FormatLabelName(const std::string& key) const
     return key;
 }
 
-void StatsPanel::SetCharacterProfile(const CharacterProfile& profile)
+void StatsPanel::SetCharacterProfile(const CharacterProfile& profile, const PlayerProgressionManager* progressionManager, const PowerUpDataManager* powerUpManager)
 {
     for(StatRow& row : m_rows)
     {
         float value = profile.GetStat(row.key);
-        FormatStatText(row, value);
+        float buff = 0.0f;
+        
+        if (progressionManager && powerUpManager)
+        {
+            buff = progressionManager->GetGlobalStatBuff(row.key, *powerUpManager);
+        }
+        
+        FormatStatText(row, value, buff);
     }
     
     // Re-align right bounds since text width changed
     SetPosition(m_position);
 }
 
-void StatsPanel::FormatStatText(StatRow& row, float value) const
+void StatsPanel::FormatStatText(StatRow& row, float value, float buff) const
 {
     if(value == 0.0f)
     {
@@ -148,6 +160,26 @@ void StatsPanel::FormatStatText(StatRow& row, float value) const
     }
 
     row.valueText.setString(oss.str());
+
+    if (std::abs(buff) > 0.001f)
+    {
+        std::ostringstream buffOss;
+        if(row.key == "speed" || row.key == "power" || row.key == "duration" || row.key == "area" || row.key == "cooldown" || row.key == "luck" || row.key == "growth" || row.key == "greed" || row.key == "curse" || row.key == "defang" || row.key == "recycle")
+        {
+            if (buff > 0.0f) buffOss << "+";
+            buffOss << static_cast<int>(buff * 100.0f) << "%";
+        }
+        else
+        {
+            if (buff > 0.0f) buffOss << "+";
+            buffOss << static_cast<int>(buff);
+        }
+        row.buffText.setString(buffOss.str());
+    }
+    else
+    {
+        row.buffText.setString("");
+    }
 }
 
 void StatsPanel::SetPosition(const sf::Vector2f& pos)
@@ -161,7 +193,16 @@ void StatsPanel::SetPosition(const sf::Vector2f& pos)
         row.labelText.setPosition(pos.x + PADDING_X, currentY);
         
         sf::FloatRect valBounds = row.valueText.getLocalBounds();
-        row.valueText.setPosition(pos.x + m_size.x - PADDING_X - valBounds.width, currentY);
+        sf::FloatRect buffBounds = row.buffText.getLocalBounds();
+        
+        float buffWidth = row.buffText.getString().isEmpty() ? 0.0f : buffBounds.width;
+        float spacing = buffWidth > 0.0f ? 8.0f : 0.0f;
+        
+        float totalWidth = valBounds.width + spacing + buffWidth;
+        float startX = pos.x + m_size.x - PADDING_X - totalWidth;
+        
+        row.valueText.setPosition(startX, currentY);
+        row.buffText.setPosition(startX + valBounds.width + spacing, currentY);
         
         currentY += ROW_PADDING;
         
@@ -195,5 +236,9 @@ void StatsPanel::Draw(sf::RenderTarget& target)
     {
         target.draw(row.labelText);
         target.draw(row.valueText);
+        if (!row.buffText.getString().isEmpty())
+        {
+            target.draw(row.buffText);
+        }
     }
 }
