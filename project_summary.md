@@ -241,3 +241,12 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Drop Shadow Rendering:** Advanced `CharacterCardWidget` to dynamically render multi-pass drop shadows exclusively for item icons using `sf::Color::Black` offset tinting before drawing the standard sprite overlay.
 * **Global Text Wrapping Support:** Abstracted text wrapping calculations away from specific states into a globally accessible namespace (`UI::TextUtility`). This allows responsive paragraph recalculations directly aligned to specific `MaxWidth` pixel thresholds anywhere in the engine.
 * **Layout Mathematics Integration:** Refined relative layout flows in `DetailPanel` to securely calculate remaining window sizes based on dynamic padding limits, perfectly scaling font boundaries for long character descriptions and matching all label font sizes appropriately.
+
+***
+
+## Update: Authentic PowerUp Data & Dynamic UI Sync (Phase 4)
+* **PowerUp Data Manager:** Implemented `PowerUpProfile` and `PowerUpDataManager` to load `POWERUP_DATA.json` authentically via `nlohmann_json`. This architecture gracefully handles dynamic stat arrays, bypassing hardcoded UI loop constraints.
+* **Dynamic Pricing Engine:** Expanded `PlayerProgressionManager` to calculate power-up upgrade inflation based on the original game's formula: `BasePrice * (1 + 0.1 * TotalPurchasedPowerUps)`. 
+* **Save State Serialization:** Built native `Save()` and `Load()` methods into `PlayerProgressionManager`, serializing gold, unlocked characters, and purchased power-ups securely into a local `save_data.json` file.
+* **StatsPanel Sync & Gold Rendering:** Fully connected the `StatsPanel` within the `CharacterSelectionView` directly to the active `PowerUpDataManager`. The panel dynamically maps base properties (white text) alongside aggregated power-up buffs formatted in gold text (`sf::Color(255, 215, 0)`), perfectly matching the original UI aesthetics.
+* **PowerUpState Reactivity:** Completely rewired `PowerUpState.cpp` to iterate real profiles loaded dynamically. Buying or refunding updates the backend state instantly, saving to disk, and cascading UI `.RefreshData()` calls to accurately lock buttons or update textual inflation costs in real-time.

@@ -14,6 +14,7 @@ class UIButton;
 class PlayerProgressionManager;
 class CharacterDataManager;
 class WeaponDataManager;
+class PowerUpDataManager;
 namespace sf { class Font; class Event; class RenderWindow; }
 
 class CharacterSelectionView : public UIElement
@@ -41,7 +42,7 @@ private:
     static constexpr float BUTTON_MARGIN_RIGHT = 20.0f;
 
 public:
-    CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager = nullptr, const WeaponDataManager* weaponManager = nullptr);
+    CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager = nullptr, const WeaponDataManager* weaponManager = nullptr, const PowerUpDataManager* powerUpManager = nullptr);
     ~CharacterSelectionView() override;
 
     void InitializeLayout(const sf::Vector2f& viewportSize);

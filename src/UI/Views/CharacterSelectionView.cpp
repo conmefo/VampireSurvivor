@@ -8,10 +8,11 @@
 #include "../../Core/Data/PlayerProgressionManager.h"
 #include "../../Core/Data/CharacterDataManager.h"
 #include "../../Core/Data/CharacterProfile.h"
+#include "../../Core/Data/PowerUpDataManager.h"
 #include <SFML/Window/Event.hpp>
 #include <SFML/Graphics/RenderWindow.hpp>
 
-CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager, const WeaponDataManager* weaponManager)
+CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Font& font, const sf::Font* boldFont, const CharacterDataManager& characterData, const PlayerProgressionManager* progressionManager, const WeaponDataManager* weaponManager, const PowerUpDataManager* powerUpManager)
     : m_mainBoard(std::make_unique<MainBoardPanel>(atlas, font, boldFont))
     , m_statsPanel(std::make_unique<StatsPanel>(atlas, font))
     , m_goldDisplay(std::make_unique<GoldDisplayWidget>(atlas, progressionManager, font))
@@ -30,7 +31,7 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
             m_mainBoard->GetRosterGrid()->InitializeRoster(characterData, *progressionManager, weaponManager);
         }
         
-        m_mainBoard->GetRosterGrid()->SetOnSelectionChanged([this, &characterData, progressionManager, weaponManager](const std::string& characterId)
+        m_mainBoard->GetRosterGrid()->SetOnSelectionChanged([this, &characterData, progressionManager, weaponManager, powerUpManager](const std::string& characterId)
         {
             m_selectedCharacterId = characterId;
             const CharacterProfile& profile = characterData.GetCharacterById(characterId);
@@ -38,6 +39,11 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
             if(m_mainBoard->GetDetailPanel())
             {
                 m_mainBoard->GetDetailPanel()->SetCharacterProfile(profile, weaponManager);
+            }
+
+            if(m_statsPanel)
+            {
+                m_statsPanel->SetCharacterProfile(profile, progressionManager, powerUpManager);
             }
 
             if(progressionManager && progressionManager->IsCharacterUnlocked(characterId))

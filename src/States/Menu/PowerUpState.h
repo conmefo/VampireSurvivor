@@ -25,4 +25,9 @@ private:
 
     NineSliceComponent m_mainPanelBg;
     sf::Text m_titleText;
+
+    class UIGridLayout* m_gridPtr = nullptr;
+    class UIDetailPanel* m_detailPtr = nullptr;
+
+    void RefreshData();
 };

@@ -9,6 +9,8 @@
 #include "../../UI/Components/UIDetailPanel.h"
 #include "../../UI/Elements/GoldDisplayWidget.h"
 #include "../../Core/Data/PowerUpData.h"
+#include "../../Core/Data/PowerUpDataManager.h"
+#include "../../Core/Data/PlayerProgressionManager.h"
 #include <vector>
 
 PowerUpState::PowerUpState(StateContext context) : BaseState(context)
@@ -41,8 +43,9 @@ void PowerUpState::Init()
     refundButton->SetTextStyle(sf::Text::Bold);
     refundButton->SetStateColors(sf::Color::White, sf::Color(220, 220, 220), sf::Color(150, 150, 150), sf::Color(100, 100, 100));
     refundButton->SetCornerScale(2.0f);
-    refundButton->SetOnClickCallback([]() {
-        std::cout << "Refund PowerUps clicked!\n";
+    refundButton->SetOnClickCallback([this]() {
+        m_context.progressionData.RefundAllPowerUps(m_context.powerUpData);
+        RefreshData();
     });
     
     auto backButton = std::make_unique<UIButton>(m_context.atlas, "button_c8_normal", 10.0f, 10.0f, 10.0f, 10.0f);
@@ -58,27 +61,7 @@ void PowerUpState::Init()
     
     // --- ScrollView Setup ---
     auto grid = std::make_unique<UIGridLayout>(m_context.atlas, m_context.fonts.Get(FontID::Main));
-    UIGridLayout* gridPtr = grid.get();
-    
-    AssetTextureData icon1 = m_context.atlas.GetTextureData("MoneyPile");
-    AssetTextureData emptyBoxData = m_context.atlas.GetTextureData("menu_checkbox_24_bg");
-    AssetTextureData filledBoxData = m_context.atlas.GetTextureData("menu_checkbox_24_checkmark");
-    
-    std::vector<PowerUpData> dummyData;
-    for(int i = 0; i < 15; ++i)
-    {
-        PowerUpData item;
-        item.title = "PowerUp " + std::to_string(i + 1);
-        item.currentLevel = i % 5;
-        item.maxLevel = 5;
-        if(icon1.texture) item.iconRect = icon1.rect;
-        if(emptyBoxData.texture) item.emptyBoxRect = emptyBoxData.rect;
-        if(filledBoxData.texture) item.filledBoxRect = filledBoxData.rect;
-        
-        dummyData.push_back(item);
-    }
-    
-    grid->SetDataset(dummyData);
+    m_gridPtr = grid.get();
     
     // 4 columns * 174 width + 3 * 15 padding = 741 total width
     auto scrollView = std::make_unique<UIScrollView>(760.0f, 618.0f, m_context.atlas);
@@ -90,14 +73,20 @@ void PowerUpState::Init()
     detailPanel->SetSize(sf::Vector2f(776.0f, 150.0f));
     detailPanel->SetPosition(sf::Vector2f(Core::VIRTUAL_WIDTH / 2.0f - 388.0f, 905.0f));
     detailPanel->SetCornerScale(2.0f);
-    UIDetailPanel* detailPtr = detailPanel.get();
+    m_detailPtr = detailPanel.get();
     
-    gridPtr->SetOnSelectionChangedCallback([detailPtr](const PowerUpData& data) {
-        detailPtr->UpdateContent(data);
+    m_gridPtr->SetOnSelectionChangedCallback([this](const PowerUpData& data) {
+        m_detailPtr->UpdateContent(data);
+    });
+
+    m_detailPtr->SetOnBuyClicked([this](const std::string& powerUpId) {
+        m_context.progressionData.BuyPowerUp(powerUpId, m_context.powerUpData);
+        RefreshData();
     });
     
     // Choose the first card by default
-    gridPtr->SelectIndex(0);
+    RefreshData();
+    m_gridPtr->SelectIndex(0);
     
     m_uiManager.AddElement(std::move(backButton));
     m_uiManager.AddElement(std::move(refundButton));
@@ -132,4 +121,45 @@ void PowerUpState::Draw(sf::RenderWindow& window)
     window.draw(m_titleText);
     
     m_uiManager.Draw(window);
+}
+
+void PowerUpState::RefreshData()
+{
+    if (!m_gridPtr) return;
+
+    std::vector<PowerUpData> uiData;
+    const auto& order = m_context.powerUpData.GetPowerUpOrder();
+    
+    AssetTextureData emptyBoxData = m_context.atlas.GetTextureData("menu_checkbox_24_bg");
+    AssetTextureData filledBoxData = m_context.atlas.GetTextureData("menu_checkbox_24_checkmark");
+
+    for (const std::string& id : order)
+    {
+        const PowerUpProfile& profile = m_context.powerUpData.GetPowerUpById(id);
+        
+        PowerUpData item;
+        item.id = id;
+        item.title = profile.GetName();
+        item.description = profile.GetDescription();
+        item.textureId = profile.GetFrameName();
+        item.maxLevel = profile.GetMaxLevel();
+        item.currentLevel = m_context.progressionData.GetPowerUpLevel(id);
+        item.price = m_context.progressionData.GetNextPowerUpPrice(id, m_context.powerUpData);
+
+        AssetTextureData iconData = m_context.atlas.GetTextureData(item.textureId);
+        if (iconData.texture) item.iconRect = iconData.rect;
+        
+        if (emptyBoxData.texture) item.emptyBoxRect = emptyBoxData.rect;
+        if (filledBoxData.texture) item.filledBoxRect = filledBoxData.rect;
+
+        uiData.push_back(item);
+    }
+    
+    m_gridPtr->SetDataset(uiData);
+    
+    // Force detail panel to update visually if something is selected
+    if (m_detailPtr)
+    {
+        // Actually, we could just trigger selection change again
+    }
 }

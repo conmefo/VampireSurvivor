@@ -1,45 +1,37 @@
 #pragma once
 #include <unordered_set>
+#include <unordered_map>
 #include <string>
 #include "CharacterProfile.h"
+#include "PowerUpDataManager.h"
 
 class PlayerProgressionManager
 {
 private:
     int m_gold = 0;
     std::unordered_set<std::string> m_unlockedCharacters;
+    std::unordered_map<std::string, int> m_purchasedPowerUps;
 
 public:
     PlayerProgressionManager() = default;
     
-    int GetGold() const
-    {
-        return m_gold;
-    }
+    bool Save(const std::string& filepath = "save_data.json") const;
+    bool Load(const std::string& filepath = "save_data.json");
 
-    void AddGold(int amount)
-    {
-        m_gold += amount;
-    }
+    int GetGold() const;
+    void AddGold(int amount);
+    bool SpendGold(int amount);
 
-    void InitializeUnlockedCharacters(const std::unordered_map<std::string, CharacterProfile>& allCharacters)
-    {
-        for (const auto& pair : allCharacters)
-        {
-            if (pair.second.IsBought() || pair.second.GetBasePrice() == 0)
-            {
-                m_unlockedCharacters.insert(pair.first);
-            }
-        }
-    }
+    void InitializeUnlockedCharacters(const std::unordered_map<std::string, CharacterProfile>& allCharacters);
+    void UnlockCharacter(const std::string& characterId);
+    bool IsCharacterUnlocked(const std::string& characterId) const;
 
-    void UnlockCharacter(const std::string& characterId)
-    {
-        m_unlockedCharacters.insert(characterId);
-    }
+    int GetPowerUpLevel(const std::string& powerUpId) const;
+    void BuyPowerUp(const std::string& powerUpId, const PowerUpDataManager& dataManager);
+    void RefundAllPowerUps(const PowerUpDataManager& dataManager);
+    
+    int GetTotalPurchasedPowerUps() const;
+    int GetNextPowerUpPrice(const std::string& powerUpId, const PowerUpDataManager& dataManager) const;
 
-    bool IsCharacterUnlocked(const std::string& characterId) const
-    {
-        return m_unlockedCharacters.find(characterId) != m_unlockedCharacters.end();
-    }
+    float GetGlobalStatBuff(const std::string& statKey, const PowerUpDataManager& powerUpData) const;
 };

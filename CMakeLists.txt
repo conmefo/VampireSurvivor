@@ -85,6 +85,8 @@ add_executable(VampireSurvivors
     src/UI/Views/CharacterSelectionView.cpp
     src/Core/Data/WeaponProfile.cpp
     src/Core/Data/WeaponDataManager.cpp
+    src/Core/Data/PowerUpDataManager.cpp
+    src/Core/Data/PlayerProgressionManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

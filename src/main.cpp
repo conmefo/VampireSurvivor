@@ -10,6 +10,7 @@
 #include "Core/Data/CharacterDataManager.h"
 #include "Core/Data/PlayerProgressionManager.h"
 #include "Core/Data/WeaponDataManager.h"
+#include "Core/Data/PowerUpDataManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <filesystem>
@@ -118,13 +119,20 @@ int runSfmlTest()
     characterDataManager.LoadData("Assets/Data/CHARACTER_DATA.json");
     
     PlayerProgressionManager playerProgressionManager;
-    playerProgressionManager.InitializeUnlockedCharacters(characterDataManager.GetAllCharacters());
+    if (!playerProgressionManager.Load("save_data.json"))
+    {
+        // First time initialization if save doesn't exist
+        playerProgressionManager.InitializeUnlockedCharacters(characterDataManager.GetAllCharacters());
+    }
 
     WeaponDataManager weaponDataManager;
     weaponDataManager.LoadData("Assets/Data/WEAPON_DATA.json");
 
+    PowerUpDataManager powerUpDataManager;
+    powerUpDataManager.LoadFromJson("Assets/Data/POWERUP_DATA.json");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager);
 
     stateManager.AddState(std::make_unique<LoadingState>(context));
     stateManager.ProcessStateChanges();
