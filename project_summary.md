@@ -258,3 +258,10 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Component Encapsulation & Bug Fixes:** Fixed severe selection state bugs where the `Enter Co-op` button is autonomously disabled if `ReadyToStart` is triggered in single-player mode, preventing invisible UI layout crashes. Refined `RosterGridPanel` to properly reset confirmed cards back to a normal state if the user clicks a different character.
 * **Compositing Consistency:** Upgraded `CharacterSelectionScreen` to abandon the dark overlay pattern. It now perfectly mimics `MainMenuState` by directly recreating the composite background texture, appending the 3 title illustrations, and explicitly drawing the identical `m_topBarBg` black bar, creating a perfectly seamless transition.
 * **PowerUp Text Flow Control:** Leveraged the shared `UI::TextUtility` globally inside `UIDetailPanel` for PowerUps. Dynamically calculates `maxDescWidth` via floating boundaries to automatically wrap description strings so they never intersect with the `Buy` button.
+
+***
+
+## Update: Co-op Mode Selection Flow Bug Fixes
+* **Roster Selection Reset:** Implemented `ClearSelection()` within `RosterGridPanel` to properly reset all character cards back to a normal (unhighlighted) state without triggering residual callbacks.
+* **Co-op State Transitions:** Fixed multiple logical edge cases in `CharacterSelectionView` where transitioning from Single Player to Co-op, or from Player 1 to Player 2, left ghost data in memory. The system now strictly disables the Confirm button and clears the `m_hoveredCharacterId` during these transitions, requiring explicit and valid selections from all players.
+* **Locked Character Handling in Co-op:** Enhanced `UIPlayerCoopCard` interaction. Clicking a locked (unavailable) character in Co-op mode now dynamically resets the player's UI card back to its default, unassigned visual state by securely passing `nullptr` through the `SetCharacterProfile` pipeline, ensuring accurate user feedback.

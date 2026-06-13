@@ -42,6 +42,7 @@ public:
     void InitializeRoster(const CharacterDataManager& dataManager, const PlayerProgressionManager& progManager, const WeaponDataManager* weaponManager = nullptr);
     void SetOnSelectionChanged(std::function<void(const std::string&)> callback);
     void SetCardConfirmedState(bool confirmed);
+    void ClearSelection();
 
     void Update(float deltaTime) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;

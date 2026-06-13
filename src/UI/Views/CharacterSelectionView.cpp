@@ -96,6 +96,13 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
             else
             {
                 m_confirmButton->SetState(ButtonState::Disabled);
+                
+                // Clear the co-op cards if hovering a locked character
+                if (m_isCoopMode)
+                {
+                    if (m_selectionState == SelectionState::SelectingP1) m_p1Card->SetCharacterProfile(nullptr, weaponManager, atlas);
+                    else if (m_selectionState == SelectionState::SelectingP2) m_p2Card->SetCharacterProfile(nullptr, weaponManager, atlas);
+                }
             }
         });
     }
@@ -110,6 +117,12 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
             if (m_isCoopMode)
             {
                 SetState(SelectionState::SelectingP2);
+                if(m_mainBoard && m_mainBoard->GetRosterGrid())
+                {
+                    m_mainBoard->GetRosterGrid()->ClearSelection();
+                }
+                m_hoveredCharacterId = "";
+                m_confirmButton->SetState(ButtonState::Disabled);
             }
             else
             {
@@ -142,6 +155,13 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
             m_isShrinking = true;
             m_shrinkLerpTime = 0.0f;
             m_enterCoopButton->SetState(ButtonState::Disabled);
+            
+            if(m_mainBoard && m_mainBoard->GetRosterGrid())
+            {
+                m_mainBoard->GetRosterGrid()->ClearSelection();
+            }
+            m_hoveredCharacterId = "";
+            m_confirmButton->SetState(ButtonState::Disabled);
         }
     });
 

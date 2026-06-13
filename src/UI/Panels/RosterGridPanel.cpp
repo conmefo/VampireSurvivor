@@ -91,6 +91,15 @@ void RosterGridPanel::SetCardConfirmedState(bool confirmed)
     }
 }
 
+void RosterGridPanel::ClearSelection()
+{
+    m_selectedCharacterId = "";
+    for(auto& card : m_cards)
+    {
+        card->SetState(CardState::Normal);
+    }
+}
+
 void RosterGridPanel::SetPosition(const sf::Vector2f& pos)
 {
     UIElement::SetPosition(pos);
