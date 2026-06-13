@@ -8,7 +8,9 @@
 #include <iostream>
 
 
-MainMenuState::MainMenuState(StateContext context) : BaseState(context) {}
+MainMenuState::MainMenuState(StateContext context, TileMapManager& mapManager) 
+    : BaseState(context)
+    , m_mapManager(mapManager) {}
 
 void MainMenuState::Init() {
   std::cout << "MainMenuState Init\n";
@@ -126,7 +128,7 @@ void MainMenuState::SetupUI() {
   }
 
   startButton->SetOnClickCallback([this]() {
-    m_context.stateManager.AddState(std::make_unique<CharacterSelectionScreen>(m_context));
+    m_context.stateManager.AddState(std::make_unique<CharacterSelectionScreen>(m_context, m_mapManager));
   });
 
   powerUpBtn->SetOnClickCallback([this]() {

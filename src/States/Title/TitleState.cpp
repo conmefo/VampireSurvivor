@@ -2,10 +2,12 @@
 #include "../Menu/MainMenuState.h"
 #include "../StateManager.h"
 #include "../../Core/WindowSettings.h"
+#include "../../World/TileMapManager.h"
 #include <iostream>
 
-TitleState::TitleState(StateContext context)
+TitleState::TitleState(StateContext context, TileMapManager& mapManager)
     : BaseState(std::move(context))
+    , m_mapManager(mapManager)
     , m_currentPixelSize(120.0f)
     , m_shaderActive(true)
     , m_inputLocked(true)
@@ -139,7 +141,7 @@ void TitleState::HandleInput(sf::Event& event, sf::RenderWindow& window)
         m_inputLocked = true;
         // Trigger transition to MainMenu
         m_context.stateManager.PopState();
-        m_context.stateManager.AddState(std::make_unique<MainMenuState>(m_context));
+        m_context.stateManager.AddState(std::make_unique<MainMenuState>(m_context, m_mapManager));
     }
 }
 

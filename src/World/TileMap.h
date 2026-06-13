@@ -6,7 +6,8 @@
 
 class TileMap {
 public:
-  bool Load(const std::string &mapJsonPath);
+  bool LoadAsync(const std::string &mapJsonPath);
+  bool FinalizeMapTexture();
   void Draw(sf::RenderTarget &target, const sf::View &view);
 
   sf::Vector2f GetWorldSize() const;
@@ -42,14 +43,15 @@ private:
     std::vector<Tile> tiles;
   };
 
-  bool BuildMapTexture();
-  void AppendTile(sf::VertexArray &vertices, const Tile &tile) const;
+  bool BuildMapImage();
+  void AppendTileToImage(const Tile &tile);
 
-  sf::Texture m_atlasTexture;
+  sf::Image m_atlasImage;
   std::vector<Layer> m_layers;
   std::vector<sf::FloatRect> m_collisionRects;
   std::vector<sf::FloatRect> m_enemyCollisionRects;
-  sf::RenderTexture m_mapTexture;
+  sf::Image m_mapImage;
+  sf::Texture m_mapTexture;
 
   int m_mapWidth = 0;
   int m_mapHeight = 0;

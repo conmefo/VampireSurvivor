@@ -3,13 +3,14 @@
 #include "../BaseState.h"
 #include "../StateContext.h"
 #include "../../UI/Components/FaderComponent.h"
+#include "../../World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 
 class TitleState : public BaseState
 {
 public:
-    explicit TitleState(StateContext context);
+    explicit TitleState(StateContext context, TileMapManager& mapManager);
     ~TitleState() override = default;
 
     void Init() override;
@@ -48,4 +49,6 @@ private:
     sf::Text m_promptText;
     FaderComponent m_promptFader;
     bool m_promptFadingIn;
+    
+    TileMapManager& m_mapManager;
 };

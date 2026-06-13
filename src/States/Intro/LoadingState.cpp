@@ -5,10 +5,11 @@
 #include "Core/WindowSettings.h"
 #include <iostream>
 #include <iomanip>
-#include <sstream>
+#include <iostream>
 
-LoadingState::LoadingState(StateContext context)
+LoadingState::LoadingState(StateContext context, TileMapManager& mapManager)
     : BaseState(std::move(context))
+    , m_mapManager(mapManager)
     , m_currentDlcIndex(0)
     , m_currentPercent(0)
     , m_stepTimer(0.0f)
@@ -74,12 +75,22 @@ void LoadingState::Init()
     float vx = Core::VIRTUAL_WIDTH;
     float vy = Core::VIRTUAL_HEIGHT;
 
-    m_treasureSprite.setPosition(vx - 175.0f, vy - 120.0f);
+    m_treasureSprite.setPosition(vx - 175.0f, vy - 130.0f);
     m_treasureSprite.setScale(4.3f, 3.2f);
 
-    m_textBottom.setPosition(vx - 600.0f, vy - 65.0f);
-    m_textMiddle.setPosition(vx - 600.0f, vy - 98.0f);
-    m_textTop.setPosition(vx - 600.0f, vy - 140.0f);
+    float textRightX = vx - 200.0f;
+
+    sf::FloatRect bottomBounds = m_textBottom.getLocalBounds();
+    m_textBottom.setOrigin(bottomBounds.left + bottomBounds.width, 0.0f);
+    m_textBottom.setPosition(textRightX, vy - 65.0f);
+
+    sf::FloatRect midBounds = m_textMiddle.getLocalBounds();
+    m_textMiddle.setOrigin(midBounds.left + midBounds.width, 0.0f);
+    m_textMiddle.setPosition(textRightX, vy - 98.0f);
+
+    sf::FloatRect topBounds = m_textTop.getLocalBounds();
+    m_textTop.setOrigin(topBounds.left + topBounds.width, 0.0f);
+    m_textTop.setPosition(textRightX, vy - 140.0f);
 }
 
 void LoadingState::HandleInput(sf::Event& event, sf::RenderWindow& window)
@@ -120,6 +131,10 @@ void LoadingState::Update(float dt)
             std::stringstream ss;
             ss << m_dlcNames[m_currentDlcIndex] << " (" << m_currentPercent << "%)";
             m_textMiddle.setString(ss.str());
+            
+            sf::FloatRect bounds = m_textMiddle.getLocalBounds();
+            m_textMiddle.setOrigin(bounds.left + bounds.width, 0.0f);
+            m_textMiddle.setPosition(Core::VIRTUAL_WIDTH - 200.0f, Core::VIRTUAL_HEIGHT - 98.0f);
         }
     }
     else if(m_phase == 1)
@@ -128,13 +143,15 @@ void LoadingState::Update(float dt)
         m_textMiddle.setString("");
         
         m_textTop.setString("Loading");
-        m_textTop.setPosition(Core::VIRTUAL_WIDTH - 600.0f, Core::VIRTUAL_HEIGHT - 110.0f); // Move to middle line Y
+        sf::FloatRect topBounds = m_textTop.getLocalBounds();
+        m_textTop.setOrigin(topBounds.left + topBounds.width, 0.0f);
+        m_textTop.setPosition(Core::VIRTUAL_WIDTH - 200.0f, Core::VIRTUAL_HEIGHT - 110.0f); // Move to middle line Y
 
         m_finalWaitTimer += dt;
-        if(m_finalWaitTimer >= 1.5f)
+        if (m_finalWaitTimer >= 1.5f)
         {
             m_context.stateManager.PopState();
-            m_context.stateManager.AddState(std::make_unique<WarningState>(m_context));
+            m_context.stateManager.AddState(std::make_unique<WarningState>(m_context, m_mapManager));
         }
     }
 }

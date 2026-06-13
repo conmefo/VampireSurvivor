@@ -13,6 +13,8 @@ private:
     std::string startingWeaponId;
     int basePrice;
     std::unordered_map<std::string, float> stats;
+    std::string spriteName;
+    int walkingFrames;
 
     bool isAlwaysHidden;
     bool isBought;
@@ -26,6 +28,8 @@ public:
         const std::string& startingWeaponId,
         int basePrice,
         const std::unordered_map<std::string, float>& stats,
+        const std::string& spriteName = "",
+        int walkingFrames = 1,
         bool isAlwaysHidden = false,
         bool isBought = false)
         : id(id), 
@@ -35,6 +39,8 @@ public:
           startingWeaponId(startingWeaponId), 
           basePrice(basePrice), 
           stats(stats),
+          spriteName(spriteName),
+          walkingFrames(walkingFrames),
           isAlwaysHidden(isAlwaysHidden),
           isBought(isBought)
     {
@@ -83,6 +89,16 @@ public:
             return it->second;
         }
         return 0.0f;
+    }
+
+    const std::string& GetSpriteName() const
+    {
+        return spriteName;
+    }
+
+    int GetWalkingFrames() const
+    {
+        return walkingFrames;
     }
 
     bool IsAlwaysHidden() const

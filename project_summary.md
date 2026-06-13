@@ -265,3 +265,21 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Roster Selection Reset:** Implemented `ClearSelection()` within `RosterGridPanel` to properly reset all character cards back to a normal (unhighlighted) state without triggering residual callbacks.
 * **Co-op State Transitions:** Fixed multiple logical edge cases in `CharacterSelectionView` where transitioning from Single Player to Co-op, or from Player 1 to Player 2, left ghost data in memory. The system now strictly disables the Confirm button and clears the `m_hoveredCharacterId` during these transitions, requiring explicit and valid selections from all players.
 * **Locked Character Handling in Co-op:** Enhanced `UIPlayerCoopCard` interaction. Clicking a locked (unavailable) character in Co-op mode now dynamically resets the player's UI card back to its default, unassigned visual state by securely passing `nullptr` through the `SetCharacterProfile` pipeline, ensuring accurate user feedback.
+
+***
+
+## Update: Player Character & AnimationComponent Integration
+* **Component Layer Isolation:** Implemented `AnimationComponent` to encapsulate frame-switching and delta-time math away from entity logic. This fulfills the Single Responsibility Principle and Composition Over Inheritance.
+* **Player Entity:** Created `Player` inheriting from `Agent`. The player updates its world position based on WASD input and forwards delta time to the `AnimationComponent`. Constants like `ANIMATION_SPEED` and `BASE_MOVE_SPEED` are safely encapsulated as Tier 2 `private static constexpr`.
+* **Data-Driven Extraction:** Updated `CharacterProfile` and `CharacterDataManager` to extract `spriteName` and `walkingFrames` directly from the `CHARACTER_DATA.json`, ensuring character properties natively drive rendering configurations.
+* **Inverted Camera Dependency:** Rewired `GameState` so the simulation strictly moves the `Player`, and the rendering viewport bounds track the Player's position afterward, solving the prior camera-driven tight-coupling issue.
+* **Selection State Injection:** Passed `selectedCharacterId` via Constructor Injection into `GameState` to cleanly transition from `CharacterSelectionScreen` into active gameplay using the user's explicit choice.
+
+***
+
+## Update: Asynchronous Map Loading & Infinite Camera
+* **TileMapManager & Background Threading:** Completely extracted `TileMap` JSON parsing and heavy Image blitting into a dedicated background worker thread within `StageLoadingState`. 
+* **Texture Finalization Pipeline:** Separated heavy CPU generation (`sf::Image`) from GPU upload (`sf::Texture`). The worker thread handles all `sf::Image` operations, while the main thread polls for completion and invokes `FinalizeMapTexture()` strictly inside the render loop to comply with SFML's thread-safety guidelines.
+* **Infinite Map Scaling:** Removed legacy camera boundary clamps. Vampire Survivors maps repeat endlessly; the `ApplyCameraToView` function now allows infinite panning, while the `TileMap::Draw` and collision logic loops dynamically duplicate the physical map boundaries indefinitely.
+* **Sprite Trailing (Ghosting) Effect:** Implemented an authentic shadow-trail effect directly in `Player.cpp`. Instead of maintaining heavy history buffers, the engine draws multiple overlapping copies of the exact current sprite offset backwards relative to the live velocity vector. Ghost opacity diminishes mathematically with a dark blue tint (`sf::Color(30, 30, 80)`), achieving instantaneous crisp feedback when moving.
+* **Loading Screen Alignment Polish:** Polished text alignment using SFML's dynamic bounding box origin calculation (`setOrigin`) to create perfectly right-aligned columns pinned to the left edge of the animated loading treasure block. Upgraded typography globally across both loading states to `courier_bold.ttf`.

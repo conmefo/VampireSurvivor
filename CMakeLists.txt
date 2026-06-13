@@ -40,6 +40,8 @@ FetchContent_MakeAvailable(SFML nlohmann_json)
 
 add_executable(VampireSurvivors
     src/Entities/Agent.cpp
+    src/Entities/Player.cpp
+    src/Components/AnimationComponent.cpp
     src/Entities/Enemy/AnimatedEnemy.cpp
     src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp
@@ -53,7 +55,9 @@ add_executable(VampireSurvivors
     src/States/Menu/PowerUpState.cpp
     src/States/Menu/CharacterSelectionScreen.cpp
     src/States/Game/GameState.cpp
+    src/States/Game/StageLoadingState.cpp
     src/World/TileMap.cpp
+    src/World/TileMapManager.cpp
     src/Core/Math/MathUtils.cpp
     src/Core/Animation/Tweener.cpp
     src/Core/Animation/Spring.cpp

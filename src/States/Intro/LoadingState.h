@@ -3,6 +3,7 @@
 #include "../BaseState.h"
 #include "../StateContext.h"
 #include "Core/Animation/SpriteAnimator.h"
+#include "../../World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
 #include <string>
@@ -10,7 +11,7 @@
 class LoadingState : public BaseState
 {
 public:
-    explicit LoadingState(StateContext context);
+    explicit LoadingState(StateContext context, TileMapManager& mapManager);
     ~LoadingState() override = default;
 
     void Init() override;
@@ -44,4 +45,5 @@ private:
     int m_phase; // 0 = Loading DLCs, 1 = Final "Loading" wait
 
     float m_finalWaitTimer;
+    TileMapManager& m_mapManager;
 };

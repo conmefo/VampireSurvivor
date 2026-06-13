@@ -13,7 +13,7 @@ sf::IntRect ReadRect(const nlohmann::json &rect) {
 }
 } // namespace
 
-bool TileMap::Load(const std::string &mapJsonPath) {
+bool TileMap::LoadAsync(const std::string &mapJsonPath) {
   std::ifstream file(mapJsonPath);
   if (!file.is_open()) {
     std::cerr << "TileMap: failed to open map JSON at " << mapJsonPath
@@ -31,11 +31,10 @@ bool TileMap::Load(const std::string &mapJsonPath) {
   }
 
   const std::string atlasPath = mapJson.value("atlas", "");
-  if (atlasPath.empty() || !m_atlasTexture.loadFromFile(atlasPath)) {
+  if (atlasPath.empty() || !m_atlasImage.loadFromFile(atlasPath)) {
     std::cerr << "TileMap: failed to load atlas at " << atlasPath << std::endl;
     return false;
   }
-  m_atlasTexture.setSmooth(false);
 
   m_mapWidth = mapJson.value("mapWidth", 0);
   m_mapHeight = mapJson.value("mapHeight", 0);
@@ -131,7 +130,19 @@ bool TileMap::Load(const std::string &mapJsonPath) {
     m_enemyCollisionRects = std::move(tmxEnemyCollisionRects);
   }
 
-  return BuildMapTexture();
+  return BuildMapImage();
+}
+
+bool TileMap::FinalizeMapTexture() {
+  if (!m_mapTexture.loadFromImage(m_mapImage)) {
+    return false;
+  }
+  m_mapTexture.setSmooth(false);
+  m_mapTextureReady = true;
+  // Free up RAM
+  m_mapImage = sf::Image();
+  m_atlasImage = sf::Image();
+  return true;
 }
 
 void TileMap::Draw(sf::RenderTarget &target, const sf::View &view) {
@@ -142,7 +153,7 @@ void TileMap::Draw(sf::RenderTarget &target, const sf::View &view) {
   const sf::Vector2f center = view.getCenter();
   const sf::Vector2f size = view.getSize();
   const sf::Vector2f worldSize = GetWorldSize();
-  sf::Sprite mapSprite(m_mapTexture.getTexture());
+  sf::Sprite mapSprite(m_mapTexture);
 
   const float left = center.x - size.x / 2.0f;
   const float top = center.y - size.y / 2.0f;
@@ -238,82 +249,82 @@ TileMap::GetEnemyCollisionRectsInArea(const sf::FloatRect &area) const {
   return rects;
 }
 
-bool TileMap::BuildMapTexture() {
+bool TileMap::BuildMapImage() {
   const sf::Vector2f worldSize = GetWorldSize();
-  if (!m_mapTexture.create(static_cast<unsigned int>(worldSize.x),
-                           static_cast<unsigned int>(worldSize.y))) {
+  unsigned int width = static_cast<unsigned int>(worldSize.x);
+  unsigned int height = static_cast<unsigned int>(worldSize.y);
+  
+  if (width == 0 || height == 0) {
     m_mapTextureReady = false;
     return false;
   }
 
-  m_mapTexture.clear(sf::Color(12, 28, 12, 255));
-
-  sf::RenderStates states;
-  states.texture = &m_atlasTexture;
+  m_mapImage.create(width, height, sf::Color(12, 28, 12, 255));
 
   for (const Layer &layer : m_layers) {
-    sf::VertexArray vertices(sf::Triangles);
     for (const Tile &tile : layer.tiles) {
-      AppendTile(vertices, tile);
+      AppendTileToImage(tile);
     }
-    m_mapTexture.draw(vertices, states);
   }
 
-  m_mapTexture.display();
-  m_mapTextureReady = true;
   return true;
 }
 
-void TileMap::AppendTile(sf::VertexArray &vertices, const Tile &tile) const {
+void TileMap::AppendTileToImage(const Tile &tile) {
   const float worldX = static_cast<float>(tile.x * m_tileWidth);
   const float worldY = static_cast<float>(tile.y * m_tileHeight);
-  if (!tile.vertices.empty() && !tile.indices.empty()) {
-    for (const unsigned int index : tile.indices) {
-      if (index >= tile.vertices.size()) {
-        continue;
-      }
-
-      const Tile::Vertex &vertex = tile.vertices[index];
-      vertices.append(sf::Vertex(
-          sf::Vector2f(worldX + vertex.position.x, worldY + vertex.position.y),
-          vertex.texCoord));
-    }
-    return;
-  }
-
+  
+  // We skip vertex/index based drawing for the CPU image blitter, 
+  // as Vampire Survivors map tiles are simple rectangular blits.
+  // We use the transform matrix to copy pixels directly.
+  
   const float width = static_cast<float>(tile.spriteRect.width);
   const float height = static_cast<float>(tile.spriteRect.height);
   const float unitToPixels = static_cast<float>(m_tileWidth) / 0.32f;
   const float translateX = tile.e03 * unitToPixels;
   const float translateY = tile.e13 * unitToPixels;
 
-  const float texLeft = static_cast<float>(tile.spriteRect.left);
-  const float texTop = static_cast<float>(tile.spriteRect.top);
-  const float texRight =
-      static_cast<float>(tile.spriteRect.left + tile.spriteRect.width);
-  const float texBottom =
-      static_cast<float>(tile.spriteRect.top + tile.spriteRect.height);
+  const int texLeft = tile.spriteRect.left;
+  const int texTop = tile.spriteRect.top;
+  const int texWidth = tile.spriteRect.width;
+  const int texHeight = tile.spriteRect.height;
+  
+  const unsigned int mapWidth = m_mapImage.getSize().x;
+  const unsigned int mapHeight = m_mapImage.getSize().y;
 
-  const auto transformPoint = [&](float localX, float localY) {
-    return sf::Vector2f(worldX + tile.e00 * localX + tile.e01 * localY +
-                            translateX,
-                        worldY + tile.e10 * localX + tile.e11 * localY +
-                            translateY);
-  };
+  // Simple optimization: if the transform is identity, use sf::Image::copy
+  if (std::abs(tile.e00 - 1.0f) < 0.001f && std::abs(tile.e11 - 1.0f) < 0.001f &&
+      std::abs(tile.e01) < 0.001f && std::abs(tile.e10) < 0.001f) {
+      unsigned int destX = static_cast<unsigned int>(worldX + translateX);
+      unsigned int destY = static_cast<unsigned int>(worldY + translateY);
+      m_mapImage.copy(m_atlasImage, destX, destY, tile.spriteRect, true);
+      return;
+  }
 
-  const sf::Vertex topLeft(transformPoint(0.0f, 0.0f),
-                           sf::Vector2f(texLeft, texTop));
-  const sf::Vertex topRight(transformPoint(width, 0.0f),
-                            sf::Vector2f(texRight, texTop));
-  const sf::Vertex bottomRight(transformPoint(width, height),
-                               sf::Vector2f(texRight, texBottom));
-  const sf::Vertex bottomLeft(transformPoint(0.0f, height),
-                              sf::Vector2f(texLeft, texBottom));
-
-  vertices.append(topLeft);
-  vertices.append(topRight);
-  vertices.append(bottomRight);
-  vertices.append(topLeft);
-  vertices.append(bottomRight);
-  vertices.append(bottomLeft);
+  // Otherwise, use a software blitter to handle rotations/flips
+  for (int y = 0; y < texHeight; ++y) {
+    for (int x = 0; x < texWidth; ++x) {
+        int dx = static_cast<int>(std::round(worldX + tile.e00 * x + tile.e01 * y + translateX));
+        int dy = static_cast<int>(std::round(worldY + tile.e10 * x + tile.e11 * y + translateY));
+        
+        if (dx >= 0 && static_cast<unsigned int>(dx) < mapWidth && 
+            dy >= 0 && static_cast<unsigned int>(dy) < mapHeight) {
+            sf::Color srcColor = m_atlasImage.getPixel(texLeft + x, texTop + y);
+            if (srcColor.a > 0) {
+                if (srcColor.a == 255) {
+                    m_mapImage.setPixel(dx, dy, srcColor);
+                } else {
+                    // Simple alpha blend
+                    sf::Color destColor = m_mapImage.getPixel(dx, dy);
+                    float alpha = srcColor.a / 255.0f;
+                    float invAlpha = 1.0f - alpha;
+                    destColor.r = static_cast<sf::Uint8>(srcColor.r * alpha + destColor.r * invAlpha);
+                    destColor.g = static_cast<sf::Uint8>(srcColor.g * alpha + destColor.g * invAlpha);
+                    destColor.b = static_cast<sf::Uint8>(srcColor.b * alpha + destColor.b * invAlpha);
+                    m_mapImage.setPixel(dx, dy, destColor);
+                }
+            }
+        }
+    }
+  }
 }

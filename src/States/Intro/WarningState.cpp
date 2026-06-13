@@ -5,8 +5,9 @@
 #include "../../UI/Core/TextUtility.h"
 #include <iostream>
 
-WarningState::WarningState(StateContext context)
+WarningState::WarningState(StateContext context, TileMapManager& mapManager)
     : BaseState(std::move(context))
+    , m_mapManager(mapManager)
     , m_fadeDurationIn(0.5f)
     , m_fadeDurationOut(0.3f)
     , m_elapsedTime(0.0f)
@@ -119,7 +120,7 @@ void WarningState::Update(float dt)
             m_opacity = 0.0f;
             m_fadeState = FadeState::Finished;
             m_context.stateManager.PopState();
-            m_context.stateManager.AddState(std::make_unique<TitleState>(m_context));
+            m_context.stateManager.AddState(std::make_unique<TitleState>(m_context, m_mapManager));
         }
         UpdateOpacity(m_opacity);
     }

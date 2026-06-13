@@ -1,11 +1,12 @@
 #include "CharacterSelectionScreen.h"
 #include "../Game/GameState.h"
+#include "../Game/StageLoadingState.h"
 #include "../StateManager.h"
 #include "../../Core/WindowSettings.h"
 #include <iostream>
 
-CharacterSelectionScreen::CharacterSelectionScreen(StateContext context)
-    : BaseState(context)
+CharacterSelectionScreen::CharacterSelectionScreen(StateContext context, TileMapManager& mapManager)
+    : BaseState(context), m_mapManager(mapManager)
 {
 }
 
@@ -41,7 +42,9 @@ void CharacterSelectionScreen::Init()
             
             m_context.stateManager.PopState(); // Pop CharacterSelectionScreen
             m_context.stateManager.PopState(); // Pop MainMenuState
-            m_context.stateManager.AddState(std::make_unique<GameState>(m_context));
+            
+            // Hardcode stage 1 for now, as StageSelectionState is future scope
+            m_context.stateManager.AddState(std::make_unique<StageLoadingState>(m_context, m_mapManager, characterIds.front(), 1));
         });
 
         for (int i = 0; i < 3; ++i) {

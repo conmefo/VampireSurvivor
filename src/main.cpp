@@ -11,6 +11,7 @@
 #include "Core/Data/PlayerProgressionManager.h"
 #include "Core/Data/WeaponDataManager.h"
 #include "Core/Data/PowerUpDataManager.h"
+#include "World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
 #include <filesystem>
@@ -133,8 +134,9 @@ int runSfmlTest()
 
     StateManager stateManager;
     StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager);
+    TileMapManager mapManager;
 
-    stateManager.AddState(std::make_unique<LoadingState>(context));
+    stateManager.AddState(std::make_unique<LoadingState>(context, mapManager));
     stateManager.ProcessStateChanges();
 
     sf::Clock clock;

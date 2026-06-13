@@ -6,11 +6,12 @@
 #include "../../Core/Resources/TextureAtlas.h"
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include "../../World/TileMapManager.h"
 
 class MainMenuState : public BaseState
 {
 public:
-    explicit MainMenuState(StateContext context);
+    explicit MainMenuState(StateContext context, TileMapManager& mapManager);
     ~MainMenuState() override = default;
 
     void Init() override;
@@ -26,6 +27,10 @@ private:
     sf::RenderTexture m_compositeTexture;
     sf::Sprite m_compositeSprite;
     
+    std::vector<sf::Text> m_menuOptions;
+    int m_selectedIndex;
+    TileMapManager& m_mapManager;
+
     std::vector<sf::Sprite> m_illustrations;
     sf::RectangleShape m_topBarBg;
 

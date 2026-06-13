@@ -4,11 +4,13 @@
 #include "../../UI/Components/FaderComponent.h"
 #include "../StateContext.h"
 #include <SFML/Graphics.hpp>
+#include <vector>
+#include "../../World/TileMapManager.h"
 
 class WarningState : public BaseState
 {
 public:
-    explicit WarningState(StateContext context);
+    explicit WarningState(StateContext context, TileMapManager& mapManager);
     ~WarningState() override = default;
 
     void Init() override;
@@ -29,6 +31,8 @@ private:
     float m_fadeDurationOut;
     float m_elapsedTime;
     float m_opacity;
+
+    TileMapManager& m_mapManager;
 
     enum class FadeState
     {

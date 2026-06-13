@@ -83,7 +83,10 @@ bool CharacterDataManager::LoadData(const std::string& configFilePath)
         bool isAlwaysHidden = charJson.value("alwaysHidden", false);
         bool isBought = charJson.value("isBought", false);
 
-        CharacterProfile profile(id, name, description, portraitTextureId, startingWeaponId, basePrice, stats, isAlwaysHidden, isBought);
+        std::string originalSpriteName = charJson.value("spriteName", "");
+        int walkingFrames = charJson.value("walkingFrames", 1);
+
+        CharacterProfile profile(id, name, description, portraitTextureId, startingWeaponId, basePrice, stats, originalSpriteName, walkingFrames, isAlwaysHidden, isBought);
         m_characters.insert({id, profile});
     }
 
