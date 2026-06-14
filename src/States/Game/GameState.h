@@ -4,6 +4,7 @@
 #include "../../World/TileMap.h"
 #include "../../World/TileMapManager.h"
 #include "../../Entities/Player.h"
+#include "../../Entities/VfxManager.h"
 #include "../BaseState.h"
 #include <memory>
 
@@ -37,4 +38,5 @@ class GameState : public BaseState {
     std::string m_selectedCharacterId;
     int m_currentStage = 1;
     bool m_showHitboxes = false;
+    VfxManager m_vfxManager;
 };

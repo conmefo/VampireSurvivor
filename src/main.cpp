@@ -11,6 +11,7 @@
 #include "Core/Data/PlayerProgressionManager.h"
 #include "Core/Data/WeaponDataManager.h"
 #include "Core/Data/PowerUpDataManager.h"
+#include "Core/Data/HitVfxDataManager.h"
 #include "World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -61,6 +62,7 @@ int runSfmlTest()
 
         textureManager.Load("Illustrations", "Assets/Graphics/Spritesheets/illustrations.png");
         textureManager.Load("Items", "Assets/Graphics/Spritesheets/items.png");
+        textureManager.Load("VFX", "assets/Graphics/Spritesheets/vfx.png");
     }
     catch (const std::exception& e)
     {
@@ -84,6 +86,12 @@ int runSfmlTest()
     if (itemTex)
     {
         textureAtlas.LoadFromFile("Assets/Data/items_atlas.json", "Items", itemTex->getSize().y);
+    }
+
+    const sf::Texture* vfxTex = textureManager.GetPtr("VFX");
+    if (vfxTex)
+    {
+        textureAtlas.LoadFromFile("assets/Data/vfx_atlas.json", "VFX", vfxTex->getSize().y);
     }
 
     // Dynamically load all character textures and atlases
@@ -132,8 +140,11 @@ int runSfmlTest()
     PowerUpDataManager powerUpDataManager;
     powerUpDataManager.LoadFromJson("Assets/Data/POWERUP_DATA.json");
 
+    HitVfxDataManager hitVfxDataManager;
+    hitVfxDataManager.LoadData("Assets/Data/HITVFX_DATA.json");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager);
     TileMapManager mapManager;
 
     stateManager.AddState(std::make_unique<LoadingState>(context, mapManager));

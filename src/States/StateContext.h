@@ -5,6 +5,8 @@
 #include "../Core/Resources/ResourceIdentifiers.h"
 #include "../Core/Resources/TextureAtlas.h"
 
+#include "../Core/Data/HitVfxDataManager.h"
+
 // Forward declarations
 class StateManager;
 class CharacterDataManager;
@@ -14,7 +16,7 @@ class PowerUpDataManager;
 
 struct StateContext
 {
-    StateContext(StateManager& sm, ResourceManager<sf::Texture, std::string>& tex, ResourceManager<sf::Font, FontID>& fnt, TextureAtlas& atl, class AnimationLibrary& anims, CharacterDataManager& cdm, PlayerProgressionManager& ppm, WeaponDataManager& wdm, PowerUpDataManager& pudm)
+    StateContext(StateManager& sm, ResourceManager<sf::Texture, std::string>& tex, ResourceManager<sf::Font, FontID>& fnt, TextureAtlas& atl, class AnimationLibrary& anims, CharacterDataManager& cdm, PlayerProgressionManager& ppm, WeaponDataManager& wdm, PowerUpDataManager& pudm, HitVfxDataManager& hvdm)
         : stateManager(sm)
         , textures(tex)
         , fonts(fnt)
@@ -24,6 +26,7 @@ struct StateContext
         , progressionData(ppm)
         , weaponData(wdm)
         , powerUpData(pudm)
+        , hitVfxData(hvdm)
     {
     }
 
@@ -36,4 +39,5 @@ struct StateContext
     PlayerProgressionManager& progressionData;
     WeaponDataManager& weaponData;
     PowerUpDataManager& powerUpData;
+    HitVfxDataManager& hitVfxData;
 };

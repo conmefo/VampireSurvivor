@@ -4,7 +4,7 @@
 #include <nlohmann/json.hpp>
 
 WeaponDataManager::WeaponDataManager()
-    : m_fallbackProfile("UNKNOWN", "Unknown Weapon", "Fallback Data", "default_weapon", 1.0f, 1.0f, 1.0f, 1, 0)
+    : m_fallbackProfile("UNKNOWN", "Unknown Weapon", "Fallback Data", "default_weapon", "NONE", "", 1.0f, 1.0f, 1.0f, 1, 0)
 {
 }
 
@@ -44,6 +44,8 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         std::string name = weaponJson.value("name", "Unknown");
         std::string description = weaponJson.value("description", "");
         std::string frameName = weaponJson.value("frameName", "");
+        std::string bulletType = weaponJson.value("bulletType", "NONE");
+        std::string hitVFX = weaponJson.value("hitVFX", "");
         
         // Strip .png extension if it exists to safely match items_atlas string keys
         size_t dotPos = frameName.find_last_of('.');
@@ -58,7 +60,7 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         int amount = weaponJson.value("amount", 1);
         int poolLimit = weaponJson.value("poolLimit", 0);
 
-        WeaponProfile profile(id, name, description, frameName, power, area, speed, amount, poolLimit);
+        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, amount, poolLimit);
         m_weapons.insert({id, profile});
     }
 

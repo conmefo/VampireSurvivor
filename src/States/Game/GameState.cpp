@@ -67,6 +67,8 @@ GameState::GameState(StateContext context, TileMapManager& mapManager, const std
 void GameState::Init() {
     std::cout << "GameState Init" << std::endl;
 
+    m_vfxManager.Initialize(m_context.atlas);
+
     m_worldView.setSize(ViewWidth, ViewHeight);
 
     LoadStage(1);
@@ -123,6 +125,15 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
     } else if (event.type == sf::Event::KeyPressed &&
                (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)) {
         LoadStage(1);
+    } else if (event.type == sf::Event::MouseButtonPressed) {
+        sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), m_worldView);
+        std::string vfxName = "Default";
+        if(event.mouseButton.button == sf::Mouse::Left) vfxName = "Fire";
+        else if(event.mouseButton.button == sf::Mouse::Right) vfxName = "TimeFreeze";
+        else if(event.mouseButton.button == sf::Mouse::Middle) vfxName = "Explo";
+        
+        const HitVfxProfile& profile = m_context.hitVfxData.GetVfxByName(vfxName);
+        m_vfxManager.PlayVfx(profile, mousePos);
     } else if (event.type == sf::Event::Resized) {
         m_worldView.setSize(ViewWidth, ViewHeight);
         ApplyCameraToView();
@@ -137,6 +148,7 @@ void GameState::Update(float dt) {
         ApplyCameraToView();
     }
     m_enemyPool.Update(dt, m_cameraCenter);
+    m_vfxManager.Update(dt);
 
     if (m_tileMap) {
         const std::vector<sf::FloatRect> obstacles =
@@ -162,6 +174,8 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_player->Draw(window);
     }
 
+    m_vfxManager.Draw(window);
+
     if (m_showHitboxes) {
         DrawHitboxes(window);
     }
@@ -171,12 +185,12 @@ void GameState::Draw(sf::RenderWindow &window) {
     window.setView(uiView);
 
     sf::RectangleShape leftDimBar(sf::Vector2f(96.0f, ViewHeight));
-    leftDimBar.setFillColor(sf::Color(0, 0, 0, 180));
+    leftDimBar.setFillColor(sf::Color(0, 0, 0, 170));
     leftDimBar.setPosition(0.0f, 0.0f);
     window.draw(leftDimBar);
 
     sf::RectangleShape rightDimBar(sf::Vector2f(96.0f, ViewHeight));
-    rightDimBar.setFillColor(sf::Color(0, 0, 0, 180));
+    rightDimBar.setFillColor(sf::Color(0, 0, 0, 170));
     rightDimBar.setPosition(ViewWidth - 96.0f, 0.0f);
     window.draw(rightDimBar);
 

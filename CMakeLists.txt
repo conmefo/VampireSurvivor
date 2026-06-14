@@ -47,9 +47,11 @@ add_executable(VampireSurvivors
     src/Entities/Enemy/EnemyBase.cpp
     src/Entities/Enemy/EnemyPool.cpp
     src/UI/UIManager.cpp
+    src/Entities/VfxInstance.cpp
+    src/Entities/VfxManager.cpp
+    src/States/StateManager.cpp
     src/States/Menu/MainMenuState.cpp
     src/main.cpp
-    src/States/StateManager.cpp
     src/States/Intro/LoadingState.cpp
     src/States/Intro/WarningState.cpp
     src/States/Menu/PowerUpState.cpp
@@ -98,6 +100,8 @@ add_executable(VampireSurvivors
     src/Core/Data/WeaponDataManager.cpp
     src/Core/Data/PowerUpDataManager.cpp
     src/Core/Data/PlayerProgressionManager.cpp
+    src/Core/Data/HitVfxProfile.cpp
+    src/Core/Data/HitVfxDataManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

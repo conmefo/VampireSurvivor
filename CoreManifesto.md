@@ -136,3 +136,14 @@ All task instructions and micro-task descriptions logged in `Instruction.md` are
 
 * **Anti-Redundancy & Component Reuse:** The implementing agent must thoroughly inspect the current project state (cross-referencing `project_summary.md` and existing source files) to ensure no existing classes, components, or layout structures are being re-invented. If an existing engine asset or base module (e.g., `UIPanel`, `NineSliceComponent`) can fulfill the requirement, it must be forcefully reused via Composition or permitted Inheritance. Duplication of logic is a direct violation of this manifesto.
 * **Architectural Sanity & OOP Review:** The agent must critically evaluate whether the proposed task design perfectly aligns with Section 4 (Strict OOP Compliance). Any specification that threatens encapsulation, introduces tight coupling between decoupled layers (such as mixing view layout with game states), or forces a class to violate the Single Responsibility Principle must be proactively flagged, refined, and corrected before implementation begins.
+
+
+
+### 5.4. Original Asset Preservation (Immutability Rule)
+The **antigravity** engine frequently interfaces with extracted original game assets (e.g., sprite sheets, source JSONs, audio files). To prevent irreversible data loss and maintain a pristine reference baseline, these assets must be treated as **strictly immutable**.
+
+* **The Rule:** The AI is expressly forbidden from executing, proposing, or writing scripts/code that directly modifies, overwrites, or deletes any original source asset without explicit, prior authorization from the user.
+* **The Protocol:** If an asset requires modification for engine compatibility (e.g., texture cropping, format conversion, JSON restructuring), the AI must either:
+  1. Propose a non-destructive pipeline that outputs the modified data to a completely new, separate file/directory.
+  2. Explicitly ask the user: *"Do I have permission to modify the original [Filename] directly?"* and await a clear affirmative response before proceeding.
+* **Intent:** This absolute constraint guarantees that the foundational reference data remains uncorrupted throughout the engine's development and testing lifecycle.

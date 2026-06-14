@@ -1,11 +1,14 @@
 #include "WeaponProfile.h"
 
 WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
+                             const std::string& bulletType, const std::string& hitVFX,
                              float power, float area, float speed, int amount, int poolLimit)
     : m_id(id)
     , m_name(name)
     , m_description(description)
     , m_frameName(frameName)
+    , m_bulletType(bulletType)
+    , m_hitVFX(hitVFX)
     , m_power(power)
     , m_area(area)
     , m_speed(speed)
@@ -18,6 +21,8 @@ const std::string& WeaponProfile::GetId() const { return m_id; }
 const std::string& WeaponProfile::GetName() const { return m_name; }
 const std::string& WeaponProfile::GetDescription() const { return m_description; }
 const std::string& WeaponProfile::GetFrameName() const { return m_frameName; }
+const std::string& WeaponProfile::GetBulletType() const { return m_bulletType; }
+const std::string& WeaponProfile::GetHitVFX() const { return m_hitVFX; }
 
 float WeaponProfile::GetPower() const { return m_power; }
 float WeaponProfile::GetArea() const { return m_area; }

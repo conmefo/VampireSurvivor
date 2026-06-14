@@ -69,7 +69,7 @@ void Player::Draw(sf::RenderTarget& target)
 {
     if (m_currentDirection.x != 0.0f || m_currentDirection.y != 0.0f)
     {
-        const int numShadows = 5;
+        const int numShadows = 2;
         const float shadowSpacing = 3.0f;
 
         for (int i = numShadows; i >= 1; --i)
@@ -78,8 +78,8 @@ void Player::Draw(sf::RenderTarget& target)
             sf::Vector2f offset = -m_currentDirection * (shadowSpacing * static_cast<float>(i));
             shadowSprite.move(offset);
 
-            sf::Uint8 alpha = static_cast<sf::Uint8>(140 - i * 25);
-            shadowSprite.setColor(sf::Color(30, 30, 80, alpha));
+            sf::Uint8 alpha = static_cast<sf::Uint8>(180 - i * 40);
+            shadowSprite.setColor(sf::Color(128, 128, 128, alpha));
 
             target.draw(shadowSprite);
         }
