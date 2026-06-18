@@ -3,6 +3,7 @@
 #include "Agent.h"
 #include "../Components/AnimationComponent.h"
 #include "../Core/Data/CharacterProfile.h"
+#include "Weapons/WeaponInventory.h"
 
 class Player : public Agent
 {
@@ -12,6 +13,9 @@ public:
 
     void Update(float dt) override;
     void Draw(sf::RenderTarget& target) override;
+
+    WeaponInventory& GetWeaponInventory() { return m_weaponInventory; }
+    sf::Vector2f GetFacingDirection() const { return m_currentDirection; }
 
 private:
     static constexpr float ANIMATION_SPEED = 0.15f;
@@ -31,4 +35,5 @@ private:
     float m_baseScaleY = 1.0f;
     
     sf::Vector2f m_currentDirection;
+    WeaponInventory m_weaponInventory;
 };

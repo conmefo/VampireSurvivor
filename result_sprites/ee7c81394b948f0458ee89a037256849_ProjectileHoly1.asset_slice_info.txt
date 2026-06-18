@@ -1,0 +1,9 @@
+Target Weapon/Projectile GUID: ee7c81394b948f0458ee89a037256849
+Sprite Name: ProjectileHoly1.asset
+Uses Spritesheet: vfx.png
+
+--- SLICE COORDINATES ---
+X: 1098
+Y: 618
+Width: 27
+Height: 14

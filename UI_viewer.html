@@ -10,11 +10,13 @@
             color: #e0e0e0;
             font-family: sans-serif;
             margin: 20px;
+            overflow: hidden;
         }
 
         .container {
             display: flex;
             gap: 20px;
+            height: 85vh;
         }
 
         #canvas-container {
@@ -23,19 +25,25 @@
             background: linear-gradient(45deg, #222 25%, transparent 25%), linear-gradient(-45deg, #222 25%, transparent 25%), linear-gradient(45deg, #333 75%, #222 75%), linear-gradient(-45deg, #333 75%, #222 75%);
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            overflow: auto;
-            max-height: 85vh;
-            max-width: 70vw;
+            overflow: hidden; /* Prevent native scrolling, we handle pan/zoom */
+            flex: 3;
+            cursor: grab;
+        }
+
+        #canvas-container:active {
+            cursor: grabbing;
         }
 
         canvas {
             display: block;
+            width: 100%;
+            height: 100%;
         }
 
         .sidebar {
             flex: 1;
-            max-height: 85vh;
-            overflow-y: auto;
+            display: flex;
+            flex-direction: column;
             background: #2a2a2a;
             padding: 15px;
             border-radius: 8px;
@@ -48,18 +56,41 @@
             border-radius: 4px;
             margin-bottom: 10px;
             border-left: 4px solid #007acc;
+            font-size: 14px;
+        }
+
+        #searchInput {
+            width: 100%;
+            padding: 8px;
+            margin-bottom: 10px;
+            background: #333;
+            border: 1px solid #555;
+            color: #fff;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        #searchInput:focus {
+            outline: none;
+            border-color: #007acc;
+        }
+
+        #list {
+            flex: 1;
+            overflow-y: auto;
         }
 
         .sprite-item {
-            padding: 6px;
+            padding: 8px 6px;
             margin: 4px 0;
             background: #3a3a3a;
             cursor: pointer;
             border-radius: 4px;
             font-size: 13px;
+            transition: background 0.1s;
         }
 
-        .sprite-item:hover {
+        .sprite-item:hover, .sprite-item.active {
             background: #007acc;
             color: #fff;
         }
@@ -73,7 +104,7 @@
 
 <body>
 
-    <h2>Antigravity - UI Atlas Interactive Inspector</h2>
+    <h2>Antigravity - VFX Atlas Interactive Inspector</h2>
     <div class="container">
         <div id="canvas-container">
             <canvas id="atlasCanvas"></canvas>
@@ -82,74 +113,122 @@
         <div class="sidebar">
             <h3>Sprite Info</h3>
             <div class="info-box" id="info">Hover or click a sprite to inspect</div>
-            <h3>Sprite List (519 Elements)</h3>
+            <input type="text" id="searchInput" placeholder="Search sprite..." autocomplete="off">
+            <h3 id="sprite-list-header" style="margin-top: 10px;">Sprite List</h3>
             <div id="list"></div>
         </div>
     </div>
 
     <script>
-        // Update paths to match the new Asset Management Directory Architecture
-        const IMAGE_SRC = 'assets/Graphics/Spritesheets/UI.png';
-        const JSON_SRC = 'assets/Data/ui_atlas.json';
+        const IMAGE_SRC = 'assets/Graphics/Spritesheets/vfx.png';
+        const JSON_SRC = 'assets/Data/vfx_atlas.json';
 
+        const canvasContainer = document.getElementById('canvas-container');
         const canvas = document.getElementById('atlasCanvas');
         const ctx = canvas.getContext('2d');
+        const searchInput = document.getElementById('searchInput');
+        const listDiv = document.getElementById('list');
+
         let sprites = {};
         let img = new Image();
+        let currentHighlightKey = null;
 
-        // Tải file JSON tọa độ
+        // View Transform Variables
+        let scale = 1;
+        let offsetX = 0;
+        let offsetY = 0;
+        let isDragging = false;
+        let dragStartX = 0;
+        let dragStartY = 0;
+
         fetch(JSON_SRC)
             .then(response => response.json())
             .then(data => {
                 sprites = data;
                 img.src = IMAGE_SRC;
             })
-            .catch(err => alert("Không tìm thấy file hoặc lỗi cấu trúc JSON!"));
+            .catch(err => alert("JSON not found or invalid format!"));
 
         img.onload = function () {
-            canvas.width = img.width;
-            canvas.height = img.height;
+            // Setup canvas native resolution vs display size
+            resizeCanvas();
+            window.addEventListener('resize', resizeCanvas);
+            
+            // Center the image initially
+            offsetX = (canvas.width - img.width) / 2;
+            offsetY = (canvas.height - img.height) / 2;
+            
             drawEverything();
             buildList();
         };
 
-        function drawEverything(highlightKey = null) {
-            // Vẽ ảnh gốc bên dưới
+        function resizeCanvas() {
+            canvas.width = canvasContainer.clientWidth;
+            canvas.height = canvasContainer.clientHeight;
+            drawEverything();
+        }
+
+        function drawEverything() {
+            if(!img.complete || img.width === 0) return;
+
+            // Clear background
             ctx.clearRect(0, 0, canvas.width, canvas.height);
+            
+            ctx.save();
+            ctx.translate(offsetX, offsetY);
+            ctx.scale(scale, scale);
+
+            // Draw underlying image
             ctx.drawImage(img, 0, 0);
 
-            // Vẽ các khung viền bao quanh
+            // Draw bounding boxes
             for (let key in sprites) {
                 const sp = sprites[key];
-                // TỰ ĐỘNG ĐẢO TRỤC Y TỪ UNITY SANG CHUẨN WEB/SFML
                 const sfmlY = img.height - sp.y - sp.height;
 
-                if (key === highlightKey) {
-                    ctx.strokeStyle = '#ff0055';
-                    ctx.lineWidth = 2;
-                    ctx.fillStyle = 'rgba(255, 0, 85, 0.25)';
+                if (key === currentHighlightKey) {
+                    // Blue highlight overlay
+                    ctx.fillStyle = 'rgba(0, 122, 204, 0.4)';
                     ctx.fillRect(sp.x, sfmlY, sp.width, sp.height);
+                    
+                    ctx.strokeStyle = '#00aaff';
+                    ctx.lineWidth = 2 / scale; // Keep line width visually consistent regardless of zoom
                 } else {
-                    ctx.strokeStyle = 'rgba(0, 122, 204, 0.5)';
-                    ctx.lineWidth = 1;
+                    ctx.strokeStyle = 'rgba(0, 122, 204, 0.3)';
+                    ctx.lineWidth = 1 / scale;
                 }
                 ctx.strokeRect(sp.x, sfmlY, sp.width, sp.height);
             }
+            
+            ctx.restore();
         }
 
         function buildList() {
-            const listDiv = document.getElementById('list');
-            Object.keys(sprites).sort().forEach(key => {
+            const keys = Object.keys(sprites).sort();
+            document.getElementById('sprite-list-header').innerText = `Sprite List (${keys.length})`;
+            
+            listDiv.innerHTML = '';
+            keys.forEach(key => {
                 const div = document.createElement('div');
                 div.className = 'sprite-item';
                 div.innerText = key;
-                div.onmouseenter = () => updateSelection(key);
+                div.id = `item-${key}`;
+                
+                div.onclick = () => zoomToSprite(key);
+                div.onmouseenter = () => updateSelection(key, false);
+                
                 listDiv.appendChild(div);
             });
         }
 
-        function updateSelection(key) {
-            if (!sprites[key]) return;
+        function updateSelection(key, scrollToList = true) {
+            currentHighlightKey = key;
+            if (!sprites[key]) {
+                document.getElementById('info').innerHTML = `Hover or click a sprite to inspect`;
+                drawEverything();
+                return;
+            }
+            
             const sp = sprites[key];
             document.getElementById('info').innerHTML = `
                 <strong>Name:</strong> ${key}<br>
@@ -157,27 +236,136 @@
                 <strong>SFML X, Y:</strong> ${sp.x}, ${img.height - sp.y - sp.height}<br>
                 <strong>Size:</strong> ${sp.width} x ${sp.height}
             `;
-            drawEverything(key);
+            
+            // Highlight in list
+            document.querySelectorAll('.sprite-item').forEach(el => el.classList.remove('active'));
+            const listItem = document.getElementById(`item-${key}`);
+            if(listItem) {
+                listItem.classList.add('active');
+                if(scrollToList) {
+                    listItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                }
+            }
+
+            drawEverything();
         }
 
-        // Bắt sự kiện di chuột trên Canvas để check tọa độ ngược
-        canvas.onmousemove = function (e) {
-            const rect = canvas.getBoundingClientRect();
-            // Tính toán tỷ lệ chuẩn khi canvas bị scale trên UI
-            const mouseX = (e.clientX - rect.left) * (canvas.width / rect.width);
-            const mouseY = (e.clientY - rect.top) * (canvas.height / rect.height);
+        function zoomToSprite(key) {
+            const sp = sprites[key];
+            if(!sp) return;
+            
+            const sfmlY = img.height - sp.y - sp.height;
+            const cx = sp.x + sp.width / 2;
+            const cy = sfmlY + sp.height / 2;
 
+            // Calculate ideal scale to fit sprite with padding
+            const padding = 100; // pixels
+            const scaleX = canvas.width / (sp.width + padding);
+            const scaleY = canvas.height / (sp.height + padding);
+            
+            scale = Math.min(scaleX, scaleY);
+            if(scale < 1) scale = 1;
+            if(scale > 6) scale = 6; // Max zoom cap
+
+            // Center camera on sprite
+            offsetX = canvas.width / 2 - cx * scale;
+            offsetY = canvas.height / 2 - cy * scale;
+
+            updateSelection(key, true);
+        }
+
+        // ==========================================
+        // INPUT EVENTS: PAN, ZOOM, HOVER, SEARCH
+        // ==========================================
+
+        // Search Filter
+        searchInput.addEventListener('input', function(e) {
+            const q = e.target.value.toLowerCase();
+            const items = document.querySelectorAll('.sprite-item');
+            items.forEach(item => {
+                if(item.innerText.toLowerCase().includes(q)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = 'none';
+                }
+            });
+        });
+
+        // Mouse Wheel Zooming
+        canvas.addEventListener('wheel', function(e) {
+            e.preventDefault();
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            const zoomIntensity = 0.1;
+            const wheel = e.deltaY < 0 ? 1 : -1;
+            const zoomFactor = Math.exp(wheel * zoomIntensity);
+            
+            // Convert screen coords to world coords
+            const worldX = (mouseX - offsetX) / scale;
+            const worldY = (mouseY - offsetY) / scale;
+
+            // Apply limits to scale
+            let newScale = scale * zoomFactor;
+            if(newScale < 0.1) newScale = 0.1;
+            if(newScale > 15) newScale = 15;
+
+            // Adjust offset to keep mouse point anchored
+            offsetX = mouseX - worldX * newScale;
+            offsetY = mouseY - worldY * newScale;
+            scale = newScale;
+
+            drawEverything();
+        }, { passive: false });
+
+        // Panning (Drag)
+        canvasContainer.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            dragStartX = e.clientX - offsetX;
+            dragStartY = e.clientY - offsetY;
+        });
+
+        window.addEventListener('mouseup', function() {
+            isDragging = false;
+        });
+
+        canvasContainer.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                offsetX = e.clientX - dragStartX;
+                offsetY = e.clientY - dragStartY;
+                drawEverything();
+                return;
+            }
+
+            // If not dragging, check hover intersections
+            const rect = canvas.getBoundingClientRect();
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+
+            // Convert screen coords back to world coords
+            const worldX = (mouseX - offsetX) / scale;
+            const worldY = (mouseY - offsetY) / scale;
+
+            let found = null;
             for (let key in sprites) {
                 const sp = sprites[key];
                 const sfmlY = img.height - sp.y - sp.height;
 
-                if (mouseX >= sp.x && mouseX <= sp.x + sp.width &&
-                    mouseY >= sfmlY && mouseY <= sfmlY + sp.height) {
-                    updateSelection(key);
+                if (worldX >= sp.x && worldX <= sp.x + sp.width &&
+                    worldY >= sfmlY && worldY <= sfmlY + sp.height) {
+                    found = key;
                     break;
                 }
             }
-        };
+
+            if (found !== currentHighlightKey) {
+                updateSelection(found, false);
+            }
+        });
+        
+        // Ensure image drag doesn't conflict with pan logic
+        canvas.addEventListener('dragstart', e => e.preventDefault());
     </script>
 </body>
 

@@ -41,6 +41,14 @@ FetchContent_MakeAvailable(SFML nlohmann_json)
 add_executable(VampireSurvivors
     src/Entities/Agent.cpp
     src/Entities/Player.cpp
+    src/Entities/Projectiles/Projectile.cpp
+    src/Entities/Projectiles/ProjectileManager.cpp
+    src/Entities/Projectiles/WhipProjectile.cpp
+    src/Entities/Projectiles/MagicMissileProjectile.cpp
+    src/Entities/Weapons/Weapon.cpp
+    src/Entities/Weapons/WeaponInventory.cpp
+    src/Entities/Weapons/WhipWeapon.cpp
+    src/Entities/Weapons/MagicMissileWeapon.cpp
     src/Components/AnimationComponent.cpp
     src/Entities/Enemy/AnimatedEnemy.cpp
     src/Entities/Enemy/EnemyDatabase.cpp

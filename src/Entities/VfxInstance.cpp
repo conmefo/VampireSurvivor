@@ -38,9 +38,8 @@ VfxInstance::VfxInstance(const HitVfxProfile& profile, const sf::Vector2f& posit
     }
     m_impactSprite.setPosition(position);
 
-    // We no longer apply targetTint. 
-    // The sprites in vfx.png are already colored correctly (e.g., Hit1 is orange, feedback-4 is blue).
-    // Applying a Multiply tint in SFML would ruin their white highlights and darken them!
+    // The targetTint is NOT for the VFX sprite! It's to flash the ENEMY!
+    // So we just render the VFX sprite perfectly normally.
     m_hitSprite.setColor(sf::Color(255, 255, 255, 255));
     if(m_hasImpact) m_impactSprite.setColor(sf::Color(255, 255, 255, 255));
 

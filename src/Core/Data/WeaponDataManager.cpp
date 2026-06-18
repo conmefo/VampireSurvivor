@@ -59,8 +59,11 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         float speed = weaponJson.value("speed", 1.0f);
         int amount = weaponJson.value("amount", 1);
         int poolLimit = weaponJson.value("poolLimit", 0);
+        int interval = weaponJson.value("interval", 1000);
+        int repeatInterval = weaponJson.value("repeatInterval", 0);
+        int penetrating = weaponJson.value("penetrating", 1);
 
-        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, amount, poolLimit);
+        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, amount, poolLimit, interval, repeatInterval, penetrating);
         m_weapons.insert({id, profile});
     }
 

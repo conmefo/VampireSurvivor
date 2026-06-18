@@ -5,6 +5,9 @@
 #include "../../World/TileMapManager.h"
 #include "../../Entities/Player.h"
 #include "../../Entities/VfxManager.h"
+#include "../../Entities/Projectiles/ProjectileManager.h"
+#include "../../Entities/Weapons/Weapon.h"
+#include "../../Core/Data/WeaponDataManager.h"
 #include "../BaseState.h"
 #include <memory>
 
@@ -39,4 +42,5 @@ class GameState : public BaseState {
     int m_currentStage = 1;
     bool m_showHitboxes = false;
     VfxManager m_vfxManager;
+    ProjectileManager m_projectileManager;
 };

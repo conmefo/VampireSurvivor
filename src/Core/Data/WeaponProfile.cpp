@@ -2,7 +2,8 @@
 
 WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
                              const std::string& bulletType, const std::string& hitVFX,
-                             float power, float area, float speed, int amount, int poolLimit)
+                             float power, float area, float speed, int amount, int poolLimit,
+                             int interval, int repeatInterval, int penetrating)
     : m_id(id)
     , m_name(name)
     , m_description(description)
@@ -14,6 +15,9 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
     , m_speed(speed)
     , m_amount(amount)
     , m_poolLimit(poolLimit)
+    , m_interval(interval)
+    , m_repeatInterval(repeatInterval)
+    , m_penetrating(penetrating)
 {
 }
 
@@ -29,3 +33,6 @@ float WeaponProfile::GetArea() const { return m_area; }
 float WeaponProfile::GetSpeed() const { return m_speed; }
 int WeaponProfile::GetAmount() const { return m_amount; }
 int WeaponProfile::GetPoolLimit() const { return m_poolLimit; }
+int WeaponProfile::GetInterval() const { return m_interval; }
+int WeaponProfile::GetRepeatInterval() const { return m_repeatInterval; }
+int WeaponProfile::GetPenetrating() const { return m_penetrating; }

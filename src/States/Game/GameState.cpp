@@ -5,6 +5,9 @@
 #include <iostream>
 #include <vector>
 #include "../../Core/Data/CharacterDataManager.h"
+#include "../../Core/Data/WeaponDataManager.h"
+#include "../../Entities/Weapons/WhipWeapon.h"
+#include "../../Entities/Weapons/MagicMissileWeapon.h"
 
 namespace {
 const std::vector<const char *> LibraryEnemies = {
@@ -100,6 +103,17 @@ void GameState::Init() {
     {
         m_player = std::make_unique<Player>(profile, *texture, frames);
         m_player->SetPosition(m_cameraCenter);
+        
+        // Add Starting Weapon
+        const WeaponProfile& wp = m_context.weaponData.GetWeaponById(profile.GetStartingWeaponId());
+        if(wp.GetId() == "WHIP")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<WhipWeapon>(wp));
+        }
+        else if(wp.GetId() == "MAGIC_MISSILE")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<MagicMissileWeapon>(wp));
+        }
     }
     else
     {
@@ -146,8 +160,82 @@ void GameState::Update(float dt) {
         m_player->Update(dt);
         m_cameraCenter = m_player->GetPosition();
         ApplyCameraToView();
+
+        sf::Vector2f targetPosition = m_player->GetPosition() + m_player->GetFacingDirection();
+        const auto& activeEnemies = m_enemyPool.GetActiveEnemies();
+        EnemyBase* closestEnemy = nullptr;
+        float minSqDist = std::numeric_limits<float>::max();
+
+        for(EnemyBase* enemy : activeEnemies)
+        {
+            if(enemy && enemy->IsAlive())
+            {
+                sf::Vector2f diff = enemy->GetPosition() - m_player->GetPosition();
+                float sqDist = diff.x * diff.x + diff.y * diff.y;
+                if(sqDist < minSqDist)
+                {
+                    minSqDist = sqDist;
+                    closestEnemy = enemy;
+                }
+            }
+        }
+
+        if(closestEnemy)
+        {
+            targetPosition = closestEnemy->GetPosition();
+        }
+
+        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, m_player->GetPosition(), m_player->GetFacingDirection(), targetPosition);
     }
     m_enemyPool.Update(dt, m_cameraCenter);
+    m_projectileManager.Update(dt);
+
+    // Projectile-enemy collision resolution
+    std::vector<CollisionTarget> collisionTargets;
+    const auto& activeEnemies = m_enemyPool.GetActiveEnemies();
+    for(EnemyBase* enemy : activeEnemies)
+    {
+        if(enemy && enemy->IsAlive())
+        {
+            float radius = enemy->GetCollisionRadius();
+            sf::FloatRect enemyBounds(
+                enemy->GetPosition().x - radius,
+                enemy->GetPosition().y - radius,
+                radius * 2.0f,
+                radius * 2.0f
+            );
+            collisionTargets.push_back({ enemyBounds, static_cast<void*>(enemy) });
+        }
+    }
+
+    auto hits = m_projectileManager.CheckCollisions(collisionTargets);
+    for(auto& hit : hits)
+    {
+        EnemyBase* enemy = static_cast<EnemyBase*>(hit.second);
+        Projectile* proj = hit.first;
+        if(enemy && proj && m_player)
+        {
+            enemy->TakeDamage(proj->GetPower());
+            
+            sf::Vector2f diff = enemy->GetPosition() - m_player->GetPosition();
+            float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
+            sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
+            
+            constexpr float KNOCKBACK_FORCE = 15.0f;
+            enemy->ApplyKnockback(knockbackDir * KNOCKBACK_FORCE);
+
+            const std::string& hitVfxName = proj->GetHitVfxName();
+            if(!hitVfxName.empty())
+            {
+                const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(hitVfxName);
+                if(vfxProfile.GetId() != -1)
+                {
+                    m_vfxManager.PlayVfx(vfxProfile, enemy->GetPosition());
+                }
+            }
+        }
+    }
+
     m_vfxManager.Update(dt);
 
     if (m_tileMap) {
@@ -174,6 +262,7 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_player->Draw(window);
     }
 
+    m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
 
     if (m_showHitboxes) {
