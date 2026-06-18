@@ -313,4 +313,31 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Millisecond Precision:** Identified that original JSON `duration` fields represented milliseconds (from Phaser origin) rather than frames. Modified the `VfxInstance` conversion formula (`duration / 1000.0f`) to achieve the authentic ultra-fast 0.03s - 0.12s "pop" explosions.
 * **Tween-Driven Scaling:** Fully integrated the engine's `Tweener` architecture into `VfxInstance` to animate the scaling of hit effects dynamically instead of hard-coding mathematical easing in the `Update` loop.
 * **Dynamic Sprite Bounds Capping:** Developed a dynamic targeting algorithm using `.getLocalBounds()` to automatically calculate the maximum allowed `scaleX` and `scaleY`. Ensures that regardless of raw asset resolution, the VFX explosions explicitly cap at exactly `43x43` or `55x55` pixels, preventing screen clutter.
-* **Ease-Out Cubic Polish:** Calibrated the `Tweener` to utilize `MathUtils::EaseType::Cubic` with `EaseMode::Out`, starting from 30% scale and aggressively easing into the target bounds, matching the original game's chaotic visual pop.
+* **Ease-Out Cubic Polish:** Calibrated the Tweener to utilize MathUtils::EaseType::Cubic with EaseMode::Out, starting from 30% scale and aggressively easing into the target bounds, matching the original game's chaotic visual pop.
+
+***
+
+## Update: Weapon System Foundation & Whip Integration (Phases 1-3)
+* **Completed:** Implemented the core weapon and projectile systems, allowing automatic, data-driven weapon firing.
+* **Core Components:**
+  * `Projectile` & `WhipProjectile`: Base class and subclass handling the position, scaling, and fading visual Tweens of slashes.
+  * `ProjectileManager`: Orchestrates active projectiles and clears them up in $O(N)$ linear time when expired.
+  * `Weapon` & `WhipWeapon`: Handles cooldown updates and spawning of horizontal strikes alternating left/right directions.
+  * `WeaponInventory`: Component owned by the player that manages active weapons.
+* **Integration:** Connected the player's starting weapon (like Whip) directly from character select profile data. Updated `GameState` to run the lifecycle updates and rendering.
+
+***
+
+## Update: Asset Reverse Engineering & Python Automation Tooling
+* **Ghidra Assembly Analysis:** Successfully utilized Ghidra to decompile the original C# DLLs, allowing us to reverse-engineer hardcoded projectile physics and visual behaviors that were omitted from `WEAPON_DATA.json`. For example, we discovered the Magic Wand (`MagicMissileProjectile`) does not use a custom sprite for its trail; it programmatically spawns a generic Unity `Default-Particle` component tinted cyan.
+* **Prefab & GUID Resolution:** Established a workflow to extract explicit sprite mappings by parsing Unity `.prefab` files and cross-referencing the `m_Sprite` GUIDs within the `SpriteRenderer` components.
+* **Double-Jump Sprite Extractor Tool:** Engineered a robust Python utility (`extract_sprites_by_guid.py`) to navigate massive AssetRipper dumps. The script uses a two-step hop to cross-reference a target GUID to its serialized `.asset` metadata, locate the parent `Texture2D` GUID, automatically copy the master `.png` spritesheet, and generate a precise `_slice_info.txt` containing the exact pixel rect coordinates (`x`, `y`, `width`, `height`) needed to cut out the final sprite.
+* **Validation:** Flawlessly verified the entire pipeline by dynamically extracting the Magic Wand's head sprite (`ProjectileHoly1`) and its coordinate map (`1098, 618, 27, 14`) directly from the master `vfx.png` spritesheet.
+
+***
+
+## Update: Magic Wand Particle System Overhaul
+* **Particle Visuals Upgrade:** Completely overhauled the `MagicMissileProjectile` particle trail to simulate high-quality Unity-style particle effects natively in SFML. Transitioned from rigid `sf::CircleShape` instances to tiny `sf::RectangleShape` quads (`2x2` base size) utilizing `sf::BlendAdd` for authentic magical cyan glows.
+* **Dynamic Spawning Logic:** Replaced static distance-based spawning with a time-based interval system (`m_particleSpawnTimer`). Particles now spawn in randomized clusters (1-3 particles per burst) to create an organic, dust-like texture rather than a uniform dashed line.
+* **Organic Trajectory Physics:** Introduced randomized positional scatter and outward velocity drift. As particles age, they shrink in scale while drifting outward naturally, forming a perfectly flared, fading tail.
+* **Weapon Scaling:** Adjusted the main projectile weapon sprite (`ProjectileHoly1`) to forcibly scale to a highly visible `45x29` dimension relative to its bounding box, ensuring visual parity with the authentic game aesthetic.
