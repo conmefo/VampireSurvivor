@@ -4,6 +4,8 @@
 
 #include <string>
 
+#include "HitFlashComponent.h"
+
 struct EnemyStats
 {
     float maxHealth = 10.0f;
@@ -12,6 +14,7 @@ struct EnemyStats
     float mass = 1.0f;
     float collisionRadius = 14.0f;
     int expYield = 1;
+    int baseTint = 16777215;
 };
 
 class EnemyBase : public Agent
@@ -31,6 +34,7 @@ public:
 
     void TakeDamage(float damage);
     void ApplyKnockback(const sf::Vector2f& force);
+    void TriggerHitFlash(const HitVfxProfile& profile);
 
     bool IsAlive() const;
     bool IsDead() const;
@@ -51,4 +55,5 @@ protected:
     EnemyStats m_stats;
     float m_health;
     std::string m_definitionId;
+    HitFlashComponent m_hitFlash;
 };

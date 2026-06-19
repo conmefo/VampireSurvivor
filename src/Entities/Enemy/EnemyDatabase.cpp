@@ -67,6 +67,7 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
             definition.stats.mass = GetFloatOrDefault(statJson, "mass", definition.stats.mass);
             definition.stats.collisionRadius = GetFloatOrDefault(statJson, "collisionRadius", definition.stats.collisionRadius);
             definition.stats.expYield = GetIntOrDefault(statJson, "xp", definition.stats.expYield);
+            definition.stats.baseTint = GetIntOrDefault(statJson, "tint", definition.stats.baseTint);
             definition.spriteScale = GetFloatOrDefault(statJson, "spriteScale", definition.spriteScale);
         }
 

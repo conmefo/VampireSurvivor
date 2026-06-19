@@ -95,7 +95,7 @@ void MagicMissileProjectile::Draw(sf::RenderTarget& target) const
         particleShape.setScale(scale, scale);
         
         // Pure Cyan, alpha driven by lifetime
-        sf::Color color = sf::Color::Cyan;
+        sf::Color color = sf::Color(125, 202, 225);
         
         // Mix a little bit of white when newly spawned
         color.r = static_cast<sf::Uint8>(100 * ratio);

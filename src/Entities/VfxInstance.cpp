@@ -19,7 +19,7 @@ VfxInstance::VfxInstance(const HitVfxProfile& profile, const sf::Vector2f& posit
         sf::FloatRect bounds = m_hitSprite.getLocalBounds();
         m_hitSprite.setOrigin(bounds.width / 2.0f, bounds.height / 2.0f);
     }
-    m_hitSprite.setPosition(position);
+    m_hitSprite.setPosition(position.x + HIT_SPRITE_OFFSET_X, position.y + HIT_SPRITE_OFFSET_Y);
 
     // Load Impact Frame
     std::string impactName = profile.GetImpactFrameName();
@@ -43,25 +43,45 @@ VfxInstance::VfxInstance(const HitVfxProfile& profile, const sf::Vector2f& posit
     m_hitSprite.setColor(sf::Color(255, 255, 255, 255));
     if(m_hasImpact) m_impactSprite.setColor(sf::Color(255, 255, 255, 255));
 
-    // Calculate scale to ensure maximum size is exactly ~55x55 pixels
+    // Calculate independent X/Y scale for Hit Sprite
     sf::FloatRect hitBounds = m_hitSprite.getLocalBounds();
-    float targetScaleX = 43.0f / hitBounds.width;
-    float targetScaleY = 43.0f / hitBounds.height;
-    float targetScale = std::min(targetScaleX, targetScaleY);
-    if(targetScale <= 0.0f || targetScale > 10.0f) targetScale = 1.0f;
+    sf::Vector2f hitScale(HIT_SPRITE_SIZE_X / hitBounds.width, HIT_SPRITE_SIZE_Y / hitBounds.height);
+    
+    if(hitScale.x <= 0.0f || hitScale.x > LIMIT_SCALE) hitScale.x = MAX_SCALE;
+    if(hitScale.y <= 0.0f || hitScale.y > LIMIT_SCALE) hitScale.y = MAX_SCALE;
 
-    // Setup Tweener for scaling
-    m_scaleTweener.SetStartValue(targetScale * 0.3f); // Start small
-    m_scaleTweener.SetEndValue(targetScale);          // End at exactly 55px
-    m_scaleTweener.SetDuration(m_maxTimer);
-    m_scaleTweener.SetEase(MathUtils::EaseType::Cubic, MathUtils::EaseMode::Out); // Ease-out cubic
+    // Calculate independent X/Y scale for Impact Sprite
+    sf::Vector2f impactScale(MAX_SCALE, MAX_SCALE);
+    if(m_hasImpact)
+    {
+        sf::FloatRect impactBounds = m_impactSprite.getLocalBounds();
+        impactScale.x = IMPACT_SPRITE_SIZE_X / impactBounds.width;
+        impactScale.y = IMPACT_SPRITE_SIZE_Y / impactBounds.height;
+        
+        if(impactScale.x <= 0.0f || impactScale.x > LIMIT_SCALE) impactScale.x = MAX_SCALE;
+        if(impactScale.y <= 0.0f || impactScale.y > LIMIT_SCALE) impactScale.y = MAX_SCALE;
+    }
+
+    // Setup Tweener for scaling. Delay scaling so it only appears near the end of the tint effect!
+    m_scaleTweener.SetStartValue(MIN_SCALE);
+    m_scaleTweener.SetEndValue(MAX_SCALE);
+    m_scaleTweener.SetDuration(m_maxTimer * 0.4f); // Scale over the remaining 40%
+    m_scaleTweener.SetEase(MathUtils::EaseType::Cubic, MathUtils::EaseMode::Out);
     
-    m_scaleTweener.OnUpdate([this](float value) {
-        m_hitSprite.setScale(value, value);
-        if(m_hasImpact) m_impactSprite.setScale(value, value);
+    m_scaleTweener.OnUpdate([this, hitScale, impactScale](float tweenMultiplier)
+    {
+        m_hitSprite.setScale(hitScale.x * tweenMultiplier, hitScale.y * tweenMultiplier);
+        
+        float normalizedTween = (tweenMultiplier - MIN_SCALE) / (MAX_SCALE - MIN_SCALE);
+        float currentRot = HIT_SPRITE_START_ROTATION + (HIT_SPRITE_END_ROTATION - HIT_SPRITE_START_ROTATION) * normalizedTween;
+        m_hitSprite.setRotation(currentRot);
+        
+        if(m_hasImpact)
+        {
+            m_impactSprite.setScale(impactScale.x * tweenMultiplier, impactScale.y * tweenMultiplier);
+        }
     });
-    
-    m_scaleTweener.Start();
+    // Do NOT start tweener yet! It will start when the delay finishes.
 }
 
 bool VfxInstance::Update(float dt)
@@ -70,10 +90,32 @@ bool VfxInstance::Update(float dt)
     if(m_timer <= 0.0f)
         return false;
 
+    float lifeRatio = m_timer / m_maxTimer; // 1.0 (start) down to 0.0 (end)
+
+    // Delay visibility until the last 40% of the effect's lifetime (almost finished tinting)
+    if(lifeRatio > 0.4f)
+    {
+        sf::Color hitColor = m_hitSprite.getColor();
+        hitColor.a = 0;
+        m_hitSprite.setColor(hitColor);
+        if(m_hasImpact)
+        {
+            sf::Color impactColor = m_impactSprite.getColor();
+            impactColor.a = 0;
+            m_impactSprite.setColor(impactColor);
+        }
+        return true;
+    }
+
+    // Start tweener if it hasn't started yet
+    if(!m_scaleTweener.IsRunning() && m_scaleTweener.GetValue() == 0.0f) 
+    {
+        m_scaleTweener.Start();
+        m_scaleTweener.Update(0.0f); // Initialize starting scale
+    }
+
     // Update the tweener to scale the sprite
     m_scaleTweener.Update(dt);
-
-    float lifeRatio = m_timer / m_maxTimer; // 1.0 (start) down to 0.0 (end)
 
     // Fade rapidly in the last 20%
     sf::Uint8 alpha = 255;

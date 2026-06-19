@@ -341,3 +341,17 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Dynamic Spawning Logic:** Replaced static distance-based spawning with a time-based interval system (`m_particleSpawnTimer`). Particles now spawn in randomized clusters (1-3 particles per burst) to create an organic, dust-like texture rather than a uniform dashed line.
 * **Organic Trajectory Physics:** Introduced randomized positional scatter and outward velocity drift. As particles age, they shrink in scale while drifting outward naturally, forming a perfectly flared, fading tail.
 * **Weapon Scaling:** Adjusted the main projectile weapon sprite (`ProjectileHoly1`) to forcibly scale to a highly visible `45x29` dimension relative to its bounding box, ensuring visual parity with the authentic game aesthetic.
+
+***
+
+## Update: Authentic Enemy Hit Flash System & Component Architecture
+* **Decoupled Architecture:** Created a dedicated `HitFlashComponent` using Composition over Inheritance. `EnemyBase` delegates all countdown and color-tinting logic to this component, rigidly avoiding God Class bloat.
+* **Data-Driven Tints:** Extracted the `"tint"` value dynamically from `ENEMY_DATA.json` into `EnemyStats`, ensuring base enemy colors are fully data-driven rather than hard-coded.
+* **Fragment Shader Integration:** Implemented a custom GLSL fragment shader directly inside `AnimatedEnemy` to correctly support `isTintFill` overrides. This perfectly overwrites sprite RGBs with pure white (or hit effects) while dynamically preserving native alpha thresholds.
+
+***
+
+## Update: Hit VFX Positioning, Delay Polish & Memory Safety
+* **Impact Pinning:** Sampled and injected `originalPos` strictly prior to evaluating the knockback vector, meaning impact VFX flawlessly overlay the actual point of impact instead of shifting backward.
+* **Authentic Tween Delay:** Overhauled `VfxInstance`'s scaling tweener to mimic the authentic game's delay. The hit sprite remains invisible (`alpha = 0`) for the first 60% of the flash duration and aggressively scales/rotates entirely within the final 40% of its lifetime.
+* **Dangling Pointer Memory Fix:** Identified a major memory corruption defect where `std::vector` capacity reallocations invalidated `this` pointers captured inside the Tweener callback lambdas. Refactored `VfxManager` to use `std::vector<std::unique_ptr<VfxInstance>>`, guaranteeing absolute memory stability and eliminating overlapping visual anomalies.

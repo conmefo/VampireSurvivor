@@ -67,7 +67,7 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
         LIFETIME,
         power,
         area,
-        m_profile.GetHitVFX(),
+        "Default", // Matches ID 1 (HitStar2 + Shockwave3)
         penetration
     );
 

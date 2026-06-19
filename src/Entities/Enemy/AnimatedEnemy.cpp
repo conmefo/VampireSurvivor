@@ -1,5 +1,41 @@
 #include "AnimatedEnemy.h"
 
+namespace
+{
+    const char* HIT_FLASH_FRAG = R"(
+        uniform sampler2D texture;
+        uniform vec4 flashColor;
+
+        void main()
+        {
+            vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+            if (pixel.a > 0.0)
+            {
+                gl_FragColor = vec4(flashColor.rgb, pixel.a * flashColor.a);
+            }
+            else
+            {
+                gl_FragColor = vec4(0.0);
+            }
+        }
+    )";
+
+    sf::Shader* GetHitFlashShader()
+    {
+        static sf::Shader shader;
+        static bool loaded = false;
+        if (!loaded)
+        {
+            if(sf::Shader::isAvailable())
+            {
+                shader.loadFromMemory(HIT_FLASH_FRAG, sf::Shader::Fragment);
+            }
+            loaded = true;
+        }
+        return &shader;
+    }
+}
+
 AnimatedEnemy::AnimatedEnemy(const EnemyDefinition& definition)
     : EnemyBase(definition.id),
       m_definition(definition),
@@ -44,7 +80,19 @@ void AnimatedEnemy::Draw(sf::RenderTarget& target)
 
     if(m_currentAnimation && !m_currentAnimation->frames.empty())
     {
-        target.draw(m_sprite);
+        if(m_hitFlash.IsFlashing() && m_hitFlash.UseTintFill() && sf::Shader::isAvailable())
+        {
+            sf::Shader* shader = GetHitFlashShader();
+            shader->setUniform("texture", sf::Shader::CurrentTexture);
+            sf::Color c = m_hitFlash.GetCurrentColor();
+            shader->setUniform("flashColor", sf::Glsl::Vec4(c.r / 255.f, c.g / 255.f, c.b / 255.f, c.a / 255.f));
+            target.draw(m_sprite, shader);
+        }
+        else
+        {
+            m_sprite.setColor(m_hitFlash.GetCurrentColor());
+            target.draw(m_sprite);
+        }
         return;
     }
 
