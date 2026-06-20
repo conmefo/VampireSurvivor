@@ -1,5 +1,8 @@
 #include "GameState.h"
+#include "PauseMenuView.h"
 #include "../StateManager.h"
+#include "../Menu/MainMenuState.h"
+#include "../../Core/WindowSettings.h"
 
 #include <cmath>
 #include <iostream>
@@ -64,6 +67,8 @@ const char *GetStageName(int stageNumber) {
 GameState::GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId)
     : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterId(selectedCharacterId) {}
 
+GameState::~GameState() = default;
+
 void GameState::Init() {
     std::cout << "GameState Init" << std::endl;
 
@@ -106,6 +111,28 @@ void GameState::Init() {
         std::cerr << "Failed to find texture data for player sprite: " << profile.GetSpriteName() << std::endl;
     }
 
+    const sf::Font* font = m_context.fonts.GetPtr(FontID::Main);
+    const sf::Font* boldFont = m_context.fonts.GetPtr(FontID::Bold);
+    if(font && boldFont)
+    {
+        m_pauseMenu = std::make_unique<PauseMenuView>(
+            m_context.atlas,
+            *font,
+            *boldFont,
+            profile,
+            m_context.weaponData,
+            m_context.progressionData,
+            m_context.powerUpData);
+        m_pauseMenu->SetStageName(GetStageName(m_currentStage));
+        m_pauseMenu->SetHitboxesVisible(m_showHitboxes);
+        m_pauseMenu->SetOnResume([this]() { TogglePause(); });
+        m_pauseMenu->SetOnQuit([this]() { ReturnToMainMenu(); });
+        m_pauseMenu->SetOnToggleHitboxes([this]() {
+            m_showHitboxes = !m_showHitboxes;
+            m_pauseMenu->SetHitboxesVisible(m_showHitboxes);
+        });
+    }
+
     ApplyCameraToView();
 }
 
@@ -113,7 +140,27 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
     (void)window;
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
-        m_context.stateManager.PopState();
+        if(m_isPaused && m_pauseMenu)
+        {
+            if(m_pauseMenu->IsOptionsOpen())
+            {
+                m_pauseMenu->HandleEvent(event, window);
+            }
+            else
+            {
+                TogglePause();
+            }
+        }
+        else
+        {
+            TogglePause();
+        }
+    } else if(m_isPaused) {
+        if(m_pauseMenu)
+        {
+            m_pauseMenu->HandleEvent(event, window);
+        }
+        return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
     } else if (event.type == sf::Event::KeyPressed &&
@@ -141,6 +188,15 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 }
 
 void GameState::Update(float dt) {
+    if(m_isPaused)
+    {
+        if(m_pauseMenu)
+        {
+            m_pauseMenu->Update(dt);
+        }
+        return;
+    }
+
     if(m_player)
     {
         m_player->Update(dt);
@@ -195,6 +251,25 @@ void GameState::Draw(sf::RenderWindow &window) {
     window.draw(rightDimBar);
 
     window.setView(previousView);
+
+    if(m_isPaused && m_pauseMenu)
+    {
+        sf::View pauseView(sf::FloatRect(0.0f, 0.0f, Core::VIRTUAL_WIDTH, Core::VIRTUAL_HEIGHT));
+        pauseView.setViewport(previousView.getViewport());
+        window.setView(pauseView);
+
+        sf::Vector2f worldSize(0.0f, 0.0f);
+        if(m_tileMap)
+        {
+            worldSize = m_tileMap->GetWorldSize();
+        }
+        if(m_player)
+        {
+            m_pauseMenu->SetPlayerPosition(m_player->GetPosition(), worldSize);
+        }
+        m_pauseMenu->Draw(window);
+        window.setView(previousView);
+    }
 }
 
 void GameState::LoadStage(int stageNumber) {
@@ -223,6 +298,11 @@ void GameState::LoadStage(int stageNumber) {
 
     ApplyCameraToView();
 
+    if(m_pauseMenu)
+    {
+        m_pauseMenu->SetStageName(GetStageName(stageNumber));
+    }
+
     const std::vector<const char *> &enemyIds = GetStageEnemies(stageNumber);
     for (const char *enemyId : enemyIds) {
         m_enemyPool.Prewarm(enemyId, 1);
@@ -239,6 +319,20 @@ void GameState::LoadStage(int stageNumber) {
 
     std::cout << "Loaded stage " << stageNumber << ": " << GetStageName(stageNumber) << " with "
               << enemyIds.size() << " enemies" << std::endl;
+}
+
+void GameState::TogglePause()
+{
+    m_isPaused = !m_isPaused;
+}
+
+void GameState::ReturnToMainMenu()
+{
+    m_isPaused = false;
+    m_context.stateManager.ChangeStateWithTransition(
+        std::make_unique<MainMenuState>(m_context, m_mapManager),
+        0.35f,
+        sf::Color::Black);
 }
 
 void GameState::ApplyCameraToView() {

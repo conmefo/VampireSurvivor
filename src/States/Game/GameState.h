@@ -8,10 +8,12 @@
 #include "../BaseState.h"
 #include <memory>
 
+class PauseMenuView;
+
 class GameState : public BaseState {
   public:
     GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId);
-    ~GameState() override = default;
+    ~GameState() override;
 
     void Init() override;
     void HandleInput(sf::Event &event, sf::RenderWindow &window) override;
@@ -21,6 +23,8 @@ class GameState : public BaseState {
   private:
     void LoadStage(int stageNumber);
     void ApplyCameraToView();
+    void TogglePause();
+    void ReturnToMainMenu();
     sf::FloatRect GetViewBounds() const;
     void DrawHitboxes(sf::RenderTarget &target);
 
@@ -38,5 +42,7 @@ class GameState : public BaseState {
     std::string m_selectedCharacterId;
     int m_currentStage = 1;
     bool m_showHitboxes = false;
+    bool m_isPaused = false;
     VfxManager m_vfxManager;
+    std::unique_ptr<PauseMenuView> m_pauseMenu;
 };
