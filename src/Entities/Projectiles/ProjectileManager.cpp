@@ -17,6 +17,30 @@ void ProjectileManager::Update(float dt)
             [](const std::unique_ptr<Projectile>& p) { return p->IsExpired(); }),
         m_projectiles.end()
     );
+
+    for(auto& action : m_delayedActions)
+    {
+        action.timer -= dt;
+        if(action.timer <= 0.0f)
+        {
+            action.action();
+        }
+    }
+
+    m_delayedActions.erase(
+        std::remove_if(m_delayedActions.begin(), m_delayedActions.end(),
+            [](const DelayedAction& a) { return a.timer <= 0.0f; }),
+        m_delayedActions.end()
+    );
+}
+
+void ProjectileManager::QueueDelayedAction(float delay, std::function<void()> action)
+{
+    if (delay <= 0.0f) {
+        action();
+    } else {
+        m_delayedActions.push_back({delay, action});
+    }
 }
 
 void ProjectileManager::Draw(sf::RenderTarget& target) const
@@ -38,8 +62,8 @@ void ProjectileManager::SpawnProjectile(TextureAtlas& atlas, const std::string& 
 
 void ProjectileManager::AddProjectile(std::unique_ptr<Projectile> projectile)
 {
-    if(projectile)
-    {
+    if (projectile) {
+        projectile->SetParticleManager(m_particleManager);
         m_projectiles.push_back(std::move(projectile));
     }
 }

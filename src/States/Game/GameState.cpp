@@ -8,6 +8,8 @@
 #include "../../Core/Data/WeaponDataManager.h"
 #include "../../Entities/Weapons/WhipWeapon.h"
 #include "../../Entities/Weapons/MagicMissileWeapon.h"
+#include "../../Entities/Weapons/FireballWeapon.h"
+#include "../../Entities/Weapons/RunetracerWeapon.h"
 
 namespace {
 const std::vector<const char *> LibraryEnemies = {
@@ -71,6 +73,8 @@ void GameState::Init() {
     std::cout << "GameState Init" << std::endl;
 
     m_vfxManager.Initialize(m_context.atlas);
+    m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
+    m_projectileManager.Initialize(&m_particleManager);
 
     m_worldView.setSize(ViewWidth, ViewHeight);
 
@@ -104,6 +108,21 @@ void GameState::Init() {
         m_player = std::make_unique<Player>(profile, *texture, frames);
         m_player->SetPosition(m_cameraCenter);
         
+        m_player->SetOnHitVfxCallback([this](const std::string& vfxName, sf::Vector2f pos) {
+            const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(vfxName);
+            if(vfxProfile.GetId() != -1) {
+                m_vfxManager.PlayVfx(vfxProfile, pos);
+            }
+            // Temporarily disabled for clean tuning!
+            // // Spawn blood tear particles as a burst!
+            // auto burstConfig = m_context.particleData.GetConfig("bloodTear");
+            // burstConfig.looping = false;
+            // burstConfig.duration = 0.1f;
+            // m_particleManager.SpawnEmitter(burstConfig, pos);
+        });
+
+        m_playerHUD = std::make_unique<PlayerHUD>(*m_player);
+        
         // Add Starting Weapon
         const WeaponProfile& wp = m_context.weaponData.GetWeaponById(profile.GetStartingWeaponId());
         if(wp.GetId() == "WHIP")
@@ -114,11 +133,38 @@ void GameState::Init() {
         {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<MagicMissileWeapon>(wp));
         }
+        else if(wp.GetId() == "FIREBALL")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<FireballWeapon>(wp));
+        }
+        
+        // FOR TESTING: Always grant the Runetracer
+        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("DIAMOND");
+        m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(testWp));
     }
     else
     {
         std::cerr << "Failed to find texture data for player sprite: " << profile.GetSpriteName() << std::endl;
     }
+
+    // Tuning Environment Initialization
+    m_enemyPool.Clear(); // Remove all normal enemies
+    
+    // Spawn Dummy Enemy
+    EnemyStats stats;
+    stats.maxHealth = 999999.0f;
+    stats.speed = 0.0f;
+    EnemyBase* dummy = m_enemyPool.Acquire("BAT1", m_cameraCenter + sf::Vector2f(300.0f, 0.0f), stats);
+
+    // Initialize Particle UI
+    m_testParticleConfig = m_context.particleData.GetConfig("bloodTear");
+    m_testParticleConfig.looping = true; // Temporary loop for tuning
+    m_testParticleConfig.duration = 9999.0f;
+    m_testEmitter = m_particleManager.SpawnEmitter(m_testParticleConfig, m_cameraCenter + sf::Vector2f(0.0f, -100.0f));
+    
+    // Tuning UI now controls the local config
+    m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, m_context.fonts.Get(FontID::Main), m_testParticleConfig);
+    m_tuningUI->SetPosition(sf::Vector2f(20.0f, 100.0f));
 
     ApplyCameraToView();
 }
@@ -139,6 +185,14 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
     } else if (event.type == sf::Event::KeyPressed &&
                (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)) {
         LoadStage(1);
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) {
+        if (m_player && !m_player->IsDead()) {
+            m_player->TakeDamage(99999.0f);
+        }
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
+        if (m_player && m_player->IsDead()) {
+            m_player->Revive();
+        }
     } else if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), m_worldView);
         std::string vfxName = "Default";
@@ -152,6 +206,13 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         m_worldView.setSize(ViewWidth, ViewHeight);
         ApplyCameraToView();
     }
+    
+    if (m_tuningUI) {
+        sf::View oldView = window.getView();
+        window.setView(m_worldView);
+        m_tuningUI->HandleEvent(event, window);
+        window.setView(oldView);
+    }
 }
 
 void GameState::Update(float dt) {
@@ -161,33 +222,14 @@ void GameState::Update(float dt) {
         m_cameraCenter = m_player->GetPosition();
         ApplyCameraToView();
 
-        sf::Vector2f targetPosition = m_player->GetPosition() + m_player->GetFacingDirection();
-        const auto& activeEnemies = m_enemyPool.GetActiveEnemies();
-        EnemyBase* closestEnemy = nullptr;
-        float minSqDist = std::numeric_limits<float>::max();
+        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, m_player->GetPosition(), m_player->GetFacingDirection(), m_enemyPool);
 
-        for(EnemyBase* enemy : activeEnemies)
-        {
-            if(enemy && enemy->IsAlive())
-            {
-                sf::Vector2f diff = enemy->GetPosition() - m_player->GetPosition();
-                float sqDist = diff.x * diff.x + diff.y * diff.y;
-                if(sqDist < minSqDist)
-                {
-                    minSqDist = sqDist;
-                    closestEnemy = enemy;
-                }
-            }
+        if (m_playerHUD) {
+            m_playerHUD->Update(dt);
         }
-
-        if(closestEnemy)
-        {
-            targetPosition = closestEnemy->GetPosition();
-        }
-
-        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, m_player->GetPosition(), m_player->GetFacingDirection(), targetPosition);
     }
     m_enemyPool.Update(dt, m_cameraCenter);
+    m_projectileManager.SetViewBounds(GetViewBounds());
     m_projectileManager.Update(dt);
 
     // Projectile-enemy collision resolution
@@ -240,6 +282,7 @@ void GameState::Update(float dt) {
     }
 
     m_vfxManager.Update(dt);
+    m_particleManager.Update(dt);
 
     if (m_tileMap) {
         const std::vector<sf::FloatRect> obstacles =
@@ -247,6 +290,16 @@ void GameState::Update(float dt) {
         m_enemyPool.ResolveObstacleCollisions(obstacles);
     }
     m_enemyPool.ResolveEnemyCollisions();
+
+    // Update tuning UI to match camera
+    if (m_tuningUI) {
+        m_tuningUI->SetPosition(m_cameraCenter - sf::Vector2f(ViewWidth / 2.0f, ViewHeight / 2.0f) + sf::Vector2f(20.0f, 100.0f));
+        m_tuningUI->Update(dt);
+    }
+    if (m_testEmitter) {
+        m_testEmitter->SetPosition(m_cameraCenter + sf::Vector2f(0.0f, m_testParticleConfig.emitterOffset));
+        m_testEmitter->GetConfig() = m_testParticleConfig;
+    }
 }
 
 void GameState::Draw(sf::RenderWindow &window) {
@@ -263,8 +316,12 @@ void GameState::Draw(sf::RenderWindow &window) {
     if(m_player)
     {
         m_player->Draw(window);
+        if (m_playerHUD) {
+            m_playerHUD->Draw(window);
+        }
     }
 
+    m_particleManager.Draw(window);
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
 
@@ -287,6 +344,14 @@ void GameState::Draw(sf::RenderWindow &window) {
     window.draw(rightDimBar);
 
     window.setView(previousView);
+    
+    if (m_tuningUI) {
+        // Draw in world view so it moves with camera, or draw in UI view?
+        // We set position relative to camera, so draw in world view.
+        window.setView(m_worldView);
+        m_tuningUI->Draw(window);
+        window.setView(previousView);
+    }
 }
 
 void GameState::LoadStage(int stageNumber) {

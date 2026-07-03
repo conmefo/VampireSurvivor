@@ -12,6 +12,7 @@
 #include "Core/Data/WeaponDataManager.h"
 #include "Core/Data/PowerUpDataManager.h"
 #include "Core/Data/HitVfxDataManager.h"
+#include "Core/Data/ParticleDataManager.h"
 #include "World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -143,8 +144,11 @@ int runSfmlTest()
     HitVfxDataManager hitVfxDataManager;
     hitVfxDataManager.LoadData("Assets/Data/HITVFX_DATA.json");
 
+    ParticleDataManager particleDataManager;
+    particleDataManager.LoadFromJson("Assets/Data/PARTICLE_DATA.json");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager);
     TileMapManager mapManager;
 
     stateManager.AddState(std::make_unique<LoadingState>(context, mapManager));

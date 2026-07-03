@@ -1,6 +1,46 @@
 #include "Player.h"
 #include <cmath>
 
+namespace
+{
+    const char* HIT_FLASH_FRAG = R"(
+        uniform sampler2D texture;
+        uniform vec4 flashColor;
+        uniform bool isOverride;
+
+        void main()
+        {
+            vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
+            if (pixel.a > 0.0)
+            {
+                if (isOverride)
+                    gl_FragColor = vec4(flashColor.rgb, pixel.a * flashColor.a);
+                else
+                    gl_FragColor = vec4(pixel.rgb * flashColor.rgb, pixel.a * flashColor.a);
+            }
+            else
+            {
+                gl_FragColor = vec4(0.0);
+            }
+        }
+    )";
+
+    sf::Shader* GetHitFlashShader()
+    {
+        static sf::Shader shader;
+        static bool loaded = false;
+        if (!loaded)
+        {
+            if(sf::Shader::isAvailable())
+            {
+                shader.loadFromMemory(HIT_FLASH_FRAG, sf::Shader::Fragment);
+            }
+            loaded = true;
+        }
+        return &shader;
+    }
+}
+
 Player::Player(const CharacterProfile& profile, const sf::Texture& texture, const std::vector<sf::IntRect>& frames)
     : m_animator(m_sprite),
       m_moveSpeedMultiplier(profile.GetStat("moveSpeed"))
@@ -20,11 +60,48 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
         m_moveSpeedMultiplier = 1.0f;
     }
 
+    m_maxHealth = profile.GetStat("maxHealth");
+    if(m_maxHealth <= 0.0f) 
+    {
+        m_maxHealth = 100.0f;
+    }
+    m_currentHealth = m_maxHealth;
+
     m_animator.Initialize(frames, ANIMATION_SPEED);
 }
 
 void Player::Update(float dt)
 {
+    if (m_isDead)
+    {
+        m_deathScaleXTweener.Update(dt);
+        m_deathScaleYTweener.Update(dt);
+        m_deathColorTweener.Update(dt);
+        
+        float signX = m_sprite.getScale().x >= 0 ? 1.0f : -1.0f;
+        float scaleY = m_deathScaleYTweener.GetValue();
+        m_sprite.setScale(signX * m_baseScaleX * m_deathScaleXTweener.GetValue(), m_baseScaleY * scaleY);
+        
+        sf::FloatRect bounds = m_sprite.getLocalBounds();
+        float yOffset = (1.0f - scaleY) * (bounds.height / 2.0f) * m_baseScaleY;
+        m_sprite.setPosition(m_position.x, m_position.y + yOffset);
+        
+        float colorVal = m_deathColorTweener.GetValue();
+        m_sprite.setColor(sf::Color(255, 255, 255, static_cast<sf::Uint8>(255 * colorVal)));
+        return;
+    }
+
+    if (m_invulnTimer > 0.0f)
+    {
+        m_invulnTimer -= dt;
+        if (m_invulnTimer < 0.0f) m_invulnTimer = 0.0f;
+    }
+    if (m_flashTimer > 0.0f)
+    {
+        m_flashTimer -= dt;
+        if (m_flashTimer < 0.0f) m_flashTimer = 0.0f;
+    }
+
     sf::Vector2f direction(0.0f, 0.0f);
 
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
@@ -67,6 +144,29 @@ void Player::Update(float dt)
 
 void Player::Draw(sf::RenderTarget& target)
 {
+    if (m_isDead)
+    {
+        if (sf::Shader::isAvailable())
+        {
+            float colorVal = m_deathColorTweener.GetValue();
+            sf::Shader* shader = GetHitFlashShader();
+            shader->setUniform("texture", sf::Shader::CurrentTexture);
+            shader->setUniform("flashColor", sf::Glsl::Vec4(1.0f, 0.0f, 0.0f, colorVal));
+            shader->setUniform("isOverride", true);
+            
+            // Temporarily set alpha to 255 because shader handles alpha
+            sf::Color oldColor = m_sprite.getColor();
+            m_sprite.setColor(sf::Color(255, 255, 255, 255));
+            target.draw(m_sprite, shader);
+            m_sprite.setColor(oldColor);
+        }
+        else
+        {
+            target.draw(m_sprite);
+        }
+        return;
+    }
+
     if (m_currentDirection.x != 0.0f || m_currentDirection.y != 0.0f)
     {
         const int numShadows = 2;
@@ -85,5 +185,87 @@ void Player::Draw(sf::RenderTarget& target)
         }
     }
     
-    target.draw(m_sprite);
+    if (m_flashTimer > 0.0f && sf::Shader::isAvailable())
+    {
+        sf::Shader* shader = GetHitFlashShader();
+        shader->setUniform("texture", sf::Shader::CurrentTexture);
+        shader->setUniform("flashColor", sf::Glsl::Vec4(1.0f, 0.0f, 0.0f, 1.0f)); // Pure Red
+        shader->setUniform("isOverride", false);
+        target.draw(m_sprite, shader);
+    }
+    else if (m_flashTimer > 0.0f)
+    {
+        m_sprite.setColor(sf::Color(255, 0, 0));
+        target.draw(m_sprite);
+    }
+    else
+    {
+        m_sprite.setColor(sf::Color::White);
+        target.draw(m_sprite);
+    }
+}
+
+void Player::TakeDamage(float amount)
+{
+    if (m_isDead || m_invulnTimer > 0.0f) return;
+
+    m_currentHealth -= amount;
+    if (m_currentHealth <= 0.0f)
+    {
+        m_currentHealth = 0.0f;
+        OnHpReachedZero();
+        return;
+    }
+
+    m_invulnTimer = I_FRAME_DURATION;
+    m_flashTimer = HIT_FLASH_DURATION;
+
+    if (m_onHitVfxCallback)
+    {
+        m_onHitVfxCallback("Blood", m_position);
+    }
+}
+
+void Player::Heal(float amount)
+{
+    if (m_isDead) return;
+
+    m_currentHealth += amount;
+    if (m_currentHealth > m_maxHealth)
+    {
+        m_currentHealth = m_maxHealth;
+    }
+}
+
+void Player::Revive()
+{
+    m_isDead = false;
+    m_currentHealth = m_maxHealth;
+    m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+    m_sprite.setColor(sf::Color::White);
+    
+    // Stop tweens if they are running
+    m_deathScaleXTweener.Stop();
+    m_deathScaleYTweener.Stop();
+    m_deathColorTweener.Stop();
+}
+
+void Player::OnHpReachedZero()
+{
+    m_isDead = true;
+
+    m_deathScaleXTweener.SetStartValue(1.0f);
+    m_deathScaleXTweener.SetEndValue(3.5f);
+    m_deathScaleXTweener.SetDuration(1.25f);
+    m_deathScaleXTweener.Start();
+
+    m_deathScaleYTweener.SetStartValue(1.0f);
+    m_deathScaleYTweener.SetEndValue(0.15f);
+    m_deathScaleYTweener.SetDuration(1.25f);
+    m_deathScaleYTweener.Start();
+
+    m_deathColorTweener.SetStartValue(1.0f);
+    m_deathColorTweener.SetEndValue(0.0f);
+    m_deathColorTweener.SetDuration(1.5f);
+    m_deathColorTweener.Start();
 }

@@ -7,6 +7,8 @@
 #include "../../Core/Resources/TextureAtlas.h"
 #include <SFML/System/Vector2.hpp>
 
+class EnemyPool;
+
 class WeaponInventory
 {
 public:
@@ -14,7 +16,7 @@ public:
     ~WeaponInventory() = default;
 
     void AddWeapon(std::unique_ptr<Weapon> weapon);
-    void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition);
+    void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool);
 
 private:
     std::vector<std::unique_ptr<Weapon>> m_weapons;

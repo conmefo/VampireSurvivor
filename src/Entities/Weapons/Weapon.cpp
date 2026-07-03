@@ -1,58 +1,73 @@
 #include "Weapon.h"
+#include <limits>
+
+#include "../Enemy/EnemyPool.h"
 
 Weapon::Weapon(const WeaponProfile& profile)
     : m_profile(profile)
     , m_cooldownTimer(0.0f)
-    , m_projectilesPending(0)
-    , m_repeatTimer(0.0f)
 {
 }
 
-void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition)
+sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2f playerPosition, sf::Vector2f playerDirection)
 {
-    // Handle sequential firing queue
-    if(m_projectilesPending > 0)
+    // Default implementation: Aim for Nearest Enemy
+    sf::Vector2f targetPosition = playerPosition;
+    float minSqDist = std::numeric_limits<float>::max();
+    bool found = false;
+
+    for (auto* enemy : enemyPool.GetActiveEnemies())
     {
-        m_repeatTimer -= dt;
-        if(m_repeatTimer <= 0.0f)
+        if (enemy && enemy->IsAlive())
         {
-            int amount = m_profile.GetAmount();
-            int currentIndex = amount - m_projectilesPending;
-            FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, currentIndex);
-            
-            m_projectilesPending--;
-            m_repeatTimer = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
+            sf::Vector2f diff = enemy->GetPosition() - playerPosition;
+            float sqDist = diff.x * diff.x + diff.y * diff.y;
+            if (sqDist < minSqDist)
+            {
+                minSqDist = sqDist;
+                targetPosition = enemy->GetPosition();
+                found = true;
+            }
         }
     }
 
+    if (!found)
+    {
+        // Fallback: ApplyPlayerFacingVelocity logic (aim straight ahead if no enemies)
+        targetPosition = playerPosition + playerDirection * 100.0f; 
+    }
+
+    return targetPosition;
+}
+
+void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool)
+{
     if(m_cooldownTimer > 0.0f)
     {
         m_cooldownTimer -= dt;
     }
 
-    if(m_cooldownTimer <= 0.0f && m_projectilesPending == 0)
+    if(m_cooldownTimer <= 0.0f)
     {
         int amount = m_profile.GetAmount();
-        if(amount > 0)
+        float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
+
+        // Calculate target once per burst
+        sf::Vector2f targetPosition = GetTargetPosition(enemyPool, playerPosition, playerDirection);
+
+        for (int i = 0; i < amount; ++i)
         {
-            float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
-            if(repeatSec <= 0.0f)
+            float delay = static_cast<float>(i) * repeatSec;
+            
+            if (delay > 0.0f)
             {
-                // Fire all immediately
-                for(int i = 0; i < amount; ++i)
-                {
-                    FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
-                }
+                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, playerPosition, playerDirection, targetPosition, i]() {
+                    this->FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
+                });
             }
             else
             {
-                // Fire first immediately, queue rest
-                FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, 0);
-                if(amount > 1)
-                {
-                    m_projectilesPending = amount - 1;
-                    m_repeatTimer = repeatSec;
-                }
+                FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
             }
         }
         

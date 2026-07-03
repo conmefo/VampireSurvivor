@@ -355,3 +355,83 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Impact Pinning:** Sampled and injected `originalPos` strictly prior to evaluating the knockback vector, meaning impact VFX flawlessly overlay the actual point of impact instead of shifting backward.
 * **Authentic Tween Delay:** Overhauled `VfxInstance`'s scaling tweener to mimic the authentic game's delay. The hit sprite remains invisible (`alpha = 0`) for the first 60% of the flash duration and aggressively scales/rotates entirely within the final 40% of its lifetime.
 * **Dangling Pointer Memory Fix:** Identified a major memory corruption defect where `std::vector` capacity reallocations invalidated `this` pointers captured inside the Tweener callback lambdas. Refactored `VfxManager` to use `std::vector<std::unique_ptr<VfxInstance>>`, guaranteeing absolute memory stability and eliminating overlapping visual anomalies.
+
+***
+
+## Update: Treasure Chest & Fireworks Architecture Discovery
+* **State Machine Isolation:** Analyzed the `Gameplay.unity` file and discovered how treasure chest sequences are executed. The sequence pushes a dedicated `TreasureState` onto the state stack, freezing all player and enemy updates while keeping rendering active via an underlying blackout overlay.
+* **FireworksController:** Discovered `FireworksController` acts as a specialized emitter for the chest-open sequence. It operates independently, spawning a sequence of particles (`VfxInstance`) mimicking parabolic physics using vertical velocity and gravity logic.
+
+***
+
+## Update: Magic Wand Tail Architecture Discovery
+* **Tracer Prefab:** Solved the missing Magic Wand tail mystery. The tail is not a component of `MagicMissileProjectile.prefab`. Instead, it uses a dynamically instantiated, standalone Unity `TrailRenderer` component stored inside `Tracer.prefab`.
+* **Trail Properties:** The `Tracer` uses highly optimized parameters (`m_Time: 0.7`, `m_MinVertexDistance: 0.001`, and `widthMultiplier: 0.2` with a curved fade-in/fade-out). The `ProjectileManager` dynamically attaches these tracers to specific projectiles at runtime, keeping the base prefabs incredibly lightweight and reusable.
+
+***
+
+## Update: Unity ProjectSettings & Performance Optimization Secrets
+* **Physics Iterations (The 10k Enemy Secret):** Analyzed `Physics2DSettings.asset` and found that Vampire Survivors sets `m_VelocityIterations` and `m_PositionIterations` to exactly `1` (down from standard values like 8 and 3). This sacrifices realistic bouncing and stacking in exchange for blistering performance, allowing thousands of enemies to slide loosely over each other without tanking the CPU.
+* **Transform Synchronization:** Discovered `m_AutoSyncTransforms: 0`, preventing physics calculations every time an object visually moves, saving massive overhead.
+* **VFX Capacity:** Checked `VFXManager.asset` and noted a locked 60FPS update rate (`0.01666s`) for determinism, and an enormous `m_MaxCapacity: 100000000`, proving heavy reliance on massive object pools rather than on-the-fly garbage collection.
+* **Collision Layer Matrix:** Revealed through `TagManager.asset` how the game manages physics categories (e.g., separating `Player`, `Enemies`, `Pickups`, `Projectiles`, `EnemiesPassThrough`, and `MagnetZone`). This demonstrates that the player's magnet is implemented as an actual invisible physics trigger circle, and enemies are layered meticulously to minimize cross-checking.
+
+***
+
+## Update: Il2Cpp Coroutine Reverse Engineering Discovery
+* **Coroutine Architecture (IEnumerator):** Discovered that spawning methods like FireballSpawnerSpawnFireball are compiled into C# IEnumerator coroutines. The decompiled method allocates a state machine struct (e.g., _FireballSpawner.<SpawnFireball>d__16) and stores parameters into it, rather than executing the logic synchronously.
+* **Garbage Collection Optimization:** Observed bitwise locking and unlocking loops around pointer assignments (e.g., DAT_1899efb60), confirming that the engine employs internal write barriers for Il2Cpp Garbage Collection safely handling pointers across threads/state machines.
+* **Next Steps for Reversing:** To find the actual spawning logic and string resolutions for Coroutines, we need to inspect the MoveNext() method of these generated state machine classes (like FireballSpawner.<SpawnFireball>d__16MoveNext).
+
+***
+
+## Update: FireballSpawner Logic & Prefab Resolution
+* **String Mapping Myth Busted:** Analyzed the MoveNext decompilation of FireballSpawner. Discovered that the game does **not** perform string concatenation (e.g., Projectile + FIREBALL) to load sprites at runtime.
+* **Prefab Instantiation:** Instead, SpawnFireball takes a direct reference to a Unity Prefab (param_1) and calls UnityEngine.Object.Instantiate<GameObject>(). The reason we only found ProjectileFireball in the fx_atlas.json is because that sprite is hard-assigned to the SpriteRenderer/ParticleSystem directly inside the Unity Prefab asset via the Unity Editor, not in code!
+* **State Machine Breakdown:**
+  * **State 0:** Yields a WaitForSeconds delay (using the param_2 passed to the Spawner).
+  * **State 1:** Instantiates the Prefab, calculates Vector3 positional offsets, and grabs the ParticleSystem component.
+  * **State 2:** A mathematical Lerp loop that dynamically scales the fireball's size over time using delta time.
+  * **State 3:** Calls Object.Destroy() and triggers FireballSpawnerFireballSequence, which likely handles the actual impact/explosion VFX.
+
+***
+
+## Update: Unity Asset Resolution & Python Mapping
+* **AssetRipper Metadata Quirks:** Verified why fx.png.meta does not contain the sprite slice names (like ProjectileFireball). When the original game was extracted, the ripper separated every sub-sprite slice into its own .asset and .meta files, splitting them away from the master texture.
+* **Automated Python Solution:** Created and executed a Python script (extract_sprite_mappings.py) to automate the Prefab-to-Sprite linkage. 
+* **Next Steps for Reversing:** To find the actual spawning logic and string resolutions for Coroutines, we need to inspect the MoveNext() method of these generated state machine classes (like FireballSpawner.<SpawnFireball>d__16MoveNext).
+
+***
+
+## Update: FireballSpawner Logic & Prefab Resolution
+* **String Mapping Myth Busted:** Analyzed the MoveNext decompilation of FireballSpawner. Discovered that the game does **not** perform string concatenation (e.g., Projectile + FIREBALL) to load sprites at runtime.
+* **Prefab Instantiation:** Instead, SpawnFireball takes a direct reference to a Unity Prefab (param_1) and calls UnityEngine.Object.Instantiate<GameObject>(). The reason we only found ProjectileFireball in the  fx_atlas.json is because that sprite is hard-assigned to the SpriteRenderer/ParticleSystem directly inside the Unity Prefab asset via the Unity Editor, not in code!
+* **State Machine Breakdown:**
+  * **State 0:** Yields a WaitForSeconds delay (using the param_2 passed to the Spawner).
+  * **State 1:** Instantiates the Prefab, calculates Vector3 positional offsets, and grabs the ParticleSystem component.
+  * **State 2:** A mathematical Lerp loop that dynamically scales the fireball's size over time using delta time.
+  * **State 3:** Calls Object.Destroy() and triggers FireballSpawnerFireballSequence, which likely handles the actual impact/explosion VFX.
+
+***
+
+## Update: Unity Asset Resolution & Python Mapping
+* **AssetRipper Metadata Quirks:** Verified why  fx.png.meta does not contain the sprite slice names (like ProjectileFireball). When the original game was extracted, the ripper separated every sub-sprite slice into its own .asset and .meta files, splitting them away from the master texture.
+* **Automated Python Solution:** Created and executed a Python script (extract_sprite_mappings.py) to automate the Prefab-to-Sprite linkage. 
+  1. The script scanned all ripped .meta files to build a massive GUID -> SpriteName dictionary.
+  2. It scanned all 700+ .prefab files in prefab_files to find their m_Sprite GUIDs.
+  3. It cross-referenced the GUIDs to output a clean JSON map (prefab_sprite_map.json) linking PrefabName -> SpriteName (e.g. FireballProjectile.prefab -> ProjectileFireball).
+* **Implementation Plan for Engine:** The C++ engine can now take  ulletType: FIREBALL, append Projectile, look up FireballProjectile.prefab in the generated JSON map, and instantly know to pull ProjectileFireball from the  fx_atlas.json without needing to parse Unity YAML files at runtime!
+
+### Date:  - Weapon Targeting Architecture Overhaul
+- Refactored Weapon base class and WeaponInventory to take EnemyPool reference instead of a static 	argetPosition.
+- Implemented  irtual sf::Vector2f GetTargetPosition to allow weapons to select targets once per burst loop.
+- Completed FireballWeapon with AimForRandomEnemy logic (choosing a random active enemy, falling back to facing direction if none are found).
+
+***
+
+## Update: Authentic Runetracer Implementation & Il2Cpp Physics Reversing
+* **Runetracer Architecture**: Implemented `RunetracerWeapon` and `RunetracerProjectile` matching the original game's `WEAPON_DATA.json` config (bulletType: `DIAMOND`).
+* **Physics Bouncing Math**: Discovered through IL2CPP decompilation that the original game delegates bouncing strictly to the Phaser/Unity physics engine (`setCollideWorldBounds(true)`). Replicated this perfectly in C++ by updating the `ProjectileManager` to enforce bounding-box view collision checks and reversing the velocity vectors cleanly upon impact.
+* **Duration-Based Lifetime**: Confirmed the original game uses a strict duration timer (e.g. 2.25s for level 1) to destroy the Runetracer, completely bypassing bounce-count limits. Our C++ engine natively handles this via the `m_duration` logic in `Projectile.cpp`.
+* **Visual FX Polish**: Verified the color cycling behavior of the original `DiamondProjectile` which loops a rainbow hue on its trail, while the base projectile itself remains white. Stripped away a false assumption about scaling pulses (which turned out to belong to a completely different bezier-curve projectile, `Rune1`) in favor of an authentic constant-scale rendering pass.
+* **Infinite Penetration**: Overrode `OnHitEnemy` to explicitly prevent the projectile from destroying itself, and implemented a precise 500ms hit-delay per enemy as observed in the decompiled code, preventing instant-kill multi-hits while passing through targets.

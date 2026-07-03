@@ -1,4 +1,5 @@
 #include "Projectile.h"
+#include <cmath>
 
 Projectile::Projectile(const sf::Texture& texture, const sf::IntRect& textureRect, sf::Vector2f startPosition, sf::Vector2f velocity, float duration, float power, float areaMultiplier, const std::string& hitVfxName, int penetration)
     : m_velocity(velocity)
@@ -16,6 +17,13 @@ Projectile::Projectile(const sf::Texture& texture, const sf::IntRect& textureRec
 
     m_sprite.setPosition(startPosition);
     m_sprite.setScale(areaMultiplier, areaMultiplier);
+
+    // Rotate sprite based on velocity
+    if (velocity.x != 0.0f || velocity.y != 0.0f)
+    {
+        float angle = std::atan2(velocity.y, velocity.x) * 180.0f / 3.14159265359f;
+        m_sprite.setRotation(angle);
+    }
 }
 
 void Projectile::Update(float dt)
@@ -23,6 +31,23 @@ void Projectile::Update(float dt)
     if(m_duration > 0.0f)
     {
         m_duration -= dt;
+    }
+
+    if(m_isScaling)
+    {
+        m_scaleTimer += dt;
+        if(m_scaleTimer >= m_scaleDuration)
+        {
+            m_sprite.setScale(m_targetScale);
+            m_isScaling = false;
+        }
+        else
+        {
+            float t = m_scaleTimer / m_scaleDuration;
+            // Simple linear interpolation (Lerp)
+            sf::Vector2f newScale = m_initialScale + (m_targetScale - m_initialScale) * t;
+            m_sprite.setScale(newScale);
+        }
     }
 
     m_sprite.move(m_velocity * dt);

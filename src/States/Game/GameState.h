@@ -5,9 +5,12 @@
 #include "../../World/TileMapManager.h"
 #include "../../Entities/Player.h"
 #include "../../Entities/VfxManager.h"
+#include "../../Entities/Particles/ParticleManager.h"
+#include "../../UI/ParticleTuningUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
 #include "../../Core/Data/WeaponDataManager.h"
+#include "../../UI/PlayerHUD.h"
 #include "../BaseState.h"
 #include <memory>
 
@@ -42,5 +45,11 @@ class GameState : public BaseState {
     int m_currentStage = 1;
     bool m_showHitboxes = false;
     VfxManager m_vfxManager;
+    vs::ParticleManager m_particleManager;
+    vs::ParticleEmitterConfig m_testParticleConfig;
+    std::unique_ptr<ParticleTuningUI> m_tuningUI;
+    vs::ParticleEmitterConfig m_bloodTearConfig;
+    vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
+    std::unique_ptr<PlayerHUD> m_playerHUD;
 };
