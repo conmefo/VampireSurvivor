@@ -1,3 +1,4 @@
+#include "../Player.h"
 #include "RunetracerWeapon.h"
 #include "../Projectiles/RunetracerProjectile.h"
 #include "../Enemy/EnemyPool.h"
@@ -9,7 +10,7 @@ RunetracerWeapon::RunetracerWeapon(const WeaponProfile& profile)
 {
 }
 
-void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool)
+void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool)
 {
     if(m_cooldownTimer > 0.0f)
     {
@@ -31,7 +32,7 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
             }
         }
 
-        sf::Vector2f targetPosition = playerPosition + playerDirection * 100.0f; // Default
+        sf::Vector2f targetPosition = player.GetPosition() + player.GetFacingDirection() * 100.0f; // Default
 
         if (!validEnemies.empty())
         {
@@ -39,7 +40,7 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
             float minSqDist = std::numeric_limits<float>::max();
             for (auto* enemy : validEnemies)
             {
-                sf::Vector2f diff = enemy->GetPosition() - playerPosition;
+                sf::Vector2f diff = enemy->GetPosition() - player.GetPosition();
                 float sqDist = diff.x * diff.x + diff.y * diff.y;
                 if (sqDist < minSqDist)
                 {
@@ -55,13 +56,13 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
 
             if (delay > 0.0f)
             {
-                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, playerPosition, playerDirection, targetPosition, i]() {
-                    this->FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
+                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, &player, targetPosition, i]() {
+                    this->FireOne(projManager, atlas, player, targetPosition, i);
                 });
             }
             else
             {
-                FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
+                FireOne(projManager, atlas, player, targetPosition, i);
             }
         }
         
@@ -69,17 +70,17 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
     }
 }
 
-void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition, int projectileIndex)
+void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Player& player, sf::Vector2f targetPosition, int projectileIndex)
 {
     AssetTextureData data = atlas.GetTextureData(m_profile.GetFrameName());
     if(!data.texture) return;
 
-    sf::Vector2f dir = targetPosition - playerPosition;
+    sf::Vector2f dir = targetPosition - player.GetPosition();
     float baseAngleRadians = 0.0f;
     
     if (dir.x == 0 && dir.y == 0)
     {
-        dir = playerDirection;
+        dir = player.GetFacingDirection();
         if(dir.x == 0 && dir.y == 0) 
         {
              dir = sf::Vector2f(1.0f, 0.0f);
@@ -110,7 +111,7 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     float power = m_profile.GetPower();
     float area = m_profile.GetArea();
     
-    sf::Vector2f spawnPosition = playerPosition;
+    sf::Vector2f spawnPosition = player.GetPosition();
 
     const vs::ParticleEmitterConfig* trailConfig = nullptr;
     if (projManager.GetParticleManager())

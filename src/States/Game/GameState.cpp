@@ -11,6 +11,9 @@
 #include "../../Entities/Weapons/MagicMissileWeapon.h"
 #include "../../Entities/Weapons/FireballWeapon.h"
 #include "../../Entities/Weapons/RunetracerWeapon.h"
+#include "../../Entities/Weapons/KnifeWeapon.h"
+#include "../../Entities/Weapons/AxeWeapon.h"
+#include "../../Core/Math/MathUtils.h"
 
 namespace {
 const std::vector<const char *> LibraryEnemies = {
@@ -138,10 +141,18 @@ void GameState::Init() {
         {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<FireballWeapon>(wp));
         }
+        else if(wp.GetId() == "KNIFE")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<KnifeWeapon>(wp));
+        }
+        else if(wp.GetId() == "AXE")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(wp));
+        }
         
-        // FOR TESTING: Always grant the Runetracer
-        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("DIAMOND");
-        m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(testWp));
+        // FOR TESTING: Always grant the Axe
+        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("AXE");
+        m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(testWp));
     }
     else
     {
@@ -171,8 +182,10 @@ void GameState::Init() {
     m_testParticleConfig.colorB = 255.0f;
     m_testParticleConfig.colorA = 255.0f;
     
-    // Tuning UI has been unattached since Runetracer tuning is complete
+    // Attach Tuning UI for Axe testing
+    m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, m_context.fonts.Get(FontID::Main), m_testParticleConfig);
     
+    m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
     ApplyCameraToView();
 }
 
@@ -210,13 +223,14 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         const HitVfxProfile& profile = m_context.hitVfxData.GetVfxByName(vfxName);
         m_vfxManager.PlayVfx(profile, mousePos);
     } else if (event.type == sf::Event::Resized) {
-        m_worldView.setSize(ViewWidth, ViewHeight);
+        m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
         ApplyCameraToView();
     }
     
     if (m_tuningUI) {
         sf::View oldView = window.getView();
-        window.setView(m_worldView);
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
         m_tuningUI->HandleEvent(event, window);
         window.setView(oldView);
     }
@@ -229,7 +243,7 @@ void GameState::Update(float dt) {
         m_cameraCenter = m_player->GetPosition();
         ApplyCameraToView();
 
-        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, m_player->GetPosition(), m_player->GetFacingDirection(), m_enemyPool);
+        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, *m_player, m_enemyPool);
 
         if (m_playerHUD) {
             m_playerHUD->Update(dt);
@@ -298,11 +312,12 @@ void GameState::Update(float dt) {
     }
     m_enemyPool.ResolveEnemyCollisions();
 
-    // Update tuning UI to match camera
+    // Update tuning UI to match absolute screen position
     if (m_tuningUI) {
-        m_tuningUI->SetPosition(m_cameraCenter - sf::Vector2f(ViewWidth / 2.0f, ViewHeight / 2.0f) + sf::Vector2f(20.0f, 100.0f));
+        m_tuningUI->SetPosition(sf::Vector2f(20.0f, 100.0f));
         m_tuningUI->Update(dt);
     }
+    
     if (m_testEmitter) {
         m_testEmitter->SetPosition(m_cameraCenter + sf::Vector2f(0.0f, m_testParticleConfig.emitterOffset));
         m_testEmitter->GetConfig() = m_testParticleConfig;
@@ -312,6 +327,10 @@ void GameState::Update(float dt) {
 void GameState::Draw(sf::RenderWindow &window) {
     window.clear(sf::Color(12, 28, 12));
 
+    sf::Vector2u winSize = window.getSize();
+    sf::FloatRect viewport = MathUtils::CalculateLetterboxViewport(static_cast<float>(winSize.x), static_cast<float>(winSize.y), ViewWidth / ViewHeight);
+    m_worldView.setViewport(viewport);
+
     sf::View previousView = window.getView();
 
     window.setView(m_worldView);
@@ -319,6 +338,10 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_tileMap->Draw(window, m_worldView);
     }
     m_enemyPool.Draw(window);
+    
+    m_particleManager.Draw(window);
+    m_projectileManager.Draw(window);
+    m_vfxManager.Draw(window);
     
     if(m_player)
     {
@@ -328,16 +351,13 @@ void GameState::Draw(sf::RenderWindow &window) {
         }
     }
 
-    m_particleManager.Draw(window);
-    m_projectileManager.Draw(window);
-    m_vfxManager.Draw(window);
-
     if (m_showHitboxes) {
         DrawHitboxes(window);
     }
 
     // Draw 16:10 Dim Bars Overlay (1920x1080 view -> 1728x1080 play area = 96px bars)
     sf::View uiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+    uiView.setViewport(viewport);
     window.setView(uiView);
 
     sf::RectangleShape leftDimBar(sf::Vector2f(96.0f, ViewHeight));
@@ -353,9 +373,9 @@ void GameState::Draw(sf::RenderWindow &window) {
     window.setView(previousView);
     
     if (m_tuningUI) {
-        // Draw in world view so it moves with camera, or draw in UI view?
-        // We set position relative to camera, so draw in world view.
-        window.setView(m_worldView);
+        // Draw in a fixed UI view so it is not affected by camera zoom
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
         m_tuningUI->Draw(window);
         window.setView(previousView);
     }

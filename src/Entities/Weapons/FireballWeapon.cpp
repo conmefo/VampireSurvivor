@@ -1,3 +1,4 @@
+#include "../Player.h"
 #include "FireballWeapon.h"
 #include "../Projectiles/FireballProjectile.h"
 #include <random>
@@ -9,7 +10,7 @@ FireballWeapon::FireballWeapon(const WeaponProfile& profile)
 {
 }
 
-sf::Vector2f FireballWeapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2f playerPosition, sf::Vector2f playerDirection)
+sf::Vector2f FireballWeapon::GetTargetPosition(EnemyPool& enemyPool, Player& player)
 {
     const auto& activeEnemies = enemyPool.GetActiveEnemies();
     std::vector<EnemyBase*> validEnemies;
@@ -29,16 +30,16 @@ sf::Vector2f FireballWeapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2
     }
 
     // Fallback: ApplyPlayerFacingVelocity
-    return playerPosition + playerDirection * 100.0f;
+    return player.GetPosition() + player.GetFacingDirection() * 100.0f;
 }
 
-void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition, int projectileIndex)
+void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Player& player, sf::Vector2f targetPosition, int projectileIndex)
 {
     // The visual asset is determined by mapping FireballProjectile.prefab in prefab_sprite_map.json
     AssetTextureData data = atlas.GetTextureData("ProjectileFireball2");
     if(!data.texture) return;
 
-    sf::Vector2f dir = targetPosition - playerPosition;
+    sf::Vector2f dir = targetPosition - player.GetPosition();
     
     // Normalize target direction
     float length = std::sqrt(dir.x * dir.x + dir.y * dir.y);
@@ -49,7 +50,7 @@ void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas
     }
     else
     {
-        dir = playerDirection;
+        dir = player.GetFacingDirection();
         if(dir.x == 0 && dir.y == 0) 
         {
              dir = sf::Vector2f(1.0f, 0.0f);
@@ -81,7 +82,7 @@ void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas
     float area = m_profile.GetArea();
     
     // Add the 0.16 visual offset to the Y position (scaled up to pixels, e.g. 16 pixels)
-    sf::Vector2f spawnPosition = playerPosition + sf::Vector2f(0.0f, 16.0f);
+    sf::Vector2f spawnPosition = player.GetPosition() + sf::Vector2f(0.0f, 16.0f);
 
     auto proj = std::make_unique<FireballProjectile>(&projManager, &atlas, *data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX());
     projManager.AddProjectile(std::move(proj));

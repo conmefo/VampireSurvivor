@@ -16,7 +16,7 @@ public:
     ~WeaponInventory() = default;
 
     void AddWeapon(std::unique_ptr<Weapon> weapon);
-    void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool);
+    void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool);
 
 private:
     std::vector<std::unique_ptr<Weapon>> m_weapons;

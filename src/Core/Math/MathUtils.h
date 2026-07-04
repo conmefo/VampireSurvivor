@@ -33,4 +33,6 @@ namespace MathUtils
     float Normalize(float value, float min, float max);
 
     float Ease(float t, EaseType type, EaseMode mode);
+
+    sf::FloatRect CalculateLetterboxViewport(float screenWidth, float screenHeight, float targetAspectRatio);
 }

@@ -1,0 +1,1268 @@
+<linker>
+  <assembly fullname="Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="FireballSpawner" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.CastlevaniaSOTNSky" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.EmeraldsSkybox" preserve="all" />
+  </assembly>
+  <assembly fullname="Coherence.Interpolation, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Coherence.Interpolation.InterpolationSettings" preserve="all" />
+    <type fullname="Coherence.Interpolation.LatencySettings" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Interpolation.LinearInterpolator" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Interpolation.SmoothingSettings" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Coherence.Toolkit, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Coherence.Toolkit.CoherenceSync" preserve="all" />
+    <type fullname="Coherence.Toolkit.CoherenceSyncConfig" preserve="all" />
+    <type fullname="Coherence.Toolkit.ArchetypeLODStep" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Archetypes.ArchetypeComponent" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Archetypes.ToolkitArchetype" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.CommandBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.Descriptor" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.TransformBindings.PositionBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.BoolBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.ByteBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.IntBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.ReferenceBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.UIntBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.AddressablesProvider" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.TransformBindings.DeepRotationBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.FloatBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.Vector2Binding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.DefaultInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.Bindings.ValueBindings.StringBinding" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.DirectReferenceProvider" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Dreamteck.Splines, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Dreamteck.Splines.Node" preserve="all" />
+    <type fullname="Dreamteck.Splines.SplineComputer" preserve="all" />
+    <type fullname="Dreamteck.Splines.SplineRenderer" preserve="all" />
+    <type fullname="Dreamteck.Splines.ColorModifier" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.ColorModifier/ColorKey" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.Node/Connection" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.OffsetModifier" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.RotationModifier" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SampleCollection" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SizeModifier" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.Spline" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SplineComputer/NodeLink" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SplinePoint" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SplineSample" preserve="nothing" serialized="true" />
+    <type fullname="Dreamteck.Splines.SplineSampleModifier" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="GradientTextureAssembly, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Packages.GradientTextureGenerator.Runtime.GradientTexture" preserve="all" />
+  </assembly>
+  <assembly fullname="l2localization, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="I2.Loc.Localize" preserve="all" />
+    <type fullname="I2.Loc.EventCallback" preserve="nothing" serialized="true" />
+    <type fullname="I2.Loc.LocalizedString" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="MAScripts, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="DarkTonic.MasterAudio.DynamicGroupVariation" preserve="all" />
+    <type fullname="DarkTonic.MasterAudio.DynamicSoundGroup" preserve="all" />
+    <type fullname="DarkTonic.MasterAudio.DynamicSoundGroupCreator" preserve="all" />
+    <type fullname="DarkTonic.MasterAudio.CustomEventCategory" preserve="nothing" serialized="true" />
+    <type fullname="DarkTonic.MasterAudio.MasterAudio/Playlist" preserve="nothing" serialized="true" />
+    <type fullname="DarkTonic.MasterAudio.MusicSetting" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="PhaserPort, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="ArcadeSprite" preserve="all" />
+    <type fullname="PhaserTilemap" preserve="all" />
+    <type fullname="PhaserTilemapBoundingBoxes" preserve="all" />
+    <type fullname="PhaserTilemapBoundingBoxesAsset" preserve="all" />
+    <type fullname="PhaserTilemapBoundingBoxesAsset/BoundCombine" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="QFSW.MOP2, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="QFSW.MOP2.ObjectPool" preserve="all" />
+  </assembly>
+  <assembly fullname="SuperTiled2Unity, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="SuperTiled2Unity.ImportErrors" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperCustomProperties" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperMap" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperObject" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperObjectLayer" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperTile" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperTileLayer" preserve="all" />
+    <type fullname="SuperTiled2Unity.SuperTileset" preserve="all" />
+    <type fullname="SuperTiled2Unity.CustomProperty" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.Addressables, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.AddressableAssets.Addressables" preserve="all" />
+    <type fullname="UnityEngine.AddressableAssets.AssetReference" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.AddressableAssets.AssetReferenceT`1" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.RenderPipelines.Universal.2D.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.Universal.Light2D" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.RenderPipelines.Universal.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalCameraData" preserve="all" />
+    <type fullname="UnityEngine.Rendering.Universal.UniversalAdditionalLightData" preserve="all" />
+    <type fullname="UnityEngine.Rendering.Universal.TemporalAA/Settings" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.ResourceManager, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null" preserve="all">
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.AssetBundleProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.BundledAssetProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.InstanceProvider" preserve="all" />
+    <type fullname="UnityEngine.ResourceManagement.ResourceProviders.SceneProvider" preserve="all" />
+  </assembly>
+  <assembly fullname="Unity.TextMeshPro, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="TMPro.TextMeshPro" preserve="all" />
+    <type fullname="TMPro.TextMeshProUGUI" preserve="all" />
+    <type fullname="TMPro.TMP_FontAsset" preserve="all" />
+    <type fullname="TMPro.VertexGradient" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.FaceInfo_Legacy" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.FontAssetCreationSettings" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.KerningTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_Character" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontFeatureTable" preserve="nothing" serialized="true" />
+    <type fullname="TMPro.TMP_FontWeightPair" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.AnimationModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AnimationClip" preserve="all" />
+    <type fullname="UnityEngine.Animator" preserve="all" />
+    <type fullname="UnityEngine.Avatar" preserve="all" />
+    <type fullname="UnityEngine.RuntimeAnimatorController" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.AudioModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.AudioClip" preserve="all" />
+    <type fullname="UnityEngine.AudioSource" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.CoreModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Camera" preserve="all" />
+    <type fullname="UnityEngine.Cubemap" preserve="all" />
+    <type fullname="UnityEngine.GameObject" preserve="all" />
+    <type fullname="UnityEngine.Light" preserve="all" />
+    <type fullname="UnityEngine.LineRenderer" preserve="all" />
+    <type fullname="UnityEngine.Material" preserve="all" />
+    <type fullname="UnityEngine.Mesh" preserve="all" />
+    <type fullname="UnityEngine.MeshFilter" preserve="all" />
+    <type fullname="UnityEngine.MeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.MonoBehaviour" preserve="all" />
+    <type fullname="UnityEngine.Object" preserve="all" />
+    <type fullname="UnityEngine.RectTransform" preserve="all" />
+    <type fullname="UnityEngine.Rendering.SortingGroup" preserve="all" />
+    <type fullname="UnityEngine.RenderTexture" preserve="all" />
+    <type fullname="UnityEngine.Shader" preserve="all" />
+    <type fullname="UnityEngine.SkinnedMeshRenderer" preserve="all" />
+    <type fullname="UnityEngine.Sprite" preserve="all" />
+    <type fullname="UnityEngine.SpriteRenderer" preserve="all" />
+    <type fullname="UnityEngine.TextAsset" preserve="all" />
+    <type fullname="UnityEngine.Texture2D" preserve="all" />
+    <type fullname="UnityEngine.TrailRenderer" preserve="all" />
+    <type fullname="UnityEngine.Transform" preserve="all" />
+    <type fullname="UnityEngine.Events.PersistentCallGroup" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.UnityEvent" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.UnityEvent`1" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Quaternion" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Vector2" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Vector3" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Hash128" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.ArgumentCache" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.Events.PersistentListenerMode" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.GridModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Grid" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.ParticleSystemModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.ParticleSystem" preserve="all" />
+    <type fullname="UnityEngine.ParticleSystemRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.PhysicsModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.BoxCollider" preserve="all" />
+    <type fullname="UnityEngine.MeshCollider" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.SpriteMaskModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.SpriteMask" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextRenderingModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Font" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.TilemapModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Tilemaps.Tilemap" preserve="all" />
+    <type fullname="UnityEngine.Tilemaps.TilemapRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.UI, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.UI.AspectRatioFitter" preserve="all" />
+    <type fullname="UnityEngine.UI.CanvasScaler" preserve="all" />
+    <type fullname="UnityEngine.UI.GraphicRaycaster" preserve="all" />
+    <type fullname="UnityEngine.UI.Image" preserve="all" />
+    <type fullname="UnityEngine.UI.Mask" preserve="all" />
+    <type fullname="UnityEngine.UI.RawImage" preserve="all" />
+    <type fullname="UnityEngine.UI.RectMask2D" preserve="all" />
+    <type fullname="UnityEngine.UI.MaskableGraphic/CullStateChangedEvent" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.UIModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Canvas" preserve="all" />
+    <type fullname="UnityEngine.CanvasGroup" preserve="all" />
+    <type fullname="UnityEngine.CanvasRenderer" preserve="all" />
+  </assembly>
+  <assembly fullname="UnityEngine.VideoModule, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="UnityEngine.Video.VideoClip" preserve="all" />
+    <type fullname="UnityEngine.Video.VideoPlayer" preserve="all" />
+  </assembly>
+  <assembly fullname="VampireSurvivors.Runtime, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="CharacterLightManager" preserve="all" />
+    <type fullname="EME_Ribbon" preserve="all" />
+    <type fullname="ExplodeFragments" preserve="all" />
+    <type fullname="FakeRigidBodyMover" preserve="all" />
+    <type fullname="ParticleNormalFlip" preserve="all" />
+    <type fullname="UIGradient" preserve="all" />
+    <type fullname="UnityEngine.UI.Extensions.UIFlippable" preserve="all" />
+    <type fullname="VampireSurvivors.App.Framework.BestiaryFactory" preserve="all" />
+    <type fullname="VampireSurvivors.App.Framework.EnemyFactory" preserve="all" />
+    <type fullname="VampireSurvivors.App.Framework.PickupFactory" preserve="all" />
+    <type fullname="VampireSurvivors.App.Graphics.GenericShadowText" preserve="all" />
+    <type fullname="VampireSurvivors.App.Scripts.Objects.Enemies.DLC7.LEMON_BOSS_CrimsonHeart" preserve="all" />
+    <type fullname="VampireSurvivors.App.Scripts.Objects.Enemies.DLC7.LEMON_BOSS_TheWall" preserve="all" />
+    <type fullname="VampireSurvivors.App.Scripts.UI.AutoAssignSprite" preserve="all" />
+    <type fullname="VampireSurvivors.App.Scripts.UI.EME_BiomeNameUI" preserve="all" />
+    <type fullname="VampireSurvivors.App.Tools.Rotate" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.Bestiary.UIBigFuzz" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.Bestiary.UICosmicEgg" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.Bestiary.UIMaskedEnemy" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.Bestiary.UISketamari" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.MainMenuBackgroundFactory" preserve="all" />
+    <type fullname="VampireSurvivors.App.UI.MenuBackgroundController" preserve="all" />
+    <type fullname="VampireSurvivors.DraculaCutscene" preserve="all" />
+    <type fullname="VampireSurvivors.DraculaCutscene_ADV" preserve="all" />
+    <type fullname="VampireSurvivors.DraculaCutsceneTeleport" preserve="all" />
+    <type fullname="VampireSurvivors.DraculaCutsceneWineGlass" preserve="all" />
+    <type fullname="VampireSurvivors.EnemyOnlineDebugger" preserve="all" />
+    <type fullname="VampireSurvivors.FB_PrototypeCProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.FB_SpreadProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.AccessoriesFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.CharacterFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.DestructibleFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.DLC.BundleManifestData" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.Geom.PolygonComponent" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.Geom.PolygonGroupComponent" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.HeroVfxFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.Particles.ParticlePauseController" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.Particles.PfxData" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.Phaser.PhaserSprite" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.ProjectileFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.TilesetFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Framework.WeaponFactory" preserve="all" />
+    <type fullname="VampireSurvivors.Graphics.ImageSpriteAnimation" preserve="all" />
+    <type fullname="VampireSurvivors.Graphics.SpriteAnimation" preserve="all" />
+    <type fullname="VampireSurvivors.Graphics.SpriteScroller" preserve="all" />
+    <type fullname="VampireSurvivors.Graphics.SpriteTrail" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.CharacterAccessoriesManager" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Crewmate" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Engineer" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Ghost" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Guardian" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Impostor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_MegaImpostor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Scientist" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.C1_Shapeshifter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterController_FirstBlood" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerEleanor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerGenevieve" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerKeira" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerLegionnaire" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerLuminaire" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerMaruto" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerMegaloGenevieve" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerMegaloMenya" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerMenya" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerMiang" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerOnna" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerSammy" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerSyuuto" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.CharacterControllerVictor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterController_CatFollower" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerAmeya" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerBonnie" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerDemon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerDiva" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerDolores" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerFinalEmperor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerFormina" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerImakoo" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerKina" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerKugutsu" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerLita" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerMacha" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerMrS" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerShowstopper" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerSiugnas" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerThemCats" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EME_CharacterControllerTsunanori" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.DLC6.EME_TeleporterBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.DLC6.EME_TeleporterBoss_Specter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_FB_DieWithExplosions" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_FB_DieWithExplosions_RightFacing_Rider" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_FB_DieWithExplosions_SpawnHigh" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_RightFacing_Rider" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_SpawnHigh" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_BlackmoreBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_BrachyuraBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_Death" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_DeathArm" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_DeathScythe" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_DeathScytheBig" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_GateBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_GateBoss_Keremet" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_GateBoss_SpawnOnDeath" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_SpecialUnlock_AxeArmor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_SpecialUnlock_Brauner" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_SpecialUnlock_Frozenshade" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.Enemy_TP_SpecialUnlock_Sniper" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyAGaea" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyBeelzebub" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyBeelzebubBee" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyBeelzebubSection" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyBlinder" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyCake" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyCentipede" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyDoppleganger" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyFBBullet" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyFBBulletEyeLaser" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyFBBulletFireball" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyGashadokuro" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyHealByFlower" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyJeneviv" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyLegion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyLegionSection" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyLegionZombie" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyMushMan" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyOrochiHead" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyOrochimario" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyPatrol" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyPile1" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyRanged" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyRangedAdvanced" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyRotating" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemySizeRandom" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemySkelangue" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemySnek" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemySnekShielded" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyStalker_Generic" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyStaticCrate" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyStaticPot" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemySuspicio" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyTPBullet" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.EnemyVerticalOnly" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.MazerellaDancerMazeNavigation" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_BOSS_Brachyura" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_BOSS_Paranoia" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_BOSS_PhantomBat" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_BOSS_Succubus" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_Enemy_SunkenBrachyura" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_MINION_PlayerFacade" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.TP_ADV_MINION_SwarmBat" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.Enemies.UITPDeath" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EnemyBigFuzz" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EnemyControllerBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EnemySusBoss" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EnemySusBossTentacle" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.EnemyTaka" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Ariana" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Bill" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Bradfang" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Browny" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Colonel" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Lance" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Lucia" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Newt" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Probo" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Sheena" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Simondo" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.FB_Stanley" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.LEM_CharacterController_001" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.LEM_CharacterController_002" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.LEM_CharacterController_003" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.LEM_CharacterController_004" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.LEM_CharacterController_Base" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.SpriteOutlinerControl" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Actrise_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Aeon_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Albus_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Alucard_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Annette_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Astarte_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_AxeArmor_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Barlowe_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Blackmore_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Brauner_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Carmilla_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Carrie_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_CaveTroll_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Celia_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Chaos_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Charlotte_And_Jonhathan_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Charlotte_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Christopher_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Cornell_BCM_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Cornell_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Dario_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Death_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Desmond_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Dmitri_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Dolores_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Dracula_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Drolta_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Elizabeth_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Eric_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FakeGrant_Solo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FakeSypha_Solo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FakeTrevor_Solo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FakeTrio_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Familiars_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Ferryman_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Fleaman_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FollowerSimple_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_FrozenShade_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Gaibon_Solo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Galamoth_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Graham_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Grant_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Hammer_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Hector_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Henry_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Hugh_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_InnocentDevils_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Isaac_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_ItemsTest_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Jiangshi_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Joachim_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_John_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Jonhathan_And_Charlotte_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Jonhathan_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Julia_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Julius_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Juste_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Keremet_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_KidDracula_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Leon_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Librarian_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Lisa_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Loretta_And_Stella_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Loretta_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Malphas_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Maria_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Maria_Young_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Maxim_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_MegaloDeath_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_MegaloDracula_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_MegaloElizabeth_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_MegaloOlrox_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Mina_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Morris_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Nathan_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Olrox_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Persephone_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Quincy_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Reinhardt_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Richter_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Rinaldo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_RulerSword_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Sara_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Shaft_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Shanoa_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Simon_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Slogra_Solo_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_SlograAndGaibon_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Sniper_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Soleil_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Soma_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Sonia_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Stella_And_Loretta_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Stella_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_StGermain_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_StoneSkull_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Succubus_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Sypha_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Tera_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Trevor_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Vincent_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Walter_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_WaterMagician_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Wind_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Yoko_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Zephyr_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Characters.TP_Zoe_Character" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.CharacterWeaponsManager" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.DamagingZonePrefab" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.DebuffZonePrefab" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.ExplosionVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_EME_Cat" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_EME_RainbowCat" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_EME_Teleporter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_FB_Barrier" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_FB_Grenade" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_FB_RapidFire" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_EnemySoul" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_HeartRefresh" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_KarmaCoin" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_MirrorOfTruth" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_NeutronBomb" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_SoulStealLittleHeart" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_TP_WallChicken" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.AstroidClearProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.BocceProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Bubble2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.BubbleProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Doppleganger_Knife" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Doppleganger_Runetracer" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_AxeProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_AxeProjectile_HellsFury" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_AxeProjectile_ReverseDelta" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_BloodRage" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_BloodRage_Hidden" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_ScarletHarbinger" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_Special" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_Special_BloodRage" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_BloodProjectile_Special_ScarletHarbinger" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_BombardingFire_Explosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_BombardingFire_Missile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_Shockwave" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_SunlightShower" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_SunlightShower_Explosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_SunlightShowerBeam" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_SunlightShowerCluster" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_CannonProjectile_UNUSED_BombardingFire_Setup" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_DualSwordsProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_DualSwordsProjectile_Torrent" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_DualSwordsProjectile_Whirlwind" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_GreatswordProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_GreatswordProjectile_Absetzen" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_GreatswordProjectile_AbsetzenBeam" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_GreatswordProjectile_BullCrush" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_GreatswordProjectile_Vandalize" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_InvisibleTimedProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile_Gravedigger" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile_GravediggerRock" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile_ScatteredPetals" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile_ScatteredPetals_MiniSlash" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KatanaProjectile_ScatteredPetals_Moon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KickProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KickProjectile_Thunder" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KnifeProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KnifeProjectile_Kaleidoscope" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KnifeProjectile_MoonfallSlash" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KnifeProjectile_Special_Kaleidoscope" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_KnifeProjectile_Special_MoonfallSlash" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_LongswordProjectile_Base" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_LongswordProjectile_GaleSlash" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_LongswordProjectile_LifeSprinkler" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_LongswordProjectile_Sprinkler" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_LongswordProjectile_SwallowSlice" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_Magic1Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_Magic2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_AquaSphere" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_ChaosDisaster" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_HeavensThunder" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_Hypergravity" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_Sunlight" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MagicProjectile_VermillionSands" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_BallisticMissile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_CosmicRave" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_CosmicRaveVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_HailstormExplosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_HailstormNew" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectile_UNUSED_QuadMissile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_MechProjectileExplosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PistolProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PistolProjectile_BoundingShot" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PistolProjectile_BoundShotExplosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PistolProjectile_FalconFire" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PistolProjectile_FalconFireExplosion" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PunchProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PunchProjectile_Firefist" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PunchProjectile_Guayim" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_PunchProjectile_Raksha" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_RapierProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_RapierProjectile_Crystalline" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_RapierProjectile_Mega" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_RapierProjectile_MegaSingle" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_RapierProjectile_Shocking" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_SpearProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_SpearProjectile_DivineLancer" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_SpearProjectile_Stardust" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_SpearProjectile_Triumvirate" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_WaveProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.EME_WaveProjectile_LineVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_BarrelExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_BigFuzzyFistProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_BladeCrossbow2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_BladeCrossbowProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_CrossbowCrash2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_CrossbowCrashProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_CrushProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_DiverMinesProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_FireArmProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_FireExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_FireWallProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_FullAutoProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_HomingProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_LaserProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_MetalClawProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_MultiStageProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PlaneProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrismCutlassProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_ProtonBeamProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrototypeAProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrototypeBExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrototypeBPlaneProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrototypeBProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_PrototypeCExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_RapidFireProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_SonicBloomProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_TimeWarpProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FB_WaveProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FixWiringProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FixWiringSparkProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FlashArrowProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FourSeasons2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.FourSeasonsProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.GarbageChuteProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.HatExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.HatProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.InvisibleProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.InvisibleProjectile_1Frame" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.InvisibleProjectile_Permanent" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LegionnaireProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Banana1_ExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Banana1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Banana2_ExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Banana2_Hidden_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Banana2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Fibonacci1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Fibonacci2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Inferno1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Inferno2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Planets1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LEM_Planets2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.LuminaireProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.MedicalScan2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.MedicalScanProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.MillionaireProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.MirageRobe2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.MirageRobeProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.NightSwordProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.OphionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.PartyProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.PrismaticMissileProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.projectiles.Report2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.projectiles.ReportProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Sample1ExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Sample1Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Sample2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Sample2Reactor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.ShadowServantCounterProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.ShadowServantProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SilverWind2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SilverWindProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SpellstreamProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SpellstrikeProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SpellstringProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SpellstromProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SummonNight2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SummonNightProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SwipecardProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SwordFinisherProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.SwordProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Tongue2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TongueCounterProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TongueProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Acid1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Acid2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AeroSlice_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardShield_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardSpear1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardSpear1Pommel_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardSpear2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardSword1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AlucardSword2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Aura_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AuraBig_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AuraBlast2_HellfireProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_AuraBlast2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_BlackJetWhip_Spike_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_BlueFire_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Bwaka1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Bwaka2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_CentralisCustos_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Chauve1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Chauve2_Beam_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Chauve2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Confodere0_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Confodere1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Confodere2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Confodere3_Special_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_ConfodereDestructible_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Custos3Bite_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_CustosFireball_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dark1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dark2_Orbiting_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dark2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DarkRift_Projetile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DarkRift2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DarkRift2_SkullProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DeathHand_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DextroCustos_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DextroCustosExplosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DextroCustosFire_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Diamond3_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Discus1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Discus2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dominus0_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dominus1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dominus2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dominus3_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Dominus4_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DraculaHand_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DragonWater1Head_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DragonWater1Node_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DragonWater1Tail_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_DragonWater2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Earth1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Earth2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Elec1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Elec2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Elevator_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Energy1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Energy2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Evil0_Skull_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Evil1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Evil2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Fire1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Fire2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Fire2Tail_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Frog_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Frog2_FrogProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Frog2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Frog2_TongueProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gear_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GothMissile_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GothMissile2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GothMissile2_SongProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GrandCross_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GrandCross2_BeamProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_GrandCross2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gun1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gun1Gun_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gun1Shrapnel_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gun2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Gun2Shrapnel_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Heads_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Holy1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Holy2_WeaponSupport" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_HolyWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_HolyWhip1Smoke_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Hydrostorm2_BoraProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Hydrostorm2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Ice0_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Ice1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Ice2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Icicle_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Icicle2_LaunchProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Icicle2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Icicle2_RuneProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_IronBall_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_IronBall2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Javelin1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Javelin2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_JetBlackWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Lapiste1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Lapiste2_BigFistProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Lapiste2_InvisibleProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Lapiste2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Lemuria1Node_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Light1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Light2_Orbiting_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Light2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace1Crit_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace1CritLinger_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace1Linger_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace2Crit_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Mace2Standard_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_MartialWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Neutron2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_NeutronProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pendulumr_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_PlatinumWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pneuma_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pneuma_Spikes_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pocket1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pocket2_InvisibleProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Pocket2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_PowerOfLire_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Rapidus_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Rapidus2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_RPG1_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_RPG1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_RPG2_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_RPG2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SacredBeast1_Bird_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SacredBeasts1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SacredBeasts2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Savrog_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Savrog2Union_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Savrog2Union_Spinning_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_ShaftOrb_Orbiting_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_ShaftOrb_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shield1_Blade_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shield1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shield2_Meteor_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shield2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shuriken_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Shuriken_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SinistroCustos_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SinistroCustosExplosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SinistroCustosMirage_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Slash1Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Slash2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SonicWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SonicWhip1Node_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SoulSteal_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SoulSteal2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritGem_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritGem_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritTornado_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritTornado2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritTornado2_SpiritGemExplosionProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpiritTornado2_SpiritGemProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Spite0_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Spite1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Spite2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpriteWhip_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SpriteWhip_WaterDragon_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_StarFlail1_Blade_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_StarFlail1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_StarFlail1Body_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_StarFlail2_Blade_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_StarFlail2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SummonSpirit_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SummonSpirit2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SwordBrothers_Firing_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SwordBrothers_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SwordBrothers2_Firing_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_SwordBrothers2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Universitas_Meteor_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Universitas_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Valmanway_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Valmanway2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_VampireKiller_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_VampireKiller_Fire_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WhipGenericNode_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WhipMemory_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Wind1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_Wind2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WindWhip1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass1_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass1_Shard_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass2_Explosion_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.TP_WineGlass2_Shard_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.unused_EME_PistolProjectile_Basic" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.unused_EME_PistolProjectile_Basic_Infinite" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.unused_EME_PistolProjectile_CrossShot" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Unused_LEM_Inferno2_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Unused_TP_AuraBlast1_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Unused_TP_AuraBlast1Node_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Unused_TP_AuraBlast1Slam_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Unused_TP_WindWhip1Node_Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.Vent2Projectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Projectiles.VentProjectile" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.Prop_AnimatedExplosive" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.Prop_FB_Capsule" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.PropFoscariSeal1" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.PropFoscariSeal2" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.PropFoscariSeal3" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Props.TP_PropDoor" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.EME_BiomeBounds" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.EME_RibbonController" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.EME_TeleportFader" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.MazerellaTorinoSecretPositions" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.PlatformZoneMovement" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.TP_BossArena" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Stages.WestwoodsBounds" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.EME_ShowstopperVfx" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.GrenadeVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.HeartRefreshVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.KarmaCoinVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.LightBulbVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.VFX.SpellcastingCursorVFX" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AccessoryC1_SHRINK_CREWMA" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AccessoryC1_SHRINK_HORSEE" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AccessoryFB_WEAPONPU" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AccessoryLEM_ACC_SABOTEUR" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AccessoryTP_FREESLOT_FOLLOWER" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.ActiveAccessory" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.AstroidClearWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.BocceCounterWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.BocceWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Bubble2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.BubbleWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Axe_HellsFury_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Axe1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Axe2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Blood_BloodRage_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Blood1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Blood2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Cannon1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Cannon2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Cannon3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_DualSwordsWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_DualSwordsWeapon2" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Greatsword1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Greatsword2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Greatsword3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Katana1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Katana2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Kick1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Kick2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Knife1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Knife2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Longsword_GaleSlash_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Longsword_SwallowSlice_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Longsword1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Longsword2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Longsword3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Mech_BallisticMissile_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Mech_Rave_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Mech1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Mech2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Mech3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Pistol1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Pistol2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Punch1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Punch2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Punch3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_RapierWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_RapierWeapon2" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_RapierWeapon3" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Chaos_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Earth_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Fire_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Metal_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Water_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Ring_Wood_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Selector_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Spear1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Spear2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Spear3Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_SpiritRings1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_SpiritRings2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_Wave2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.EME_WaveWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_BigFuzzyFistWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_BladeCrossbowWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_CrossbowCrashWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_CrushWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_DiverMinesWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_FireArmWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_FireWallWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_FullAutoWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_HomingWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_LaserWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_MetalClawWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_MultiStageWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_PrismCutlassCounterWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_PrismCutlassWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_ProtonBeamWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_PrototypeAWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_PrototypeBWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_PrototypeCWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_RapidFireWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_SonicBloomWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_SpreadWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_TimeWarpWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FB_WaveWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FixWiringWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FlashArrowWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FourSeasons2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.FourSeasonsWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.GarbageChuteWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.HatWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LegionnaireWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Banana1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Banana2_Hidden_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Banana2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Fibonacci1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Fibonacci2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Inferno1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Inferno2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Planets1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LEM_Planets2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.LuminaireWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.MedicalScan2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.MedicalScanWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.MillionaireWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.MirageRobe2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.MirageRobeWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.NightSword2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.NightSwordWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.OphionWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.PartyCounterWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.PartyWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.PrismaticMissileWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.PropExplosionWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Report2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.ReportWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Sample1Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Sample2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.ShadowServantCounterWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.ShadowServantWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SilverWind2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SilverWindWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SpellstreamWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SpellstrikeWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SpellstringWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SpellstromWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SummonNight2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SummonNightWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SwipecardWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.SwordWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Tongue2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TongueWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TongueWeapon_Counter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Acid1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Acid1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Acid2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AlucardShield_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AlucardSpear1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AlucardSpear2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AlucardSword1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AlucardSword2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Aurablast_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_AuraBlast2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_BlueFire_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Bwaka1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Bwaka2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_CentralisCustos_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Cerestros_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Chauve1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Chauve2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_ClockTower_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_CoatOfArms_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Confodere1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Confodere2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Confodere3_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Custos4_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dark1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dark2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DarkRift_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DarkRift2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DeathHand_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DextroCustos_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Diabologue_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Diamond3_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Discus1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Discus2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dominus1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dominus2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dominus3_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Dominus4_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DraculaHand_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DragonWater1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_DragonWater2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Earth1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Earth1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Earth2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Elec1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Elec1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Elec2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Elevator_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Energy1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Energy1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Energy2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Evil1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Evil1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Evil2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_FamiliarForge_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Fire1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Fire1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Fire2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Frog_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Frog_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Frog2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Gear_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_GothMissile_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_GothMissile2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_GrandCross_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_GrandCross2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Gun1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Gun2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Heads_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Holy1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Holy1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Holy2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_HolyWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_HolyWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Hydrostorm_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Hydrostorm2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Ice1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Ice1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Ice2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Icicle_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Icicle2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_IronBall_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Javelin1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Javelin2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_JetBlackWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_JetBlackWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Lapiste1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Lapiste2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Light1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Light2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Mace1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Mace2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_MartialWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_MartialWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_MorningStar_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Neutron_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Neutron2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_NeutronPickup_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Pendulum_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_PlatinumWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_PlatinumWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Pneuma_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Pocket1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Pocket2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_PowerOfLire_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Rapidus_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Rapidus2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_RPG1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_RPG2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_RulerSword_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SacredBeasts1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SacredBeasts2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Savrog_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Savrog2Union_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_ShaftOrb_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Shield1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Shield2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Shuriken_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SinistroCustos_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Slash1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Slash2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SonicWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SonicWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SoulSteal_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SoulSteal2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SoulStealPickup_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SpectralSword_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Spellbook_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SpiritTornado_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SpiritTornado2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Spite1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Spite2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SpriteWhip_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_StarFlail1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_StarFlail2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SummonSpirit_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SummonSpirit2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SwordBrothers_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_SwordBrothers2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Universitas_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Valmanway_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Valmanway2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_VampireKiller_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_WhipMemory_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Wind1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Wind1_WeaponCounter" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_Wind2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_WindWhip1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_WindWhip2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_WineGlass1_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.TP_WineGlass2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Unused_LEM_Inferno2_Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.Vent2Weapon" preserve="all" />
+    <type fullname="VampireSurvivors.Objects.Weapons.VentWeapon" preserve="all" />
+    <type fullname="VampireSurvivors.ParticleEventCall" preserve="all" />
+    <type fullname="VampireSurvivors.PauseTimeHelper" preserve="all" />
+    <type fullname="VampireSurvivors.PfxLineSpriteSetOnLoad" preserve="all" />
+    <type fullname="VampireSurvivors.Report2VotingScreenOption" preserve="all" />
+    <type fullname="VampireSurvivors.ReportDeadBodyDisplay" preserve="all" />
+    <type fullname="VampireSurvivors.ScarletHarbingerRockSpriteAnimationSetter" preserve="all" />
+    <type fullname="VampireSurvivors.TPCutsceneDialogueUI" preserve="all" />
+    <type fullname="VampireSurvivors.UI.MobileConfig" preserve="all" />
+    <type fullname="VampireSurvivors.UI.Player.HealthBar" preserve="all" />
+    <type fullname="VampireSurvivors.UI.Player.WickedSeasonUI" preserve="all" />
+    <type fullname="VampireSurvivors.UI.UISpriteAnimation" preserve="all" />
+    <type fullname="VampireSurvivors.WestwoodsWaterHue" preserve="all" />
+    <type fullname="Coherence.Toolkit.EnemyProvider" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Data.DataManagerSettings" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.BestiaryFactory/BestiaryEnemyPoolsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.BestiaryFactory/BestiaryEnemyRefDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.EnemyFactory/EnemyPoolsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.EnemyFactory/EnemyRefsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.GenericPoolFactory`1/PoolRefsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.GenericPoolFactory`1/PoolsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.PickupFactory/PickupRefsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.PickupFactory/PickupsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.UI.MainMenuBackgroundFactory/BackgroundDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.UI.MainMenuBackgroundFactory/BackgroundRefsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.UI.MainMenuBackgroundFactory/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.CharacterType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.EnemyType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.HeroVfxType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.LimitBreakData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.PropType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.StageType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.WeaponType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.EnemyInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.AccessoriesFactory/AccessoryDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.CharacterFactory/CharacterDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.CharacterFactory/CharacterRefDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.CharacterFactory/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.DLC.PS4ManifestData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.DLC.PS5ManifestData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.DLC.SwitchManifestData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.ProjectileFactory/ProjectilesDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.TilesetFactory/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.TilesetFactory/TilesetPathsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.TilesetFactory/TilesetRefsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.WeaponFactory/WeaponsDictionary" preserve="nothing" serialized="true" />
+    <type fullname="Coherence.Toolkit.CharacterProvider" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.CharacterInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.DestructibleInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.DestructibleProvider" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.ItemInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.PickupProvider" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.BestiaryFactory/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.GenericPoolFactory`1/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.App.Framework.PickupFactory/PrefabRefData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Data.ItemType" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.DraculaCutscene/TPCutsceneDialogue" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.EmptyInstantiator" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Framework.Geom.Polygon" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.WestwoodsWaterHue/WestwoodsHueChange" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Graphics.FrameAnimationData" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Objects.Items.Pickup_EME_Cat/CatPickupReward" preserve="nothing" serialized="true" />
+    <type fullname="VampireSurvivors.Objects.Stages.EME_BiomeBounds/EmeraldsBiomeBounds" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Zenject, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null">
+    <type fullname="Zenject.ZenAutoInjecter" preserve="all" />
+  </assembly>
+  <assembly fullname="Coherence.Common">
+    <type fullname="Coherence.AuthorityType" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Sirenix.Serialization">
+    <type fullname="Sirenix.Serialization.SerializationData" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="Unity.Mathematics">
+    <type fullname="Unity.Mathematics.float2" preserve="nothing" serialized="true" />
+  </assembly>
+  <assembly fullname="UnityEngine.TextCoreFontEngineModule">
+    <type fullname="UnityEngine.TextCore.FaceInfo" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.Glyph" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphMetrics" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.GlyphRect" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphPairAdjustmentRecord" preserve="nothing" serialized="true" />
+    <type fullname="UnityEngine.TextCore.LowLevel.GlyphValueRecord" preserve="nothing" serialized="true" />
+  </assembly>
+</linker>

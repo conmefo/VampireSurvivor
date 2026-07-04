@@ -442,3 +442,29 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 - **UI Tuning Integration**: Hooked up the Runetracer live properties (diamond scale, trail width, fade start ratio, max lifetime, and color) to the in-game ParticleTuningUI by repurposing ParticleEmitterConfig.
 - **Fade-Out State**: Runetracers now gracefully fade their alpha to 0 over 0.5s when their duration expires instead of popping out of existence.
 
+
+- **Knife Weapon Implementation**: Created KnifeWeapon and KnifeProjectile mirroring the original game logic. Overrode weapon targeting to always fire in the player's facing direction and allowed the projectile sprite to dynamically rotate based on its velocity vector.
+
+## Update: Axe Weapon Implementation & Physics Tuning
+- **Axe Architecture**: Extracted the exact physics and math for the Axe weapon via Ghidra/IL2CPP decompilation of the original C# code.
+- **Integration**: Added `AXE` to `WEAPON_DATA.json` using config parameters, extracted the Sprite slice (`ProjectileAxe1`) using the GUID mapping script, and integrated `AxeWeapon` and `AxeProjectile` into the game state and CMake build system.
+- **Struggle 1 (Trajectory Math):** The Axe originally fired straight up or far too horizontally because we misinterpreted the Ghidra formula: `Angle = -90.0 + Dir * (45.0 / Speed) * index`. We incorrectly used the `Weapon.Speed` multiplier (`1.0`) in the denominator, resulting in a massive 45-degree spread per axe.
+- **Fix 1:** We discovered through the decompiled C# that the denominator was the actual *base velocity* (`6.0` Unity units/sec). Using `45.0 / 6.0` yielded a perfect `7.5-degree` spread per axe, creating a tight forward cascade.
+- **Struggle 2 (Constant Velocity Assumption):** We incorrectly assumed every axe had a constant total velocity (`6.0`), separating it into X and Y via `sin`/`cos`. This caused axes thrown further forward to have lower peak heights, breaking the authentic visual feel.
+- **Fix 2:** We discovered a brilliant clamping trick in the original Ghidra code: the game calculates a theoretical Y velocity based on a high speed but explicitly clamps it to exactly `6.0` (`if (fVar14 <= 6.0) fVar11 = fVar14;`). By realizing the Axe base speed is exactly `6.0` (which naturally triggers the clamp ceiling if exceeded, but mathematically resolves perfectly to `6.0` for the peak), we guaranteed all axes share the exact same vertical hang-time while fanning out horizontally.
+- **Struggle 3 (UI Rendering Space):** While attaching the Axe parameters to the `ParticleTuningUI`, the sliders were rendered entirely out of bounds because we were drawing them through the zoomed `m_worldView` camera.
+- **Fix 3:** Refactored `GameState.cpp` to render the `m_tuningUI` inside an absolute screen-space `sf::View`, ensuring the tuning sliders mapped perfectly to raw mouse coordinates regardless of the gameplay camera zoom.
+- **Final Result:** After live-tuning via the UI, the perfect golden parameters (`Speed = 2.8` and `Gravity = 803.9`) were permanently baked into the C++ source code as the defaults.
+
+***
+
+## Update: Viewport Letterboxing & Zoom Scaling (Phase 8)
+* **Zoom Logic & Scaling Issues:**
+  * **Struggle:** Implementing the custom camera zoom required overriding `m_worldView.setSize()`. The initial `UIScrollbar` for the interactive zoom tuner failed to render because the track dimensions were accidentally set to the height of the thumb, resulting in zero travel space.
+  * **Fix:** Corrected the UI component layout geometry, successfully scaled the camera to an optimal `2.2x` zoom factor, and finally hard-coded the exact `WorldZoom` constant into `GameState.h` according to the core blueprint.
+* **Global Letterbox & Aspect Ratio Preservation:**
+  * **Struggle:** When the game window was not exactly a `16:9` ratio, the `GameState`'s custom views (`m_worldView` and `uiView`) would default to a `[0, 0, 1, 1]` viewport overlay, overwriting `main.cpp`'s letterboxing and stretching all game geometry horizontally or vertically.
+  * **Fix:** Strictly adhering to the DRY principle from `CoreManifesto.md`, we extracted the viewport math into a universal `MathUtils::CalculateLetterboxViewport` function. We then updated both `main.cpp` and `GameState::Draw` to query window dimensions dynamically and apply precise Black Bar letterboxing on all active views, preventing resolution stretching flawlessly.
+* **Character Sprite Resolution Tweak:**
+  * **Struggle:** We needed to find out how to precisely alter the bounding box scaling of the player on the screen.
+  * **Fix:** Located the absolute bounding constraints (`76x76` pixels) safely encapsulated inside `Player.cpp`'s constructor, proving that our texture atlas scales independently of underlying image dimensions.

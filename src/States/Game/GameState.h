@@ -33,6 +33,7 @@ class GameState : public BaseState {
     static constexpr float CameraSpeed = 200.0f;
     static constexpr float ViewWidth = 1920.0f;
     static constexpr float ViewHeight = 1080.0f;
+    static constexpr float WorldZoom = 2.2f;
 
     TileMapManager& m_mapManager;
     TileMap* m_tileMap = nullptr;

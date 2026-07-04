@@ -1,3 +1,4 @@
+#include "../Player.h"
 #include "Weapon.h"
 #include <limits>
 
@@ -9,10 +10,10 @@ Weapon::Weapon(const WeaponProfile& profile)
 {
 }
 
-sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2f playerPosition, sf::Vector2f playerDirection)
+sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, Player& player)
 {
     // Default implementation: Aim for Nearest Enemy
-    sf::Vector2f targetPosition = playerPosition;
+    sf::Vector2f targetPosition = player.GetPosition();
     float minSqDist = std::numeric_limits<float>::max();
     bool found = false;
 
@@ -20,7 +21,7 @@ sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2f player
     {
         if (enemy && enemy->IsAlive())
         {
-            sf::Vector2f diff = enemy->GetPosition() - playerPosition;
+            sf::Vector2f diff = enemy->GetPosition() - player.GetPosition();
             float sqDist = diff.x * diff.x + diff.y * diff.y;
             if (sqDist < minSqDist)
             {
@@ -34,13 +35,15 @@ sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, sf::Vector2f player
     if (!found)
     {
         // Fallback: ApplyPlayerFacingVelocity logic (aim straight ahead if no enemies)
-        targetPosition = playerPosition + playerDirection * 100.0f; 
+        targetPosition = player.GetPosition() + player.GetFacingDirection() * 100.0f; 
     }
 
     return targetPosition;
 }
 
-void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool)
+float g_AxeAmountOverride = -1.0f;
+
+void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool)
 {
     if(m_cooldownTimer > 0.0f)
     {
@@ -50,10 +53,17 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
     if(m_cooldownTimer <= 0.0f)
     {
         int amount = m_profile.GetAmount();
+        
+        // Tuning override
+        if (m_profile.GetId() == "AXE" && g_AxeAmountOverride > 0.0f)
+        {
+            amount = static_cast<int>(g_AxeAmountOverride);
+        }
+
         float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
 
         // Calculate target once per burst
-        sf::Vector2f targetPosition = GetTargetPosition(enemyPool, playerPosition, playerDirection);
+        sf::Vector2f targetPosition = GetTargetPosition(enemyPool, player);
 
         for (int i = 0; i < amount; ++i)
         {
@@ -61,13 +71,13 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
             
             if (delay > 0.0f)
             {
-                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, playerPosition, playerDirection, targetPosition, i]() {
-                    this->FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
+                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, &player, targetPosition, i]() {
+                    this->FireOne(projManager, atlas, player, targetPosition, i);
                 });
             }
             else
             {
-                FireOne(projManager, atlas, playerPosition, playerDirection, targetPosition, i);
+                FireOne(projManager, atlas, player, targetPosition, i);
             }
         }
         

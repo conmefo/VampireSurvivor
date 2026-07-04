@@ -1,0 +1,658 @@
+
+/* WARNING: Globals starting with '_' overlap smaller symbols at the same address */
+
+void VampireSurvivors.Framework.PhysicsManager$$InitPhysicsGroups
+               (longlong param_1,undefined8 param_2)
+
+{
+  ulonglong uVar1;
+  longlong lVar2;
+  longlong lVar3;
+  longlong lVar4;
+  uint uVar5;
+  bool bVar6;
+  
+  if (DAT_1899a667f == '\0') {
+    FUN_180ac5630(&ArcadePhysics_TypeInfo);
+    LOCK();
+    UNLOCK();
+    DAT_1899a667f = '\x01';
+  }
+  bVar6 = DAT_18996c9e0 != 0;
+  *(undefined8 *)(param_1 + 0x58) = param_2;
+  if (bVar6) {
+    uVar5 = (uint)(param_1 + 0x58U >> 0xc);
+    lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+    do {
+      uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+      LOCK();
+      bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+      if (bVar6) {
+        *(ulonglong *)(&DAT_1899efb60 + lVar4) = uVar1 | 1L << (uVar5 & 0x3f);
+      }
+      UNLOCK();
+    } while (!bVar6);
+  }
+  lVar4 = *(longlong *)(param_1 + 0x58);
+  if (DAT_18996ad90 == '\0') {
+    FUN_180ac5630(&ArcadePhysics_TypeInfo);
+    LOCK();
+    UNLOCK();
+    DAT_18996ad90 = '\x01';
+  }
+  lVar3 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+  if ((lVar3 != 0) && (lVar3 = *(longlong *)(lVar3 + 0x10), lVar3 != 0)) {
+    if (DAT_18998b250 == '\0') {
+      FUN_180ac5630(&PhysicsGroup_TypeInfo);
+      LOCK();
+      UNLOCK();
+      DAT_18998b250 = '\x01';
+    }
+    lVar2 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+    if (DAT_18998b251 == '\0') {
+      FUN_180ac5630(&Group_TypeInfo);
+      LOCK();
+      UNLOCK();
+      DAT_18998b251 = '\x01';
+    }
+    if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+      FUN_180abe490();
+    }
+    Group$$.ctor(lVar2,600,0);
+    *(undefined4 *)(lVar2 + 0x30) = 0;
+    lVar3 = *(longlong *)(lVar3 + 0x10);
+    if ((lVar3 != 0) && (World$$addGroupTree(lVar3,lVar2,0), lVar4 != 0)) {
+      bVar6 = DAT_18996c9e0 != 0;
+      *(longlong *)(lVar4 + 0x3c0) = lVar2;
+      if (bVar6) {
+        uVar5 = (uint)(lVar4 + 0x3c0U >> 0xc);
+        lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+        do {
+          uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+          LOCK();
+          bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+          if (bVar6) {
+            *(ulonglong *)(&DAT_1899efb60 + lVar4) = uVar1 | 1L << (uVar5 & 0x3f);
+          }
+          UNLOCK();
+        } while (!bVar6);
+      }
+      if ((*(longlong *)(param_1 + 0x58) != 0) &&
+         (lVar4 = *(longlong *)(*(longlong *)(param_1 + 0x58) + 0x3c0), lVar4 != 0)) {
+        bVar6 = DAT_18996ad90 == '\0';
+        *(undefined4 *)(lVar4 + 0x30) = 0;
+        if (bVar6) {
+          FUN_180ac5630(&ArcadePhysics_TypeInfo);
+          LOCK();
+          UNLOCK();
+          DAT_18996ad90 = '\x01';
+        }
+        lVar4 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+        if ((lVar4 != 0) && (lVar4 = *(longlong *)(lVar4 + 0x10), lVar4 != 0)) {
+          if (DAT_18998b250 == '\0') {
+            FUN_180ac5630(&PhysicsGroup_TypeInfo);
+            LOCK();
+            UNLOCK();
+            DAT_18998b250 = '\x01';
+          }
+          lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+          if (DAT_18998b251 == '\0') {
+            FUN_180ac5630(&Group_TypeInfo);
+            LOCK();
+            UNLOCK();
+            DAT_18998b251 = '\x01';
+          }
+          if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+            FUN_180abe490();
+          }
+          Group$$.ctor(lVar3,10,0);
+          *(undefined4 *)(lVar3 + 0x30) = 0;
+          lVar4 = *(longlong *)(lVar4 + 0x10);
+          if (lVar4 != 0) {
+            World$$addGroupTree(lVar4,lVar3,0);
+            bVar6 = DAT_18996c9e0 != 0;
+            *(longlong *)(param_1 + 0x10) = lVar3;
+            if (bVar6) {
+              uVar5 = (uint)(param_1 + 0x10U >> 0xc);
+              lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+              do {
+                uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                LOCK();
+                bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                if (bVar6) {
+                  *(ulonglong *)(&DAT_1899efb60 + lVar4) = uVar1 | 1L << (uVar5 & 0x3f);
+                }
+                UNLOCK();
+              } while (!bVar6);
+            }
+            if (*(longlong *)(param_1 + 0x10) != 0) {
+              bVar6 = DAT_18996ad90 == '\0';
+              *(undefined4 *)(*(longlong *)(param_1 + 0x10) + 0x30) = 0;
+              if (bVar6) {
+                FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                LOCK();
+                UNLOCK();
+                DAT_18996ad90 = '\x01';
+              }
+              lVar4 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+              if ((lVar4 != 0) && (*(longlong *)(lVar4 + 0x10) != 0)) {
+                if (DAT_18998b250 == '\0') {
+                  FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                  LOCK();
+                  UNLOCK();
+                  DAT_18998b250 = '\x01';
+                }
+                lVar4 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                if (DAT_18998b251 == '\0') {
+                  FUN_180ac5630(&Group_TypeInfo);
+                  LOCK();
+                  UNLOCK();
+                  DAT_18998b251 = '\x01';
+                }
+                if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                  FUN_180abe490();
+                }
+                Group$$.ctor(lVar4,4,0);
+                *(undefined4 *)(lVar4 + 0x30) = 0;
+                bVar6 = DAT_18996c9e0 != 0;
+                *(longlong *)(param_1 + 0x18) = lVar4;
+                if (bVar6) {
+                  uVar5 = (uint)(param_1 + 0x18U >> 0xc);
+                  lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                  do {
+                    uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                    LOCK();
+                    bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                    if (bVar6) {
+                      *(ulonglong *)(&DAT_1899efb60 + lVar4) = uVar1 | 1L << (uVar5 & 0x3f);
+                    }
+                    UNLOCK();
+                  } while (!bVar6);
+                }
+                if (*(longlong *)(param_1 + 0x18) != 0) {
+                  *(undefined4 *)(*(longlong *)(param_1 + 0x18) + 0x30) = 0;
+                  lVar4 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x18);
+                  if (lVar4 != 0) {
+                    World$$addSubsetGroupTree
+                              (lVar4,*(undefined8 *)(param_1 + 0x18),*(undefined8 *)(param_1 + 0x10)
+                               ,0);
+                    if (DAT_18996ad90 == '\0') {
+                      FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                      LOCK();
+                      UNLOCK();
+                      DAT_18996ad90 = '\x01';
+                    }
+                    lVar4 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+                    if ((lVar4 != 0) && (*(longlong *)(lVar4 + 0x10) != 0)) {
+                      if (DAT_18998b250 == '\0') {
+                        FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                        LOCK();
+                        UNLOCK();
+                        DAT_18998b250 = '\x01';
+                      }
+                      lVar4 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                      if (DAT_18998b251 == '\0') {
+                        FUN_180ac5630(&Group_TypeInfo);
+                        LOCK();
+                        UNLOCK();
+                        DAT_18998b251 = '\x01';
+                      }
+                      if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                        FUN_180abe490();
+                      }
+                      Group$$.ctor(lVar4,600,0);
+                      *(undefined4 *)(lVar4 + 0x30) = 0;
+                      bVar6 = DAT_18996c9e0 != 0;
+                      *(longlong *)(param_1 + 0x20) = lVar4;
+                      if (bVar6) {
+                        uVar5 = (uint)(param_1 + 0x20U >> 0xc);
+                        lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                        do {
+                          uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                          LOCK();
+                          bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                          if (bVar6) {
+                            *(ulonglong *)(&DAT_1899efb60 + lVar4) = uVar1 | 1L << (uVar5 & 0x3f);
+                          }
+                          UNLOCK();
+                        } while (!bVar6);
+                      }
+                      if (*(longlong *)(param_1 + 0x20) != 0) {
+                        *(undefined4 *)(*(longlong *)(param_1 + 0x20) + 0x30) = 0;
+                        lVar4 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x18);
+                        if ((*(longlong *)(param_1 + 0x58) != 0) && (lVar4 != 0)) {
+                          World$$addSubsetGroupTree
+                                    (lVar4,*(undefined8 *)(param_1 + 0x20),
+                                     *(undefined8 *)(*(longlong *)(param_1 + 0x58) + 0x3c0),0);
+                          lVar4 = *(longlong *)(param_1 + 0x58);
+                          if (DAT_18996ad90 == '\0') {
+                            FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                            LOCK();
+                            UNLOCK();
+                            DAT_18996ad90 = '\x01';
+                          }
+                          lVar3 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10)
+                          ;
+                          if ((lVar3 != 0) && (lVar3 = *(longlong *)(lVar3 + 0x10), lVar3 != 0)) {
+                            if (DAT_18998b250 == '\0') {
+                              FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                              LOCK();
+                              UNLOCK();
+                              DAT_18998b250 = '\x01';
+                            }
+                            lVar2 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                            if (DAT_18998b251 == '\0') {
+                              FUN_180ac5630(&Group_TypeInfo);
+                              LOCK();
+                              UNLOCK();
+                              DAT_18998b251 = '\x01';
+                            }
+                            if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                              FUN_180abe490();
+                            }
+                            Group$$.ctor(lVar2,0x32,0);
+                            *(undefined4 *)(lVar2 + 0x30) = 0;
+                            lVar3 = *(longlong *)(lVar3 + 0x10);
+                            if ((lVar3 != 0) && (World$$addGroupTree(lVar3,lVar2,0), lVar4 != 0)) {
+                              bVar6 = DAT_18996c9e0 != 0;
+                              *(longlong *)(lVar4 + 0x3c8) = lVar2;
+                              if (bVar6) {
+                                uVar5 = (uint)(lVar4 + 0x3c8U >> 0xc);
+                                lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                                do {
+                                  uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                  LOCK();
+                                  bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                  if (bVar6) {
+                                    *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                         uVar1 | 1L << (uVar5 & 0x3f);
+                                  }
+                                  UNLOCK();
+                                } while (!bVar6);
+                              }
+                              if ((*(longlong *)(param_1 + 0x58) != 0) &&
+                                 (lVar4 = *(longlong *)(*(longlong *)(param_1 + 0x58) + 0x3c8),
+                                 lVar4 != 0)) {
+                                bVar6 = DAT_18996ad90 == '\0';
+                                *(undefined4 *)(lVar4 + 0x30) = 0;
+                                if (bVar6) {
+                                  FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                  LOCK();
+                                  UNLOCK();
+                                  DAT_18996ad90 = '\x01';
+                                }
+                                lVar4 = *(longlong *)
+                                         (*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+                                if ((lVar4 != 0) &&
+                                   (lVar4 = *(longlong *)(lVar4 + 0x10), lVar4 != 0)) {
+                                  if (DAT_18998b250 == '\0') {
+                                    FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                    LOCK();
+                                    UNLOCK();
+                                    DAT_18998b250 = '\x01';
+                                  }
+                                  lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                                  if (DAT_18998b251 == '\0') {
+                                    FUN_180ac5630(&Group_TypeInfo);
+                                    LOCK();
+                                    UNLOCK();
+                                    DAT_18998b251 = '\x01';
+                                  }
+                                  if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                    FUN_180abe490();
+                                  }
+                                  Group$$.ctor(lVar3,10,0);
+                                  *(undefined4 *)(lVar3 + 0x30) = 0;
+                                  lVar4 = *(longlong *)(lVar4 + 0x10);
+                                  if (lVar4 != 0) {
+                                    World$$addGroupTree(lVar4,lVar3,0);
+                                    bVar6 = DAT_18996c9e0 != 0;
+                                    *(longlong *)(param_1 + 0x28) = lVar3;
+                                    if (bVar6) {
+                                      uVar5 = (uint)(param_1 + 0x28U >> 0xc);
+                                      lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                                      do {
+                                        uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                        LOCK();
+                                        bVar6 = uVar1 == *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                        if (bVar6) {
+                                          *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                               uVar1 | 1L << (uVar5 & 0x3f);
+                                        }
+                                        UNLOCK();
+                                      } while (!bVar6);
+                                    }
+                                    if (*(longlong *)(param_1 + 0x28) != 0) {
+                                      bVar6 = DAT_18996ad90 == '\0';
+                                      *(undefined4 *)(*(longlong *)(param_1 + 0x28) + 0x30) = 0;
+                                      if (bVar6) {
+                                        FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                        LOCK();
+                                        UNLOCK();
+                                        DAT_18996ad90 = '\x01';
+                                      }
+                                      lVar4 = *(longlong *)
+                                               (*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10)
+                                      ;
+                                      if ((lVar4 != 0) &&
+                                         (lVar4 = *(longlong *)(lVar4 + 0x10), lVar4 != 0)) {
+                                        if (DAT_18998b250 == '\0') {
+                                          FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                          LOCK();
+                                          UNLOCK();
+                                          DAT_18998b250 = '\x01';
+                                        }
+                                        lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                                        if (DAT_18998b251 == '\0') {
+                                          FUN_180ac5630(&Group_TypeInfo);
+                                          LOCK();
+                                          UNLOCK();
+                                          DAT_18998b251 = '\x01';
+                                        }
+                                        if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                          FUN_180abe490();
+                                        }
+                                        Group$$.ctor(lVar3,600,0);
+                                        *(undefined4 *)(lVar3 + 0x30) = 0;
+                                        lVar4 = *(longlong *)(lVar4 + 0x10);
+                                        if (lVar4 != 0) {
+                                          World$$addGroupTree(lVar4,lVar3,0);
+                                          bVar6 = DAT_18996c9e0 != 0;
+                                          *(longlong *)(param_1 + 0x30) = lVar3;
+                                          if (bVar6) {
+                                            uVar5 = (uint)(param_1 + 0x30U >> 0xc);
+                                            lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                                            do {
+                                              uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                              LOCK();
+                                              bVar6 = uVar1 == *(ulonglong *)
+                                                                (&DAT_1899efb60 + lVar4);
+                                              if (bVar6) {
+                                                *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                                     uVar1 | 1L << (uVar5 & 0x3f);
+                                              }
+                                              UNLOCK();
+                                            } while (!bVar6);
+                                          }
+                                          if (*(longlong *)(param_1 + 0x30) != 0) {
+                                            bVar6 = DAT_18996ad90 == '\0';
+                                            *(undefined4 *)(*(longlong *)(param_1 + 0x30) + 0x30) =
+                                                 0;
+                                            if (bVar6) {
+                                              FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                              LOCK();
+                                              UNLOCK();
+                                              DAT_18996ad90 = '\x01';
+                                            }
+                                            lVar4 = *(longlong *)
+                                                     (*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) +
+                                                     0x10);
+                                            if ((lVar4 != 0) &&
+                                               (lVar4 = *(longlong *)(lVar4 + 0x10), lVar4 != 0)) {
+                                              if (DAT_18998b250 == '\0') {
+                                                FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                                LOCK();
+                                                UNLOCK();
+                                                DAT_18998b250 = '\x01';
+                                              }
+                                              lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                                              if (DAT_18998b251 == '\0') {
+                                                FUN_180ac5630(&Group_TypeInfo);
+                                                LOCK();
+                                                UNLOCK();
+                                                DAT_18998b251 = '\x01';
+                                              }
+                                              if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                                FUN_180abe490();
+                                              }
+                                              Group$$.ctor(lVar3,600,0);
+                                              *(undefined4 *)(lVar3 + 0x30) = 0;
+                                              lVar4 = *(longlong *)(lVar4 + 0x10);
+                                              if (lVar4 != 0) {
+                                                World$$addGroupTree(lVar4,lVar3,0);
+                                                bVar6 = DAT_18996c9e0 != 0;
+                                                *(longlong *)(param_1 + 0x38) = lVar3;
+                                                if (bVar6) {
+                                                  uVar5 = (uint)(param_1 + 0x38U >> 0xc);
+                                                  lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) * 8;
+                                                  do {
+                                                    uVar1 = *(ulonglong *)(&DAT_1899efb60 + lVar4);
+                                                    LOCK();
+                                                    bVar6 = uVar1 == *(ulonglong *)
+                                                                      (&DAT_1899efb60 + lVar4);
+                                                    if (bVar6) {
+                                                      *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                                           uVar1 | 1L << (uVar5 & 0x3f);
+                                                    }
+                                                    UNLOCK();
+                                                  } while (!bVar6);
+                                                }
+                                                if (*(longlong *)(param_1 + 0x38) != 0) {
+                                                  bVar6 = DAT_18996ad90 == '\0';
+                                                  *(undefined4 *)
+                                                   (*(longlong *)(param_1 + 0x38) + 0x30) = 0;
+                                                  if (bVar6) {
+                                                    FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                                    LOCK();
+                                                    UNLOCK();
+                                                    DAT_18996ad90 = '\x01';
+                                                  }
+                                                  lVar4 = *(longlong *)
+                                                           (*(longlong *)
+                                                             (ArcadePhysics_TypeInfo + 0xb8) + 0x10)
+                                                  ;
+                                                  if ((lVar4 != 0) &&
+                                                     (lVar4 = *(longlong *)(lVar4 + 0x10),
+                                                     lVar4 != 0)) {
+                                                    if (DAT_18998b250 == '\0') {
+                                                      FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                                      LOCK();
+                                                      UNLOCK();
+                                                      DAT_18998b250 = '\x01';
+                                                    }
+                                                    lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo);
+                                                    if (DAT_18998b251 == '\0') {
+                                                      FUN_180ac5630(&Group_TypeInfo);
+                                                      LOCK();
+                                                      UNLOCK();
+                                                      DAT_18998b251 = '\x01';
+                                                    }
+                                                    if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                                      FUN_180abe490();
+                                                    }
+                                                    Group$$.ctor(lVar3,10,0);
+                                                    *(undefined4 *)(lVar3 + 0x30) = 0;
+                                                    lVar4 = *(longlong *)(lVar4 + 0x10);
+                                                    if (lVar4 != 0) {
+                                                      World$$addGroupTree(lVar4,lVar3,0);
+                                                      bVar6 = DAT_18996c9e0 != 0;
+                                                      *(longlong *)(param_1 + 0x40) = lVar3;
+                                                      if (bVar6) {
+                                                        uVar5 = (uint)(param_1 + 0x40U >> 0xc);
+                                                        lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6)
+                                                                * 8;
+                                                        do {
+                                                          uVar1 = *(ulonglong *)
+                                                                   (&DAT_1899efb60 + lVar4);
+                                                          LOCK();
+                                                          bVar6 = uVar1 == *(ulonglong *)
+                                                                            (&DAT_1899efb60 + lVar4)
+                                                          ;
+                                                          if (bVar6) {
+                                                            *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                                                 uVar1 | 1L << (uVar5 & 0x3f);
+                                                          }
+                                                          UNLOCK();
+                                                        } while (!bVar6);
+                                                      }
+                                                      if (*(longlong *)(param_1 + 0x40) != 0) {
+                                                        bVar6 = DAT_18996ad90 == '\0';
+                                                        *(undefined4 *)
+                                                         (*(longlong *)(param_1 + 0x40) + 0x30) = 0;
+                                                        if (bVar6) {
+                                                          FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                                          LOCK();
+                                                          UNLOCK();
+                                                          DAT_18996ad90 = '\x01';
+                                                        }
+                                                        lVar4 = *(longlong *)
+                                                                 (*(longlong *)
+                                                                   (ArcadePhysics_TypeInfo + 0xb8) +
+                                                                 0x10);
+                                                        if ((lVar4 != 0) &&
+                                                           (lVar4 = *(longlong *)(lVar4 + 0x10),
+                                                           lVar4 != 0)) {
+                                                          if (DAT_18998b250 == '\0') {
+                                                            FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                                            LOCK();
+                                                            UNLOCK();
+                                                            DAT_18998b250 = '\x01';
+                                                          }
+                                                          lVar3 = FUN_180b02d30(
+                                                  _PhysicsGroup_TypeInfo);
+                                                  if (DAT_18998b251 == '\0') {
+                                                    FUN_180ac5630(&Group_TypeInfo);
+                                                    LOCK();
+                                                    UNLOCK();
+                                                    DAT_18998b251 = '\x01';
+                                                  }
+                                                  if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                                    FUN_180abe490();
+                                                  }
+                                                  Group$$.ctor(lVar3,10,0);
+                                                  *(undefined4 *)(lVar3 + 0x30) = 0;
+                                                  lVar4 = *(longlong *)(lVar4 + 0x10);
+                                                  if (lVar4 != 0) {
+                                                    World$$addGroupTree(lVar4,lVar3,0);
+                                                    bVar6 = DAT_18996c9e0 != 0;
+                                                    *(longlong *)(param_1 + 0x48) = lVar3;
+                                                    if (bVar6) {
+                                                      uVar5 = (uint)(param_1 + 0x48U >> 0xc);
+                                                      lVar4 = (ulonglong)((uVar5 & 0x1fffff) >> 6) *
+                                                              8;
+                                                      do {
+                                                        uVar1 = *(ulonglong *)
+                                                                 (&DAT_1899efb60 + lVar4);
+                                                        LOCK();
+                                                        bVar6 = uVar1 == *(ulonglong *)
+                                                                          (&DAT_1899efb60 + lVar4);
+                                                        if (bVar6) {
+                                                          *(ulonglong *)(&DAT_1899efb60 + lVar4) =
+                                                               uVar1 | 1L << (uVar5 & 0x3f);
+                                                        }
+                                                        UNLOCK();
+                                                      } while (!bVar6);
+                                                    }
+                                                    if (*(longlong *)(param_1 + 0x48) != 0) {
+                                                      bVar6 = DAT_18996ad90 == '\0';
+                                                      *(undefined4 *)
+                                                       (*(longlong *)(param_1 + 0x48) + 0x30) = 0;
+                                                      if (bVar6) {
+                                                        FUN_180ac5630(&ArcadePhysics_TypeInfo);
+                                                        LOCK();
+                                                        UNLOCK();
+                                                        DAT_18996ad90 = '\x01';
+                                                      }
+                                                      lVar4 = *(longlong *)
+                                                               (*(longlong *)
+                                                                 (ArcadePhysics_TypeInfo + 0xb8) +
+                                                               0x10);
+                                                      if ((lVar4 != 0) &&
+                                                         (lVar4 = *(longlong *)(lVar4 + 0x10),
+                                                         lVar4 != 0)) {
+                                                        if (DAT_18998b250 == '\0') {
+                                                          FUN_180ac5630(&PhysicsGroup_TypeInfo);
+                                                          LOCK();
+                                                          UNLOCK();
+                                                          DAT_18998b250 = '\x01';
+                                                        }
+                                                        lVar3 = FUN_180b02d30(_PhysicsGroup_TypeInfo
+                                                                             );
+                                                        if (DAT_18998b251 == '\0') {
+                                                          FUN_180ac5630(&Group_TypeInfo);
+                                                          LOCK();
+                                                          UNLOCK();
+                                                          DAT_18998b251 = '\x01';
+                                                        }
+                                                        if (*(int *)(Group_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                                                          FUN_180abe490();
+                                                        }
+                                                        Group$$.ctor(lVar3,10,0);
+                                                        *(undefined4 *)(lVar3 + 0x30) = 0;
+                                                        lVar4 = *(longlong *)(lVar4 + 0x10);
+                                                        if (lVar4 != 0) {
+                                                          World$$addGroupTree(lVar4,lVar3,0);
+                                                          bVar6 = DAT_18996c9e0 != 0;
+                                                          *(longlong *)(param_1 + 0x50) = lVar3;
+                                                          if (bVar6) {
+                                                            uVar5 = (uint)(param_1 + 0x50U >> 0xc);
+                                                            lVar4 = (ulonglong)
+                                                                    ((uVar5 & 0x1fffff) >> 6) * 8;
+                                                            do {
+                                                              uVar1 = *(ulonglong *)
+                                                                       (&DAT_1899efb60 + lVar4);
+                                                              LOCK();
+                                                              bVar6 = uVar1 == *(ulonglong *)
+                                                                                (&DAT_1899efb60 +
+                                                                                lVar4);
+                                                              if (bVar6) {
+                                                                *(ulonglong *)
+                                                                 (&DAT_1899efb60 + lVar4) =
+                                                                     uVar1 | 1L << (uVar5 & 0x3f);
+                                                              }
+                                                              UNLOCK();
+                                                            } while (!bVar6);
+                                                          }
+                                                          if (*(longlong *)(param_1 + 0x50) != 0) {
+                                                            *(undefined4 *)
+                                                             (*(longlong *)(param_1 + 0x50) + 0x30)
+                                                                 = 0;
+                                                            return;
+                                                          }
+                                                        }
+                                                      }
+                                                    }
+                                                  }
+                                                  }
+                                                  }
+                                                  }
+                                                  }
+                                                }
+                                              }
+                                            }
+                                          }
+                                        }
+                                      }
+                                    }
+                                  }
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+                    /* WARNING: Subroutine does not return */
+  FUN_180ab7550();
+}
+

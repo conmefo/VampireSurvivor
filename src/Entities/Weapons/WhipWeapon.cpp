@@ -1,3 +1,4 @@
+#include "../Player.h"
 #include "WhipWeapon.h"
 #include "../Projectiles/WhipProjectile.h"
 #include <iostream>
@@ -8,16 +9,16 @@ WhipWeapon::WhipWeapon(const WeaponProfile& profile)
 {
 }
 
-void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition, int projectileIndex)
+void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Player& player, sf::Vector2f targetPosition, int projectileIndex)
 {
     (void)targetPosition;
 
     // Update last facing direction
-    if(playerDirection.x < 0.0f)
+    if(player.GetFacingDirection().x < 0.0f)
     {
         m_facingLeft = true;
     }
-    else if(playerDirection.x > 0.0f)
+    else if(player.GetFacingDirection().x > 0.0f)
     {
         m_facingLeft = false;
     }
@@ -48,7 +49,7 @@ void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, sf
         offsetY = -40.0f * (static_cast<float>(projectileIndex / 2) * area);
     }
 
-    sf::Vector2f spawnPos = playerPosition + sf::Vector2f(offsetX, offsetY);
+    sf::Vector2f spawnPos = player.GetPosition() + sf::Vector2f(offsetX, offsetY);
 
     // Flipped sprite configurations
     bool flipX = strikeLeft;

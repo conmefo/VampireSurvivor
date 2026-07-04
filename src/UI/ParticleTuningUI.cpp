@@ -2,12 +2,21 @@
 #include <iomanip>
 #include <sstream>
 
+extern float g_AxeInitialSpeed;
+extern float g_AxeGravity;
+extern float g_AxeAmountOverride;
+
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
     m_background->SetColor(sf::Color(0, 0, 0, 180));
     m_background->SetSize(sf::Vector2f(1100.0f, 500.0f));
+
+    // Add Axe tuning sliders
+    AddSlider("Axe Speed", 1.0f, 20.0f, &g_AxeInitialSpeed);
+    AddSlider("Axe Gravity", 100.0f, 1500.0f, &g_AxeGravity);
+    AddSlider("Axe Amount", 1.0f, 12.0f, &g_AxeAmountOverride);
 
     // Add sliders mapped to the config
     AddSlider("Speed", 0.0f, 300.0f, &m_config.startSpeed);

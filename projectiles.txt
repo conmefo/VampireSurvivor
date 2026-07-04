@@ -1,0 +1,184 @@
+
+void VampireSurvivors.Objects.Projectiles.Projectile$$InitProjectile
+               (longlong param_1,undefined8 param_2,longlong param_3,undefined4 param_4)
+
+{
+  longlong lVar1;
+  ulonglong uVar2;
+  longlong *plVar3;
+  char cVar4;
+  int iVar5;
+  undefined4 uVar6;
+  undefined8 uVar7;
+  uint uVar8;
+  bool bVar9;
+  
+  if (DAT_1899a4caf == '\0') {
+    FUN_180ac5630(&Method$UnityEngine.Component.GetComponentsInChildren<ParticleSystem>());
+    LOCK();
+    UNLOCK();
+    FUN_180ac5630(&VampireSurvivors.Framework.GM_TypeInfo);
+    LOCK();
+    UNLOCK();
+    FUN_180ac5630(&Method$System.Collections.Generic.HashSet<IDamageable>.Clear());
+    LOCK();
+    UNLOCK();
+    FUN_180ac5630(&UnityEngine.Object_TypeInfo);
+    LOCK();
+    UNLOCK();
+    DAT_1899a4caf = '\x01';
+  }
+  if (**(longlong **)(VampireSurvivors.Framework.GM_TypeInfo + 0xb8) != 0) {
+    *(undefined8 *)(param_1 + 0x88) =
+         *(undefined8 *)(**(longlong **)(VampireSurvivors.Framework.GM_TypeInfo + 0xb8) + 0xe0);
+    if (DAT_18996c9e0 != 0) {
+      uVar8 = (uint)(param_1 + 0x88U >> 0xc);
+      lVar1 = (ulonglong)((uVar8 & 0x1fffff) >> 6) * 8;
+      do {
+        uVar2 = *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        LOCK();
+        bVar9 = uVar2 == *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        if (bVar9) {
+          *(ulonglong *)(&DAT_1899efb60 + lVar1) = uVar2 | 1L << (uVar8 & 0x3f);
+        }
+        UNLOCK();
+      } while (!bVar9);
+    }
+    iVar5 = DAT_18996c9e0;
+    *(undefined8 *)(param_1 + 0xc0) = param_2;
+    if (iVar5 != 0) {
+      uVar8 = (uint)(param_1 + 0xc0U >> 0xc);
+      lVar1 = (ulonglong)((uVar8 & 0x1fffff) >> 6) * 8;
+      do {
+        uVar2 = *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        LOCK();
+        bVar9 = uVar2 == *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        if (bVar9) {
+          *(ulonglong *)(&DAT_1899efb60 + lVar1) = uVar2 | 1L << (uVar8 & 0x3f);
+        }
+        UNLOCK();
+        iVar5 = DAT_18996c9e0;
+      } while (!bVar9);
+    }
+    *(longlong *)(param_1 + 0x68) = param_3;
+    if (iVar5 != 0) {
+      uVar8 = (uint)(param_1 + 0x68U >> 0xc);
+      lVar1 = (ulonglong)((uVar8 & 0x1fffff) >> 6) * 8;
+      do {
+        uVar2 = *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        LOCK();
+        bVar9 = uVar2 == *(ulonglong *)(&DAT_1899efb60 + lVar1);
+        if (bVar9) {
+          *(ulonglong *)(&DAT_1899efb60 + lVar1) = uVar2 | 1L << (uVar8 & 0x3f);
+        }
+        UNLOCK();
+      } while (!bVar9);
+    }
+    *(undefined4 *)(param_1 + 0x70) = param_4;
+    if (*(longlong *)(param_1 + 200) != 0) {
+      FUN_180004c40();
+      if ((*(longlong *)(param_1 + 0x68) != 0) &&
+         (lVar1 = *(longlong *)(*(longlong *)(param_1 + 0x68) + 0x88), lVar1 != 0)) {
+        plVar3 = *(longlong **)(param_1 + 0x68);
+        *(undefined4 *)(param_1 + 0xa8) = *(undefined4 *)(lVar1 + 0x104);
+        if (plVar3 != (longlong *)0x0) {
+          uVar6 = (**(code **)(*plVar3 + 0x3f8))(plVar3,*(undefined8 *)(*plVar3 + 0x400));
+          *(undefined4 *)(param_1 + 0xac) = uVar6;
+          if (*(longlong *)(param_1 + 0x28) == 0) {
+            if (DAT_18996ad90 == '\0') {
+              FUN_180ac5630(&ArcadePhysics_TypeInfo);
+              LOCK();
+              UNLOCK();
+              DAT_18996ad90 = '\x01';
+            }
+            lVar1 = *(longlong *)(*(longlong *)(ArcadePhysics_TypeInfo + 0xb8) + 0x10);
+            if (((lVar1 == 0) || (lVar1 = *(longlong *)(lVar1 + 0x10), lVar1 == 0)) ||
+               (lVar1 = *(longlong *)(lVar1 + 0x10), lVar1 == 0)) goto LAB_1872c5768;
+            World$$enableBody(lVar1,param_1,0,0);
+          }
+          if (*(longlong *)(param_1 + 0x28) != 0) {
+            bVar9 = DAT_18996ae2f == '\0';
+            *(undefined1 *)(*(longlong *)(param_1 + 0x28) + 0x40) = 1;
+            if (bVar9) {
+              FUN_180ac5630(&VampireSurvivors.Framework.PhysicsManager_TypeInfo);
+              LOCK();
+              UNLOCK();
+              DAT_18996ae2f = '\x01';
+            }
+            if ((**(longlong **)(VampireSurvivors.Framework.PhysicsManager_TypeInfo + 0xb8) != 0) &&
+               (lVar1 = *(longlong *)
+                         (**(longlong **)(VampireSurvivors.Framework.PhysicsManager_TypeInfo + 0xb8)
+                         + 0x28), lVar1 != 0)) {
+              Group$$add(lVar1,*(undefined8 *)(param_1 + 0xb8),0);
+              lVar1 = *(longlong *)(param_1 + 0x98);
+              if (*(int *)(UnityEngine.Object_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                FUN_180abe490();
+              }
+              if (DAT_189999590 == '\0') {
+                FUN_180ac5630(&UnityEngine.Object_TypeInfo);
+                LOCK();
+                UNLOCK();
+                DAT_189999590 = '\x01';
+              }
+              if (*(int *)(UnityEngine.Object_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                FUN_180abe490();
+              }
+              if (DAT_189999551 == '\0') {
+                FUN_180ac5630(&UnityEngine.Object_TypeInfo);
+                LOCK();
+                UNLOCK();
+                DAT_189999551 = '\x01';
+              }
+              if (lVar1 != 0) {
+                if (*(int *)(UnityEngine.Object_TypeInfo + 0xe4) == 0) {
+                    /* WARNING: Subroutine does not return */
+                  FUN_180abe490();
+                }
+                if (*(longlong *)(lVar1 + 0x10) != 0) {
+                  if (*(longlong *)(param_1 + 0x98) == 0) goto LAB_1872c5768;
+                  VampireSurvivors.Graphics.SpriteTrail$$Reset(*(longlong *)(param_1 + 0x98),0);
+                }
+              }
+              if (param_3 != 0) {
+                if (DAT_1899a59a2 == '\0') {
+                  FUN_180ac5630(&Method$System.Collections.Generic.List<Projectile>.Add());
+                  LOCK();
+                  UNLOCK();
+                  FUN_180ac5630(&Method$System.Collections.Generic.List<Projectile>.Contains());
+                  LOCK();
+                  UNLOCK();
+                  DAT_1899a59a2 = '\x01';
+                }
+                if (*(longlong *)(param_3 + 0x98) != 0) {
+                  cVar4 = FUN_180ab1730(*(longlong *)(param_3 + 0x98),param_1);
+                  if (cVar4 == '\0') {
+                    if (*(longlong *)(param_3 + 0x98) == 0) goto LAB_1872c5768;
+                    FUN_180aa6a10(*(longlong *)(param_3 + 0x98),param_1);
+                  }
+                  if (**(longlong **)(VampireSurvivors.Framework.GM_TypeInfo + 0xb8) != 0) {
+                    lVar1 = *(longlong *)
+                             (**(longlong **)(VampireSurvivors.Framework.GM_TypeInfo + 0xb8) + 0xd8)
+                    ;
+                    uVar7 = FUN_182f82e40(param_1,
+                                          Method$UnityEngine.Component.GetComponentsInChildren<ParticleSystem>()
+                                         );
+                    if (lVar1 != 0) {
+                      VampireSurvivors.ParticleManager$$RegisterParticleSystem(lVar1,uVar7,0);
+                      return;
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+LAB_1872c5768:
+                    /* WARNING: Subroutine does not return */
+  FUN_180ab7550();
+}
+

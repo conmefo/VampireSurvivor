@@ -116,3 +116,20 @@ We will implement the aiming logic in the weapon subclasses.
 - Added new sliders to ParticleTuningUI.
 - Connected RunetracerProjectile to a static tuning config for real-time updates.
 
+
+
+## Implementation Plan: Knife Weapon
+
+- Create KnifeProjectile (linear, rotates to velocity vector).
+- Create KnifeWeapon (inherits from Weapon, overrides GetTargetPosition to always shoot straight in facing direction).
+- Rely on base Weapon::Update for volley delays (amount & repeatInterval).
+- Add to WeaponInventory and GameState for spawning.
+
+## Implementation Plan: Axe Weapon
+
+- Decompiled original C# logic to extract Axe trajectory behavior.
+- Added AXE entry to `WEAPON_DATA.json` using config from original game values (Gravity = 625, Speed = 600 base).
+- Found sprite `ProjectileAxe1` using `extract_sprites_by_guid.py` at `X: 554, Y: 348` in `vfx.png` and registered in `vfx_atlas.json`.
+- Created `AxeProjectile` (applies gravity, continuous rotation).
+- Created `AxeWeapon` (calculates fan-out spread using `Angle = -90 + Dir * 45 * index`).
+- Registered `AxeWeapon` into `WeaponInventory` and `GameState`.

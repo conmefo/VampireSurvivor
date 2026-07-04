@@ -1,3 +1,4 @@
+#include "../Player.h"
 #include "MagicMissileWeapon.h"
 #include "../Projectiles/MagicMissileProjectile.h"
 #include <iostream>
@@ -9,20 +10,20 @@ MagicMissileWeapon::MagicMissileWeapon(const WeaponProfile& profile)
 {
 }
 
-void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, sf::Vector2f targetPosition, int projectileIndex)
+void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Player& player, sf::Vector2f targetPosition, int projectileIndex)
 {
     (void)projectileIndex;
 
     // Update last non-zero direction
-    if(playerDirection != sf::Vector2f(0.0f, 0.0f))
+    if(player.GetFacingDirection() != sf::Vector2f(0.0f, 0.0f))
     {
-        m_lastFacingDir = playerDirection;
+        m_lastFacingDir = player.GetFacingDirection();
     }
 
     sf::Vector2f targetDir = m_lastFacingDir;
-    if(targetPosition != playerPosition)
+    if(targetPosition != player.GetPosition())
     {
-        sf::Vector2f diff = targetPosition - playerPosition;
+        sf::Vector2f diff = targetPosition - player.GetPosition();
         float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
         if(len > 0.0001f)
         {
@@ -62,7 +63,7 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
         *data1.texture,
         data1.rect,
         data2.rect,
-        playerPosition,
+        player.GetPosition(),
         velocity,
         LIFETIME,
         power,

@@ -260,4 +260,20 @@ namespace MathUtils
         }
         return t;
     }
+
+    sf::FloatRect CalculateLetterboxViewport(float screenWidth, float screenHeight, float targetAspectRatio)
+    {
+        float screenRatio = screenWidth / screenHeight;
+        sf::FloatRect viewport(0.0f, 0.0f, 1.0f, 1.0f);
+        if (screenRatio > targetAspectRatio) {
+            float width = targetAspectRatio / screenRatio;
+            viewport.left = (1.0f - width) / 2.0f;
+            viewport.width = width;
+        } else {
+            float height = screenRatio / targetAspectRatio;
+            viewport.top = (1.0f - height) / 2.0f;
+            viewport.height = height;
+        }
+        return viewport;
+    }
 }

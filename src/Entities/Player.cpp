@@ -49,9 +49,9 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     if(!frames.empty())
     {
         m_sprite.setOrigin(frames[0].width / 2.0f, frames[0].height / 2.0f);
-        m_baseScaleX = 76.0f / static_cast<float>(frames[0].width);
-        m_baseScaleY = 76.0f / static_cast<float>(frames[0].height);
-        m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+        // m_baseScaleX = 76.0f / static_cast<float>(frames[0].width);
+        // m_baseScaleY = 76.0f / static_cast<float>(frames[0].height);
+        // m_sprite.setScale(m_baseScaleX, m_baseScaleY);
     }
     
     // Fallback if multiplier is somehow zero or missing
@@ -169,8 +169,8 @@ void Player::Draw(sf::RenderTarget& target)
 
     if (m_currentDirection.x != 0.0f || m_currentDirection.y != 0.0f)
     {
-        const int numShadows = 2;
-        const float shadowSpacing = 3.0f;
+        const int numShadows = 4;
+        const float shadowSpacing = 1.3f;
 
         for (int i = numShadows; i >= 1; --i)
         {
