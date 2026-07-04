@@ -19,9 +19,10 @@ RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf:
 void RunetracerProjectile::Update(float dt)
 {
     // Apply live tuning if available
-    if (s_tuningConfig)
+    if (s_tuningConfig && !m_isFadingOut)
     {
         m_sprite.setScale(s_tuningConfig->weaponScaleX, s_tuningConfig->weaponScaleY);
+        
         if (m_trailRenderer)
         {
             m_trailRenderer->SetWidth(s_tuningConfig->trailWidth);
@@ -31,7 +32,7 @@ void RunetracerProjectile::Update(float dt)
                 static_cast<sf::Uint8>(s_tuningConfig->colorR),
                 static_cast<sf::Uint8>(s_tuningConfig->colorG),
                 static_cast<sf::Uint8>(s_tuningConfig->colorB),
-                255
+                static_cast<sf::Uint8>(s_tuningConfig->colorA)
             ));
         }
     }
@@ -61,7 +62,11 @@ void RunetracerProjectile::Update(float dt)
     if (m_isFadingOut)
     {
         m_fadeOutTimer -= dt;
-        float alpha = 255.0f * std::max(0.0f, m_fadeOutTimer / m_fadeDuration);
+        float fadeRatio = std::max(0.0f, m_fadeOutTimer / m_fadeDuration);
+        
+        // Diamond always starts fading from 255 alpha, regardless of trail tuning opacity
+        float startAlpha = 255.0f;
+        float alpha = startAlpha * fadeRatio;
         
         sf::Color c = m_sprite.getColor();
         c.a = static_cast<sf::Uint8>(alpha);
@@ -74,6 +79,11 @@ void RunetracerProjectile::Update(float dt)
     if (m_projManager)
     {
         sf::FloatRect bounds = m_projManager->GetViewBounds();
+        
+        // Apply the 16:10 dimmed bar constraints (96px on each side)
+        bounds.left += 96.0f;
+        bounds.width -= 192.0f;
+
         sf::Vector2f pos = m_sprite.getPosition();
 
         bool hitWall = false;
@@ -106,6 +116,13 @@ void RunetracerProjectile::Update(float dt)
         if (hitWall)
         {
             m_sprite.setPosition(pos);
+            
+            // Re-calculate rotation to point in the new direction
+            if (m_velocity.x != 0.0f || m_velocity.y != 0.0f)
+            {
+                float angle = std::atan2(m_velocity.y, m_velocity.x) * 180.0f / 3.14159265359f;
+                m_sprite.setRotation(angle);
+            }
         }
     }
 

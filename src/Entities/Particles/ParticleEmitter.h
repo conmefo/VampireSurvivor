@@ -23,6 +23,7 @@ struct ParticleEmitterConfig
     float colorR = 100.0f;
     float colorG = 255.0f;
     float colorB = 255.0f;
+    float colorA = 255.0f;
     float weaponScaleX = 1.0f;
     float weaponScaleY = 1.0f;
     

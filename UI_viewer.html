@@ -25,7 +25,8 @@
             background: linear-gradient(45deg, #222 25%, transparent 25%), linear-gradient(-45deg, #222 25%, transparent 25%), linear-gradient(45deg, #333 75%, #222 75%), linear-gradient(-45deg, #333 75%, #222 75%);
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
-            overflow: hidden; /* Prevent native scrolling, we handle pan/zoom */
+            overflow: hidden;
+            /* Prevent native scrolling, we handle pan/zoom */
             flex: 3;
             cursor: grab;
         }
@@ -90,7 +91,8 @@
             transition: background 0.1s;
         }
 
-        .sprite-item:hover, .sprite-item.active {
+        .sprite-item:hover,
+        .sprite-item.active {
             background: #007acc;
             color: #fff;
         }
@@ -153,11 +155,11 @@
             // Setup canvas native resolution vs display size
             resizeCanvas();
             window.addEventListener('resize', resizeCanvas);
-            
+
             // Center the image initially
             offsetX = (canvas.width - img.width) / 2;
             offsetY = (canvas.height - img.height) / 2;
-            
+
             drawEverything();
             buildList();
         };
@@ -169,11 +171,11 @@
         }
 
         function drawEverything() {
-            if(!img.complete || img.width === 0) return;
+            if (!img.complete || img.width === 0) return;
 
             // Clear background
             ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
+
             ctx.save();
             ctx.translate(offsetX, offsetY);
             ctx.scale(scale, scale);
@@ -190,7 +192,7 @@
                     // Blue highlight overlay
                     ctx.fillStyle = 'rgba(0, 122, 204, 0.4)';
                     ctx.fillRect(sp.x, sfmlY, sp.width, sp.height);
-                    
+
                     ctx.strokeStyle = '#00aaff';
                     ctx.lineWidth = 2 / scale; // Keep line width visually consistent regardless of zoom
                 } else {
@@ -199,24 +201,24 @@
                 }
                 ctx.strokeRect(sp.x, sfmlY, sp.width, sp.height);
             }
-            
+
             ctx.restore();
         }
 
         function buildList() {
             const keys = Object.keys(sprites).sort();
             document.getElementById('sprite-list-header').innerText = `Sprite List (${keys.length})`;
-            
+
             listDiv.innerHTML = '';
             keys.forEach(key => {
                 const div = document.createElement('div');
                 div.className = 'sprite-item';
                 div.innerText = key;
                 div.id = `item-${key}`;
-                
+
                 div.onclick = () => zoomToSprite(key);
                 div.onmouseenter = () => updateSelection(key, false);
-                
+
                 listDiv.appendChild(div);
             });
         }
@@ -228,7 +230,7 @@
                 drawEverything();
                 return;
             }
-            
+
             const sp = sprites[key];
             document.getElementById('info').innerHTML = `
                 <strong>Name:</strong> ${key}<br>
@@ -236,13 +238,13 @@
                 <strong>SFML X, Y:</strong> ${sp.x}, ${img.height - sp.y - sp.height}<br>
                 <strong>Size:</strong> ${sp.width} x ${sp.height}
             `;
-            
+
             // Highlight in list
             document.querySelectorAll('.sprite-item').forEach(el => el.classList.remove('active'));
             const listItem = document.getElementById(`item-${key}`);
-            if(listItem) {
+            if (listItem) {
                 listItem.classList.add('active');
-                if(scrollToList) {
+                if (scrollToList) {
                     listItem.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
                 }
             }
@@ -252,8 +254,8 @@
 
         function zoomToSprite(key) {
             const sp = sprites[key];
-            if(!sp) return;
-            
+            if (!sp) return;
+
             const sfmlY = img.height - sp.y - sp.height;
             const cx = sp.x + sp.width / 2;
             const cy = sfmlY + sp.height / 2;
@@ -262,10 +264,10 @@
             const padding = 100; // pixels
             const scaleX = canvas.width / (sp.width + padding);
             const scaleY = canvas.height / (sp.height + padding);
-            
+
             scale = Math.min(scaleX, scaleY);
-            if(scale < 1) scale = 1;
-            if(scale > 6) scale = 6; // Max zoom cap
+            if (scale < 1) scale = 1;
+            if (scale > 6) scale = 6; // Max zoom cap
 
             // Center camera on sprite
             offsetX = canvas.width / 2 - cx * scale;
@@ -279,11 +281,11 @@
         // ==========================================
 
         // Search Filter
-        searchInput.addEventListener('input', function(e) {
+        searchInput.addEventListener('input', function (e) {
             const q = e.target.value.toLowerCase();
             const items = document.querySelectorAll('.sprite-item');
             items.forEach(item => {
-                if(item.innerText.toLowerCase().includes(q)) {
+                if (item.innerText.toLowerCase().includes(q)) {
                     item.style.display = 'block';
                 } else {
                     item.style.display = 'none';
@@ -292,7 +294,7 @@
         });
 
         // Mouse Wheel Zooming
-        canvas.addEventListener('wheel', function(e) {
+        canvas.addEventListener('wheel', function (e) {
             e.preventDefault();
             const rect = canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
@@ -301,15 +303,15 @@
             const zoomIntensity = 0.1;
             const wheel = e.deltaY < 0 ? 1 : -1;
             const zoomFactor = Math.exp(wheel * zoomIntensity);
-            
+
             // Convert screen coords to world coords
             const worldX = (mouseX - offsetX) / scale;
             const worldY = (mouseY - offsetY) / scale;
 
             // Apply limits to scale
             let newScale = scale * zoomFactor;
-            if(newScale < 0.1) newScale = 0.1;
-            if(newScale > 15) newScale = 15;
+            if (newScale < 0.1) newScale = 0.1;
+            if (newScale > 15) newScale = 15;
 
             // Adjust offset to keep mouse point anchored
             offsetX = mouseX - worldX * newScale;
@@ -320,17 +322,17 @@
         }, { passive: false });
 
         // Panning (Drag)
-        canvasContainer.addEventListener('mousedown', function(e) {
+        canvasContainer.addEventListener('mousedown', function (e) {
             isDragging = true;
             dragStartX = e.clientX - offsetX;
             dragStartY = e.clientY - offsetY;
         });
 
-        window.addEventListener('mouseup', function() {
+        window.addEventListener('mouseup', function () {
             isDragging = false;
         });
 
-        canvasContainer.addEventListener('mousemove', function(e) {
+        canvasContainer.addEventListener('mousemove', function (e) {
             if (isDragging) {
                 offsetX = e.clientX - dragStartX;
                 offsetY = e.clientY - dragStartY;
@@ -363,7 +365,7 @@
                 updateSelection(found, false);
             }
         });
-        
+
         // Ensure image drag doesn't conflict with pan logic
         canvas.addEventListener('dragstart', e => e.preventDefault());
     </script>

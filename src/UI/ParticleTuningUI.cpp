@@ -23,6 +23,7 @@ ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::Part
     AddSlider("Color R", 0.0f, 255.0f, &m_config.colorR);
     AddSlider("Color G", 0.0f, 255.0f, &m_config.colorG);
     AddSlider("Color B", 0.0f, 255.0f, &m_config.colorB);
+    AddSlider("Opacity", 0.0f, 255.0f, &m_config.colorA);
     AddSlider("Wpn Scale X", 0.1f, 5.0f, &m_config.weaponScaleX);
     AddSlider("Wpn Scale Y", 0.1f, 5.0f, &m_config.weaponScaleY);
     AddSlider("Offset", -200.0f, 200.0f, &m_config.emitterOffset);
