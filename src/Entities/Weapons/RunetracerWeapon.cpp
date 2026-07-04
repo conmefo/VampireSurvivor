@@ -31,37 +31,27 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
             }
         }
 
+        sf::Vector2f targetPosition = playerPosition + playerDirection * 100.0f; // Default
+
+        if (!validEnemies.empty())
+        {
+            // Closest enemy for the entire burst
+            float minSqDist = std::numeric_limits<float>::max();
+            for (auto* enemy : validEnemies)
+            {
+                sf::Vector2f diff = enemy->GetPosition() - playerPosition;
+                float sqDist = diff.x * diff.x + diff.y * diff.y;
+                if (sqDist < minSqDist)
+                {
+                    minSqDist = sqDist;
+                    targetPosition = enemy->GetPosition();
+                }
+            }
+        }
+
         for (int i = 0; i < amount; ++i)
         {
             float delay = static_cast<float>(i) * repeatSec;
-            
-            sf::Vector2f targetPosition = playerPosition + playerDirection * 100.0f; // Default
-
-            if (!validEnemies.empty())
-            {
-                if (i == 0)
-                {
-                    // Closest enemy
-                    float minSqDist = std::numeric_limits<float>::max();
-                    for (auto* enemy : validEnemies)
-                    {
-                        sf::Vector2f diff = enemy->GetPosition() - playerPosition;
-                        float sqDist = diff.x * diff.x + diff.y * diff.y;
-                        if (sqDist < minSqDist)
-                        {
-                            minSqDist = sqDist;
-                            targetPosition = enemy->GetPosition();
-                        }
-                    }
-                }
-                else
-                {
-                    // Random enemy
-                    static std::mt19937 gen(std::random_device{}());
-                    std::uniform_int_distribution<size_t> dist(0, validEnemies.size() - 1);
-                    targetPosition = validEnemies[dist(gen)]->GetPosition();
-                }
-            }
 
             if (delay > 0.0f)
             {
@@ -85,14 +75,9 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     if(!data.texture) return;
 
     sf::Vector2f dir = targetPosition - playerPosition;
+    float baseAngleRadians = 0.0f;
     
-    float length = std::sqrt(dir.x * dir.x + dir.y * dir.y);
-    if(length != 0)
-    {
-        dir.x /= length;
-        dir.y /= length;
-    }
-    else
+    if (dir.x == 0 && dir.y == 0)
     {
         dir = playerDirection;
         if(dir.x == 0 && dir.y == 0) 
@@ -100,6 +85,21 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
              dir = sf::Vector2f(1.0f, 0.0f);
         }
     }
+    
+    baseAngleRadians = std::atan2(dir.y, dir.x);
+
+    // Authentic Spread Array from Ghidra
+    static const int spreadAngles[] = { 0, 10, -10, 20, -20, 30, -30, 40, -40 };
+    int spreadAnglesCount = sizeof(spreadAngles) / sizeof(spreadAngles[0]);
+    
+    int angleOffset = spreadAngles[projectileIndex % spreadAnglesCount];
+    
+    // Math.PI / 180 is approx 0.017453292f
+    float finalAngleRadians = baseAngleRadians + static_cast<float>(angleOffset) * 0.017453292f;
+
+    // Convert back to directional vector
+    dir.x = std::cos(finalAngleRadians);
+    dir.y = std::sin(finalAngleRadians);
 
     float speed = m_profile.GetSpeed() * 250.0f; // Base speed pixel multiplier
     sf::Vector2f velocity = dir * speed;
