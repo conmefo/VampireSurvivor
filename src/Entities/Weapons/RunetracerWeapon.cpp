@@ -105,8 +105,7 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     sf::Vector2f velocity = dir * speed;
     
     // Hardcoded default duration of 2.25s per the WEAPON_DATA.json we found
-    // Increased to 10.0f temporarily for tuning testing!
-    float duration = 10.0f;
+    float duration = 2.25f;
 
     float power = m_profile.GetPower();
     float area = m_profile.GetArea();

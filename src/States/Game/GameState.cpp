@@ -171,15 +171,8 @@ void GameState::Init() {
     m_testParticleConfig.colorB = 255.0f;
     m_testParticleConfig.colorA = 255.0f;
     
-    // Bind tuning config to Runetracers
-    RunetracerProjectile::s_tuningConfig = &m_testParticleConfig;
+    // Tuning UI has been unattached since Runetracer tuning is complete
     
-    // m_testEmitter = m_particleManager.SpawnEmitter(m_testParticleConfig, m_cameraCenter + sf::Vector2f(0.0f, -100.0f));
-    
-    // Tuning UI now controls the local config
-    m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, m_context.fonts.Get(FontID::Main), m_testParticleConfig);
-    m_tuningUI->SetPosition(sf::Vector2f(20.0f, 100.0f));
-
     ApplyCameraToView();
 }
 

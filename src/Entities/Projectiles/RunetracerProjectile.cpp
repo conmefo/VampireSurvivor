@@ -13,30 +13,19 @@ RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf:
     m_sprite.setOrigin(textureRect.width / 2.0f, textureRect.height / 2.0f);
 
     m_trailRenderer = std::make_unique<TrailRenderer>(0.8f, 15.0f, 2.0f); // defaults
-    m_trailRenderer->SetBaseColor(sf::Color(0, 255, 255, 255));
+    if (m_trailRenderer)
+    {
+        // Apply tuned values directly
+        m_sprite.setScale(1.8f, 1.8f);
+        m_trailRenderer->SetWidth(3.1f);
+        m_trailRenderer->SetFadeStartRatio(0.5f);
+        m_trailRenderer->SetMaxLifetime(2.2f);
+        m_trailRenderer->SetBaseColor(sf::Color(211, 215, 209, 157));
+    }
 }
 
 void RunetracerProjectile::Update(float dt)
 {
-    // Apply live tuning if available
-    if (s_tuningConfig && !m_isFadingOut)
-    {
-        m_sprite.setScale(s_tuningConfig->weaponScaleX, s_tuningConfig->weaponScaleY);
-        
-        if (m_trailRenderer)
-        {
-            m_trailRenderer->SetWidth(s_tuningConfig->trailWidth);
-            m_trailRenderer->SetFadeStartRatio(s_tuningConfig->trailFadeStart);
-            m_trailRenderer->SetMaxLifetime(s_tuningConfig->trailLength);
-            m_trailRenderer->SetBaseColor(sf::Color(
-                static_cast<sf::Uint8>(s_tuningConfig->colorR),
-                static_cast<sf::Uint8>(s_tuningConfig->colorG),
-                static_cast<sf::Uint8>(s_tuningConfig->colorB),
-                static_cast<sf::Uint8>(s_tuningConfig->colorA)
-            ));
-        }
-    }
-
     // 1. Tick hit timers for enemies
     for (auto it = m_enemyHitTimers.begin(); it != m_enemyHitTimers.end(); )
     {

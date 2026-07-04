@@ -98,12 +98,13 @@ void TrailRenderer::draw(sf::RenderTarget& target, sf::RenderStates states) cons
         float currentWidth = m_startWidth;
         
         // Calculate alpha fade
-        float alpha = 255.0f;
+        float baseAlpha = static_cast<float>(m_baseColor.a);
+        float alpha = baseAlpha;
         if (progress > m_fadeStartRatio && m_fadeStartRatio < 1.0f)
         {
             float fadeProgress = (progress - m_fadeStartRatio) / (1.0f - m_fadeStartRatio);
             fadeProgress = std::max(0.0f, std::min(1.0f, fadeProgress));
-            alpha = 255.0f * (1.0f - fadeProgress);
+            alpha = baseAlpha * (1.0f - fadeProgress);
         }
         else if (progress > 1.0f)
         {
