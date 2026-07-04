@@ -55,6 +55,7 @@ add_executable(VampireSurvivors
     src/Entities/Weapons/FireballWeapon.cpp
     src/Entities/Weapons/RunetracerWeapon.cpp
     src/Components/AnimationComponent.cpp
+    src/Components/TrailRenderer.cpp
     src/Entities/Enemy/AnimatedEnemy.cpp
     src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp

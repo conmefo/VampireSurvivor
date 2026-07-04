@@ -435,3 +435,10 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Duration-Based Lifetime**: Confirmed the original game uses a strict duration timer (e.g. 2.25s for level 1) to destroy the Runetracer, completely bypassing bounce-count limits. Our C++ engine natively handles this via the `m_duration` logic in `Projectile.cpp`.
 * **Visual FX Polish**: Verified the color cycling behavior of the original `DiamondProjectile` which loops a rainbow hue on its trail, while the base projectile itself remains white. Stripped away a false assumption about scaling pulses (which turned out to belong to a completely different bezier-curve projectile, `Rune1`) in favor of an authentic constant-scale rendering pass.
 * **Infinite Penetration**: Overrode `OnHitEnemy` to explicitly prevent the projectile from destroying itself, and implemented a precise 500ms hit-delay per enemy as observed in the decompiled code, preventing instant-kill multi-hits while passing through targets.
+
+### Runetracer & Tuning System Update
+- **Runetracer Architecture**: Integrated RunetracerWeapon and RunetracerProjectile into the build system and weapon factory. Handles physics bounces via ProjectileManager screen-bounds check.
+- **TrailRenderer**: Built a high-performance TrailRenderer component using sf::TriangleStrip to generate continuous ribbons with configurable fade-out starting points, fixed widths, and static RGB base colors.
+- **UI Tuning Integration**: Hooked up the Runetracer live properties (diamond scale, trail width, fade start ratio, max lifetime, and color) to the in-game ParticleTuningUI by repurposing ParticleEmitterConfig.
+- **Fade-Out State**: Runetracers now gracefully fade their alpha to 0 over 0.5s when their duration expires instead of popping out of existence.
+

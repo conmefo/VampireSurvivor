@@ -1,4 +1,5 @@
 #include "GameState.h"
+#include "../../Entities/Projectiles/RunetracerProjectile.h"
 #include "../StateManager.h"
 
 #include <cmath>
@@ -160,7 +161,19 @@ void GameState::Init() {
     m_testParticleConfig = m_context.particleData.GetConfig("bloodTear");
     m_testParticleConfig.looping = true; // Temporary loop for tuning
     m_testParticleConfig.duration = 9999.0f;
-    m_testEmitter = m_particleManager.SpawnEmitter(m_testParticleConfig, m_cameraCenter + sf::Vector2f(0.0f, -100.0f));
+    m_testParticleConfig.weaponScaleX = 1.0f;
+    m_testParticleConfig.weaponScaleY = 1.0f;
+    m_testParticleConfig.trailWidth = 15.0f;
+    m_testParticleConfig.trailFadeStart = 0.5f;
+    m_testParticleConfig.trailLength = 0.8f;
+    m_testParticleConfig.colorR = 0.0f;
+    m_testParticleConfig.colorG = 255.0f;
+    m_testParticleConfig.colorB = 255.0f;
+    
+    // Bind tuning config to Runetracers
+    RunetracerProjectile::s_tuningConfig = &m_testParticleConfig;
+    
+    // m_testEmitter = m_particleManager.SpawnEmitter(m_testParticleConfig, m_cameraCenter + sf::Vector2f(0.0f, -100.0f));
     
     // Tuning UI now controls the local config
     m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, m_context.fonts.Get(FontID::Main), m_testParticleConfig);

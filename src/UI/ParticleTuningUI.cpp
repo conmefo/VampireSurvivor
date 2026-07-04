@@ -7,7 +7,7 @@ ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::Part
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
     m_background->SetColor(sf::Color(0, 0, 0, 180));
-    m_background->SetSize(sf::Vector2f(900.0f, 500.0f));
+    m_background->SetSize(sf::Vector2f(1100.0f, 500.0f));
 
     // Add sliders mapped to the config
     AddSlider("Speed", 0.0f, 300.0f, &m_config.startSpeed);
@@ -26,6 +26,9 @@ ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::Part
     AddSlider("Wpn Scale X", 0.1f, 5.0f, &m_config.weaponScaleX);
     AddSlider("Wpn Scale Y", 0.1f, 5.0f, &m_config.weaponScaleY);
     AddSlider("Offset", -200.0f, 200.0f, &m_config.emitterOffset);
+    AddSlider("Trail Width", 1.0f, 50.0f, &m_config.trailWidth);
+    AddSlider("Trail Fade Ratio", 0.0f, 1.0f, &m_config.trailFadeStart);
+    AddSlider("Trail Length", 0.1f, 5.0f, &m_config.trailLength);
 }
 
 void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, float* targetPtr)

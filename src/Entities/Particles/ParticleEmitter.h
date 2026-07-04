@@ -29,6 +29,11 @@ struct ParticleEmitterConfig
     sf::Vector2f emissionDirection = sf::Vector2f(0.0f, 0.0f);
     float emitterOffset = 0.0f;
     
+    // Trail specific tuning (used by TrailRenderer)
+    float trailWidth = 15.0f;
+    float trailFadeStart = 0.5f;
+    float trailLength = 0.8f;
+    
     float shapeRadius = 0.0f;
     float shapeAngle = 360.0f; // Spread angle in degrees
     

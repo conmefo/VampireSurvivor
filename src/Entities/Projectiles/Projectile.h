@@ -13,7 +13,7 @@ public:
     virtual void Update(float dt);
     virtual void Draw(sf::RenderTarget& target) const;
 
-    bool IsExpired() const;
+    virtual bool IsExpired() const;
     sf::FloatRect GetGlobalBounds() const;
     float GetPower() const;
     const std::string& GetHitVfxName() const;

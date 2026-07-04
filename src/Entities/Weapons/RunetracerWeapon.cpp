@@ -105,13 +105,14 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     sf::Vector2f velocity = dir * speed;
     
     // Hardcoded default duration of 2.25s per the WEAPON_DATA.json we found
-    float duration = 2.25f;
+    // Increased to 10.0f temporarily for tuning testing!
+    float duration = 10.0f;
 
     float power = m_profile.GetPower();
     float area = m_profile.GetArea();
     
     sf::Vector2f spawnPosition = playerPosition;
 
-    auto proj = std::make_unique<RunetracerProjectile>(&projManager, *data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating());
+    auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager);
     projManager.AddProjectile(std::move(proj));
 }

@@ -66,3 +66,53 @@ Provide the complete C++ implementation split into `CharacterSelectionScreen.h` 
 #### 1.3. Constructor Dependency Injection over Context Pollution
 * **The Problem:** Shoving `TileMapManager` into the global `StateContext` pollutes a shared object accessible by states that have zero business interacting with world maps (e.g., `OptionsState`, `CreditState`), violating Loose Coupling.
 * **The Solution:** Adhering strictly to **Section 4.4 of the Core Manifesto**, `TileMapManager` will be held at the top-level application framework level. It will be injected explicitly via constructor references only to the states that strictly require it: `StageLoadingState` and `GameState`.
+## Implementation Plan
+
+# Weapon Targeting Architecture Overhaul
+
+To complete the Fire Wand and achieve 1-to-1 parity with the original game's C# behavior, we must overhaul how weapons acquire targets. 
+
+Currently, `GameState` pre-calculates the nearest enemy and forces every weapon to shoot at it. However, the decompiled `FireballWeapon$$Fire` reveals that:
+1. The weapon itself is responsible for calling `Stage$$PickRandomEnemy` (or `Stage$$FindClosestEnemy`).
+2. The weapon picks the target **once**, and passes that same target position to all projectiles in the burst loop.
+
+## Proposed Changes
+
+### `Weapon` and `WeaponInventory` Interface
+Instead of passing a single `targetPosition` to every weapon, we will pass a reference to the `EnemyPool` (the C++ equivalent of `Stage`/`EnemyManager`). This allows each weapon to implement its own aiming logic (Nearest, Random, Random In Screen, etc).
+
+#### [MODIFY] [WeaponInventory.h](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/WeaponInventory.h) & [WeaponInventory.cpp](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/WeaponInventory.cpp)
+- Change `Update` signature:
+  `void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, sf::Vector2f playerPosition, sf::Vector2f playerDirection, EnemyPool& enemyPool)`
+
+#### [MODIFY] [Weapon.h](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/Weapon.h) & [Weapon.cpp](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/Weapon.cpp)
+- Change `Update` and `FireOne` signatures to accept `EnemyPool& enemyPool` instead of `targetPosition`.
+- Inside `Weapon::Update`, we will calculate the target position **once** per firing cycle (burst), and pass it into the `QueueDelayedAction` lambda so that all projectiles in the burst hit the same target, exactly as the C# code does.
+
+### Target Selection Strategies
+We will implement the aiming logic in the weapon subclasses.
+
+#### [MODIFY] [FireballWeapon.cpp](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/FireballWeapon.cpp)
+- Overload `Update` to implement `AimForRandomEnemy`. We will query the `EnemyPool` for a random active enemy.
+- If an enemy is found, calculate the direction vector towards it.
+- If no enemy is found, fallback to `ApplyPlayerFacingVelocity` (using `playerDirection`).
+
+#### [MODIFY] [MagicMissileWeapon.cpp](file:///d:/GitHub/VampireSurvivor/src/Entities/Weapons/MagicMissileWeapon.cpp) (and others)
+- Overload `Update` to implement `AimForNearestEnemy`.
+
+#### [MODIFY] [GameState.cpp](file:///d:/GitHub/VampireSurvivor/src/States/Game/GameState.cpp)
+- Remove the `closestEnemy` distance calculation logic from the main `Update` loop (lines 220-237), as targeting is now handled by the weapons themselves.
+- Pass `m_enemyPool` into `WeaponInventory::Update()`.
+
+## Verification Plan
+1. Compile and run the game.
+2. Verify that Magic Wand still targets the nearest enemy.
+3. Verify that Fire Wand shoots at a random enemy, and when firing in bursts (e.g. Amount = 2 or 3), all fireballs in that burst fire at the *same* random enemy.
+4. Verify Fire Wand shoots straight ahead if the screen is empty.
+
+## Implementation Plan: Runetracer Tuning UI & Trail Adjustments
+- Modified TrailRenderer to use constant width and fade Start Ratio.
+- Added trail tuning fields to ParticleEmitterConfig.
+- Added new sliders to ParticleTuningUI.
+- Connected RunetracerProjectile to a static tuning config for real-time updates.
+
