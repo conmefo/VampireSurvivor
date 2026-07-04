@@ -39,10 +39,16 @@ bool ParticleDataManager::LoadFromJson(const std::string& filepath)
             config.colorR = value.value("colorR", 255.0f);
             config.colorG = value.value("colorG", 255.0f);
             config.colorB = value.value("colorB", 255.0f);
+            config.colorA = value.value("colorA", 255.0f);
             config.weaponScaleX = value.value("weaponScaleX", 1.0f);
             config.weaponScaleY = value.value("weaponScaleY", 1.0f);
             config.emitterOffset = value.value("emitterOffset", 0.0f);
             config.randomRotation = value.value("randomRotation", false);
+            
+            // Trail specific properties
+            config.trailWidth = value.value("trailWidth", 15.0f);
+            config.trailFadeStart = value.value("trailFadeStart", 0.5f);
+            config.trailLength = value.value("trailLength", 0.8f);
             
             int blend = value.value("blendMode", 0); // 0=Alpha, 1=Add, 2=Multiply, 3=None
             if (blend == 0) config.blendMode = sf::BlendAlpha;
