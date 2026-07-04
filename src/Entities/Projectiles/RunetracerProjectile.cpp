@@ -2,25 +2,40 @@
 #include "ProjectileManager.h"
 #include <cmath>
 
-vs::ParticleEmitterConfig* RunetracerProjectile::s_tuningConfig = nullptr;
-
-RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf::IntRect& textureRect, sf::Vector2f startPosition, sf::Vector2f velocity, float duration, float power, float areaMultiplier, const std::string& hitVfxName, int penetration, ProjectileManager* projManager)
+RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf::IntRect& textureRect, sf::Vector2f startPosition, sf::Vector2f velocity, float duration, float power, float areaMultiplier, const std::string& hitVfxName, int penetration, ProjectileManager* projManager, const vs::ParticleEmitterConfig* config)
     : Projectile(texture, textureRect, startPosition, velocity, duration, power, areaMultiplier, hitVfxName, penetration)
     , m_projManager(projManager)
     , m_particleSpawnTimer(0.0f)
     , m_colorHue(0.0f)
 {
+    m_penetration = penetration;
     m_sprite.setOrigin(textureRect.width / 2.0f, textureRect.height / 2.0f);
 
     m_trailRenderer = std::make_unique<TrailRenderer>(0.8f, 15.0f, 2.0f); // defaults
     if (m_trailRenderer)
     {
-        // Apply tuned values directly
-        m_sprite.setScale(1.8f, 1.8f);
-        m_trailRenderer->SetWidth(3.1f);
-        m_trailRenderer->SetFadeStartRatio(0.5f);
-        m_trailRenderer->SetMaxLifetime(2.2f);
-        m_trailRenderer->SetBaseColor(sf::Color(211, 215, 209, 157));
+        if (config)
+        {
+            m_sprite.setScale(config->weaponScaleX, config->weaponScaleY);
+            m_trailRenderer->SetWidth(config->trailWidth);
+            m_trailRenderer->SetFadeStartRatio(config->trailFadeStart);
+            m_trailRenderer->SetMaxLifetime(config->trailLength);
+            m_trailRenderer->SetBaseColor(sf::Color(
+                static_cast<sf::Uint8>(config->colorR),
+                static_cast<sf::Uint8>(config->colorG),
+                static_cast<sf::Uint8>(config->colorB),
+                static_cast<sf::Uint8>(config->colorA)
+            ));
+        }
+        else
+        {
+            // Fallback defaults if config is missing
+            m_sprite.setScale(1.8f, 1.8f);
+            m_trailRenderer->SetWidth(3.1f);
+            m_trailRenderer->SetFadeStartRatio(0.5f);
+            m_trailRenderer->SetMaxLifetime(2.2f);
+            m_trailRenderer->SetBaseColor(sf::Color(211, 215, 209, 157));
+        }
     }
 }
 

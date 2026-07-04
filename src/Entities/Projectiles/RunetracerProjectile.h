@@ -4,6 +4,7 @@
 #include "../../Components/TrailRenderer.h"
 #include <unordered_map>
 #include <memory>
+#include "../Particles/ParticleEmitter.h"
 
 class ProjectileManager;
 
@@ -14,7 +15,7 @@ public:
                          sf::Vector2f startPosition, sf::Vector2f velocity, 
                          float duration, float power, float areaMultiplier,
                          const std::string& hitVfxName, int penetration,
-                         ProjectileManager* projManager);
+                         ProjectileManager* projManager, const vs::ParticleEmitterConfig* config = nullptr);
     ~RunetracerProjectile() override = default;
 
     void Update(float dt) override;
@@ -22,8 +23,6 @@ public:
     bool HasHitEnemy(void* enemyId) const override;
     virtual void OnHitEnemy(void* enemyId) override;
     virtual bool IsExpired() const override;
-
-    static vs::ParticleEmitterConfig* s_tuningConfig;
 
 private:
     bool m_isFadingOut = false;

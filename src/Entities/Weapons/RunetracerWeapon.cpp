@@ -112,6 +112,12 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     
     sf::Vector2f spawnPosition = playerPosition;
 
-    auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager);
+    const vs::ParticleEmitterConfig* trailConfig = nullptr;
+    if (projManager.GetParticleManager())
+    {
+        trailConfig = &projManager.GetParticleManager()->GetConfig("runetracerTrail");
+    }
+
+    auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager, trailConfig);
     projManager.AddProjectile(std::move(proj));
 }
