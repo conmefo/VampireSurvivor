@@ -17,6 +17,7 @@
 #include "../../Entities/Weapons/KnifeWeapon.h"
 #include "../../Entities/Weapons/AxeWeapon.h"
 #include "../../Core/Math/MathUtils.h"
+#include "../../Core/Physics/Collision.h"
 
 namespace {
 const std::vector<const char *> LibraryEnemies = {
@@ -71,6 +72,12 @@ const char *GetStageName(int stageNumber) {
 
     return stageNumber == 3 ? "Dairy Plant" : "Inlaid Library";
 }
+
+struct TestEnemySpawn
+{
+    const char* enemyId;
+    sf::Vector2f offset;
+};
 } // namespace
 
 GameState::GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId)
@@ -186,14 +193,7 @@ void GameState::Init() {
         });
     }
 
-    // Tuning Environment Initialization
-    m_enemyPool.Clear(); // Remove all normal enemies
-
-    // Spawn Dummy Enemy
-    EnemyStats stats;
-    stats.maxHealth = 999999.0f;
-    stats.speed = 0.0f;
-    EnemyBase* dummy = m_enemyPool.Acquire("BAT1", m_cameraCenter + sf::Vector2f(300.0f, 0.0f), stats);
+    SpawnInitialTestEnemies();
 
     // Initialize Particle UI
     m_testParticleConfig = m_context.particleData.GetConfig("bloodTear");
@@ -367,6 +367,7 @@ void GameState::Update(float dt) {
         m_enemyPool.ResolveObstacleCollisions(obstacles);
     }
     m_enemyPool.ResolveEnemyCollisions();
+    ApplyEnemyContactDamage();
 
     // Update tuning UI to match absolute screen position
     if (m_tuningUI) {
@@ -505,6 +506,27 @@ void GameState::LoadStage(int stageNumber) {
               << enemyIds.size() << " enemies" << std::endl;
 }
 
+void GameState::SpawnInitialTestEnemies()
+{
+    m_enemyPool.Clear();
+
+    const TestEnemySpawn spawns[] = {
+        {"BAT1", sf::Vector2f(46.0f, 0.0f)},
+        {"SKELETON", sf::Vector2f(-120.0f, -80.0f)},
+        {"ZOMBIE", sf::Vector2f(120.0f, -90.0f)},
+        {"GHOST", sf::Vector2f(-140.0f, 95.0f)},
+        {"XLBAT", sf::Vector2f(180.0f, 120.0f)},
+    };
+
+    for(const TestEnemySpawn& spawn : spawns)
+    {
+        m_enemyPool.Prewarm(spawn.enemyId, 1);
+        m_enemyPool.Acquire(spawn.enemyId, m_cameraCenter + spawn.offset);
+    }
+
+    std::cout << "Spawned " << m_enemyPool.GetActiveCount() << " startup test enemies" << std::endl;
+}
+
 void GameState::TogglePause()
 {
     m_isPaused = !m_isPaused;
@@ -517,6 +539,41 @@ void GameState::ReturnToMainMenu()
         std::make_unique<MainMenuState>(m_context, m_mapManager),
         0.35f,
         sf::Color::Black);
+}
+
+void GameState::ApplyEnemyContactDamage()
+{
+    if(!m_player || m_player->IsDead())
+    {
+        return;
+    }
+
+    const sf::Vector2f playerPosition = m_player->GetPosition();
+    const float playerRadius = m_player->GetCollisionRadius();
+    float contactDamage = 0.0f;
+
+    for(EnemyBase* enemy : m_enemyPool.GetActiveEnemies())
+    {
+        if(!enemy || !enemy->IsAlive())
+        {
+            continue;
+        }
+
+        if(Collision::CircleIntersectsCircle(
+               playerPosition,
+               playerRadius,
+               enemy->GetPosition(),
+               enemy->GetCollisionRadius()) &&
+           enemy->GetDamage() > contactDamage)
+        {
+            contactDamage = enemy->GetDamage();
+        }
+    }
+
+    if(contactDamage > 0.0f)
+    {
+        m_player->TakeDamage(contactDamage);
+    }
 }
 
 void GameState::ApplyCameraToView() {
@@ -545,4 +602,16 @@ void GameState::DrawHitboxes(sf::RenderTarget &target) {
     }
 
     m_enemyPool.DrawDebug(target);
+
+    if(m_player && !m_player->IsDead())
+    {
+        const float radius = m_player->GetCollisionRadius();
+        sf::CircleShape playerHitbox(radius);
+        playerHitbox.setOrigin(radius, radius);
+        playerHitbox.setPosition(m_player->GetPosition());
+        playerHitbox.setFillColor(sf::Color(80, 170, 255, 35));
+        playerHitbox.setOutlineColor(sf::Color(80, 170, 255, 220));
+        playerHitbox.setOutlineThickness(1.0f);
+        target.draw(playerHitbox);
+    }
 }

@@ -49,6 +49,7 @@ public:
 protected:
     virtual void UpdateAI(float dt);
     void SyncBodyToPosition();
+    void DrawHealthBar(sf::RenderTarget& target) const;
 
     sf::Vector2f m_targetPosition;
     sf::CircleShape m_body;

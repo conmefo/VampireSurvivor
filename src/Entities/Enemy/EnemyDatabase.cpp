@@ -1,5 +1,6 @@
 #include "EnemyDatabase.h"
 
+#include <algorithm>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -14,6 +15,29 @@ namespace
     int GetIntOrDefault(const nlohmann::json& json, const char* key, int fallback)
     {
         return json.contains(key) ? static_cast<int>(json[key].get<float>()) : fallback;
+    }
+
+    bool IsPrototypeBoss(const std::string& enemyId, const EnemyStats& stats)
+    {
+        return enemyId.find("BOSS") != std::string::npos ||
+               enemyId.rfind("MASK_", 0) == 0 ||
+               stats.maxHealth >= 100.0f ||
+               stats.damage >= 30.0f;
+    }
+
+    void ApplyPrototypeBalance(const std::string& enemyId, EnemyStats& stats)
+    {
+        const bool bossLike = IsPrototypeBoss(enemyId, stats);
+        const float maxHealthCap = bossLike ? 150.0f : 80.0f;
+        const float damageCap = bossLike ? 25.0f : 20.0f;
+        const float speedCap = bossLike ? 220.0f : 240.0f;
+
+        stats.maxHealth = std::clamp(stats.maxHealth, 0.1f, maxHealthCap);
+        stats.damage = std::clamp(stats.damage, 0.0f, damageCap);
+        stats.speed = std::clamp(stats.speed, 0.0f, speedCap);
+        stats.mass = std::max(stats.mass, 0.5f);
+        stats.collisionRadius = std::clamp(stats.collisionRadius, 8.0f, 34.0f);
+        stats.expYield = std::max(stats.expYield, 0);
     }
 }
 
@@ -69,6 +93,7 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
             definition.stats.expYield = GetIntOrDefault(statJson, "xp", definition.stats.expYield);
             definition.stats.baseTint = GetIntOrDefault(statJson, "tint", definition.stats.baseTint);
             definition.spriteScale = GetFloatOrDefault(statJson, "spriteScale", definition.spriteScale);
+            ApplyPrototypeBalance(enemyId, definition.stats);
         }
 
         if(enemyAnimationJson.contains("states"))

@@ -1,5 +1,6 @@
 #include "EnemyBase.h"
 
+#include <algorithm>
 #include <cmath>
 #include <utility>
 
@@ -71,6 +72,7 @@ void EnemyBase::Draw(sf::RenderTarget& target)
 
     m_body.setFillColor(m_hitFlash.GetCurrentColor());
     target.draw(m_body);
+    DrawHealthBar(target);
 }
 
 void EnemyBase::SetTarget(const sf::Vector2f& targetPosition)
@@ -165,4 +167,31 @@ void EnemyBase::UpdateAI(float dt)
 void EnemyBase::SyncBodyToPosition()
 {
     m_body.setPosition(m_position);
+}
+
+void EnemyBase::DrawHealthBar(sf::RenderTarget& target) const
+{
+    if(m_stats.maxHealth <= 0.0f)
+    {
+        return;
+    }
+
+    constexpr float BarHeight = 4.0f;
+    const float barWidth = std::max(24.0f, m_collisionRadius * 2.2f);
+    const float healthRatio = std::clamp(m_health / m_stats.maxHealth, 0.0f, 1.0f);
+    const sf::Vector2f barPosition(
+        std::round(m_position.x - barWidth / 2.0f),
+        std::round(m_position.y - m_collisionRadius - 10.0f));
+
+    sf::RectangleShape background(sf::Vector2f(barWidth, BarHeight));
+    background.setPosition(barPosition);
+    background.setFillColor(sf::Color(20, 10, 10, 190));
+    background.setOutlineColor(sf::Color(0, 0, 0, 180));
+    background.setOutlineThickness(1.0f);
+    target.draw(background);
+
+    sf::RectangleShape fill(sf::Vector2f(std::max(0.0f, barWidth * healthRatio), BarHeight));
+    fill.setPosition(barPosition);
+    fill.setFillColor(healthRatio > 0.35f ? sf::Color(80, 220, 95, 230) : sf::Color(230, 65, 55, 230));
+    target.draw(fill);
 }

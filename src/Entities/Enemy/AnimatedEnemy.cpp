@@ -93,6 +93,7 @@ void AnimatedEnemy::Draw(sf::RenderTarget& target)
             m_sprite.setColor(m_hitFlash.GetCurrentColor());
             target.draw(m_sprite);
         }
+        DrawHealthBar(target);
         return;
     }
 

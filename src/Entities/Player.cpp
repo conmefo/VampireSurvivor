@@ -60,8 +60,12 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
         m_moveSpeedMultiplier = 1.0f;
     }
 
-    m_maxHealth = profile.GetStat("maxHealth");
-    if(m_maxHealth <= 0.0f) 
+    m_maxHealth = profile.GetStat("maxHp");
+    if(m_maxHealth <= 0.0f)
+    {
+        m_maxHealth = profile.GetStat("maxHealth");
+    }
+    if(m_maxHealth <= 0.0f)
     {
         m_maxHealth = 100.0f;
     }

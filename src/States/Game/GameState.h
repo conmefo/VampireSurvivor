@@ -28,9 +28,11 @@ class GameState : public BaseState {
 
   private:
     void LoadStage(int stageNumber);
+    void SpawnInitialTestEnemies();
     void ApplyCameraToView();
     void TogglePause();
     void ReturnToMainMenu();
+    void ApplyEnemyContactDamage();
     sf::FloatRect GetViewBounds() const;
     void DrawHitboxes(sf::RenderTarget &target);
 
