@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+#include <memory>
 #include <SFML/Graphics.hpp>
 #include "VfxInstance.h"
 #include "../Core/Resources/TextureAtlas.h"
@@ -8,7 +9,7 @@
 class VfxManager
 {
 private:
-    std::vector<VfxInstance> m_activeVfx;
+    std::vector<std::unique_ptr<VfxInstance>> m_activeVfx;
     TextureAtlas* m_atlas;
 
 public:

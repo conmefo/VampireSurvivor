@@ -147,3 +147,9 @@ The **antigravity** engine frequently interfaces with extracted original game as
   1. Propose a non-destructive pipeline that outputs the modified data to a completely new, separate file/directory.
   2. Explicitly ask the user: *"Do I have permission to modify the original [Filename] directly?"* and await a clear affirmative response before proceeding.
 * **Intent:** This absolute constraint guarantees that the foundational reference data remains uncorrupted throughout the engine's development and testing lifecycle.
+
+### 5.5. Reverse-Engineering & Original Source Code Access (The Origin Rule)
+To ensure the **antigravity** engine perfectly mirrors the mechanics, game feel, and logic of the original game, implementations must be grounded in objective data rather than guesswork.
+* **User Capability:** The USER has the ability to analyze and extract the structure of the original game's source code. This is achieved by using reverse-engineering tools (such as **ILSpy**, **dnSpy**, or **Cpp2IL**) to decompile the game's Unity IL2CPP binaries (e.g., analyzing `Assembly-CSharp.dll` and the generated `DummyDlls`).
+* **The Protocol:** Whenever **antigravity** (the AI) is unsure about how a specific mechanic, formula, data structure, or behavior was implemented in the original game (e.g., VFX durations, damage calculations, or blending modes), **antigravity must explicitly ask the USER** to look it up. 
+* **The Execution:** Do not guess the logic. Instead, ask: *"Could you check the decompiled source code to see how [Mechanic] is structured?"* The USER will then act as the bridge, providing the original C# signatures and logic snippets to guarantee 1:1 parity in our C++ implementation.

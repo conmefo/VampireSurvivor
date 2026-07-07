@@ -1,0 +1,9 @@
+Target Weapon/Projectile GUID: b08e89d4ef8faea49a43ab32b908482c
+Sprite Name: ProjectileKnife3.asset
+Uses Spritesheet: vfx.png
+
+--- SLICE COORDINATES ---
+X: 1460
+Y: 1439
+Width: 18
+Height: 8

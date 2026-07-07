@@ -6,12 +6,14 @@
 #include "Core/Resources/TextureAtlas.h"
 #include "States/StateContext.h"
 #include "Core/WindowSettings.h"
+#include "Core/Math/MathUtils.h"
 #include "Core/Animation/AnimationLibrary.h"
 #include "Core/Data/CharacterDataManager.h"
 #include "Core/Data/PlayerProgressionManager.h"
 #include "Core/Data/WeaponDataManager.h"
 #include "Core/Data/PowerUpDataManager.h"
 #include "Core/Data/HitVfxDataManager.h"
+#include "Core/Data/ParticleDataManager.h"
 #include "World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -23,25 +25,12 @@ int runSfmlTest()
     sf::RenderWindow window(desktop, "Vampire Survivors Clone", sf::Style::Fullscreen);
     window.setVerticalSyncEnabled(true);
 
-    float screenRatio = static_cast<float>(desktop.width) / static_cast<float>(desktop.height);
     sf::View view;
     view.setSize(Core::VIRTUAL_WIDTH, Core::VIRTUAL_HEIGHT);
     view.setCenter(Core::VIRTUAL_WIDTH / 2.0f, Core::VIRTUAL_HEIGHT / 2.0f);
 
-    if (screenRatio > Core::VIRTUAL_ASPECT_RATIO)
-    {
-        // Pillarbox
-        float viewportWidth = Core::VIRTUAL_ASPECT_RATIO / screenRatio;
-        float viewportX = (1.0f - viewportWidth) / 2.0f;
-        view.setViewport(sf::FloatRect(viewportX, 0.0f, viewportWidth, 1.0f));
-    }
-    else
-    {
-        // Letterbox
-        float viewportHeight = screenRatio / Core::VIRTUAL_ASPECT_RATIO;
-        float viewportY = (1.0f - viewportHeight) / 2.0f;
-        view.setViewport(sf::FloatRect(0.0f, viewportY, 1.0f, viewportHeight));
-    }
+    sf::FloatRect viewport = MathUtils::CalculateLetterboxViewport(static_cast<float>(desktop.width), static_cast<float>(desktop.height), Core::VIRTUAL_ASPECT_RATIO);
+    view.setViewport(viewport);
     
     window.setView(view);
 
@@ -143,8 +132,11 @@ int runSfmlTest()
     HitVfxDataManager hitVfxDataManager;
     hitVfxDataManager.LoadData("Assets/Data/HITVFX_DATA.json");
 
+    ParticleDataManager particleDataManager;
+    particleDataManager.LoadFromJson("Assets/Data/PARTICLE_DATA.json");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager);
     TileMapManager mapManager;
 
     stateManager.AddState(std::make_unique<LoadingState>(context, mapManager));

@@ -313,4 +313,158 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Millisecond Precision:** Identified that original JSON `duration` fields represented milliseconds (from Phaser origin) rather than frames. Modified the `VfxInstance` conversion formula (`duration / 1000.0f`) to achieve the authentic ultra-fast 0.03s - 0.12s "pop" explosions.
 * **Tween-Driven Scaling:** Fully integrated the engine's `Tweener` architecture into `VfxInstance` to animate the scaling of hit effects dynamically instead of hard-coding mathematical easing in the `Update` loop.
 * **Dynamic Sprite Bounds Capping:** Developed a dynamic targeting algorithm using `.getLocalBounds()` to automatically calculate the maximum allowed `scaleX` and `scaleY`. Ensures that regardless of raw asset resolution, the VFX explosions explicitly cap at exactly `43x43` or `55x55` pixels, preventing screen clutter.
-* **Ease-Out Cubic Polish:** Calibrated the `Tweener` to utilize `MathUtils::EaseType::Cubic` with `EaseMode::Out`, starting from 30% scale and aggressively easing into the target bounds, matching the original game's chaotic visual pop.
+* **Ease-Out Cubic Polish:** Calibrated the Tweener to utilize MathUtils::EaseType::Cubic with EaseMode::Out, starting from 30% scale and aggressively easing into the target bounds, matching the original game's chaotic visual pop.
+
+***
+
+## Update: Weapon System Foundation & Whip Integration (Phases 1-3)
+* **Completed:** Implemented the core weapon and projectile systems, allowing automatic, data-driven weapon firing.
+* **Core Components:**
+  * `Projectile` & `WhipProjectile`: Base class and subclass handling the position, scaling, and fading visual Tweens of slashes.
+  * `ProjectileManager`: Orchestrates active projectiles and clears them up in $O(N)$ linear time when expired.
+  * `Weapon` & `WhipWeapon`: Handles cooldown updates and spawning of horizontal strikes alternating left/right directions.
+  * `WeaponInventory`: Component owned by the player that manages active weapons.
+* **Integration:** Connected the player's starting weapon (like Whip) directly from character select profile data. Updated `GameState` to run the lifecycle updates and rendering.
+
+***
+
+## Update: Asset Reverse Engineering & Python Automation Tooling
+* **Ghidra Assembly Analysis:** Successfully utilized Ghidra to decompile the original C# DLLs, allowing us to reverse-engineer hardcoded projectile physics and visual behaviors that were omitted from `WEAPON_DATA.json`. For example, we discovered the Magic Wand (`MagicMissileProjectile`) does not use a custom sprite for its trail; it programmatically spawns a generic Unity `Default-Particle` component tinted cyan.
+* **Prefab & GUID Resolution:** Established a workflow to extract explicit sprite mappings by parsing Unity `.prefab` files and cross-referencing the `m_Sprite` GUIDs within the `SpriteRenderer` components.
+* **Double-Jump Sprite Extractor Tool:** Engineered a robust Python utility (`extract_sprites_by_guid.py`) to navigate massive AssetRipper dumps. The script uses a two-step hop to cross-reference a target GUID to its serialized `.asset` metadata, locate the parent `Texture2D` GUID, automatically copy the master `.png` spritesheet, and generate a precise `_slice_info.txt` containing the exact pixel rect coordinates (`x`, `y`, `width`, `height`) needed to cut out the final sprite.
+* **Validation:** Flawlessly verified the entire pipeline by dynamically extracting the Magic Wand's head sprite (`ProjectileHoly1`) and its coordinate map (`1098, 618, 27, 14`) directly from the master `vfx.png` spritesheet.
+
+***
+
+## Update: Magic Wand Particle System Overhaul
+* **Particle Visuals Upgrade:** Completely overhauled the `MagicMissileProjectile` particle trail to simulate high-quality Unity-style particle effects natively in SFML. Transitioned from rigid `sf::CircleShape` instances to tiny `sf::RectangleShape` quads (`2x2` base size) utilizing `sf::BlendAdd` for authentic magical cyan glows.
+* **Dynamic Spawning Logic:** Replaced static distance-based spawning with a time-based interval system (`m_particleSpawnTimer`). Particles now spawn in randomized clusters (1-3 particles per burst) to create an organic, dust-like texture rather than a uniform dashed line.
+* **Organic Trajectory Physics:** Introduced randomized positional scatter and outward velocity drift. As particles age, they shrink in scale while drifting outward naturally, forming a perfectly flared, fading tail.
+* **Weapon Scaling:** Adjusted the main projectile weapon sprite (`ProjectileHoly1`) to forcibly scale to a highly visible `45x29` dimension relative to its bounding box, ensuring visual parity with the authentic game aesthetic.
+
+***
+
+## Update: Authentic Enemy Hit Flash System & Component Architecture
+* **Decoupled Architecture:** Created a dedicated `HitFlashComponent` using Composition over Inheritance. `EnemyBase` delegates all countdown and color-tinting logic to this component, rigidly avoiding God Class bloat.
+* **Data-Driven Tints:** Extracted the `"tint"` value dynamically from `ENEMY_DATA.json` into `EnemyStats`, ensuring base enemy colors are fully data-driven rather than hard-coded.
+* **Fragment Shader Integration:** Implemented a custom GLSL fragment shader directly inside `AnimatedEnemy` to correctly support `isTintFill` overrides. This perfectly overwrites sprite RGBs with pure white (or hit effects) while dynamically preserving native alpha thresholds.
+
+***
+
+## Update: Hit VFX Positioning, Delay Polish & Memory Safety
+* **Impact Pinning:** Sampled and injected `originalPos` strictly prior to evaluating the knockback vector, meaning impact VFX flawlessly overlay the actual point of impact instead of shifting backward.
+* **Authentic Tween Delay:** Overhauled `VfxInstance`'s scaling tweener to mimic the authentic game's delay. The hit sprite remains invisible (`alpha = 0`) for the first 60% of the flash duration and aggressively scales/rotates entirely within the final 40% of its lifetime.
+* **Dangling Pointer Memory Fix:** Identified a major memory corruption defect where `std::vector` capacity reallocations invalidated `this` pointers captured inside the Tweener callback lambdas. Refactored `VfxManager` to use `std::vector<std::unique_ptr<VfxInstance>>`, guaranteeing absolute memory stability and eliminating overlapping visual anomalies.
+
+***
+
+## Update: Treasure Chest & Fireworks Architecture Discovery
+* **State Machine Isolation:** Analyzed the `Gameplay.unity` file and discovered how treasure chest sequences are executed. The sequence pushes a dedicated `TreasureState` onto the state stack, freezing all player and enemy updates while keeping rendering active via an underlying blackout overlay.
+* **FireworksController:** Discovered `FireworksController` acts as a specialized emitter for the chest-open sequence. It operates independently, spawning a sequence of particles (`VfxInstance`) mimicking parabolic physics using vertical velocity and gravity logic.
+
+***
+
+## Update: Magic Wand Tail Architecture Discovery
+* **Tracer Prefab:** Solved the missing Magic Wand tail mystery. The tail is not a component of `MagicMissileProjectile.prefab`. Instead, it uses a dynamically instantiated, standalone Unity `TrailRenderer` component stored inside `Tracer.prefab`.
+* **Trail Properties:** The `Tracer` uses highly optimized parameters (`m_Time: 0.7`, `m_MinVertexDistance: 0.001`, and `widthMultiplier: 0.2` with a curved fade-in/fade-out). The `ProjectileManager` dynamically attaches these tracers to specific projectiles at runtime, keeping the base prefabs incredibly lightweight and reusable.
+
+***
+
+## Update: Unity ProjectSettings & Performance Optimization Secrets
+* **Physics Iterations (The 10k Enemy Secret):** Analyzed `Physics2DSettings.asset` and found that Vampire Survivors sets `m_VelocityIterations` and `m_PositionIterations` to exactly `1` (down from standard values like 8 and 3). This sacrifices realistic bouncing and stacking in exchange for blistering performance, allowing thousands of enemies to slide loosely over each other without tanking the CPU.
+* **Transform Synchronization:** Discovered `m_AutoSyncTransforms: 0`, preventing physics calculations every time an object visually moves, saving massive overhead.
+* **VFX Capacity:** Checked `VFXManager.asset` and noted a locked 60FPS update rate (`0.01666s`) for determinism, and an enormous `m_MaxCapacity: 100000000`, proving heavy reliance on massive object pools rather than on-the-fly garbage collection.
+* **Collision Layer Matrix:** Revealed through `TagManager.asset` how the game manages physics categories (e.g., separating `Player`, `Enemies`, `Pickups`, `Projectiles`, `EnemiesPassThrough`, and `MagnetZone`). This demonstrates that the player's magnet is implemented as an actual invisible physics trigger circle, and enemies are layered meticulously to minimize cross-checking.
+
+***
+
+## Update: Il2Cpp Coroutine Reverse Engineering Discovery
+* **Coroutine Architecture (IEnumerator):** Discovered that spawning methods like FireballSpawnerSpawnFireball are compiled into C# IEnumerator coroutines. The decompiled method allocates a state machine struct (e.g., _FireballSpawner.<SpawnFireball>d__16) and stores parameters into it, rather than executing the logic synchronously.
+* **Garbage Collection Optimization:** Observed bitwise locking and unlocking loops around pointer assignments (e.g., DAT_1899efb60), confirming that the engine employs internal write barriers for Il2Cpp Garbage Collection safely handling pointers across threads/state machines.
+* **Next Steps for Reversing:** To find the actual spawning logic and string resolutions for Coroutines, we need to inspect the MoveNext() method of these generated state machine classes (like FireballSpawner.<SpawnFireball>d__16MoveNext).
+
+***
+
+## Update: FireballSpawner Logic & Prefab Resolution
+* **String Mapping Myth Busted:** Analyzed the MoveNext decompilation of FireballSpawner. Discovered that the game does **not** perform string concatenation (e.g., Projectile + FIREBALL) to load sprites at runtime.
+* **Prefab Instantiation:** Instead, SpawnFireball takes a direct reference to a Unity Prefab (param_1) and calls UnityEngine.Object.Instantiate<GameObject>(). The reason we only found ProjectileFireball in the fx_atlas.json is because that sprite is hard-assigned to the SpriteRenderer/ParticleSystem directly inside the Unity Prefab asset via the Unity Editor, not in code!
+* **State Machine Breakdown:**
+  * **State 0:** Yields a WaitForSeconds delay (using the param_2 passed to the Spawner).
+  * **State 1:** Instantiates the Prefab, calculates Vector3 positional offsets, and grabs the ParticleSystem component.
+  * **State 2:** A mathematical Lerp loop that dynamically scales the fireball's size over time using delta time.
+  * **State 3:** Calls Object.Destroy() and triggers FireballSpawnerFireballSequence, which likely handles the actual impact/explosion VFX.
+
+***
+
+## Update: Unity Asset Resolution & Python Mapping
+* **AssetRipper Metadata Quirks:** Verified why fx.png.meta does not contain the sprite slice names (like ProjectileFireball). When the original game was extracted, the ripper separated every sub-sprite slice into its own .asset and .meta files, splitting them away from the master texture.
+* **Automated Python Solution:** Created and executed a Python script (extract_sprite_mappings.py) to automate the Prefab-to-Sprite linkage. 
+* **Next Steps for Reversing:** To find the actual spawning logic and string resolutions for Coroutines, we need to inspect the MoveNext() method of these generated state machine classes (like FireballSpawner.<SpawnFireball>d__16MoveNext).
+
+***
+
+## Update: FireballSpawner Logic & Prefab Resolution
+* **String Mapping Myth Busted:** Analyzed the MoveNext decompilation of FireballSpawner. Discovered that the game does **not** perform string concatenation (e.g., Projectile + FIREBALL) to load sprites at runtime.
+* **Prefab Instantiation:** Instead, SpawnFireball takes a direct reference to a Unity Prefab (param_1) and calls UnityEngine.Object.Instantiate<GameObject>(). The reason we only found ProjectileFireball in the  fx_atlas.json is because that sprite is hard-assigned to the SpriteRenderer/ParticleSystem directly inside the Unity Prefab asset via the Unity Editor, not in code!
+* **State Machine Breakdown:**
+  * **State 0:** Yields a WaitForSeconds delay (using the param_2 passed to the Spawner).
+  * **State 1:** Instantiates the Prefab, calculates Vector3 positional offsets, and grabs the ParticleSystem component.
+  * **State 2:** A mathematical Lerp loop that dynamically scales the fireball's size over time using delta time.
+  * **State 3:** Calls Object.Destroy() and triggers FireballSpawnerFireballSequence, which likely handles the actual impact/explosion VFX.
+
+***
+
+## Update: Unity Asset Resolution & Python Mapping
+* **AssetRipper Metadata Quirks:** Verified why  fx.png.meta does not contain the sprite slice names (like ProjectileFireball). When the original game was extracted, the ripper separated every sub-sprite slice into its own .asset and .meta files, splitting them away from the master texture.
+* **Automated Python Solution:** Created and executed a Python script (extract_sprite_mappings.py) to automate the Prefab-to-Sprite linkage. 
+  1. The script scanned all ripped .meta files to build a massive GUID -> SpriteName dictionary.
+  2. It scanned all 700+ .prefab files in prefab_files to find their m_Sprite GUIDs.
+  3. It cross-referenced the GUIDs to output a clean JSON map (prefab_sprite_map.json) linking PrefabName -> SpriteName (e.g. FireballProjectile.prefab -> ProjectileFireball).
+* **Implementation Plan for Engine:** The C++ engine can now take  ulletType: FIREBALL, append Projectile, look up FireballProjectile.prefab in the generated JSON map, and instantly know to pull ProjectileFireball from the  fx_atlas.json without needing to parse Unity YAML files at runtime!
+
+### Date:  - Weapon Targeting Architecture Overhaul
+- Refactored Weapon base class and WeaponInventory to take EnemyPool reference instead of a static 	argetPosition.
+- Implemented  irtual sf::Vector2f GetTargetPosition to allow weapons to select targets once per burst loop.
+- Completed FireballWeapon with AimForRandomEnemy logic (choosing a random active enemy, falling back to facing direction if none are found).
+
+***
+
+## Update: Authentic Runetracer Implementation & Il2Cpp Physics Reversing
+* **Runetracer Architecture**: Implemented `RunetracerWeapon` and `RunetracerProjectile` matching the original game's `WEAPON_DATA.json` config (bulletType: `DIAMOND`).
+* **Physics Bouncing Math**: Discovered through IL2CPP decompilation that the original game delegates bouncing strictly to the Phaser/Unity physics engine (`setCollideWorldBounds(true)`). Replicated this perfectly in C++ by updating the `ProjectileManager` to enforce bounding-box view collision checks and reversing the velocity vectors cleanly upon impact.
+* **Duration-Based Lifetime**: Confirmed the original game uses a strict duration timer (e.g. 2.25s for level 1) to destroy the Runetracer, completely bypassing bounce-count limits. Our C++ engine natively handles this via the `m_duration` logic in `Projectile.cpp`.
+* **Visual FX Polish**: Verified the color cycling behavior of the original `DiamondProjectile` which loops a rainbow hue on its trail, while the base projectile itself remains white. Stripped away a false assumption about scaling pulses (which turned out to belong to a completely different bezier-curve projectile, `Rune1`) in favor of an authentic constant-scale rendering pass.
+* **Infinite Penetration**: Overrode `OnHitEnemy` to explicitly prevent the projectile from destroying itself, and implemented a precise 500ms hit-delay per enemy as observed in the decompiled code, preventing instant-kill multi-hits while passing through targets.
+
+### Runetracer & Tuning System Update
+- **Runetracer Architecture**: Integrated RunetracerWeapon and RunetracerProjectile into the build system and weapon factory. Handles physics bounces via ProjectileManager screen-bounds check.
+- **TrailRenderer**: Built a high-performance TrailRenderer component using sf::TriangleStrip to generate continuous ribbons with configurable fade-out starting points, fixed widths, and static RGB base colors.
+- **UI Tuning Integration**: Hooked up the Runetracer live properties (diamond scale, trail width, fade start ratio, max lifetime, and color) to the in-game ParticleTuningUI by repurposing ParticleEmitterConfig.
+- **Fade-Out State**: Runetracers now gracefully fade their alpha to 0 over 0.5s when their duration expires instead of popping out of existence.
+
+
+- **Knife Weapon Implementation**: Created KnifeWeapon and KnifeProjectile mirroring the original game logic. Overrode weapon targeting to always fire in the player's facing direction and allowed the projectile sprite to dynamically rotate based on its velocity vector.
+
+## Update: Axe Weapon Implementation & Physics Tuning
+- **Axe Architecture**: Extracted the exact physics and math for the Axe weapon via Ghidra/IL2CPP decompilation of the original C# code.
+- **Integration**: Added `AXE` to `WEAPON_DATA.json` using config parameters, extracted the Sprite slice (`ProjectileAxe1`) using the GUID mapping script, and integrated `AxeWeapon` and `AxeProjectile` into the game state and CMake build system.
+- **Struggle 1 (Trajectory Math):** The Axe originally fired straight up or far too horizontally because we misinterpreted the Ghidra formula: `Angle = -90.0 + Dir * (45.0 / Speed) * index`. We incorrectly used the `Weapon.Speed` multiplier (`1.0`) in the denominator, resulting in a massive 45-degree spread per axe.
+- **Fix 1:** We discovered through the decompiled C# that the denominator was the actual *base velocity* (`6.0` Unity units/sec). Using `45.0 / 6.0` yielded a perfect `7.5-degree` spread per axe, creating a tight forward cascade.
+- **Struggle 2 (Constant Velocity Assumption):** We incorrectly assumed every axe had a constant total velocity (`6.0`), separating it into X and Y via `sin`/`cos`. This caused axes thrown further forward to have lower peak heights, breaking the authentic visual feel.
+- **Fix 2:** We discovered a brilliant clamping trick in the original Ghidra code: the game calculates a theoretical Y velocity based on a high speed but explicitly clamps it to exactly `6.0` (`if (fVar14 <= 6.0) fVar11 = fVar14;`). By realizing the Axe base speed is exactly `6.0` (which naturally triggers the clamp ceiling if exceeded, but mathematically resolves perfectly to `6.0` for the peak), we guaranteed all axes share the exact same vertical hang-time while fanning out horizontally.
+- **Struggle 3 (UI Rendering Space):** While attaching the Axe parameters to the `ParticleTuningUI`, the sliders were rendered entirely out of bounds because we were drawing them through the zoomed `m_worldView` camera.
+- **Fix 3:** Refactored `GameState.cpp` to render the `m_tuningUI` inside an absolute screen-space `sf::View`, ensuring the tuning sliders mapped perfectly to raw mouse coordinates regardless of the gameplay camera zoom.
+- **Final Result:** After live-tuning via the UI, the perfect golden parameters (`Speed = 2.8` and `Gravity = 803.9`) were permanently baked into the C++ source code as the defaults.
+
+***
+
+## Update: Viewport Letterboxing & Zoom Scaling (Phase 8)
+* **Zoom Logic & Scaling Issues:**
+  * **Struggle:** Implementing the custom camera zoom required overriding `m_worldView.setSize()`. The initial `UIScrollbar` for the interactive zoom tuner failed to render because the track dimensions were accidentally set to the height of the thumb, resulting in zero travel space.
+  * **Fix:** Corrected the UI component layout geometry, successfully scaled the camera to an optimal `2.2x` zoom factor, and finally hard-coded the exact `WorldZoom` constant into `GameState.h` according to the core blueprint.
+* **Global Letterbox & Aspect Ratio Preservation:**
+  * **Struggle:** When the game window was not exactly a `16:9` ratio, the `GameState`'s custom views (`m_worldView` and `uiView`) would default to a `[0, 0, 1, 1]` viewport overlay, overwriting `main.cpp`'s letterboxing and stretching all game geometry horizontally or vertically.
+  * **Fix:** Strictly adhering to the DRY principle from `CoreManifesto.md`, we extracted the viewport math into a universal `MathUtils::CalculateLetterboxViewport` function. We then updated both `main.cpp` and `GameState::Draw` to query window dimensions dynamically and apply precise Black Bar letterboxing on all active views, preventing resolution stretching flawlessly.
+* **Character Sprite Resolution Tweak:**
+  * **Struggle:** We needed to find out how to precisely alter the bounding box scaling of the player on the screen.
+  * **Fix:** Located the absolute bounding constraints (`76x76` pixels) safely encapsulated inside `Player.cpp`'s constructor, proving that our texture atlas scales independently of underlying image dimensions.

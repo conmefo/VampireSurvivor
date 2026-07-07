@@ -40,6 +40,7 @@ void EnemyBase::Activate(const sf::Vector2f& position, const EnemyStats& stats)
 
     m_body.setRadius(m_collisionRadius);
     m_body.setOrigin(m_collisionRadius, m_collisionRadius);
+    m_hitFlash.Init(stats.baseTint);
     SyncBodyToPosition();
 }
 
@@ -57,6 +58,7 @@ void EnemyBase::Update(float dt)
     }
 
     UpdateAI(dt);
+    m_hitFlash.Update(dt);
     SyncBodyToPosition();
 }
 
@@ -67,6 +69,7 @@ void EnemyBase::Draw(sf::RenderTarget& target)
         return;
     }
 
+    m_body.setFillColor(m_hitFlash.GetCurrentColor());
     target.draw(m_body);
 }
 
@@ -105,6 +108,11 @@ void EnemyBase::ApplyKnockback(const sf::Vector2f& force)
     float safeMass = m_stats.mass <= 0.0f ? 1.0f : m_stats.mass;
     m_position += force / safeMass;
     SyncBodyToPosition();
+}
+
+void EnemyBase::TriggerHitFlash(const HitVfxProfile& profile)
+{
+    m_hitFlash.TriggerFlash(profile);
 }
 
 bool EnemyBase::IsAlive() const

@@ -1,4 +1,34 @@
 {
+  "AXE": [
+    {
+      "level": 1,
+      "sealable": true,
+      "bulletType": "AXE",
+      "price": 10,
+      "name": "Axe",
+      "description": "Thrown upwards, deals high damage.",
+      "tips": "Ignores: Duration.",
+      "texture": "vfx",
+      "frameName": "ProjectileAxe1",
+      "evoSynergy": [
+        "CANDELABRADOR"
+      ],
+      "evoInto": "DEATH_SPIRAL",
+      "isUnlocked": true,
+      "poolLimit": 30,
+      "rarity": 100,
+      "interval": 2000,
+      "repeatInterval": 0,
+      "power": 2.0,
+      "area": 1.0,
+      "speed": 1.0,
+      "amount": 1,
+      "hitsWalls": false,
+      "penetrating": 2,
+      "critChance": 0.0,
+      "critMul": 1.0
+    }
+  ],
   "WHIP": [
     {
       "level": 1,

@@ -41,14 +41,35 @@ FetchContent_MakeAvailable(SFML nlohmann_json)
 add_executable(VampireSurvivors
     src/Entities/Agent.cpp
     src/Entities/Player.cpp
+    src/Entities/Projectiles/Projectile.cpp
+    src/Entities/Projectiles/ProjectileManager.cpp
+    src/Entities/Projectiles/WhipProjectile.cpp
+    src/Entities/Projectiles/MagicMissileProjectile.cpp
+    src/Entities/Projectiles/FireballProjectile.cpp
+    src/Entities/Projectiles/RunetracerProjectile.cpp
+    src/Entities/Projectiles/KnifeProjectile.cpp
+    src/Entities/Projectiles/AxeProjectile.cpp
+    src/UI/PlayerHUD.cpp
+    src/Entities/Weapons/Weapon.cpp
+    src/Entities/Weapons/WeaponInventory.cpp
+    src/Entities/Weapons/WhipWeapon.cpp
+    src/Entities/Weapons/MagicMissileWeapon.cpp
+    src/Entities/Weapons/FireballWeapon.cpp
+    src/Entities/Weapons/RunetracerWeapon.cpp
+    src/Entities/Weapons/KnifeWeapon.cpp
+    src/Entities/Weapons/AxeWeapon.cpp
     src/Components/AnimationComponent.cpp
+    src/Components/TrailRenderer.cpp
     src/Entities/Enemy/AnimatedEnemy.cpp
     src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp
     src/Entities/Enemy/EnemyPool.cpp
+    src/Entities/Enemy/HitFlashComponent.cpp
     src/UI/UIManager.cpp
     src/Entities/VfxInstance.cpp
     src/Entities/VfxManager.cpp
+    src/Entities/Particles/ParticleEmitter.cpp
+    src/Entities/Particles/ParticleManager.cpp
     src/States/StateManager.cpp
     src/States/Menu/MainMenuState.cpp
     src/main.cpp
@@ -81,6 +102,7 @@ add_executable(VampireSurvivors
     src/UI/Components/UIScrollbar.h
     src/UI/Components/UIDetailPanel.cpp
     src/UI/Components/UIDetailPanel.h
+    src/UI/ParticleTuningUI.cpp
     src/Core/Data/PowerUpData.h
     src/Core/UI/ScreenTransitionManager.cpp
     src/States/Title/TitleState.cpp
@@ -103,6 +125,7 @@ add_executable(VampireSurvivors
     src/Core/Data/PlayerProgressionManager.cpp
     src/Core/Data/HitVfxProfile.cpp
     src/Core/Data/HitVfxDataManager.cpp
+    src/Core/Data/ParticleDataManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

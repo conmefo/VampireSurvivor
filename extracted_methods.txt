@@ -1,0 +1,145 @@
+--- Fire ---
+public virtual void Fire()
+	{
+		ProfilerMarker markerCleanup = _markerCleanup;
+		Console.WriteLine("伀戀樀攀挀琀猀⸀䌀栀愀爀愀挀琀攀爀猀⸀䔀渀攀洀");
+	}
+
+public virtual void Fire(bool skipTriggers = false)
+	{
+		//IL_008e: Expected I, but got O
+		//IL_0049: Expected O, but got I8
+		//IL_00a4: Unknown result type (might be due to invalid IL or missing references)
+		//IL_00a9: Expected O, but got Unknown
+		//IL_00c0: Unknown result type (might be due to invalid IL or missing references)
+		//IL_00c5: Expected O, but got Unknown
+		//IL_00f0: Expected O, but got I4
+		//IL_0138: Invalid comparison between F4 and O
+		//IL_0152: Expected O, but got I4
+		//IL_015c: Expected I4, but got O
+		//IL_021b: Expected I, but got O
+		//IL_022a: Expected O, but got F4
+		//IL_026a: Expected I4, but got O
+		//IL_02b8: Expected I4, but got I8
+		//IL_02c6: Expected I4, but got O
+		//IL_02cf: Expected O, but got I4
+		//IL_02e1: Expected I, but got O
+		//IL_0332: Expected I4, but got O
+		//IL_0395: Expected I, but got O
+		//IL_03c2: Expected O, but got I4
+		//IL_03d0: Expected I, but got O
+		//IL_0165->IL0165: Incompatible stack heights: 3 vs 0
+		//IL_0387->IL0165: Incompatible stack heights: 3 vs 0
+		//IL_03d9->IL0165: Incompatible stack heights: 3 vs 0
+		bool flag = (long)new string("渀开椀渀椀琀椀愀氀椀稀攀开爀甀渀琀椀洀攀开洀攀琀愀搀愀琀愀∀Ⰰ\u2000瘀㈀㜀\u2000䀀\u2000爀愀砀开瘀㌀Ⰰ\u2000琀礀瀀攀") != 0L;
+		bool flag3 = default(bool);
+		bool flag2 = flag3;
+		object obj = default(object);
+		if (!flag)
+		{
+			Console.WriteLine("\u2000䀀\u2000爀愀砀开瘀㌀Ⰰ\u2000琀礀瀀攀漀昀⠀嘀愀洀瀀椀爀攀匀甀");
+			obj = (flag3 ? 1 : 0) | 0L;
+			Console.WriteLine("椀爀攀匀甀爀瘀椀瘀漀爀猀⸀伀戀樀攀挀琀猀⸀䌀栀愀爀愀挀琀攀爀猀⸀䔀渀攀洀椀攀猀⸀䔀渀攀洀礀䨀攀渀攀瘀椀瘀㸀⤀⬀\u3100");
+		}
+		bool flag4 = new string("") == null;
+		bool flag5 = skipTriggers;
+		Action<float> action2 = default(Action<float>);
+		Action<float> action = action2;
+		Transform transform2 = default(Transform);
+		Transform transform = transform2;
+		nint num = (nint)new string("");
+		if (!flag4)
+		{
+			object obj2 = obj | 0L;
+			Console.WriteLine("渀洀愀渀愀最攀搀\u2000洀攀洀漀爀礀\u2000氀漀愀搀㨀\u2000嬀瘀㈀㜀㜀\u2000䀀\u2000爀搀砀开瘀㌀\u2000⠀䤀氀㈀䌀");
+			object obj3 = obj2 | 0L;
+			Console.WriteLine("䌀氀愀猀猀㰀嘀愀洀瀀椀爀攀匀甀爀瘀椀瘀漀爀猀⸀伀戀樀攀挀琀猀⸀䌀栀愀爀愀挀琀攀爀猀⸀䔀渀攀洀椀攀猀⸀䔀渀攀洀礀䨀");
+			new string("");
+			new string("");
+			float2 position = ((ArcadeSprite)skipTriggers).position;
+			ProfilerMarker markerCleanup = _markerCleanup;
+			Console.WriteLine("");
+			ProfilerMarker markerCleanup2 = _markerCleanup;
+			object obj4 = new string("栀愀爀愀挀琀攀爀猀⸀䔀渀攀洀礀䌀漀渀琀爀漀氀氀攀爀⤀Ⰰ\u2000瘀㘀\u3000\u2000䀀");
+			Console.WriteLine("");
+			string text = new string("Unmanaged memory load: [188A104DC]");
+			float num2 = default(float);
+			bool flag6 = System.Runtime.CompilerServices.Unsafe.As<object, UIntPtr>(ref (object)num2) <= System.Runtime.CompilerServices.Unsafe.As<string, UIntPtr>(ref text);
+			float num3 = num2;
+			Action<float> action3 = (Action<float>)0;
+			bool flag7 = (byte)(int)_targetTransform != 0;
+			if (flag6)
+			{
+				ProfilerMarker markerCleanup3 = _markerCleanup;
+				object obj5 = new string("");
+				Console.WriteLine("\u2000挀愀氀氀\u2000琀愀爀最攀琀\u2000漀瀀攀爀愀渀搀㨀\u2000㔀㌀\u2000䌀愀氀氀\u2000∀椀氀㈀挀瀀瀀开挀漀搀攀最攀渀开椀渀椀琀椀愀氀椀稀");
+				nint num4 = (nint)new Mathf();
+				object obj6 = _lastFiringInterval - num3;
+				object obj7 = new string("");
+				object obj8 = obj6 & (object)new string("Unmanaged memory load: [188A12890]");
+				bool flag8 = System.Runtime.CompilerServices.Unsafe.As<object, UIntPtr>(ref obj8) <= System.Runtime.CompilerServices.Unsafe.As<object, UIntPtr>(ref obj7);
+				bool flag9 = (byte)(int)new string("") != 0;
+				bool flag19 = default(bool);
+				Action<float> action6 = default(Action<float>);
+				Transform targetTransform = default(Transform);
+				nint num5 = default(nint);
+				if (!flag8)
+				{
+					bool flag11 = default(bool);
+					bool flag10 = flag11;
+					bool flag13 = default(bool);
+					bool flag12 = flag13;
+					bool flag15 = default(bool);
+					bool flag14 = flag15;
+					object obj10 = default(object);
+					object obj9 = obj10;
+					bool flag17 = default(bool);
+					bool flag16 = flag17;
+					Action action5 = default(Action);
+					Action action4 = action5;
+					object obj12 = default(object);
+					object obj11 = obj12;
+					bool flag18 = true;
+					flag19 = (byte)(int)new string("䄀㌀䐀㌀㠀崀\0\ue981Unknown call target ") != 0;
+					action6 = (Action<float>)0;
+					targetTransform = _targetTransform;
+					Weapon weapon = default(Weapon);
+					num5 = (nint)weapon;
+					ProfilerMarker markerCleanup4 = _markerCleanup;
+					object obj13 = new string("洀攀开洀攀琀愀搀愀琀愀∀Ⰰ\u2000瘀\u3100㘀\u2000䀀\u2000爀愀砀开瘀\u3100Ⰰ\u2000琀礀瀀攀漀昀⠀嘀愀洀瀀椀爀攀匀甀爀瘀椀瘀漀爀猀⸀");
+					Console.WriteLine("");
+					ProfilerMarker markerCleanup5 = _markerCleanup;
+					Weapon weapon2 = default(Weapon);
+					weapon2._lastFiringInterval = num3;
+					Console.WriteLine("䌀栀愀渀最攀搀⤀\0ﶁUnknown call target operand: 20 Call \"il");
+					flag9 = (byte)(int)new string("猀⸀䘀爀愀洀攀眀漀爀欀⸀匀漀甀渀搀䴀愀渀愀最攀爀⤀Ⰰ\u2000洀攀琀栀漀搀䤀渀昀漀\u2000䀀\u2000爀搀砀\u2000⠀匀礀猀琀攀洀⸀匀椀渀最氀") != 0;
+				}
+				if (skipTriggers)
+				{
+					return;
+				}
+				bool flag20 = _currentWeaponData == null;
+				flag5 = flag19;
+				action = action6;
+				transform = targetTransform;
+				num = num5;
+				if (!flag20)
+				{
+					nint num6 = (nint)new string("");
+					bool flag21 = new string("") == null;
+					flag5 = flag9;
+					action = action3;
+					transform = (Transform)flag7;
+					num = (nint)new string("");
+					if (!flag21)
+					{
+						return;
+					}
+				}
+			}
+		}
+		Console.WriteLine("Method not found @180AB7550");
+	}
+
+--- DoFire ---
+--- SpawnProjectile ---

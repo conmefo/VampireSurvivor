@@ -5,6 +5,12 @@
 #include "../../World/TileMapManager.h"
 #include "../../Entities/Player.h"
 #include "../../Entities/VfxManager.h"
+#include "../../Entities/Particles/ParticleManager.h"
+#include "../../UI/ParticleTuningUI.h"
+#include "../../Entities/Projectiles/ProjectileManager.h"
+#include "../../Entities/Weapons/Weapon.h"
+#include "../../Core/Data/WeaponDataManager.h"
+#include "../../UI/PlayerHUD.h"
 #include "../BaseState.h"
 #include <memory>
 
@@ -31,6 +37,7 @@ class GameState : public BaseState {
     static constexpr float CameraSpeed = 200.0f;
     static constexpr float ViewWidth = 1920.0f;
     static constexpr float ViewHeight = 1080.0f;
+    static constexpr float WorldZoom = 2.2f;
 
     TileMapManager& m_mapManager;
     TileMap* m_tileMap = nullptr;
@@ -45,4 +52,11 @@ class GameState : public BaseState {
     bool m_isPaused = false;
     VfxManager m_vfxManager;
     std::unique_ptr<PauseMenuView> m_pauseMenu;
+    vs::ParticleManager m_particleManager;
+    vs::ParticleEmitterConfig m_testParticleConfig;
+    std::unique_ptr<ParticleTuningUI> m_tuningUI;
+    vs::ParticleEmitterConfig m_bloodTearConfig;
+    vs::ParticleEmitter* m_testEmitter = nullptr;
+    ProjectileManager m_projectileManager;
+    std::unique_ptr<PlayerHUD> m_playerHUD;
 };

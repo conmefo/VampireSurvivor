@@ -1,0 +1,9 @@
+Target Weapon/Projectile GUID: 79c21d7aecc37804ea31e4226ccd7434
+Sprite Name: ProjectileAxe1.asset
+Uses Spritesheet: vfx.png
+
+--- SLICE COORDINATES ---
+X: 554
+Y: 348
+Width: 18
+Height: 20
