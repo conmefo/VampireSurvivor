@@ -126,6 +126,7 @@ add_executable(VampireSurvivors
     src/Core/Data/HitVfxProfile.cpp
     src/Core/Data/HitVfxDataManager.cpp
     src/Core/Data/ParticleDataManager.cpp
+    src/Core/Data/StageWaveDataManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

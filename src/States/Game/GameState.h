@@ -10,9 +10,12 @@
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
 #include "../../Core/Data/WeaponDataManager.h"
+#include "../../Core/Data/StageWaveDataManager.h"
 #include "../../UI/PlayerHUD.h"
 #include "../BaseState.h"
 #include <memory>
+#include <string>
+#include <vector>
 
 class PauseMenuView;
 
@@ -28,7 +31,13 @@ class GameState : public BaseState {
 
   private:
     void LoadStage(int stageNumber);
-    void SpawnInitialTestEnemies();
+    void ResetStageSpawner();
+    void UpdateStageSpawner(float dt);
+    void SpawnWaveEnemy(const std::string& enemyId);
+    void SpawnWaveBosses(const StageWaveDefinition& wave);
+    const StageWaveDefinition* GetCurrentStageWave() const;
+    sf::Vector2f GetWaveSpawnPosition(int spawnIndex) const;
+    std::string ResolveSpawnEnemyId(const std::string& requestedId) const;
     void ApplyCameraToView();
     void TogglePause();
     void ReturnToMainMenu();
@@ -47,6 +56,13 @@ class GameState : public BaseState {
     sf::Vector2f m_cameraCenter;
     EnemyDatabase m_enemyDatabase;
     EnemyPool m_enemyPool;
+    StageWaveDataManager m_stageWaveData;
+    const std::vector<StageWaveDefinition>* m_activeStageWaves = nullptr;
+    const StageWaveDefinition* m_currentWave = nullptr;
+    float m_stageElapsed = 0.0f;
+    float m_waveSpawnTimer = 0.0f;
+    int m_waveSpawnCursor = 0;
+    std::vector<int> m_spawnedBossWaveMinutes;
     std::unique_ptr<Player> m_player;
     std::string m_selectedCharacterId;
     int m_currentStage = 1;
