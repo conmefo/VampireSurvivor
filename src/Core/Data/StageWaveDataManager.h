@@ -27,13 +27,24 @@ struct StageWaveDefinition
     std::vector<StageWaveEvent> events;
 };
 
+struct StageInfo
+{
+    std::string stageKey;
+    std::string stageName;
+    std::string stageNumber;
+    int timeLimitSeconds = 1800;
+    float clockSpeed = 1.0f;
+};
+
 class StageWaveDataManager
 {
 public:
     bool LoadData(const std::string& configFilePath);
 
     const std::vector<StageWaveDefinition>* GetStageWaves(const std::string& stageKey) const;
+    const StageInfo* GetStageInfo(const std::string& stageKey) const;
 
 private:
     std::unordered_map<std::string, std::vector<StageWaveDefinition>> m_stageWaves;
+    std::unordered_map<std::string, StageInfo> m_stageInfo;
 };

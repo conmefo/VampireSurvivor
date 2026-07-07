@@ -179,6 +179,28 @@ void GameState::Init() {
         });
     }
 
+    if(boldFont && font)
+    {
+        m_stageTimerText.setFont(*boldFont);
+        m_stageTimerText.setCharacterSize(42);
+        m_stageTimerText.setFillColor(sf::Color(245, 245, 235));
+        m_stageTimerText.setOutlineColor(sf::Color(35, 35, 35, 230));
+        m_stageTimerText.setOutlineThickness(2.0f);
+
+        m_stageTimerShadowText = m_stageTimerText;
+        m_stageTimerShadowText.setFillColor(sf::Color(0, 0, 0, 140));
+        m_stageTimerShadowText.setOutlineThickness(0.0f);
+
+        m_stageInfoText.setFont(*font);
+        m_stageInfoText.setCharacterSize(17);
+        m_stageInfoText.setFillColor(sf::Color(210, 210, 198));
+        m_stageInfoText.setOutlineColor(sf::Color(0, 0, 0, 190));
+        m_stageInfoText.setOutlineThickness(1.0f);
+
+        m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
+        UpdateStageTimerText();
+    }
+
     // Initialize Particle UI
     m_testParticleConfig = m_context.particleData.GetConfig("bloodTear");
     m_testParticleConfig.looping = true; // Temporary loop for tuning
@@ -288,6 +310,7 @@ void GameState::Update(float dt) {
             m_playerHUD->Update(dt);
         }
     }
+    UpdateStageTimer(dt);
     UpdateStageSpawner(dt);
     m_enemyPool.Update(dt, m_cameraCenter);
     m_projectileManager.SetViewBounds(GetViewBounds());
@@ -411,6 +434,8 @@ void GameState::Draw(sf::RenderWindow &window) {
     rightDimBar.setPosition(ViewWidth - 96.0f, 0.0f);
     window.draw(rightDimBar);
 
+    DrawStageTimer(window);
+
     window.setView(previousView);
 
     if (m_tuningUI) {
@@ -467,13 +492,17 @@ void GameState::LoadStage(int stageNumber) {
 
     ApplyCameraToView();
 
+    const std::string stageKey = GetStageWaveKey(stageNumber);
+    m_activeStageWaves = m_stageWaveData.GetStageWaves(stageKey);
+    m_activeStageInfo = m_stageWaveData.GetStageInfo(stageKey);
+
     if(m_pauseMenu)
     {
-        m_pauseMenu->SetStageName(GetStageName(stageNumber));
+        m_pauseMenu->SetStageName(m_activeStageInfo ? m_activeStageInfo->stageName : GetStageName(stageNumber));
     }
 
-    m_activeStageWaves = m_stageWaveData.GetStageWaves(GetStageWaveKey(stageNumber));
     ResetStageSpawner();
+    UpdateStageTimerText();
 
     std::cout << "Loaded stage " << stageNumber << ": " << GetStageName(stageNumber) << " with "
               << m_enemyPool.GetActiveCount() << " opening wave enemies" << std::endl;
@@ -486,6 +515,7 @@ void GameState::ResetStageSpawner()
     m_waveSpawnTimer = 0.0f;
     m_waveSpawnCursor = 0;
     m_spawnedBossWaveMinutes.clear();
+    UpdateStageTimerText();
 
     if(!m_activeStageWaves || m_activeStageWaves->empty())
     {
@@ -523,7 +553,6 @@ void GameState::UpdateStageSpawner(float dt)
         return;
     }
 
-    m_stageElapsed += dt;
     const StageWaveDefinition* nextWave = GetCurrentStageWave();
     if(!nextWave)
     {
@@ -714,6 +743,91 @@ std::string GameState::ResolveSpawnEnemyId(const std::string& requestedId) const
 
     std::cerr << "GameState: missing enemy definition for wave id " << requestedId << std::endl;
     return "";
+}
+
+void GameState::UpdateStageTimer(float dt)
+{
+    m_stageElapsed += dt * GetStageClockSpeed();
+
+    const int timeLimitSeconds = GetStageTimeLimitSeconds();
+    if(timeLimitSeconds > 0 && m_stageElapsed > static_cast<float>(timeLimitSeconds))
+    {
+        m_stageElapsed = static_cast<float>(timeLimitSeconds);
+    }
+
+    UpdateStageTimerText();
+}
+
+void GameState::UpdateStageTimerText()
+{
+    if(m_stageTimerText.getString().isEmpty() && !m_stageTimerText.getFont())
+    {
+        return;
+    }
+
+    const int timeLimitSeconds = GetStageTimeLimitSeconds();
+    const int displaySeconds = static_cast<int>(m_stageElapsed);
+    const std::string timerString = FormatStageTime(displaySeconds);
+    m_stageTimerText.setString(timerString);
+    m_stageTimerShadowText.setString(timerString);
+
+    std::string infoString = m_activeStageInfo ? m_activeStageInfo->stageName : GetStageName(m_currentStage);
+    if(timeLimitSeconds > 0)
+    {
+        infoString += " / " + FormatStageTime(timeLimitSeconds);
+    }
+    m_stageInfoText.setString(infoString);
+
+    const sf::FloatRect timerBounds = m_stageTimerText.getLocalBounds();
+    m_stageTimerText.setOrigin(timerBounds.left + timerBounds.width / 2.0f, timerBounds.top);
+    m_stageTimerText.setPosition(ViewWidth / 2.0f, 24.0f);
+
+    m_stageTimerShadowText.setOrigin(m_stageTimerText.getOrigin());
+    m_stageTimerShadowText.setPosition(m_stageTimerText.getPosition() + sf::Vector2f(3.0f, 3.0f));
+
+    const sf::FloatRect infoBounds = m_stageInfoText.getLocalBounds();
+    m_stageInfoText.setOrigin(infoBounds.left + infoBounds.width / 2.0f, infoBounds.top);
+    m_stageInfoText.setPosition(ViewWidth / 2.0f, 74.0f);
+
+    const float backingWidth = std::max(timerBounds.width, infoBounds.width) + 58.0f;
+    m_stageTimerBacking.setSize(sf::Vector2f(backingWidth, 82.0f));
+    m_stageTimerBacking.setOrigin(backingWidth / 2.0f, 0.0f);
+    m_stageTimerBacking.setPosition(ViewWidth / 2.0f, 13.0f);
+}
+
+void GameState::DrawStageTimer(sf::RenderTarget& target) const
+{
+    if(!m_stageTimerText.getFont())
+    {
+        return;
+    }
+
+    target.draw(m_stageTimerBacking);
+    target.draw(m_stageTimerShadowText);
+    target.draw(m_stageTimerText);
+    target.draw(m_stageInfoText);
+}
+
+std::string GameState::FormatStageTime(int totalSeconds) const
+{
+    if(totalSeconds < 0)
+    {
+        totalSeconds = 0;
+    }
+
+    const int minutes = totalSeconds / 60;
+    const int seconds = totalSeconds % 60;
+    return std::to_string(minutes) + ":" + (seconds < 10 ? "0" : "") + std::to_string(seconds);
+}
+
+float GameState::GetStageClockSpeed() const
+{
+    return m_activeStageInfo ? std::max(0.0f, m_activeStageInfo->clockSpeed) : 1.0f;
+}
+
+int GameState::GetStageTimeLimitSeconds() const
+{
+    return m_activeStageInfo ? m_activeStageInfo->timeLimitSeconds : 1800;
 }
 
 void GameState::TogglePause()

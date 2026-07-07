@@ -94,6 +94,23 @@ std::vector<StageWaveEvent> ReadEvents(const nlohmann::json& waveJson)
 
     return events;
 }
+
+StageInfo ReadStageInfo(const std::string& stageKey, const nlohmann::json& stageJson)
+{
+    StageInfo info;
+    info.stageKey = stageKey;
+    info.stageName = ReadStringField(stageJson, "stageName", stageKey);
+    info.stageNumber = ReadStringField(stageJson, "stageNumber", "");
+
+    if(stageJson.contains("mods") && stageJson["mods"].is_object())
+    {
+        const auto& mods = stageJson["mods"];
+        info.timeLimitSeconds = ReadIntField(mods, "TimeLimit", info.timeLimitSeconds);
+        info.clockSpeed = ReadFloatField(mods, "ClockSpeed", info.clockSpeed);
+    }
+
+    return info;
+}
 }
 
 bool StageWaveDataManager::LoadData(const std::string& configFilePath)
@@ -117,6 +134,7 @@ bool StageWaveDataManager::LoadData(const std::string& configFilePath)
     }
 
     m_stageWaves.clear();
+    m_stageInfo.clear();
 
     for(const auto& stage : jsonData.items())
     {
@@ -150,6 +168,10 @@ bool StageWaveDataManager::LoadData(const std::string& configFilePath)
         if(!waves.empty())
         {
             m_stageWaves.insert({stage.key(), std::move(waves)});
+            if(stage.value().front().is_object())
+            {
+                m_stageInfo.insert({stage.key(), ReadStageInfo(stage.key(), stage.value().front())});
+            }
         }
     }
 
@@ -160,6 +182,17 @@ const std::vector<StageWaveDefinition>* StageWaveDataManager::GetStageWaves(cons
 {
     auto it = m_stageWaves.find(stageKey);
     if(it == m_stageWaves.end())
+    {
+        return nullptr;
+    }
+
+    return &it->second;
+}
+
+const StageInfo* StageWaveDataManager::GetStageInfo(const std::string& stageKey) const
+{
+    auto it = m_stageInfo.find(stageKey);
+    if(it == m_stageInfo.end())
     {
         return nullptr;
     }
