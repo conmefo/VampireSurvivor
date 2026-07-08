@@ -159,7 +159,7 @@ float EnemyBase::GetMass() const
     return m_stats.mass;
 }
 
-int EnemyBase::GetExpYield() const
+float EnemyBase::GetExpYield() const
 {
     return m_stats.expYield;
 }

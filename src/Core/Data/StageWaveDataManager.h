@@ -34,6 +34,7 @@ struct StageInfo
     std::string stageNumber;
     int timeLimitSeconds = 1800;
     float clockSpeed = 1.0f;
+    float xpBonus = 1.0f;
 };
 
 class StageWaveDataManager

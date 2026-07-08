@@ -220,7 +220,7 @@ namespace
         stats.collisionRadius = std::clamp(stats.collisionRadius, 8.0f, 34.0f);
         stats.deathKnockback = std::clamp(stats.deathKnockback, 0.0f, 8.0f);
         stats.baseAlpha = std::clamp(stats.baseAlpha, 0.0f, 1.0f);
-        stats.expYield = std::max(stats.expYield, 0);
+        stats.expYield = std::max(stats.expYield, 0.0f);
     }
 }
 
@@ -281,7 +281,7 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
             definition.stats.collisionRadius = GetFloatOrDefault(statJson, "collisionRadius", definition.stats.collisionRadius);
             definition.stats.deathKnockback = GetFloatOrDefault(statJson, "deathKB", definition.stats.deathKnockback);
             definition.stats.baseAlpha = GetFloatOrDefault(statJson, "alpha", definition.stats.baseAlpha);
-            definition.stats.expYield = GetIntOrDefault(statJson, "xp", definition.stats.expYield);
+            definition.stats.expYield = GetFloatOrDefault(statJson, "xp", definition.stats.expYield);
             definition.stats.baseTint = GetIntOrDefault(statJson, "tint", definition.stats.baseTint);
             definition.spriteScale = GetFloatOrDefault(statJson, "spriteScale", definition.spriteScale);
 

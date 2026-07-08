@@ -13,7 +13,7 @@ struct EnemyStats
     float collisionRadius = 14.0f;
     float deathKnockback = 2.0f;
     float baseAlpha = 1.0f;
-    int expYield = 1;
+    float expYield = 1.0f;
     int baseTint = 16777215;
 };
 
@@ -43,7 +43,7 @@ public:
     float GetMaxHealth() const;
     float GetDamage() const;
     float GetMass() const;
-    int GetExpYield() const;
+    float GetExpYield() const;
     const std::string& GetDefinitionId() const;
 
 protected:

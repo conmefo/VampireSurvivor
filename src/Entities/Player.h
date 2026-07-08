@@ -18,9 +18,11 @@ public:
 
     void TakeDamage(float amount);
     void Heal(float amount);
+    void AddExperience(float amount);
     
     float GetCurrentHealth() const { return m_currentHealth; }
     float GetMaxHealth() const { return m_maxHealth; }
+    float GetExperience() const { return m_experience; }
     bool IsDead() const { return m_isDead; }
     
     void Revive();
@@ -56,6 +58,7 @@ private:
 
     float m_currentHealth = 100.0f;
     float m_maxHealth = 100.0f;
+    float m_experience = 0.0f;
     float m_invulnTimer = 0.0f;
     float m_flashTimer = 0.0f;
     bool m_isDead = false;

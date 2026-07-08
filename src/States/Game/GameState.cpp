@@ -72,6 +72,7 @@ void GameState::Init() {
     m_vfxManager.Initialize(m_context.atlas);
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
+    m_experienceGems.Initialize(m_context.atlas);
 
     m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
 
@@ -347,6 +348,10 @@ void GameState::Update(float dt) {
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
             const bool killed = enemy->TakeDamage(proj->GetPower(), knockbackDir);
+            if(killed)
+            {
+                m_experienceGems.Spawn(originalPos, enemy->GetExpYield() * GetStageXpBonus());
+            }
 
             constexpr float KNOCKBACK_FORCE = 15.0f;
             if(!killed)
@@ -358,6 +363,10 @@ void GameState::Update(float dt) {
 
     m_vfxManager.Update(dt);
     m_particleManager.Update(dt);
+    if(m_player && !m_player->IsDead())
+    {
+        m_experienceGems.Update(dt, *m_player);
+    }
 
     if (m_tileMap) {
         const std::vector<sf::FloatRect> obstacles =
@@ -397,6 +406,7 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_particleManager.Draw(window);
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
+    m_experienceGems.Draw(window);
 
     if(m_player)
     {
@@ -460,6 +470,7 @@ void GameState::Draw(sf::RenderWindow &window) {
 void GameState::LoadStage(int stageNumber) {
     m_currentStage = stageNumber;
     m_enemyPool.Clear();
+    m_experienceGems.Clear();
 
     m_tileMap = m_mapManager.GetMap(stageNumber);
     if (!m_tileMap) {
@@ -819,6 +830,11 @@ float GameState::GetStageClockSpeed() const
 int GameState::GetStageTimeLimitSeconds() const
 {
     return m_activeStageInfo ? m_activeStageInfo->timeLimitSeconds : 1800;
+}
+
+float GameState::GetStageXpBonus() const
+{
+    return m_activeStageInfo ? std::max(0.0f, m_activeStageInfo->xpBonus) : 1.0f;
 }
 
 void GameState::TogglePause()

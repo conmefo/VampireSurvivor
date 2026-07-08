@@ -6,6 +6,7 @@
 #include "../../Entities/Player.h"
 #include "../../Entities/VfxManager.h"
 #include "../../Entities/Particles/ParticleManager.h"
+#include "../../Entities/Pickups/ExperienceGemManager.h"
 #include "../../UI/ParticleTuningUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
@@ -48,6 +49,7 @@ class GameState : public BaseState {
     void TogglePause();
     void ReturnToMainMenu();
     void ApplyEnemyContactDamage();
+    float GetStageXpBonus() const;
     sf::FloatRect GetViewBounds() const;
     void DrawHitboxes(sf::RenderTarget &target);
 
@@ -87,5 +89,6 @@ class GameState : public BaseState {
     vs::ParticleEmitterConfig m_bloodTearConfig;
     vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
+    ExperienceGemManager m_experienceGems;
     std::unique_ptr<PlayerHUD> m_playerHUD;
 };

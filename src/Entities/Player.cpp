@@ -241,6 +241,16 @@ void Player::Heal(float amount)
     }
 }
 
+void Player::AddExperience(float amount)
+{
+    if(amount <= 0.0f)
+    {
+        return;
+    }
+
+    m_experience += amount;
+}
+
 void Player::Revive()
 {
     m_isDead = false;
