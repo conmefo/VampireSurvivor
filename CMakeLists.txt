@@ -64,7 +64,6 @@ add_executable(VampireSurvivors
     src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp
     src/Entities/Enemy/EnemyPool.cpp
-    src/Entities/Enemy/HitFlashComponent.cpp
     src/UI/UIManager.cpp
     src/Entities/VfxInstance.cpp
     src/Entities/VfxManager.cpp

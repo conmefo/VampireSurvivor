@@ -1,47 +1,15 @@
 #include "AnimatedEnemy.h"
 
-namespace
-{
-    const char* HIT_FLASH_FRAG = R"(
-        uniform sampler2D texture;
-        uniform vec4 flashColor;
-
-        void main()
-        {
-            vec4 pixel = texture2D(texture, gl_TexCoord[0].xy);
-            if (pixel.a > 0.0)
-            {
-                gl_FragColor = vec4(flashColor.rgb, pixel.a * flashColor.a);
-            }
-            else
-            {
-                gl_FragColor = vec4(0.0);
-            }
-        }
-    )";
-
-    sf::Shader* GetHitFlashShader()
-    {
-        static sf::Shader shader;
-        static bool loaded = false;
-        if (!loaded)
-        {
-            if(sf::Shader::isAvailable())
-            {
-                shader.loadFromMemory(HIT_FLASH_FRAG, sf::Shader::Fragment);
-            }
-            loaded = true;
-        }
-        return &shader;
-    }
-}
+#include <algorithm>
 
 AnimatedEnemy::AnimatedEnemy(const EnemyDefinition& definition)
     : EnemyBase(definition.id),
       m_definition(definition),
       m_currentAnimation(nullptr),
       m_animationTimer(0.0f),
-      m_currentFrame(0)
+      m_currentFrame(0),
+      m_deathAnimationTimer(0.0f),
+      m_deathFrame(0)
 {
     auto found = m_definition.animations.find("idle");
     if(found != m_definition.animations.end())
@@ -56,6 +24,8 @@ void AnimatedEnemy::Activate(const sf::Vector2f& position, const EnemyStats& sta
     EnemyBase::Activate(position, stats);
     m_animationTimer = 0.0f;
     m_currentFrame = 0;
+    m_deathAnimationTimer = 0.0f;
+    m_deathFrame = 0;
     ApplyFrame();
     SyncSpriteToPosition();
 }
@@ -69,31 +39,27 @@ void AnimatedEnemy::Update(float dt)
         UpdateAnimation(dt);
         SyncSpriteToPosition();
     }
+    else if(IsDying())
+    {
+        SyncSpriteToPosition();
+    }
 }
 
 void AnimatedEnemy::Draw(sf::RenderTarget& target)
 {
-    if(!IsAlive())
+    if(!IsAlive() && !IsDying())
     {
         return;
     }
 
-    if(m_currentAnimation && !m_currentAnimation->frames.empty())
+    const bool hasActiveSprite =
+        (m_currentAnimation && !m_currentAnimation->frames.empty()) ||
+        (IsDying() && !m_definition.deathAnimation.frames.empty());
+
+    if(hasActiveSprite)
     {
-        if(m_hitFlash.IsFlashing() && m_hitFlash.UseTintFill() && sf::Shader::isAvailable())
-        {
-            sf::Shader* shader = GetHitFlashShader();
-            shader->setUniform("texture", sf::Shader::CurrentTexture);
-            sf::Color c = m_hitFlash.GetCurrentColor();
-            shader->setUniform("flashColor", sf::Glsl::Vec4(c.r / 255.f, c.g / 255.f, c.b / 255.f, c.a / 255.f));
-            target.draw(m_sprite, shader);
-        }
-        else
-        {
-            m_sprite.setColor(m_hitFlash.GetCurrentColor());
-            target.draw(m_sprite);
-        }
-        DrawHealthBar(target);
+        m_sprite.setColor(GetRenderColor());
+        target.draw(m_sprite);
         return;
     }
 
@@ -112,7 +78,27 @@ void AnimatedEnemy::ApplyFrame()
         m_currentFrame = 0;
     }
 
-    const EnemyAnimationFrame& frame = m_currentAnimation->frames[static_cast<std::size_t>(m_currentFrame)];
+    ApplyAnimationFrame(*m_currentAnimation, m_currentFrame);
+}
+
+void AnimatedEnemy::ApplyDeathFrame()
+{
+    ApplyAnimationFrame(m_definition.deathAnimation, m_deathFrame);
+}
+
+void AnimatedEnemy::ApplyAnimationFrame(const EnemyAnimationDefinition& animation, int frameIndex)
+{
+    if(animation.frames.empty())
+    {
+        return;
+    }
+
+    if(frameIndex < 0 || frameIndex >= static_cast<int>(animation.frames.size()))
+    {
+        return;
+    }
+
+    const EnemyAnimationFrame& frame = animation.frames[static_cast<std::size_t>(frameIndex)];
     if(!frame.texture)
     {
         return;
@@ -124,7 +110,8 @@ void AnimatedEnemy::ApplyFrame()
     sf::FloatRect bounds = m_sprite.getLocalBounds();
     m_sprite.setOrigin(bounds.left + bounds.width / 2.0f,
                        bounds.top + bounds.height / 2.0f);
-    m_sprite.setScale(m_definition.spriteScale, m_definition.spriteScale);
+    const float xDirection = m_sprite.getScale().x < 0.0f ? -1.0f : 1.0f;
+    m_sprite.setScale(xDirection * m_definition.spriteScale, m_definition.spriteScale);
 }
 
 void AnimatedEnemy::UpdateAnimation(float dt)
@@ -153,6 +140,41 @@ void AnimatedEnemy::UpdateAnimation(float dt)
     ApplyFrame();
 }
 
+void AnimatedEnemy::UpdateDeath(float dt)
+{
+    if(m_definition.deathAnimation.frames.empty())
+    {
+        EnemyBase::UpdateDeath(dt);
+        return;
+    }
+
+    if(m_deathFrame == 0 && m_deathAnimationTimer == 0.0f)
+    {
+        ApplyDeathFrame();
+    }
+
+    const float frameDuration = std::max(m_definition.deathAnimation.frameDuration, 0.001f);
+    m_deathAnimationTimer += dt;
+    while(m_deathAnimationTimer >= frameDuration)
+    {
+        m_deathAnimationTimer -= frameDuration;
+        ++m_deathFrame;
+
+        if(m_deathFrame >= static_cast<int>(m_definition.deathAnimation.frames.size()))
+        {
+            Deactivate();
+            return;
+        }
+
+        ApplyDeathFrame();
+    }
+
+    m_position += m_velocity * dt;
+    m_velocity *= std::max(0.0f, 1.0f - dt * 6.0f);
+    SyncSpriteToPosition();
+    SyncBodyToPosition();
+}
+
 void AnimatedEnemy::SyncSpriteToPosition()
 {
     m_sprite.setPosition(m_position);
@@ -160,10 +182,10 @@ void AnimatedEnemy::SyncSpriteToPosition()
     const float scale = m_definition.spriteScale;
     if(m_velocity.x < -0.01f)
     {
-        m_sprite.setScale(-scale, scale);
+        m_sprite.setScale(scale, scale);
     }
     else if(m_velocity.x > 0.01f)
     {
-        m_sprite.setScale(scale, scale);
+        m_sprite.setScale(-scale, scale);
     }
 }

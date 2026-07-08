@@ -55,8 +55,10 @@ void EnemyPool::DeactivateAll() {
 
 void EnemyPool::Update(float dt, const sf::Vector2f &targetPosition) {
   for (std::unique_ptr<EnemyBase> &enemy : m_enemies) {
-    if (enemy->IsAlive()) {
-      enemy->SetTarget(targetPosition);
+    if (enemy->IsActive()) {
+      if (enemy->IsAlive()) {
+        enemy->SetTarget(targetPosition);
+      }
       enemy->Update(dt);
     }
   }

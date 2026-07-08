@@ -14,7 +14,10 @@ public:
 
 private:
     void ApplyFrame();
+    void ApplyDeathFrame();
+    void ApplyAnimationFrame(const EnemyAnimationDefinition& animation, int frameIndex);
     void UpdateAnimation(float dt);
+    void UpdateDeath(float dt) override;
     void SyncSpriteToPosition();
 
     const EnemyDefinition& m_definition;
@@ -22,4 +25,6 @@ private:
     sf::Sprite m_sprite;
     float m_animationTimer;
     int m_currentFrame;
+    float m_deathAnimationTimer;
+    int m_deathFrame;
 };

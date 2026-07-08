@@ -341,26 +341,17 @@ void GameState::Update(float dt) {
         Projectile* proj = hit.first;
         if(enemy && proj && m_player)
         {
-            enemy->TakeDamage(proj->GetPower());
-
             sf::Vector2f originalPos = enemy->GetPosition();
 
             sf::Vector2f diff = originalPos - m_player->GetPosition();
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
+            const bool killed = enemy->TakeDamage(proj->GetPower(), knockbackDir);
 
             constexpr float KNOCKBACK_FORCE = 15.0f;
-            enemy->ApplyKnockback(knockbackDir * KNOCKBACK_FORCE);
-
-            const std::string& hitVfxName = proj->GetHitVfxName();
-            if(!hitVfxName.empty())
+            if(!killed)
             {
-                const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(hitVfxName);
-                if(vfxProfile.GetId() != -1)
-                {
-                    m_vfxManager.PlayVfx(vfxProfile, originalPos);
-                    enemy->TriggerHitFlash(vfxProfile);
-                }
+                enemy->ApplyKnockback(knockbackDir * KNOCKBACK_FORCE);
             }
         }
     }

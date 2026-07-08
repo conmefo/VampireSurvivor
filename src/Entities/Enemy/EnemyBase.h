@@ -4,8 +4,6 @@
 
 #include <string>
 
-#include "HitFlashComponent.h"
-
 struct EnemyStats
 {
     float maxHealth = 10.0f;
@@ -13,6 +11,8 @@ struct EnemyStats
     float damage = 1.0f;
     float mass = 1.0f;
     float collisionRadius = 14.0f;
+    float deathKnockback = 2.0f;
+    float baseAlpha = 1.0f;
     int expYield = 1;
     int baseTint = 16777215;
 };
@@ -32,12 +32,12 @@ public:
     void SetTarget(const sf::Vector2f& targetPosition);
     const sf::Vector2f& GetTarget() const;
 
-    void TakeDamage(float damage);
+    bool TakeDamage(float damage, const sf::Vector2f& hitDirection = sf::Vector2f(0.0f, 0.0f));
     void ApplyKnockback(const sf::Vector2f& force);
-    void TriggerHitFlash(const HitVfxProfile& profile);
 
     bool IsAlive() const;
     bool IsDead() const;
+    bool IsDying() const;
 
     float GetHealth() const;
     float GetMaxHealth() const;
@@ -48,13 +48,19 @@ public:
 
 protected:
     virtual void UpdateAI(float dt);
+    virtual void UpdateDeath(float dt);
     void SyncBodyToPosition();
-    void DrawHealthBar(sf::RenderTarget& target) const;
+    sf::Color GetRenderColor() const;
+    void StartDeathSequence(const sf::Vector2f& hitDirection);
+
+    static constexpr float FallbackDeathDurationSeconds = 0.35f;
+    static constexpr float DeathKnockbackSpeedScale = 70.0f;
 
     sf::Vector2f m_targetPosition;
     sf::CircleShape m_body;
     EnemyStats m_stats;
     float m_health;
+    bool m_isDying;
+    float m_deathTimer;
     std::string m_definitionId;
-    HitFlashComponent m_hitFlash;
 };

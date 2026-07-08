@@ -27,4 +27,5 @@ struct EnemyDefinition
     EnemyStats stats;
     float spriteScale = 1.0f;
     std::unordered_map<std::string, EnemyAnimationDefinition> animations;
+    EnemyAnimationDefinition deathAnimation;
 };
