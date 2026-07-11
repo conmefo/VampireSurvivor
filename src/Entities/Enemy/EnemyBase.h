@@ -11,6 +11,7 @@ struct EnemyStats
     float damage = 1.0f;
     float mass = 1.0f;
     float collisionRadius = 14.0f;
+    sf::Vector2f collisionOffset = sf::Vector2f(0.0f, 0.0f);
     float deathKnockback = 2.0f;
     float baseAlpha = 1.0f;
     float expYield = 1.0f;
@@ -44,6 +45,7 @@ public:
     float GetDamage() const;
     float GetMass() const;
     float GetExpYield() const;
+    sf::Vector2f GetCollisionCenter() const;
     const std::string& GetDefinitionId() const;
 
 protected:

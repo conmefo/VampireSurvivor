@@ -84,7 +84,7 @@ void EnemyPool::DrawDebug(sf::RenderTarget &target) {
     const float radius = enemy->GetCollisionRadius();
     hitbox.setRadius(radius);
     hitbox.setOrigin(radius, radius);
-    hitbox.setPosition(enemy->GetPosition());
+    hitbox.setPosition(enemy->GetCollisionCenter());
     target.draw(hitbox);
   }
 }
@@ -124,7 +124,7 @@ void EnemyPool::ResolveEnemyCollisions() {
       EnemyBase *b = enemies[j];
 
       const sf::Vector2f separation = Collision::GetCircleSeparation(
-          a->GetPosition(), a->GetCollisionRadius(), b->GetPosition(),
+          a->GetCollisionCenter(), a->GetCollisionRadius(), b->GetCollisionCenter(),
           b->GetCollisionRadius());
       if (separation.x == 0.0f && separation.y == 0.0f) {
         continue;
@@ -143,7 +143,7 @@ void EnemyPool::ResolveObstacleCollisions(
   for (EnemyBase *enemy : enemies) {
     for (const sf::FloatRect &obstacle : obstacles) {
       const sf::Vector2f separation = Collision::GetCircleRectSeparation(
-          enemy->GetPosition(), enemy->GetCollisionRadius(), obstacle);
+          enemy->GetCollisionCenter(), enemy->GetCollisionRadius(), obstacle);
       if (separation.x == 0.0f && separation.y == 0.0f) {
         continue;
       }

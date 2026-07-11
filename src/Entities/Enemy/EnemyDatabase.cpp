@@ -9,6 +9,7 @@
 namespace
 {
     constexpr int MaxAuthenticDeathFrames = 15;
+    constexpr float AuthenticColliderRadiusScale = 100.0f;
 
     float GetFloatOrDefault(const nlohmann::json& json, const char* key, float fallback)
     {
@@ -206,18 +207,49 @@ namespace
                stats.damage >= 30.0f;
     }
 
+    void ApplyAuthenticScaleAndCollider(EnemyDefinition& definition,
+                                        const nlohmann::json& authenticStats)
+    {
+        const float previousScale = std::max(0.001f, definition.spriteScale);
+        definition.spriteScale = std::clamp(
+            GetFloatOrDefault(authenticStats, "scale", definition.spriteScale),
+            0.25f,
+            3.0f);
+
+        if(!authenticStats.contains("colliderOverride") ||
+           !authenticStats["colliderOverride"].is_object())
+        {
+            if(authenticStats.contains("scale"))
+            {
+                definition.stats.collisionRadius *= definition.spriteScale / previousScale;
+            }
+            return;
+        }
+
+        const nlohmann::json& collider = authenticStats["colliderOverride"];
+        definition.stats.collisionRadius =
+            GetFloatOrDefault(collider, "radius", definition.stats.collisionRadius / AuthenticColliderRadiusScale) *
+            AuthenticColliderRadiusScale *
+            definition.spriteScale;
+
+        definition.stats.collisionOffset = sf::Vector2f(
+            std::clamp(GetFloatOrDefault(collider, "offsetX", 0.0f) * definition.spriteScale, -80.0f, 80.0f),
+            std::clamp(GetFloatOrDefault(collider, "offsetY", 0.0f) * definition.spriteScale, -80.0f, 80.0f));
+    }
+
     void ApplyPrototypeBalance(const std::string& enemyId, EnemyStats& stats)
     {
         const bool bossLike = IsPrototypeBoss(enemyId, stats);
         const float maxHealthCap = bossLike ? 150.0f : 80.0f;
         const float damageCap = bossLike ? 25.0f : 20.0f;
         const float speedCap = bossLike ? 220.0f : 240.0f;
+        const float collisionRadiusCap = bossLike ? 48.0f : 34.0f;
 
         stats.maxHealth = std::clamp(stats.maxHealth, 0.1f, maxHealthCap);
         stats.damage = std::clamp(stats.damage, 0.0f, damageCap);
         stats.speed = std::clamp(stats.speed, 0.0f, speedCap);
         stats.mass = std::max(stats.mass, 0.5f);
-        stats.collisionRadius = std::clamp(stats.collisionRadius, 8.0f, 34.0f);
+        stats.collisionRadius = std::clamp(stats.collisionRadius, 8.0f, collisionRadiusCap);
         stats.deathKnockback = std::clamp(stats.deathKnockback, 0.0f, 8.0f);
         stats.baseAlpha = std::clamp(stats.baseAlpha, 0.0f, 1.0f);
         stats.expYield = std::max(stats.expYield, 0.0f);
@@ -287,6 +319,8 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
 
             if(authenticStats)
             {
+                ApplyAuthenticScaleAndCollider(definition, *authenticStats);
+
                 definition.stats.deathKnockback =
                     GetFloatOrDefault(*authenticStats, "deathKB", definition.stats.deathKnockback);
                 definition.stats.baseAlpha =

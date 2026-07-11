@@ -7,6 +7,7 @@
 #include "../../Entities/VfxManager.h"
 #include "../../Entities/Particles/ParticleManager.h"
 #include "../../Entities/Pickups/ExperienceGemManager.h"
+#include "../../Entities/DamageNumberManager.h"
 #include "../../UI/ParticleTuningUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
@@ -15,6 +16,7 @@
 #include "../../UI/PlayerHUD.h"
 #include "../BaseState.h"
 #include <memory>
+#include <random>
 #include <string>
 #include <vector>
 
@@ -31,14 +33,32 @@ class GameState : public BaseState {
     void Draw(sf::RenderWindow &window) override;
 
   private:
+    struct RuntimeStageEvent
+    {
+        StageWaveEvent definition;
+        std::string enemyId;
+        float elapsedMs = 0.0f;
+        float nextTriggerMs = 0.0f;
+        float spawnCooldown = 0.0f;
+        int triggerCount = 0;
+        int pendingSpawns = 0;
+        int spawnCount = 0;
+        int spawnSequence = 0;
+    };
+
     void LoadStage(int stageNumber);
     void ResetStageSpawner();
     void UpdateStageSpawner(float dt);
+    void ResetStageEventsForCurrentWave();
+    void UpdateStageEvents(float dt);
     void SpawnWaveEnemy(const std::string& enemyId);
+    bool SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position);
     void SpawnWaveBosses(const StageWaveDefinition& wave);
     const StageWaveDefinition* GetCurrentStageWave() const;
     sf::Vector2f GetWaveSpawnPosition(int spawnIndex) const;
+    sf::Vector2f GetStageEventSpawnPosition(const RuntimeStageEvent& event, int spawnIndex) const;
     std::string ResolveSpawnEnemyId(const std::string& requestedId) const;
+    bool RollStageEventChance(float chance);
     void UpdateStageTimer(float dt);
     void UpdateStageTimerText();
     void DrawStageTimer(sf::RenderTarget& target) const;
@@ -50,6 +70,7 @@ class GameState : public BaseState {
     void ReturnToMainMenu();
     void ApplyEnemyContactDamage();
     float GetStageXpBonus() const;
+    EnemyStats ApplyStageEnemyModifiers(const EnemyStats& stats) const;
     sf::FloatRect GetViewBounds() const;
     void DrawHitboxes(sf::RenderTarget &target);
 
@@ -72,6 +93,8 @@ class GameState : public BaseState {
     float m_waveSpawnTimer = 0.0f;
     int m_waveSpawnCursor = 0;
     std::vector<int> m_spawnedBossWaveMinutes;
+    std::vector<RuntimeStageEvent> m_runtimeStageEvents;
+    std::mt19937 m_stageEventRng{std::random_device{}()};
     sf::RectangleShape m_stageTimerBacking;
     sf::Text m_stageTimerText;
     sf::Text m_stageTimerShadowText;
@@ -90,5 +113,6 @@ class GameState : public BaseState {
     vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
     ExperienceGemManager m_experienceGems;
+    DamageNumberManager m_damageNumbers;
     std::unique_ptr<PlayerHUD> m_playerHUD;
 };

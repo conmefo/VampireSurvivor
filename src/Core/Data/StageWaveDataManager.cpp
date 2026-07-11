@@ -108,6 +108,8 @@ StageInfo ReadStageInfo(const std::string& stageKey, const nlohmann::json& stage
         info.timeLimitSeconds = ReadIntField(mods, "TimeLimit", info.timeLimitSeconds);
         info.clockSpeed = ReadFloatField(mods, "ClockSpeed", info.clockSpeed);
         info.xpBonus = ReadFloatField(mods, "XPBonus", info.xpBonus);
+        info.enemySpeedMultiplier = ReadFloatField(mods, "EnemySpeed", info.enemySpeedMultiplier);
+        info.enemyHealthMultiplier = ReadFloatField(mods, "EnemyHealthMultiplier", info.enemyHealthMultiplier);
     }
 
     return info;

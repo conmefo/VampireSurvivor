@@ -35,6 +35,8 @@ struct StageInfo
     int timeLimitSeconds = 1800;
     float clockSpeed = 1.0f;
     float xpBonus = 1.0f;
+    float enemySpeedMultiplier = 1.0f;
+    float enemyHealthMultiplier = 1.0f;
 };
 
 class StageWaveDataManager

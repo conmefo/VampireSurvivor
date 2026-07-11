@@ -52,6 +52,7 @@ int runSfmlTest()
         textureManager.Load("Illustrations", "Assets/Graphics/Spritesheets/illustrations.png");
         textureManager.Load("Items", "Assets/Graphics/Spritesheets/items.png");
         textureManager.Load("VFX", "assets/Graphics/Spritesheets/vfx.png");
+        textureManager.Load("DamageNumbers", "Assets/Graphics/Fonts/DamageNumbers Atlas.png");
     }
     catch (const std::exception& e)
     {
@@ -81,6 +82,12 @@ int runSfmlTest()
     if (vfxTex)
     {
         textureAtlas.LoadFromFile("assets/Data/vfx_atlas.json", "VFX", vfxTex->getSize().y);
+    }
+
+    const sf::Texture* damageNumbersTex = textureManager.GetPtr("DamageNumbers");
+    if (damageNumbersTex)
+    {
+        textureAtlas.LoadFromFile("Assets/Data/damage_numbers_atlas.json", "DamageNumbers", damageNumbersTex->getSize().y);
     }
 
     // Dynamically load all character textures and atlases

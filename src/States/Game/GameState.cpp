@@ -24,7 +24,44 @@ namespace {
 constexpr std::size_t MaxRuntimeEnemies = 80;
 constexpr int MaxOpeningSpawns = 12;
 constexpr int MaxSpawnBatchPerTick = 3;
+constexpr int MaxEventSpawnBatchPerTick = 4;
+constexpr int MaxEventSpawnsPerTrigger = 16;
+constexpr int MaxQueuedEventSpawns = 32;
+constexpr int DefaultEventSpawnCount = 8;
 constexpr float MinWaveSpawnIntervalSeconds = 0.15f;
+constexpr float EventSpawnCooldownSeconds = 0.1f;
+constexpr float DefaultEventRepeatIntervalMs = 1000.0f;
+constexpr float MinEventRepeatIntervalMs = 250.0f;
+constexpr float Pi = 3.14159265358979323846f;
+
+bool IsSupportedStageEvent(const std::string& eventType)
+{
+    return eventType == "BAT_SWARM" ||
+           eventType == "GENERIC_SWARM" ||
+           eventType == "FLOWER_WALL" ||
+           eventType == "MEDUSA_WALL";
+}
+
+float GetStageEventRepeatIntervalMs(const StageWaveEvent& event)
+{
+    const int repeatCount = std::max(1, event.repeat);
+    if(repeatCount <= 1)
+    {
+        return 0.0f;
+    }
+
+    if(event.durationMs > 0.0f)
+    {
+        return std::max(MinEventRepeatIntervalMs, event.durationMs / static_cast<float>(repeatCount));
+    }
+
+    if(event.delayMs > 0.0f)
+    {
+        return std::max(MinEventRepeatIntervalMs, event.delayMs);
+    }
+
+    return DefaultEventRepeatIntervalMs;
+}
 
 const char *GetStageEnemyPath(int stageNumber) {
     return stageNumber == 1 ? "assets/Data/enemies/forest_enemies.json"
@@ -73,6 +110,7 @@ void GameState::Init() {
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
+    m_damageNumbers.Initialize(m_context.atlas);
 
     m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
 
@@ -313,6 +351,7 @@ void GameState::Update(float dt) {
     }
     UpdateStageTimer(dt);
     UpdateStageSpawner(dt);
+    UpdateStageEvents(dt);
     m_enemyPool.Update(dt, m_cameraCenter);
     m_projectileManager.SetViewBounds(GetViewBounds());
     m_projectileManager.Update(dt);
@@ -325,9 +364,10 @@ void GameState::Update(float dt) {
         if(enemy && enemy->IsAlive())
         {
             float radius = enemy->GetCollisionRadius();
+            const sf::Vector2f collisionCenter = enemy->GetCollisionCenter();
             sf::FloatRect enemyBounds(
-                enemy->GetPosition().x - radius,
-                enemy->GetPosition().y - radius,
+                collisionCenter.x - radius,
+                collisionCenter.y - radius,
                 radius * 2.0f,
                 radius * 2.0f
             );
@@ -343,11 +383,14 @@ void GameState::Update(float dt) {
         if(enemy && proj && m_player)
         {
             sf::Vector2f originalPos = enemy->GetPosition();
+            const sf::Vector2f collisionCenter = enemy->GetCollisionCenter();
 
-            sf::Vector2f diff = originalPos - m_player->GetPosition();
+            sf::Vector2f diff = collisionCenter - m_player->GetPosition();
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
-            const bool killed = enemy->TakeDamage(proj->GetPower(), knockbackDir);
+            const float damage = proj->GetPower();
+            const bool killed = enemy->TakeDamage(damage, knockbackDir);
+            m_damageNumbers.Spawn(damage, originalPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
             if(killed)
             {
                 m_experienceGems.Spawn(originalPos, enemy->GetExpYield() * GetStageXpBonus());
@@ -363,6 +406,7 @@ void GameState::Update(float dt) {
 
     m_vfxManager.Update(dt);
     m_particleManager.Update(dt);
+    m_damageNumbers.Update(dt);
     if(m_player && !m_player->IsDead())
     {
         m_experienceGems.Update(dt, *m_player);
@@ -407,6 +451,7 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
     m_experienceGems.Draw(window);
+    m_damageNumbers.Draw(window);
 
     if(m_player)
     {
@@ -471,6 +516,7 @@ void GameState::LoadStage(int stageNumber) {
     m_currentStage = stageNumber;
     m_enemyPool.Clear();
     m_experienceGems.Clear();
+    m_damageNumbers.Clear();
 
     m_tileMap = m_mapManager.GetMap(stageNumber);
     if (!m_tileMap) {
@@ -517,6 +563,7 @@ void GameState::ResetStageSpawner()
     m_waveSpawnTimer = 0.0f;
     m_waveSpawnCursor = 0;
     m_spawnedBossWaveMinutes.clear();
+    m_runtimeStageEvents.clear();
     UpdateStageTimerText();
 
     if(!m_activeStageWaves || m_activeStageWaves->empty())
@@ -529,6 +576,8 @@ void GameState::ResetStageSpawner()
     {
         return;
     }
+
+    ResetStageEventsForCurrentWave();
 
     const int requestedOpeningSpawns =
         m_currentWave->startingSpawns > 0 ? m_currentWave->startingSpawns : m_currentWave->minimum;
@@ -565,6 +614,7 @@ void GameState::UpdateStageSpawner(float dt)
     {
         m_currentWave = nextWave;
         m_waveSpawnTimer = 0.0f;
+        ResetStageEventsForCurrentWave();
         SpawnWaveBosses(*m_currentWave);
     }
 
@@ -601,18 +651,157 @@ void GameState::UpdateStageSpawner(float dt)
     }
 }
 
+void GameState::ResetStageEventsForCurrentWave()
+{
+    m_runtimeStageEvents.clear();
+    if(!m_currentWave)
+    {
+        return;
+    }
+
+    for(const StageWaveEvent& definition : m_currentWave->events)
+    {
+        if(!IsSupportedStageEvent(definition.eventType))
+        {
+            continue;
+        }
+
+        std::string requestedEnemyId = definition.moreY;
+        if(requestedEnemyId.empty())
+        {
+            if(definition.eventType == "BAT_SWARM")
+            {
+                requestedEnemyId = "BAT1";
+            }
+            else if(definition.eventType == "FLOWER_WALL")
+            {
+                requestedEnemyId = "XLFLOWER";
+            }
+            else if(definition.eventType == "MEDUSA_WALL")
+            {
+                requestedEnemyId = "MEDUSA1";
+            }
+            else if(!m_currentWave->enemies.empty())
+            {
+                requestedEnemyId = m_currentWave->enemies.front();
+            }
+        }
+
+        if(requestedEnemyId.empty())
+        {
+            continue;
+        }
+
+        const std::string resolvedEnemyId = ResolveSpawnEnemyId(requestedEnemyId);
+        if(resolvedEnemyId.empty())
+        {
+            continue;
+        }
+
+        RuntimeStageEvent runtimeEvent;
+        runtimeEvent.definition = definition;
+        runtimeEvent.enemyId = resolvedEnemyId;
+        runtimeEvent.nextTriggerMs = std::max(0.0f, definition.delayMs);
+        runtimeEvent.spawnCount = std::clamp(
+            definition.moreX > 0 ? definition.moreX : DefaultEventSpawnCount,
+            1,
+            MaxEventSpawnsPerTrigger);
+        m_runtimeStageEvents.push_back(std::move(runtimeEvent));
+    }
+}
+
+void GameState::UpdateStageEvents(float dt)
+{
+    if(m_runtimeStageEvents.empty())
+    {
+        return;
+    }
+
+    const float elapsedSeconds = std::max(0.0f, dt);
+    const float elapsedMs = elapsedSeconds * 1000.0f;
+    for(RuntimeStageEvent& runtimeEvent : m_runtimeStageEvents)
+    {
+        runtimeEvent.elapsedMs += elapsedMs;
+        runtimeEvent.spawnCooldown = std::max(0.0f, runtimeEvent.spawnCooldown - elapsedSeconds);
+
+        const int repeatCount = std::max(1, runtimeEvent.definition.repeat);
+        const float repeatIntervalMs = GetStageEventRepeatIntervalMs(runtimeEvent.definition);
+        while(runtimeEvent.triggerCount < repeatCount &&
+              runtimeEvent.elapsedMs >= runtimeEvent.nextTriggerMs)
+        {
+            if(RollStageEventChance(runtimeEvent.definition.chance))
+            {
+                runtimeEvent.pendingSpawns = std::min(
+                    MaxQueuedEventSpawns,
+                    runtimeEvent.pendingSpawns + runtimeEvent.spawnCount);
+            }
+
+            ++runtimeEvent.triggerCount;
+            runtimeEvent.nextTriggerMs += repeatIntervalMs;
+        }
+    }
+
+    int spawnBudget = MaxEventSpawnBatchPerTick;
+    std::size_t activeEnemyCount = m_enemyPool.GetActiveCount();
+    for(RuntimeStageEvent& runtimeEvent : m_runtimeStageEvents)
+    {
+        if(spawnBudget <= 0 || activeEnemyCount >= MaxRuntimeEnemies)
+        {
+            break;
+        }
+        if(runtimeEvent.pendingSpawns <= 0 || runtimeEvent.spawnCooldown > 0.0f)
+        {
+            continue;
+        }
+
+        const int availableSlots = static_cast<int>(MaxRuntimeEnemies - activeEnemyCount);
+        const int spawnCount = std::min(
+            runtimeEvent.pendingSpawns,
+            std::min(spawnBudget, availableSlots));
+        for(int i = 0; i < spawnCount; ++i)
+        {
+            const sf::Vector2f spawnPosition =
+                GetStageEventSpawnPosition(runtimeEvent, runtimeEvent.spawnSequence);
+            if(SpawnEnemyAt(runtimeEvent.enemyId, spawnPosition))
+            {
+                ++activeEnemyCount;
+            }
+
+            ++runtimeEvent.spawnSequence;
+            --runtimeEvent.pendingSpawns;
+            --spawnBudget;
+            ++m_waveSpawnCursor;
+        }
+
+        runtimeEvent.spawnCooldown = EventSpawnCooldownSeconds;
+    }
+}
+
 void GameState::SpawnWaveEnemy(const std::string& enemyId)
+{
+    const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor);
+    SpawnEnemyAt(enemyId, spawnPosition);
+    ++m_waveSpawnCursor;
+}
+
+bool GameState::SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position)
 {
     const std::string resolvedEnemyId = ResolveSpawnEnemyId(enemyId);
     if(resolvedEnemyId.empty())
     {
-        ++m_waveSpawnCursor;
-        return;
+        return false;
     }
 
-    const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor);
-    m_enemyPool.Acquire(resolvedEnemyId, spawnPosition);
-    ++m_waveSpawnCursor;
+    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(resolvedEnemyId);
+    if(!definition)
+    {
+        return false;
+    }
+
+    return m_enemyPool.Acquire(
+        resolvedEnemyId,
+        position,
+        ApplyStageEnemyModifiers(definition->stats)) != nullptr;
 }
 
 void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
@@ -674,6 +863,56 @@ sf::Vector2f GameState::GetWaveSpawnPosition(int spawnIndex) const
         default:
             return sf::Vector2f(bounds.left - padding, bounds.top + bounds.height * yT);
     }
+}
+
+sf::Vector2f GameState::GetStageEventSpawnPosition(const RuntimeStageEvent& event, int spawnIndex) const
+{
+    const sf::FloatRect bounds = GetViewBounds();
+    const int patternCount = std::max(1, event.spawnCount);
+    const int patternIndex = spawnIndex % patternCount;
+    const int patternCycle = spawnIndex / patternCount;
+
+    if(event.definition.eventType == "FLOWER_WALL")
+    {
+        const float rotation = (patternCycle % 2 == 0) ? 0.0f : Pi / static_cast<float>(patternCount);
+        const float angle =
+            (2.0f * Pi * static_cast<float>(patternIndex) / static_cast<float>(patternCount)) + rotation;
+        const sf::Vector2f center(
+            bounds.left + bounds.width * 0.5f,
+            bounds.top + bounds.height * 0.5f);
+        return sf::Vector2f(
+            center.x + std::cos(angle) * bounds.width * 0.56f,
+            center.y + std::sin(angle) * bounds.height * 0.56f);
+    }
+
+    if(event.definition.eventType == "MEDUSA_WALL")
+    {
+        const float padding = 80.0f;
+        const float y = bounds.top + bounds.height *
+            ((static_cast<float>(patternIndex) + 0.5f) / static_cast<float>(patternCount));
+        const float x = patternCycle % 2 == 0
+            ? bounds.left - padding
+            : bounds.left + bounds.width + padding;
+        return sf::Vector2f(x, y);
+    }
+
+    return GetWaveSpawnPosition(m_waveSpawnCursor);
+}
+
+bool GameState::RollStageEventChance(float chance)
+{
+    const float clampedChance = std::clamp(chance, 0.0f, 100.0f);
+    if(clampedChance <= 0.0f)
+    {
+        return false;
+    }
+    if(clampedChance >= 100.0f)
+    {
+        return true;
+    }
+
+    std::uniform_real_distribution<float> distribution(0.0f, 100.0f);
+    return distribution(m_stageEventRng) < clampedChance;
 }
 
 std::string GameState::ResolveSpawnEnemyId(const std::string& requestedId) const
@@ -837,6 +1076,19 @@ float GameState::GetStageXpBonus() const
     return m_activeStageInfo ? std::max(0.0f, m_activeStageInfo->xpBonus) : 1.0f;
 }
 
+EnemyStats GameState::ApplyStageEnemyModifiers(const EnemyStats& stats) const
+{
+    EnemyStats adjustedStats = stats;
+    if(!m_activeStageInfo)
+    {
+        return adjustedStats;
+    }
+
+    adjustedStats.speed *= std::max(0.0f, m_activeStageInfo->enemySpeedMultiplier);
+    adjustedStats.maxHealth *= std::max(0.0f, m_activeStageInfo->enemyHealthMultiplier);
+    return adjustedStats;
+}
+
 void GameState::TogglePause()
 {
     m_isPaused = !m_isPaused;
@@ -872,7 +1124,7 @@ void GameState::ApplyEnemyContactDamage()
         if(Collision::CircleIntersectsCircle(
                playerPosition,
                playerRadius,
-               enemy->GetPosition(),
+               enemy->GetCollisionCenter(),
                enemy->GetCollisionRadius()) &&
            enemy->GetDamage() > contactDamage)
         {

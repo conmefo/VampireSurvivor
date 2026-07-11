@@ -50,6 +50,7 @@ add_executable(VampireSurvivors
     src/Entities/Projectiles/KnifeProjectile.cpp
     src/Entities/Projectiles/AxeProjectile.cpp
     src/Entities/Pickups/ExperienceGemManager.cpp
+    src/Entities/DamageNumberManager.cpp
     src/UI/PlayerHUD.cpp
     src/Entities/Weapons/Weapon.cpp
     src/Entities/Weapons/WeaponInventory.cpp

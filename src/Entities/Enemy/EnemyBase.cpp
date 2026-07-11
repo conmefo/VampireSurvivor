@@ -164,6 +164,11 @@ float EnemyBase::GetExpYield() const
     return m_stats.expYield;
 }
 
+sf::Vector2f EnemyBase::GetCollisionCenter() const
+{
+    return m_position + m_stats.collisionOffset;
+}
+
 const std::string& EnemyBase::GetDefinitionId() const
 {
     return m_definitionId;
@@ -191,7 +196,7 @@ void EnemyBase::UpdateDeath(float dt)
 
 void EnemyBase::SyncBodyToPosition()
 {
-    m_body.setPosition(m_position);
+    m_body.setPosition(GetCollisionCenter());
 }
 
 sf::Color EnemyBase::GetRenderColor() const

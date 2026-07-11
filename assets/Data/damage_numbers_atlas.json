@@ -1,0 +1,12 @@
+{
+  "DamageNumbers Atlas_0": { "x": 0, "y": 19, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_1": { "x": 6, "y": 19, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_2": { "x": 12, "y": 19, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_3": { "x": 18, "y": 19, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_4": { "x": 0, "y": 10, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_5": { "x": 6, "y": 11, "width": 5, "height": 7 },
+  "DamageNumbers Atlas_6": { "x": 12, "y": 10, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_7": { "x": 0, "y": 1, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_8": { "x": 6, "y": 2, "width": 5, "height": 8 },
+  "DamageNumbers Atlas_9": { "x": 12, "y": 1, "width": 5, "height": 8 }
+}
