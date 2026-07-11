@@ -21,6 +21,7 @@
 #include <vector>
 
 class PauseMenuView;
+class RunResultView;
 
 class GameState : public BaseState {
   public:
@@ -33,6 +34,14 @@ class GameState : public BaseState {
     void Draw(sf::RenderWindow &window) override;
 
   private:
+    enum class RunState
+    {
+        Playing,
+        DefeatAnimating,
+        Completed,
+        Defeated
+    };
+
     struct RuntimeStageEvent
     {
         StageWaveEvent definition;
@@ -65,6 +74,9 @@ class GameState : public BaseState {
     std::string FormatStageTime(int totalSeconds) const;
     float GetStageClockSpeed() const;
     int GetStageTimeLimitSeconds() const;
+    void FinishRun(RunState outcome);
+    void UpdateDefeatAnimation(float dt);
+    bool IsRunResultVisible() const;
     void ApplyCameraToView();
     void TogglePause();
     void ReturnToMainMenu();
@@ -78,6 +90,7 @@ class GameState : public BaseState {
     static constexpr float ViewWidth = 1920.0f;
     static constexpr float ViewHeight = 1080.0f;
     static constexpr float WorldZoom = 2.2f;
+    static constexpr float DefeatAnimationSeconds = 1.5f;
 
     TileMapManager& m_mapManager;
     TileMap* m_tileMap = nullptr;
@@ -102,10 +115,13 @@ class GameState : public BaseState {
     std::unique_ptr<Player> m_player;
     std::string m_selectedCharacterId;
     int m_currentStage = 1;
+    RunState m_runState = RunState::Playing;
+    float m_defeatAnimationTimer = 0.0f;
     bool m_showHitboxes = false;
     bool m_isPaused = false;
     VfxManager m_vfxManager;
     std::unique_ptr<PauseMenuView> m_pauseMenu;
+    std::unique_ptr<RunResultView> m_runResultView;
     vs::ParticleManager m_particleManager;
     vs::ParticleEmitterConfig m_testParticleConfig;
     std::unique_ptr<ParticleTuningUI> m_tuningUI;

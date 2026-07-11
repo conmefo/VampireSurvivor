@@ -1,5 +1,6 @@
 #include "GameState.h"
 #include "PauseMenuView.h"
+#include "RunResultView.h"
 #include "../../Entities/Projectiles/RunetracerProjectile.h"
 #include "../StateManager.h"
 #include "../Menu/MainMenuState.h"
@@ -216,6 +217,9 @@ void GameState::Init() {
             m_showHitboxes = !m_showHitboxes;
             m_pauseMenu->SetHitboxesVisible(m_showHitboxes);
         });
+
+        m_runResultView = std::make_unique<RunResultView>(m_context.atlas, *font, *boldFont);
+        m_runResultView->SetOnReturnToMenu([this]() { ReturnToMainMenu(); });
     }
 
     if(boldFont && font)
@@ -261,7 +265,34 @@ void GameState::Init() {
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
-    (void)window;
+    if(IsRunResultVisible())
+    {
+        if(m_runResultView)
+        {
+            const sf::Vector2u windowSize = window.getSize();
+            const sf::FloatRect viewport = MathUtils::CalculateLetterboxViewport(
+                static_cast<float>(windowSize.x),
+                static_cast<float>(windowSize.y),
+                ViewWidth / ViewHeight);
+            sf::View previousView = window.getView();
+            sf::View resultView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+            resultView.setViewport(viewport);
+            window.setView(resultView);
+            m_runResultView->HandleEvent(event, window);
+            window.setView(previousView);
+        }
+        else if(event.type == sf::Event::KeyPressed &&
+                (event.key.code == sf::Keyboard::Enter || event.key.code == sf::Keyboard::Escape))
+        {
+            ReturnToMainMenu();
+        }
+        return;
+    }
+
+    if(m_runState == RunState::DefeatAnimating)
+    {
+        return;
+    }
 
     if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape) {
         if(m_isPaused && m_pauseMenu)
@@ -285,6 +316,11 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
             m_pauseMenu->HandleEvent(event, window);
         }
         return;
+#ifndef NDEBUG
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F10) {
+        FinishRun(RunState::Completed);
+        return;
+#endif
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
     } else if (event.type == sf::Event::KeyPressed &&
@@ -328,12 +364,35 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 }
 
 void GameState::Update(float dt) {
+    if(IsRunResultVisible())
+    {
+        if(m_runResultView)
+        {
+            m_runResultView->Update(dt);
+        }
+        return;
+    }
+
+    if(m_runState == RunState::DefeatAnimating)
+    {
+        UpdateDefeatAnimation(dt);
+        return;
+    }
+
     if(m_isPaused)
     {
         if(m_pauseMenu)
         {
             m_pauseMenu->Update(dt);
         }
+        return;
+    }
+
+    if(m_player && m_player->IsDead())
+    {
+        m_runState = RunState::DefeatAnimating;
+        m_defeatAnimationTimer = 0.0f;
+        UpdateDefeatAnimation(dt);
         return;
     }
 
@@ -350,6 +409,10 @@ void GameState::Update(float dt) {
         }
     }
     UpdateStageTimer(dt);
+    if(m_runState != RunState::Playing)
+    {
+        return;
+    }
     UpdateStageSpawner(dt);
     UpdateStageEvents(dt);
     m_enemyPool.Update(dt, m_cameraCenter);
@@ -419,6 +482,13 @@ void GameState::Update(float dt) {
     }
     m_enemyPool.ResolveEnemyCollisions();
     ApplyEnemyContactDamage();
+
+    if(m_player && m_player->IsDead())
+    {
+        m_runState = RunState::DefeatAnimating;
+        m_defeatAnimationTimer = 0.0f;
+        return;
+    }
 
     // Update tuning UI to match absolute screen position
     if (m_tuningUI) {
@@ -510,9 +580,21 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_pauseMenu->Draw(window);
         window.setView(previousView);
     }
+
+    if(IsRunResultVisible() && m_runResultView)
+    {
+        sf::View resultView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        resultView.setViewport(viewport);
+        window.setView(resultView);
+        m_runResultView->Draw(window);
+        window.setView(previousView);
+    }
 }
 
 void GameState::LoadStage(int stageNumber) {
+    m_runState = RunState::Playing;
+    m_defeatAnimationTimer = 0.0f;
+    m_isPaused = false;
     m_currentStage = stageNumber;
     m_enemyPool.Clear();
     m_experienceGems.Clear();
@@ -535,6 +617,10 @@ void GameState::LoadStage(int stageNumber) {
     }
 
     if (m_player) {
+        if(m_player->IsDead())
+        {
+            m_player->Revive();
+        }
         m_player->SetPosition(m_cameraCenter);
     }
 
@@ -991,9 +1077,12 @@ void GameState::UpdateStageTimer(float dt)
     m_stageElapsed += dt * GetStageClockSpeed();
 
     const int timeLimitSeconds = GetStageTimeLimitSeconds();
-    if(timeLimitSeconds > 0 && m_stageElapsed > static_cast<float>(timeLimitSeconds))
+    if(timeLimitSeconds > 0 && m_stageElapsed >= static_cast<float>(timeLimitSeconds))
     {
         m_stageElapsed = static_cast<float>(timeLimitSeconds);
+        UpdateStageTimerText();
+        FinishRun(RunState::Completed);
+        return;
     }
 
     UpdateStageTimerText();
@@ -1069,6 +1158,67 @@ float GameState::GetStageClockSpeed() const
 int GameState::GetStageTimeLimitSeconds() const
 {
     return m_activeStageInfo ? m_activeStageInfo->timeLimitSeconds : 1800;
+}
+
+void GameState::FinishRun(RunState outcome)
+{
+    if(outcome != RunState::Completed && outcome != RunState::Defeated)
+    {
+        return;
+    }
+    if(IsRunResultVisible())
+    {
+        return;
+    }
+
+    if(outcome == RunState::Completed)
+    {
+        const int timeLimitSeconds = GetStageTimeLimitSeconds();
+        if(timeLimitSeconds > 0)
+        {
+            m_stageElapsed = static_cast<float>(timeLimitSeconds);
+        }
+    }
+
+    m_runState = outcome;
+    m_defeatAnimationTimer = 0.0f;
+    m_isPaused = false;
+    UpdateStageTimerText();
+
+    if(m_runResultView)
+    {
+        const std::string stageName =
+            m_activeStageInfo ? m_activeStageInfo->stageName : GetStageName(m_currentStage);
+        m_runResultView->SetResult(
+            outcome == RunState::Completed ? RunResultOutcome::Completed : RunResultOutcome::Defeated,
+            stageName,
+            static_cast<int>(m_stageElapsed));
+    }
+}
+
+void GameState::UpdateDefeatAnimation(float dt)
+{
+    if(m_runState != RunState::DefeatAnimating)
+    {
+        return;
+    }
+
+    const float elapsed = std::max(0.0f, dt);
+    if(m_player)
+    {
+        m_player->Update(elapsed);
+    }
+
+    m_defeatAnimationTimer += elapsed;
+    if(m_defeatAnimationTimer >= DefeatAnimationSeconds)
+    {
+        FinishRun(RunState::Defeated);
+    }
+}
+
+bool GameState::IsRunResultVisible() const
+{
+    return m_runState == RunState::Completed || m_runState == RunState::Defeated;
 }
 
 float GameState::GetStageXpBonus() const

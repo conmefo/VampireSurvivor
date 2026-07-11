@@ -80,6 +80,7 @@ add_executable(VampireSurvivors
     src/States/Menu/CharacterSelectionScreen.cpp
     src/States/Game/GameState.cpp
     src/States/Game/PauseMenuView.cpp
+    src/States/Game/RunResultView.cpp
     src/States/Game/StageLoadingState.cpp
     src/World/TileMap.cpp
     src/World/TileMapManager.cpp
