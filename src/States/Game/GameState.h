@@ -22,6 +22,7 @@
 
 class PauseMenuView;
 class GameOverView;
+class RunGoldDisplay;
 
 class GameState : public BaseState {
   public:
@@ -80,6 +81,8 @@ class GameState : public BaseState {
     void ApplyCameraToView();
     void TogglePause();
     void ReturnToMainMenu();
+    void AddRunGold(int amount);
+    void BankRunGold();
     void ApplyEnemyContactDamage();
     float GetStageXpBonus() const;
     EnemyStats ApplyStageEnemyModifiers(const EnemyStats& stats) const;
@@ -122,6 +125,9 @@ class GameState : public BaseState {
     VfxManager m_vfxManager;
     std::unique_ptr<PauseMenuView> m_pauseMenu;
     std::unique_ptr<GameOverView> m_gameOverView;
+    std::unique_ptr<RunGoldDisplay> m_runGoldDisplay;
+    int m_runGold = 0;
+    bool m_runGoldBanked = false;
     vs::ParticleManager m_particleManager;
     vs::ParticleEmitterConfig m_testParticleConfig;
     std::unique_ptr<ParticleTuningUI> m_tuningUI;

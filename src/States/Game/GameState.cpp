@@ -11,6 +11,7 @@
 #include <iostream>
 #include <vector>
 #include "../../Core/Data/CharacterDataManager.h"
+#include "../../Core/Data/PlayerProgressionManager.h"
 #include "../../Core/Data/WeaponDataManager.h"
 #include "../../Entities/Weapons/WhipWeapon.h"
 #include "../../Entities/Weapons/MagicMissileWeapon.h"
@@ -20,6 +21,7 @@
 #include "../../Entities/Weapons/AxeWeapon.h"
 #include "../../Core/Math/MathUtils.h"
 #include "../../Core/Physics/Collision.h"
+#include "../../UI/Elements/RunGoldDisplay.h"
 
 namespace {
 constexpr std::size_t MaxRuntimeEnemies = 80;
@@ -102,7 +104,10 @@ bool StartsWith(const std::string& value, const char* prefix) {
 GameState::GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId)
     : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterId(selectedCharacterId) {}
 
-GameState::~GameState() = default;
+GameState::~GameState()
+{
+    BankRunGold();
+}
 
 void GameState::Init() {
     std::cout << "GameState Init" << std::endl;
@@ -229,6 +234,8 @@ void GameState::Init() {
 
     if(boldFont && font)
     {
+        m_runGoldDisplay = std::make_unique<RunGoldDisplay>(m_context.atlas, *boldFont);
+
         m_stageTimerText.setFont(*boldFont);
         m_stageTimerText.setCharacterSize(42);
         m_stageTimerText.setFillColor(sf::Color(245, 245, 235));
@@ -324,6 +331,9 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 #ifndef NDEBUG
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F10) {
         FinishRun(RunState::Completed);
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) {
+        AddRunGold(100);
         return;
 #endif
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
@@ -556,6 +566,10 @@ void GameState::Draw(sf::RenderWindow &window) {
     window.draw(rightDimBar);
 
     DrawStageTimer(window);
+    if(m_runGoldDisplay)
+    {
+        m_runGoldDisplay->Draw(window);
+    }
 
     window.setView(previousView);
 
@@ -601,6 +615,12 @@ void GameState::LoadStage(int stageNumber) {
     m_defeatAnimationTimer = 0.0f;
     m_isPaused = false;
     m_currentStage = stageNumber;
+    m_runGold = 0;
+    m_runGoldBanked = false;
+    if(m_runGoldDisplay)
+    {
+        m_runGoldDisplay->SetGold(m_runGold);
+    }
     m_enemyPool.Clear();
     m_experienceGems.Clear();
     m_damageNumbers.Clear();
@@ -1247,10 +1267,42 @@ void GameState::TogglePause()
 void GameState::ReturnToMainMenu()
 {
     m_isPaused = false;
+    BankRunGold();
     m_context.stateManager.ChangeStateWithTransition(
         std::make_unique<MainMenuState>(m_context, m_mapManager),
         0.35f,
         sf::Color::Black);
+}
+
+void GameState::AddRunGold(int amount)
+{
+    if(amount <= 0 || m_runGoldBanked)
+    {
+        return;
+    }
+
+    m_runGold += amount;
+    if(m_runGoldDisplay)
+    {
+        m_runGoldDisplay->SetGold(m_runGold);
+    }
+}
+
+void GameState::BankRunGold()
+{
+    if(m_runGoldBanked)
+    {
+        return;
+    }
+
+    m_runGoldBanked = true;
+    if(m_runGold <= 0)
+    {
+        return;
+    }
+
+    m_context.progressionData.AddGold(m_runGold);
+    m_context.progressionData.Save();
 }
 
 void GameState::ApplyEnemyContactDamage()

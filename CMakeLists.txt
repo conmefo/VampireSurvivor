@@ -112,6 +112,7 @@ add_executable(VampireSurvivors
     src/Core/Animation/AnimationLibrary.cpp
     src/Core/Animation/SpriteAnimator.cpp
     src/UI/Elements/GoldDisplayWidget.cpp
+    src/UI/Elements/RunGoldDisplay.cpp
     src/UI/Elements/CharacterCardWidget.cpp
     src/UI/Elements/UIPlayerCoopCard.cpp
     src/Core/Data/CharacterDataManager.cpp
