@@ -541,6 +541,10 @@ void GameState::Update(float dt) {
                         AddRunGold(gold);
                     }
                 });
+            if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+            {
+                return;
+            }
         }
     }
 
