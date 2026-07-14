@@ -19,6 +19,7 @@
 #include "../../Entities/Weapons/RunetracerWeapon.h"
 #include "../../Entities/Weapons/KnifeWeapon.h"
 #include "../../Entities/Weapons/AxeWeapon.h"
+#include "../../Entities/Pickups/TreasureChestManager.h"
 #include "../../Core/Math/MathUtils.h"
 #include "../../Core/Physics/Collision.h"
 #include "../../UI/Elements/RunGoldDisplay.h"
@@ -117,6 +118,8 @@ void GameState::Init() {
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
     m_damageNumbers.Initialize(m_context.atlas);
+    m_treasureChests = std::make_unique<TreasureChestManager>();
+    m_treasureChests->Initialize(m_context.atlas);
 
     m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
 
@@ -335,6 +338,12 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) {
         AddRunGold(100);
         return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {
+        if(m_player && m_treasureChests)
+        {
+            m_treasureChests->Spawn(m_player->GetPosition() + sf::Vector2f(80.0f, 0.0f));
+        }
+        return;
 #endif
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
@@ -379,6 +388,11 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 }
 
 void GameState::Update(float dt) {
+    if(m_runGoldDisplay)
+    {
+        m_runGoldDisplay->Update(dt);
+    }
+
     if(IsGameOverVisible())
     {
         if(m_gameOverView)
@@ -472,6 +486,10 @@ void GameState::Update(float dt) {
             if(killed)
             {
                 m_experienceGems.Spawn(originalPos, enemy->GetExpYield() * GetStageXpBonus());
+                if(m_bossEnemies.erase(enemy) > 0 && m_treasureChests)
+                {
+                    m_treasureChests->Spawn(originalPos);
+                }
             }
 
             constexpr float KNOCKBACK_FORCE = 15.0f;
@@ -488,6 +506,13 @@ void GameState::Update(float dt) {
     if(m_player && !m_player->IsDead())
     {
         m_experienceGems.Update(dt, *m_player);
+        if(m_treasureChests)
+        {
+            m_treasureChests->Update(
+                dt,
+                m_player->GetPosition(),
+                [this](int gold) { AddRunGold(gold); });
+        }
     }
 
     if (m_tileMap) {
@@ -536,6 +561,10 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
     m_experienceGems.Draw(window);
+    if(m_treasureChests)
+    {
+        m_treasureChests->Draw(window);
+    }
     m_damageNumbers.Draw(window);
 
     if(m_player)
@@ -622,6 +651,11 @@ void GameState::LoadStage(int stageNumber) {
         m_runGoldDisplay->SetGold(m_runGold);
     }
     m_enemyPool.Clear();
+    m_bossEnemies.clear();
+    if(m_treasureChests)
+    {
+        m_treasureChests->Clear();
+    }
     m_experienceGems.Clear();
     m_damageNumbers.Clear();
 
@@ -888,31 +922,32 @@ void GameState::UpdateStageEvents(float dt)
     }
 }
 
-void GameState::SpawnWaveEnemy(const std::string& enemyId)
+EnemyBase* GameState::SpawnWaveEnemy(const std::string& enemyId)
 {
     const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor);
-    SpawnEnemyAt(enemyId, spawnPosition);
+    EnemyBase* enemy = SpawnEnemyAt(enemyId, spawnPosition);
     ++m_waveSpawnCursor;
+    return enemy;
 }
 
-bool GameState::SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position)
+EnemyBase* GameState::SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position)
 {
     const std::string resolvedEnemyId = ResolveSpawnEnemyId(enemyId);
     if(resolvedEnemyId.empty())
     {
-        return false;
+        return nullptr;
     }
 
     const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(resolvedEnemyId);
     if(!definition)
     {
-        return false;
+        return nullptr;
     }
 
     return m_enemyPool.Acquire(
         resolvedEnemyId,
         position,
-        ApplyStageEnemyModifiers(definition->stats)) != nullptr;
+        ApplyStageEnemyModifiers(definition->stats));
 }
 
 void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
@@ -925,7 +960,10 @@ void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
 
     for(const std::string& bossId : wave.bosses)
     {
-        SpawnWaveEnemy(bossId);
+        if(EnemyBase* boss = SpawnWaveEnemy(bossId))
+        {
+            m_bossEnemies.insert(boss);
+        }
     }
 
     m_spawnedBossWaveMinutes.push_back(wave.minute);

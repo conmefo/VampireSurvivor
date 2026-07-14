@@ -18,11 +18,13 @@
 #include <memory>
 #include <random>
 #include <string>
+#include <unordered_set>
 #include <vector>
 
 class PauseMenuView;
 class GameOverView;
 class RunGoldDisplay;
+class TreasureChestManager;
 
 class GameState : public BaseState {
   public:
@@ -61,8 +63,8 @@ class GameState : public BaseState {
     void UpdateStageSpawner(float dt);
     void ResetStageEventsForCurrentWave();
     void UpdateStageEvents(float dt);
-    void SpawnWaveEnemy(const std::string& enemyId);
-    bool SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position);
+    EnemyBase* SpawnWaveEnemy(const std::string& enemyId);
+    EnemyBase* SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position);
     void SpawnWaveBosses(const StageWaveDefinition& wave);
     const StageWaveDefinition* GetCurrentStageWave() const;
     sf::Vector2f GetWaveSpawnPosition(int spawnIndex) const;
@@ -109,6 +111,7 @@ class GameState : public BaseState {
     float m_waveSpawnTimer = 0.0f;
     int m_waveSpawnCursor = 0;
     std::vector<int> m_spawnedBossWaveMinutes;
+    std::unordered_set<EnemyBase*> m_bossEnemies;
     std::vector<RuntimeStageEvent> m_runtimeStageEvents;
     std::mt19937 m_stageEventRng{std::random_device{}()};
     sf::RectangleShape m_stageTimerBacking;
@@ -136,5 +139,6 @@ class GameState : public BaseState {
     ProjectileManager m_projectileManager;
     ExperienceGemManager m_experienceGems;
     DamageNumberManager m_damageNumbers;
+    std::unique_ptr<TreasureChestManager> m_treasureChests;
     std::unique_ptr<PlayerHUD> m_playerHUD;
 };

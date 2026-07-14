@@ -155,7 +155,8 @@ void MainMenuState::SetupUI() {
   m_topBarBg.setFillColor(sf::Color(0, 0, 0, 130));
 
   // --- COIN PANEL ---
-  auto coinPanel = std::make_unique<GoldDisplayWidget>(m_context.atlas, nullptr, font);
+  auto coinPanel = std::make_unique<GoldDisplayWidget>(
+      m_context.atlas, &m_context.progressionData, font);
   m_uiManager.AddElement(std::move(coinPanel));
 }
 
