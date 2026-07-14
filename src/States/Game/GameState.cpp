@@ -1,6 +1,7 @@
 #include "GameState.h"
 #include "PauseMenuView.h"
 #include "GameOverView.h"
+#include "TreasureRewardView.h"
 #include "../../Entities/Projectiles/RunetracerProjectile.h"
 #include "../StateManager.h"
 #include "../Menu/MainMenuState.h"
@@ -107,6 +108,10 @@ GameState::GameState(StateContext context, TileMapManager& mapManager, const std
 
 GameState::~GameState()
 {
+    if(m_treasureRewardView)
+    {
+        m_treasureRewardView->CompleteImmediately();
+    }
     BankRunGold();
 }
 
@@ -238,6 +243,9 @@ void GameState::Init() {
     if(boldFont && font)
     {
         m_runGoldDisplay = std::make_unique<RunGoldDisplay>(m_context.atlas, *boldFont);
+        m_treasureRewardView =
+            std::make_unique<TreasureRewardView>(m_context.atlas, *boldFont);
+        m_treasureRewardView->SetOnGoldAdded([this](int gold) { AddRunGold(gold); });
 
         m_stageTimerText.setFont(*boldFont);
         m_stageTimerText.setCharacterSize(42);
@@ -280,6 +288,12 @@ void GameState::Init() {
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
+    if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+    {
+        m_treasureRewardView->HandleEvent(event);
+        return;
+    }
+
     if(IsGameOverVisible())
     {
         if(m_gameOverView)
@@ -391,6 +405,12 @@ void GameState::Update(float dt) {
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->Update(dt);
+    }
+
+    if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+    {
+        m_treasureRewardView->Update(dt);
+        return;
     }
 
     if(IsGameOverVisible())
@@ -511,7 +531,16 @@ void GameState::Update(float dt) {
             m_treasureChests->Update(
                 dt,
                 m_player->GetPosition(),
-                [this](int gold) { AddRunGold(gold); });
+                [this](int gold) {
+                    if(m_treasureRewardView)
+                    {
+                        m_treasureRewardView->Show(gold, m_runGold);
+                    }
+                    else
+                    {
+                        AddRunGold(gold);
+                    }
+                });
         }
     }
 
@@ -635,6 +664,15 @@ void GameState::Draw(sf::RenderWindow &window) {
         resultView.setViewport(viewport);
         window.setView(resultView);
         m_gameOverView->Draw(window);
+        window.setView(previousView);
+    }
+
+    if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+    {
+        sf::View treasureView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        treasureView.setViewport(viewport);
+        window.setView(treasureView);
+        m_treasureRewardView->Draw(window);
         window.setView(previousView);
     }
 }

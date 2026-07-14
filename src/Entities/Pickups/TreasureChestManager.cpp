@@ -8,8 +8,6 @@ namespace
 {
 constexpr int AnimationFrameCount = 8;
 constexpr float IdleFrameDuration = 0.13f;
-constexpr float OpenFrameDuration = 0.08f;
-constexpr float OpenHoldDuration = 0.35f;
 constexpr float CollectionRadius = 42.0f;
 constexpr float ChestScale = 1.45f;
 constexpr int MinimumGoldReward = 100;
@@ -24,7 +22,6 @@ std::string MakeFrameName(const char* prefix, int index)
 void TreasureChestManager::Initialize(const TextureAtlas& atlas)
 {
     m_idleFrames.clear();
-    m_openFrames.clear();
 
     for(int frameIndex = 1; frameIndex <= AnimationFrameCount; ++frameIndex)
     {
@@ -35,12 +32,6 @@ void TreasureChestManager::Initialize(const TextureAtlas& atlas)
             m_idleFrames.push_back(idleFrame);
         }
 
-        const AssetTextureData openFrame =
-            atlas.GetTextureData(MakeFrameName("TreasureOpen_", frameIndex));
-        if(openFrame.texture)
-        {
-            m_openFrames.push_back(openFrame);
-        }
     }
 }
 
@@ -77,7 +68,6 @@ void TreasureChestManager::Spawn(const sf::Vector2f& position)
     chest->state = ChestState::Idle;
     chest->frameIndex = 0;
     chest->frameTimer = 0.0f;
-    chest->openTimer = 0.0f;
     chest->goldReward = rewardDistribution(m_random);
     chest->active = true;
     chest->sprite.setPosition(position);
@@ -107,7 +97,7 @@ void TreasureChestManager::Update(
             if(distanceSquared <= CollectionRadius * CollectionRadius)
             {
                 BeginOpening(chest, onGoldCollected);
-                continue;
+                return;
             }
 
             chest.frameTimer += dt;
@@ -120,29 +110,6 @@ void TreasureChestManager::Update(
             continue;
         }
 
-        if(chest.state == ChestState::Opening)
-        {
-            chest.frameTimer += dt;
-            while(chest.frameTimer >= OpenFrameDuration && chest.state == ChestState::Opening)
-            {
-                chest.frameTimer -= OpenFrameDuration;
-                ++chest.frameIndex;
-                if(chest.frameIndex >= m_openFrames.size())
-                {
-                    chest.state = ChestState::Open;
-                    chest.frameIndex = m_openFrames.empty() ? 0 : m_openFrames.size() - 1;
-                    break;
-                }
-                ApplyFrame(chest, m_openFrames);
-            }
-            continue;
-        }
-
-        chest.openTimer += dt;
-        if(chest.openTimer >= OpenHoldDuration)
-        {
-            chest.active = false;
-        }
     }
 }
 
@@ -187,14 +154,10 @@ void TreasureChestManager::BeginOpening(
     Chest& chest,
     const std::function<void(int)>& onGoldCollected)
 {
-    chest.state = ChestState::Opening;
-    chest.frameIndex = 0;
-    chest.frameTimer = 0.0f;
-    chest.openTimer = 0.0f;
-    if(!m_openFrames.empty())
-    {
-        ApplyFrame(chest, m_openFrames);
-    }
+    // The original game moves directly into a full-screen treasure presentation
+    // when the player touches a chest. Remove the world pickup before invoking the
+    // callback so a resumed run cannot collect it twice.
+    chest.active = false;
     if(onGoldCollected)
     {
         onGoldCollected(chest.goldReward);

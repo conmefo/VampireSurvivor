@@ -24,9 +24,7 @@ public:
 private:
     enum class ChestState
     {
-        Idle,
-        Opening,
-        Open
+        Idle
     };
 
     struct Chest
@@ -36,7 +34,6 @@ private:
         ChestState state = ChestState::Idle;
         std::size_t frameIndex = 0;
         float frameTimer = 0.0f;
-        float openTimer = 0.0f;
         int goldReward = 0;
         bool active = false;
     };
@@ -45,7 +42,6 @@ private:
     void BeginOpening(Chest& chest, const std::function<void(int)>& onGoldCollected);
 
     std::vector<AssetTextureData> m_idleFrames;
-    std::vector<AssetTextureData> m_openFrames;
     std::vector<Chest> m_chests;
     std::mt19937 m_random{std::random_device{}()};
 };

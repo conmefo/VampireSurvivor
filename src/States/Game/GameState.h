@@ -25,6 +25,7 @@ class PauseMenuView;
 class GameOverView;
 class RunGoldDisplay;
 class TreasureChestManager;
+class TreasureRewardView;
 
 class GameState : public BaseState {
   public:
@@ -140,5 +141,6 @@ class GameState : public BaseState {
     ExperienceGemManager m_experienceGems;
     DamageNumberManager m_damageNumbers;
     std::unique_ptr<TreasureChestManager> m_treasureChests;
+    std::unique_ptr<TreasureRewardView> m_treasureRewardView;
     std::unique_ptr<PlayerHUD> m_playerHUD;
 };
