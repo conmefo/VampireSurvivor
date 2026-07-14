@@ -21,7 +21,7 @@
 #include <vector>
 
 class PauseMenuView;
-class RunResultView;
+class GameOverView;
 
 class GameState : public BaseState {
   public:
@@ -76,7 +76,7 @@ class GameState : public BaseState {
     int GetStageTimeLimitSeconds() const;
     void FinishRun(RunState outcome);
     void UpdateDefeatAnimation(float dt);
-    bool IsRunResultVisible() const;
+    bool IsGameOverVisible() const;
     void ApplyCameraToView();
     void TogglePause();
     void ReturnToMainMenu();
@@ -121,7 +121,7 @@ class GameState : public BaseState {
     bool m_isPaused = false;
     VfxManager m_vfxManager;
     std::unique_ptr<PauseMenuView> m_pauseMenu;
-    std::unique_ptr<RunResultView> m_runResultView;
+    std::unique_ptr<GameOverView> m_gameOverView;
     vs::ParticleManager m_particleManager;
     vs::ParticleEmitterConfig m_testParticleConfig;
     std::unique_ptr<ParticleTuningUI> m_tuningUI;

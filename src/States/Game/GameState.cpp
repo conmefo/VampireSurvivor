@@ -1,6 +1,6 @@
 #include "GameState.h"
 #include "PauseMenuView.h"
-#include "RunResultView.h"
+#include "GameOverView.h"
 #include "../../Entities/Projectiles/RunetracerProjectile.h"
 #include "../StateManager.h"
 #include "../Menu/MainMenuState.h"
@@ -218,8 +218,13 @@ void GameState::Init() {
             m_pauseMenu->SetHitboxesVisible(m_showHitboxes);
         });
 
-        m_runResultView = std::make_unique<RunResultView>(m_context.atlas, *font, *boldFont);
-        m_runResultView->SetOnReturnToMenu([this]() { ReturnToMainMenu(); });
+        const sf::Texture* gameOverTitle = m_context.textures.GetPtr("GameOverTitle");
+        if(gameOverTitle)
+        {
+            m_gameOverView =
+                std::make_unique<GameOverView>(m_context.atlas, *gameOverTitle, *boldFont);
+            m_gameOverView->SetOnQuit([this]() { ReturnToMainMenu(); });
+        }
     }
 
     if(boldFont && font)
@@ -265,9 +270,9 @@ void GameState::Init() {
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
-    if(IsRunResultVisible())
+    if(IsGameOverVisible())
     {
-        if(m_runResultView)
+        if(m_gameOverView)
         {
             const sf::Vector2u windowSize = window.getSize();
             const sf::FloatRect viewport = MathUtils::CalculateLetterboxViewport(
@@ -278,7 +283,7 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
             sf::View resultView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
             resultView.setViewport(viewport);
             window.setView(resultView);
-            m_runResultView->HandleEvent(event, window);
+            m_gameOverView->HandleEvent(event, window);
             window.setView(previousView);
         }
         else if(event.type == sf::Event::KeyPressed &&
@@ -364,11 +369,11 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 }
 
 void GameState::Update(float dt) {
-    if(IsRunResultVisible())
+    if(IsGameOverVisible())
     {
-        if(m_runResultView)
+        if(m_gameOverView)
         {
-            m_runResultView->Update(dt);
+            m_gameOverView->Update(dt);
         }
         return;
     }
@@ -581,12 +586,12 @@ void GameState::Draw(sf::RenderWindow &window) {
         window.setView(previousView);
     }
 
-    if(IsRunResultVisible() && m_runResultView)
+    if(IsGameOverVisible() && m_gameOverView)
     {
         sf::View resultView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
         resultView.setViewport(viewport);
         window.setView(resultView);
-        m_runResultView->Draw(window);
+        m_gameOverView->Draw(window);
         window.setView(previousView);
     }
 }
@@ -1166,7 +1171,7 @@ void GameState::FinishRun(RunState outcome)
     {
         return;
     }
-    if(IsRunResultVisible())
+    if(IsGameOverVisible())
     {
         return;
     }
@@ -1185,14 +1190,9 @@ void GameState::FinishRun(RunState outcome)
     m_isPaused = false;
     UpdateStageTimerText();
 
-    if(m_runResultView)
+    if(m_gameOverView)
     {
-        const std::string stageName =
-            m_activeStageInfo ? m_activeStageInfo->stageName : GetStageName(m_currentStage);
-        m_runResultView->SetResult(
-            outcome == RunState::Completed ? RunResultOutcome::Completed : RunResultOutcome::Defeated,
-            stageName,
-            static_cast<int>(m_stageElapsed));
+        m_gameOverView->Show();
     }
 }
 
@@ -1216,7 +1216,7 @@ void GameState::UpdateDefeatAnimation(float dt)
     }
 }
 
-bool GameState::IsRunResultVisible() const
+bool GameState::IsGameOverVisible() const
 {
     return m_runState == RunState::Completed || m_runState == RunState::Defeated;
 }

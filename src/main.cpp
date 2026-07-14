@@ -53,6 +53,7 @@ int runSfmlTest()
         textureManager.Load("Items", "Assets/Graphics/Spritesheets/items.png");
         textureManager.Load("VFX", "assets/Graphics/Spritesheets/vfx.png");
         textureManager.Load("DamageNumbers", "Assets/Graphics/Fonts/DamageNumbers Atlas.png");
+        textureManager.Load("GameOverTitle", "Assets/Graphics/UI/gameOver.png");
     }
     catch (const std::exception& e)
     {
