@@ -138,10 +138,12 @@ void Player::Update(float dt)
         m_position += direction * BASE_MOVE_SPEED * m_moveSpeedMultiplier * g_PlayerSpeedMultiplier * dt;
         m_animator.Update(dt);
         m_currentDirection = direction;
+        m_isMoving = true;
     }
     else
     {
         m_animator.Reset();
+        m_isMoving = false;
         // Retain last facing horizontal direction (or default to Right if never moved)
         if (m_sprite.getScale().x < 0.0f) {
             m_currentDirection = sf::Vector2f(-1.0f, 0.0f);
@@ -178,7 +180,10 @@ void Player::Draw(sf::RenderTarget& target)
         return;
     }
 
-    if (m_currentDirection.x != 0.0f || m_currentDirection.y != 0.0f)
+    // Draw persistent weapon visual auras underneath the player
+    m_weaponInventory.Draw(target);
+
+    if (m_isMoving)
     {
         const int numShadows = 4;
         const float shadowSpacing = 1.3f;

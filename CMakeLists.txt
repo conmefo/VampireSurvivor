@@ -49,6 +49,7 @@ add_executable(VampireSurvivors
     src/Entities/Projectiles/RunetracerProjectile.cpp
     src/Entities/Projectiles/KnifeProjectile.cpp
     src/Entities/Projectiles/AxeProjectile.cpp
+    src/Entities/Projectiles/GarlicProjectile.cpp
     src/Entities/Pickups/ExperienceGemManager.cpp
     src/Entities/Pickups/TreasureChestManager.cpp
     src/Entities/DamageNumberManager.cpp
@@ -61,6 +62,7 @@ add_executable(VampireSurvivors
     src/Entities/Weapons/RunetracerWeapon.cpp
     src/Entities/Weapons/KnifeWeapon.cpp
     src/Entities/Weapons/AxeWeapon.cpp
+    src/Entities/Weapons/GarlicWeapon.cpp
     src/Components/AnimationComponent.cpp
     src/Components/TrailRenderer.cpp
     src/Components/ProjectileShadowTrailComponent.cpp

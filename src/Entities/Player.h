@@ -60,6 +60,7 @@ private:
     float m_baseScaleY = 1.0f;
     
     sf::Vector2f m_currentDirection;
+    bool m_isMoving = false;
     WeaponInventory m_weaponInventory;
 
     float m_currentHealth = 100.0f;

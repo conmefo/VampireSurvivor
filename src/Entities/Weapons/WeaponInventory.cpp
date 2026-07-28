@@ -25,3 +25,11 @@ void WeaponInventory::Update(float dt, ProjectileManager& projManager, TextureAt
         weapon->Update(dt, projManager, atlas, player, enemyPool);
     }
 }
+
+void WeaponInventory::Draw(sf::RenderTarget& target) const
+{
+    for(const auto& weapon : m_weapons)
+    {
+        weapon->Draw(target);
+    }
+}

@@ -42,6 +42,8 @@ void EnemyBase::Activate(const sf::Vector2f& position, const EnemyStats& stats)
     m_active = true;
     m_isDying = false;
     m_deathTimer = 0.0f;
+    m_knockbackResistanceReduction = 0.0f;
+    m_statusResistanceReduction = 0.0f;
 
     m_body.setRadius(m_collisionRadius);
     m_body.setOrigin(m_collisionRadius, m_collisionRadius);
@@ -120,7 +122,9 @@ void EnemyBase::ApplyKnockback(const sf::Vector2f& force)
     }
 
     float safeMass = m_stats.mass <= 0.0f ? 1.0f : m_stats.mass;
-    m_position += force / safeMass;
+    // Lower mass (or multiply force) based on knockback resistance reduction (each 0.1 reduction increases force by 10%)
+    float knockbackMultiplier = 1.0f + m_knockbackResistanceReduction;
+    m_position += (force * knockbackMultiplier) / safeMass;
     SyncBodyToPosition();
 }
 

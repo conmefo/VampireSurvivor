@@ -48,6 +48,12 @@ public:
     sf::Vector2f GetCollisionCenter() const;
     const std::string& GetDefinitionId() const;
 
+    // Modifiers for Garlic effects
+    void ReduceKnockbackResistance(float amount) { m_knockbackResistanceReduction += amount; }
+    void ReduceStatusResistance(float amount) { m_statusResistanceReduction += amount; }
+    float GetKnockbackResistanceReduction() const { return m_knockbackResistanceReduction; }
+    float GetStatusResistanceReduction() const { return m_statusResistanceReduction; }
+
 protected:
     virtual void UpdateAI(float dt);
     virtual void UpdateDeath(float dt);
@@ -65,4 +71,7 @@ protected:
     bool m_isDying;
     float m_deathTimer;
     std::string m_definitionId;
+
+    float m_knockbackResistanceReduction = 0.0f;
+    float m_statusResistanceReduction = 0.0f;
 };

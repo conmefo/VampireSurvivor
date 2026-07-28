@@ -20,6 +20,7 @@
 #include "../../Entities/Weapons/RunetracerWeapon.h"
 #include "../../Entities/Weapons/KnifeWeapon.h"
 #include "../../Entities/Weapons/AxeWeapon.h"
+#include "../../Entities/Weapons/GarlicWeapon.h"
 #include "../../Entities/Pickups/TreasureChestManager.h"
 #include "../../Core/Math/MathUtils.h"
 #include "../../Core/Physics/Collision.h"
@@ -200,10 +201,14 @@ void GameState::Init() {
         {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(wp));
         }
+        else if(wp.GetId() == "GARLIC")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<GarlicWeapon>(wp));
+        }
 
-        // FOR TESTING: Always grant the Axe
-        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("AXE");
-        m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(testWp));
+        // FOR TESTING: Always grant the Garlic weapon
+        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("GARLIC");
+        m_player->GetWeaponInventory().AddWeapon(std::make_unique<GarlicWeapon>(testWp));
     }
     else
     {
@@ -464,7 +469,7 @@ void GameState::Update(float dt) {
     }
 
     // DEBUG MODE: Set to true to disable enemy spawning/movement and spawn static dummies for testing
-    constexpr bool DebugStaticTargetsMode = false;
+    constexpr bool DebugStaticTargetsMode = true;
 
     if (!DebugStaticTargetsMode) {
         UpdateStageSpawner(dt);

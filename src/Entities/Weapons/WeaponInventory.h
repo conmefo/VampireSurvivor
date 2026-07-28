@@ -17,6 +17,7 @@ public:
 
     void AddWeapon(std::unique_ptr<Weapon> weapon);
     void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool);
+    void Draw(sf::RenderTarget& target) const;
 
 private:
     std::vector<std::unique_ptr<Weapon>> m_weapons;
