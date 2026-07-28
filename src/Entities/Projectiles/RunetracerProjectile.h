@@ -15,7 +15,8 @@ public:
                          sf::Vector2f startPosition, sf::Vector2f velocity, 
                          float duration, float power, float areaMultiplier,
                          const std::string& hitVfxName, int penetration,
-                         ProjectileManager* projManager, const vs::ParticleEmitterConfig* config = nullptr);
+                         ProjectileManager* projManager, const vs::ParticleEmitterConfig* config = nullptr,
+                         sf::Color customColor = sf::Color::White);
     ~RunetracerProjectile() override = default;
 
     void Update(float dt) override;
@@ -26,11 +27,13 @@ public:
 
 private:
     bool m_isFadingOut = false;
-    float m_fadeOutTimer = 0.5f;
-    float m_fadeDuration = 0.5f;
+    float m_fadeOutTimer = 0.25f;
+    float m_fadeDuration = 0.25f;
     ProjectileManager* m_projManager;
     std::unordered_map<void*, float> m_enemyHitTimers;
     std::unique_ptr<TrailRenderer> m_trailRenderer;
     float m_particleSpawnTimer;
     float m_colorHue;
+    sf::Color m_customColor;
+    float m_baseAlpha = 187.0f;
 };

@@ -111,7 +111,7 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     float power = m_profile.GetPower();
     float area = m_profile.GetArea();
     
-    sf::Vector2f spawnPosition = player.GetPosition();
+    sf::Vector2f spawnPosition = player.GetBottomPosition();
 
     const vs::ParticleEmitterConfig* trailConfig = nullptr;
     if (projManager.GetParticleManager())
@@ -119,6 +119,22 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
         trailConfig = &projManager.GetParticleManager()->GetConfig("runetracerTrail");
     }
 
-    auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager, trailConfig);
+    // Predefined palette matching original game gem colors (including original silver)
+    static const sf::Color colors[] = {
+        sf::Color(255, 255, 255),   // Original Silver
+        sf::Color(255, 90, 90),     // Pink/Red
+        sf::Color(204, 255, 255),   // Cyan/Blue
+        sf::Color(90, 255, 90),     // Green
+        sf::Color(255, 204, 90),    // Yellow/Orange
+        sf::Color(204, 90, 255)     // Purple
+    };
+    static const int colorsCount = sizeof(colors) / sizeof(colors[0]);
+
+    // Randomize the color selection so that single projectile launches are diverse
+    static std::mt19937 gen(std::random_device{}());
+    std::uniform_int_distribution<int> dist(0, colorsCount - 1);
+    sf::Color projectileColor = colors[dist(gen)];
+
+    auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager, trailConfig, projectileColor);
     projManager.AddProjectile(std::move(proj));
 }

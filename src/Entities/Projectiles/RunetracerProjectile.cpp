@@ -2,39 +2,66 @@
 #include "ProjectileManager.h"
 #include <cmath>
 
-RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf::IntRect& textureRect, sf::Vector2f startPosition, sf::Vector2f velocity, float duration, float power, float areaMultiplier, const std::string& hitVfxName, int penetration, ProjectileManager* projManager, const vs::ParticleEmitterConfig* config)
+RunetracerProjectile::RunetracerProjectile(const sf::Texture& texture, const sf::IntRect& textureRect, sf::Vector2f startPosition, sf::Vector2f velocity, float duration, float power, float areaMultiplier, const std::string& hitVfxName, int penetration, ProjectileManager* projManager, const vs::ParticleEmitterConfig* config, sf::Color customColor)
     : Projectile(texture, textureRect, startPosition, velocity, duration, power, areaMultiplier, hitVfxName, penetration)
     , m_projManager(projManager)
     , m_particleSpawnTimer(0.0f)
     , m_colorHue(0.0f)
+    , m_customColor(customColor)
 {
     m_penetration = penetration;
     m_sprite.setOrigin(textureRect.width / 2.0f, textureRect.height / 2.0f);
+
+    // Diamond sprite always remains clean silver/gray (untinted)
+    m_sprite.setColor(sf::Color::White);
 
     m_trailRenderer = std::make_unique<TrailRenderer>(0.8f, 15.0f, 2.0f); // defaults
     if (m_trailRenderer)
     {
         if (config)
         {
-            m_sprite.setScale(config->weaponScaleX, config->weaponScaleY);
-            m_trailRenderer->SetWidth(config->trailWidth);
-            m_trailRenderer->SetFadeStartRatio(config->trailFadeStart);
-            m_trailRenderer->SetMaxLifetime(config->trailLength);
-            m_trailRenderer->SetBaseColor(sf::Color(
-                static_cast<sf::Uint8>(config->colorR),
-                static_cast<sf::Uint8>(config->colorG),
-                static_cast<sf::Uint8>(config->colorB),
-                static_cast<sf::Uint8>(config->colorA)
-            ));
+            // Smaller diamond gem head scale (0.8x Area)
+            m_sprite.setScale(0.8f * areaMultiplier, 0.8f * areaMultiplier);
+            // Thinner trail width (1.2f Area)
+            m_trailRenderer->SetWidth(1.2f * areaMultiplier);
+            
+            // Much longer trail (1.5s lifetime)
+            m_trailRenderer->SetFadeStartRatio(0.0f);
+            m_trailRenderer->SetMaxLifetime(1.5f);
+            
+            // Slightly more visible trail color (blend 50% of target color with 50% white)
+            sf::Color softTrailColor(
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.r),
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.g),
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.b)
+            );
+            
+            // Set base alpha to 165.0f to match original game trails
+            m_baseAlpha = 165.0f;
+            softTrailColor.a = static_cast<sf::Uint8>(m_baseAlpha);
+            
+            m_trailRenderer->SetBaseColor(softTrailColor);
+            m_customColor = softTrailColor;
         }
         else
         {
             // Fallback defaults if config is missing
-            m_sprite.setScale(1.8f, 1.8f);
-            m_trailRenderer->SetWidth(3.1f);
-            m_trailRenderer->SetFadeStartRatio(0.5f);
-            m_trailRenderer->SetMaxLifetime(2.2f);
-            m_trailRenderer->SetBaseColor(sf::Color(211, 215, 209, 157));
+            m_sprite.setScale(0.8f * areaMultiplier, 0.8f * areaMultiplier);
+            m_trailRenderer->SetWidth(1.2f * areaMultiplier);
+            m_trailRenderer->SetFadeStartRatio(0.0f);
+            m_trailRenderer->SetMaxLifetime(1.5f);
+            
+            sf::Color softTrailColor(
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.r),
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.g),
+                static_cast<sf::Uint8>(0.5f * 255.0f + 0.5f * customColor.b)
+            );
+            
+            m_baseAlpha = 165.0f;
+            softTrailColor.a = 165;
+            
+            m_trailRenderer->SetBaseColor(softTrailColor);
+            m_customColor = softTrailColor;
         }
     }
 }
@@ -76,7 +103,13 @@ void RunetracerProjectile::Update(float dt)
         c.a = static_cast<sf::Uint8>(alpha);
         m_sprite.setColor(c);
         
-        // Let the trail renderer naturally fade out as it stops updating or its points die out
+        // Synchronize trail opacity fade with the diamond head
+        if (m_trailRenderer)
+        {
+            sf::Color trailColor = m_customColor;
+            trailColor.a = static_cast<sf::Uint8>(m_baseAlpha * fadeRatio);
+            m_trailRenderer->SetBaseColor(trailColor);
+        }
     }
 
     // 3. Screen bounds bouncing logic
@@ -84,9 +117,13 @@ void RunetracerProjectile::Update(float dt)
     {
         sf::FloatRect bounds = m_projManager->GetViewBounds();
         
-        // Apply the 16:10 dimmed bar constraints (96px on each side)
-        bounds.left += 96.0f;
-        bounds.width -= 192.0f;
+        // Determine current view ratio (zoom level) based on design ViewWidth (1920.0f)
+        float zoomRatio = bounds.width / 1920.0f;
+        float horizontalBarOffset = 96.0f * zoomRatio;
+        
+        // Apply the 16:10 dimmed bar constraints scaled to world coordinates
+        bounds.left += horizontalBarOffset;
+        bounds.width -= (horizontalBarOffset * 2.0f);
 
         sf::Vector2f pos = m_sprite.getPosition();
 

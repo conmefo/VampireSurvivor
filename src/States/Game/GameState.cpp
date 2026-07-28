@@ -205,10 +205,14 @@ void GameState::Init() {
         {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<GarlicWeapon>(wp));
         }
+        else if(wp.GetId() == "DIAMOND")
+        {
+            m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(wp));
+        }
 
-        // FOR TESTING: Always grant the Garlic weapon
-        const WeaponProfile& testWp = m_context.weaponData.GetWeaponById("GARLIC");
-        m_player->GetWeaponInventory().AddWeapon(std::make_unique<GarlicWeapon>(testWp));
+        // FOR TESTING: Always grant the starting weapon + Axe for test support
+        const WeaponProfile& axeWp = m_context.weaponData.GetWeaponById("AXE");
+        m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(axeWp));
     }
     else
     {
