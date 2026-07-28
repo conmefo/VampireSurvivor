@@ -63,6 +63,7 @@ add_executable(VampireSurvivors
     src/Entities/Weapons/AxeWeapon.cpp
     src/Components/AnimationComponent.cpp
     src/Components/TrailRenderer.cpp
+    src/Components/ProjectileShadowTrailComponent.cpp
     src/Entities/Enemy/AnimatedEnemy.cpp
     src/Entities/Enemy/EnemyDatabase.cpp
     src/Entities/Enemy/EnemyBase.cpp

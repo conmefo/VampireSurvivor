@@ -7,6 +7,8 @@
 #include "../Core/Animation/Tweener.h"
 #include <functional>
 
+extern float g_PlayerSpeedMultiplier;
+
 class Player : public Agent
 {
 public:
@@ -31,6 +33,10 @@ public:
 
     WeaponInventory& GetWeaponInventory() { return m_weaponInventory; }
     sf::Vector2f GetFacingDirection() const { return m_currentDirection; }
+    sf::Vector2f GetBottomPosition() const {
+        sf::FloatRect bounds = m_sprite.getGlobalBounds();
+        return sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height);
+    }
 
 private:
     void OnHpReachedZero();

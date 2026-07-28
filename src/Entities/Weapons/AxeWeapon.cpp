@@ -3,7 +3,7 @@
 #include "../Projectiles/AxeProjectile.h"
 #include <cmath>
 
-float g_AxeInitialSpeed = 2.8f;
+float g_AxeInitialSpeed = 3.5f;
 float g_AxeAmountOffset = 0.0f;
 
 AxeWeapon::AxeWeapon(const WeaponProfile& profile)
@@ -20,21 +20,26 @@ void AxeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pla
     sf::Vector2f playerDir = player.GetFacingDirection();
     float facingDir = (playerDir.x < 0.0f) ? -1.0f : 1.0f;
 
-    // Angle = -90.0 + FacingDir * (45.0 / Speed) * index
+    // Base angle straight up (-90 deg)
+    // When multiple axes fire, center them or expand in facing direction:
+    // If facing right (+1), offset goes right; if facing left (-1), offset goes left
     float speedMultiplier = m_profile.GetSpeed();
-    if (speedMultiplier <= 0.0f) speedMultiplier = 1.0f; // Prevent division by zero
+    if (speedMultiplier <= 0.0f) speedMultiplier = 1.0f;
 
-    // The Ghidra math calculates Angle = -90.0 + Dir * (45.0 / Speed) * index
-    // fVar11 (Speed) is the Axe's base speed, which is 6.0 Unity units/sec.
-    // This gives a 7.5 degree step per Axe, keeping them tightly grouped.
     float unitySpeed = g_AxeInitialSpeed * speedMultiplier; 
 
-    float angleDegrees = -90.0f + facingDir * (45.0f / unitySpeed) * (static_cast<float>(projectileIndex) + g_AxeAmountOffset);
+    // Directional spread step (7.5 deg base step)
+    float stepAngle = (45.0f / unitySpeed);
+    float angleDegrees = -90.0f + facingDir * stepAngle * (static_cast<float>(projectileIndex) + g_AxeAmountOffset);
     float angleRadians = angleDegrees * 0.017453292f;
 
     // Calculate X and Y velocity in Unity space
-    float unityXVel = unitySpeed * std::cos(angleRadians);
-    float unityYVel = unitySpeed * std::sin(angleRadians) * -1.0f; // Unity Angle -90 means down, so flip it
+    // X velocity direction is explicitly driven by facingDir
+    float unityXVel = std::abs(unitySpeed * std::cos(angleRadians)) * facingDir;
+    if (projectileIndex > 0) {
+        unityXVel += facingDir * (static_cast<float>(projectileIndex) * 0.5f);
+    }
+    float unityYVel = std::abs(unitySpeed * std::sin(angleRadians)); // Upward velocity positive in Unity
 
     // The genius Ghidra clamp: all axes get exactly 6.0 upward velocity so they hang in the air for the exact same time!
     if (unityYVel > 6.0f) {
@@ -52,9 +57,8 @@ void AxeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pla
     float power = m_profile.GetPower();
     float area = m_profile.GetArea();
     
-    sf::Vector2f spawnPosition = player.GetPosition();
-    // Default Axe spawn is slightly above player center
-    spawnPosition.y -= 20.0f;
+    // In original Unity game, projectile spawns at middle of player's lowest edge (feet)
+    sf::Vector2f spawnPosition = player.GetBottomPosition();
 
     auto proj = std::make_unique<AxeProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating());
     proj->SetParticleManager(projManager.GetParticleManager());

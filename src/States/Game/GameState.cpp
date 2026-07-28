@@ -462,9 +462,25 @@ void GameState::Update(float dt) {
     {
         return;
     }
-    UpdateStageSpawner(dt);
-    UpdateStageEvents(dt);
-    m_enemyPool.Update(dt, m_cameraCenter);
+
+    // DEBUG MODE: Set to true to disable enemy spawning/movement and spawn static dummies for testing
+    constexpr bool DebugStaticTargetsMode = false;
+
+    if (!DebugStaticTargetsMode) {
+        UpdateStageSpawner(dt);
+        UpdateStageEvents(dt);
+        m_enemyPool.Update(dt, m_cameraCenter);
+    } else {
+        // Spawn 4 static dummy targets around player if pool is empty
+        if (m_enemyPool.GetActiveEnemies().empty()) {
+            sf::Vector2f center = m_player ? m_player->GetPosition() : sf::Vector2f(0.f, 0.f);
+            SpawnEnemyAt("BAT", center + sf::Vector2f(120.f, 0.f));
+            SpawnEnemyAt("BAT", center + sf::Vector2f(-120.f, 0.f));
+            SpawnEnemyAt("BAT", center + sf::Vector2f(0.f, 150.f));
+            SpawnEnemyAt("BAT", center + sf::Vector2f(0.f, -150.f));
+        }
+    }
+
     m_projectileManager.SetViewBounds(GetViewBounds());
     m_projectileManager.Update(dt);
 

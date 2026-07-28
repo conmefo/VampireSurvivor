@@ -5,6 +5,9 @@
 extern float g_AxeInitialSpeed;
 extern float g_AxeGravity;
 extern float g_AxeAmountOverride;
+extern float g_AxeShadowDelay;
+extern float g_AxeScale;
+extern float g_PlayerSpeedMultiplier;
 
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
@@ -13,40 +16,14 @@ ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::Part
     m_background->SetColor(sf::Color(0, 0, 0, 180));
     m_background->SetSize(sf::Vector2f(1100.0f, 500.0f));
 
-    // Add Axe tuning sliders
-    AddSlider("Axe Speed", 1.0f, 20.0f, &g_AxeInitialSpeed);
-    AddSlider("Axe Gravity", 100.0f, 1500.0f, &g_AxeGravity);
-    AddSlider("Axe Amount", 1.0f, 12.0f, &g_AxeAmountOverride);
-
-    // Add sliders mapped to the config
-    AddSlider("Speed", 0.0f, 300.0f, &m_config.startSpeed);
-    AddSlider("Lifetime", 0.1f, 5.0f, &m_config.startLifetime);
-    AddSlider("Emission Rate", 0.0f, 500.0f, &m_config.emissionRate);
-    AddSlider("Min Size", 0.01f, 5.0f, &m_config.minSize);
-    AddSlider("Max Size", 0.01f, 5.0f, &m_config.maxSize);
-    AddSlider("End Size", 0.0f, 5.0f, &m_config.endSize);
-    AddSlider("Shape Radius", 0.0f, 100.0f, &m_config.shapeRadius);
-    AddSlider("Spread Angle", 0.0f, 360.0f, &m_config.shapeAngle);
-    AddSlider("Gravity", -10.0f, 10.0f, &m_config.gravityModifier);
-    AddSlider("Damping", 0.0f, 10.0f, &m_config.damping);
-    AddSlider("Color R", 0.0f, 255.0f, &m_config.colorR);
-    AddSlider("Color G", 0.0f, 255.0f, &m_config.colorG);
-    AddSlider("Color B", 0.0f, 255.0f, &m_config.colorB);
-    AddSlider("Opacity", 0.0f, 255.0f, &m_config.colorA);
-    AddSlider("Wpn Scale X", 0.1f, 5.0f, &m_config.weaponScaleX);
-    AddSlider("Wpn Scale Y", 0.1f, 5.0f, &m_config.weaponScaleY);
-    AddSlider("Offset", -200.0f, 200.0f, &m_config.emitterOffset);
-    AddSlider("Trail Width", 1.0f, 50.0f, &m_config.trailWidth);
-    AddSlider("Trail Fade Ratio", 0.0f, 1.0f, &m_config.trailFadeStart);
-    AddSlider("Trail Length", 0.1f, 5.0f, &m_config.trailLength);
+    // Tuning sliders unattached
 }
 
 void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, float* targetPtr)
 {
     SliderEntry entry;
     entry.scrollbar = std::make_unique<UIScrollbar>(m_atlas);
-    entry.scrollbar->UpdateLayout(20.0f, 200.0f); // Make it a horizontal-ish setup or use vertical since it's a scrollbar
-    // Actually UIScrollbar is vertical. We will place them side by side.
+    entry.scrollbar->UpdateLayout(200.0f, 400.0f);
     
     entry.label.setFont(m_font);
     entry.label.setCharacterSize(14);
@@ -61,10 +38,11 @@ void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, 
     entry.maxVal = max;
     entry.targetValue = targetPtr;
     
-    // Set initial ratio
-    float ratio = (*targetPtr - min) / (max - min);
+    // Set initial ratio matching inverted UI scale (top = 1.0, bottom = 0.0)
+    float val = *targetPtr;
+    float ratio = (val - min) / (max - min);
     ratio = std::max(0.0f, std::min(1.0f, ratio));
-    entry.scrollbar->SetScrollRatio(ratio);
+    entry.scrollbar->SetScrollRatio(1.0f - ratio);
 
     m_sliders.push_back(std::move(entry));
 }
@@ -88,6 +66,12 @@ void ParticleTuningUI::SetPosition(const sf::Vector2f& pos)
         
         m_sliders[i].scrollbar->SetPosition(sf::Vector2f(x, startY));
         m_sliders[i].scrollbar->UpdateLayout(200.0f, 400.0f);
+        
+        // Ensure scrollbar ratio stays aligned to initial target value on layout
+        float val = *m_sliders[i].targetValue;
+        float ratio = (val - m_sliders[i].minVal) / (m_sliders[i].maxVal - m_sliders[i].minVal);
+        ratio = std::max(0.0f, std::min(1.0f, ratio));
+        m_sliders[i].scrollbar->SetScrollRatio(1.0f - ratio);
     }
 }
 
@@ -97,16 +81,16 @@ void ParticleTuningUI::Update(float deltaTime)
     {
         slider.scrollbar->Update(deltaTime);
         
-        // Update target value based on scrollbar ratio
+        // Update target value based on scrollbar ratio when user interacts
         float ratio = slider.scrollbar->GetScrollRatio();
         
-        // Since scrollbar top is usually 0 and bottom is 1, let's invert it so bottom is 0 and top is 1
+        // Since scrollbar top is 0 and bottom is 1, inverted: top is 1 (max) and bottom is 0 (min)
         ratio = 1.0f - ratio;
         
         *slider.targetValue = slider.minVal + ratio * (slider.maxVal - slider.minVal);
         
         std::stringstream ss;
-        ss << std::fixed << std::setprecision(1) << *slider.targetValue;
+        ss << std::fixed << std::setprecision(2) << *slider.targetValue;
         slider.valueText.setString(ss.str());
     }
 }

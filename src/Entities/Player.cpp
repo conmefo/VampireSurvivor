@@ -74,6 +74,8 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     m_animator.Initialize(frames, ANIMATION_SPEED);
 }
 
+float g_PlayerSpeedMultiplier = 0.6f;
+
 void Player::Update(float dt)
 {
     if (m_isDead)
@@ -133,14 +135,19 @@ void Player::Update(float dt)
         direction.x /= length;
         direction.y /= length;
         
-        m_position += direction * BASE_MOVE_SPEED * m_moveSpeedMultiplier * dt;
+        m_position += direction * BASE_MOVE_SPEED * m_moveSpeedMultiplier * g_PlayerSpeedMultiplier * dt;
         m_animator.Update(dt);
         m_currentDirection = direction;
     }
     else
     {
         m_animator.Reset();
-        m_currentDirection = sf::Vector2f(0.0f, 0.0f);
+        // Retain last facing horizontal direction (or default to Right if never moved)
+        if (m_sprite.getScale().x < 0.0f) {
+            m_currentDirection = sf::Vector2f(-1.0f, 0.0f);
+        } else {
+            m_currentDirection = sf::Vector2f(1.0f, 0.0f);
+        }
     }
 
     m_sprite.setPosition(m_position);
