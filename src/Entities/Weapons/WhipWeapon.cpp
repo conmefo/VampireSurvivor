@@ -42,18 +42,23 @@ void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pl
     float offsetDistance = 65.0f * area;
     float offsetX = strikeLeft ? -offsetDistance : offsetDistance;
     
-    // Reset base Y offset to center, only applying heights stagger for index >= 2 upgrades
+    // Y offset positioning: Backward strikes (!isForward) render higher up, and subsequent index >= 2 strikes stagger higher
     float offsetY = 0.0f;
+    if (!isForward)
+    {
+        offsetY -= 15.0f * area;
+    }
+
     if(projectileIndex >= 2)
     {
-        offsetY = -40.0f * (static_cast<float>(projectileIndex / 2) * area);
+        offsetY -= 40.0f * (static_cast<float>(projectileIndex / 2) * area);
     }
 
     sf::Vector2f relativeOffset(offsetX, offsetY);
 
     // Flipped sprite configurations
     bool flipX = strikeLeft;
-    bool flipY = false;
+    bool flipY = !isForward; // Vertically flip backward slashes for backhand arc shape
 
     auto projectile = std::make_unique<WhipProjectile>(
         *data.texture,

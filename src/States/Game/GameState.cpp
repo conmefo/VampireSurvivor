@@ -210,9 +210,9 @@ void GameState::Init() {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(wp));
         }
 
-        // FOR TESTING: Always grant the starting weapon + Axe for test support
-        const WeaponProfile& axeWp = m_context.weaponData.GetWeaponById("AXE");
-        m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(axeWp));
+        // FOR TESTING: Always grant the starting weapon + Whip for test support
+        const WeaponProfile& whipWp = m_context.weaponData.GetWeaponById("WHIP");
+        m_player->GetWeaponInventory().AddWeapon(std::make_unique<WhipWeapon>(whipWp));
     }
     else
     {

@@ -42,6 +42,7 @@ sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, Player& player)
 }
 
 float g_AxeAmountOverride = -1.0f;
+float g_WhipAmountOverride = -1.0f;
 
 void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool)
 {
@@ -59,8 +60,16 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
         {
             amount = static_cast<int>(g_AxeAmountOverride);
         }
+        else if (m_profile.GetId() == "WHIP" && g_WhipAmountOverride > 0.0f)
+        {
+            amount = static_cast<int>(g_WhipAmountOverride);
+        }
 
         float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
+        if (m_profile.GetId() == "WHIP")
+        {
+            repeatSec = 0.09f; // Rapid-fire 90ms delay between whip slashes
+        }
 
         // Calculate target once per burst
         sf::Vector2f targetPosition = GetTargetPosition(enemyPool, player);
