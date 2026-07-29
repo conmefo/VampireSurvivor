@@ -39,17 +39,17 @@ void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pl
     bool isForward = (projectileIndex % 2 == 0);
     bool strikeLeft = isForward ? m_facingLeft : !m_facingLeft;
 
-    float offsetDistance = 85.0f * area;
+    float offsetDistance = 65.0f * area;
     float offsetX = strikeLeft ? -offsetDistance : offsetDistance;
     
-    // Stagger vertical height for higher amount of strikes (e.g. index 2 and 3 strike higher)
+    // Reset base Y offset to center, only applying heights stagger for index >= 2 upgrades
     float offsetY = 0.0f;
     if(projectileIndex >= 2)
     {
         offsetY = -40.0f * (static_cast<float>(projectileIndex / 2) * area);
     }
 
-    sf::Vector2f spawnPos = player.GetPosition() + sf::Vector2f(offsetX, offsetY);
+    sf::Vector2f relativeOffset(offsetX, offsetY);
 
     // Flipped sprite configurations
     bool flipX = strikeLeft;
@@ -58,7 +58,8 @@ void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pl
     auto projectile = std::make_unique<WhipProjectile>(
         *data.texture,
         data.rect,
-        spawnPos,
+        &player,
+        relativeOffset,
         duration,
         power,
         area,

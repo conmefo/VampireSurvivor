@@ -615,6 +615,14 @@ void GameState::Draw(sf::RenderWindow &window) {
     }
     m_enemyPool.Draw(window);
 
+    if(m_player)
+    {
+        m_player->Draw(window);
+        if (m_playerHUD) {
+            m_playerHUD->Draw(window);
+        }
+    }
+
     m_particleManager.Draw(window);
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
@@ -624,14 +632,6 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_treasureChests->Draw(window);
     }
     m_damageNumbers.Draw(window);
-
-    if(m_player)
-    {
-        m_player->Draw(window);
-        if (m_playerHUD) {
-            m_playerHUD->Draw(window);
-        }
-    }
 
     if (m_showHitboxes) {
         DrawHitboxes(window);
