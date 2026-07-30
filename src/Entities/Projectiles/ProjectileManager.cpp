@@ -7,23 +7,31 @@ ProjectileManager::ProjectileManager()
 
 void ProjectileManager::Update(float dt)
 {
-    for(auto& proj : m_projectiles)
+    size_t count = m_projectiles.size();
+    for (size_t i = 0; i < count; ++i)
     {
-        proj->Update(dt);
+        if (i < m_projectiles.size() && m_projectiles[i])
+        {
+            m_projectiles[i]->Update(dt);
+        }
     }
 
     m_projectiles.erase(
         std::remove_if(m_projectiles.begin(), m_projectiles.end(),
-            [](const std::unique_ptr<Projectile>& p) { return p->IsExpired(); }),
+            [](const std::unique_ptr<Projectile>& p) { return !p || p->IsExpired(); }),
         m_projectiles.end()
     );
 
-    for(auto& action : m_delayedActions)
+    size_t actionCount = m_delayedActions.size();
+    for (size_t i = 0; i < actionCount; ++i)
     {
-        action.timer -= dt;
-        if(action.timer <= 0.0f)
+        if (i < m_delayedActions.size())
         {
-            action.action();
+            m_delayedActions[i].timer -= dt;
+            if (m_delayedActions[i].timer <= 0.0f && m_delayedActions[i].action)
+            {
+                m_delayedActions[i].action();
+            }
         }
     }
 
@@ -36,10 +44,9 @@ void ProjectileManager::Update(float dt)
 
 void ProjectileManager::QueueDelayedAction(float delay, std::function<void()> action)
 {
-    if (delay <= 0.0f) {
-        action();
-    } else {
-        m_delayedActions.push_back({delay, action});
+    if (action)
+    {
+        m_delayedActions.push_back({std::max(0.0f, delay), action});
     }
 }
 

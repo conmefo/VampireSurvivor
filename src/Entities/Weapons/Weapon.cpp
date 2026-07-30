@@ -80,13 +80,15 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
             
             if (delay > 0.0f)
             {
-                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, &player, targetPosition, i]() {
-                    this->FireOne(projManager, atlas, player, targetPosition, i);
+                projManager.QueueDelayedAction(delay, [this, &projManager, &atlas, &player, &enemyPool, i]() {
+                    sf::Vector2f realTimeTarget = this->GetTargetPosition(enemyPool, player);
+                    this->FireOne(projManager, atlas, player, realTimeTarget, i);
                 });
             }
             else
             {
-                FireOne(projManager, atlas, player, targetPosition, i);
+                sf::Vector2f realTimeTarget = GetTargetPosition(enemyPool, player);
+                FireOne(projManager, atlas, player, realTimeTarget, i);
             }
         }
         

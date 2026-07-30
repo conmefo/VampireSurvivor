@@ -20,5 +20,5 @@ private:
 
     static constexpr float BAR_WIDTH = 40.0f;
     static constexpr float BAR_HEIGHT = 6.0f;
-    static constexpr float Y_OFFSET = 30.0f; // Distance below the player
+    static constexpr float Y_OFFSET = 8.0f; // Positioned right under character feet
 };

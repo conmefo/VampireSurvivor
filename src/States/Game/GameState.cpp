@@ -210,9 +210,6 @@ void GameState::Init() {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(wp));
         }
 
-        // FOR TESTING: Always grant the starting weapon + Whip for test support
-        const WeaponProfile& whipWp = m_context.weaponData.GetWeaponById("WHIP");
-        m_player->GetWeaponInventory().AddWeapon(std::make_unique<WhipWeapon>(whipWp));
     }
     else
     {
@@ -276,23 +273,7 @@ void GameState::Init() {
         UpdateStageTimerText();
     }
 
-    // Initialize Particle UI
-    m_testParticleConfig = m_context.particleData.GetConfig("bloodTear");
-    m_testParticleConfig.looping = true; // Temporary loop for tuning
-    m_testParticleConfig.duration = 9999.0f;
-    m_testParticleConfig.weaponScaleX = 1.0f;
-    m_testParticleConfig.weaponScaleY = 1.0f;
-    m_testParticleConfig.trailWidth = 15.0f;
-    m_testParticleConfig.trailFadeStart = 0.5f;
-    m_testParticleConfig.trailLength = 0.8f;
-    m_testParticleConfig.colorR = 0.0f;
-    m_testParticleConfig.colorG = 255.0f;
-    m_testParticleConfig.colorB = 255.0f;
-    m_testParticleConfig.colorA = 255.0f;
-
-    // Attach Tuning UI for Axe testing
-    m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, m_context.fonts.Get(FontID::Main), m_testParticleConfig);
-
+    // Tuning UI unattached
     ApplyCameraToView();
 }
 
@@ -480,14 +461,7 @@ void GameState::Update(float dt) {
         UpdateStageEvents(dt);
         m_enemyPool.Update(dt, m_cameraCenter);
     } else {
-        // Spawn 4 static dummy targets around player if pool is empty
-        if (m_enemyPool.GetActiveEnemies().empty()) {
-            sf::Vector2f center = m_player ? m_player->GetPosition() : sf::Vector2f(0.f, 0.f);
-            SpawnEnemyAt("BAT", center + sf::Vector2f(120.f, 0.f));
-            SpawnEnemyAt("BAT", center + sf::Vector2f(-120.f, 0.f));
-            SpawnEnemyAt("BAT", center + sf::Vector2f(0.f, 150.f));
-            SpawnEnemyAt("BAT", center + sf::Vector2f(0.f, -150.f));
-        }
+        // Disabled dummy enemy spawns for clean tuning testing
     }
 
     m_projectileManager.SetViewBounds(GetViewBounds());

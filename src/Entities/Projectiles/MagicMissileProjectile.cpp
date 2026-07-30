@@ -32,9 +32,14 @@ MagicMissileProjectile::~MagicMissileProjectile()
     }
 }
 
+extern float g_MagicWandScale;
+
 void MagicMissileProjectile::Update(float dt)
 {
     Projectile::Update(dt);
+
+    // Apply real-time g_MagicWandScale tuning
+    m_sprite.setScale(m_baseScaleX * g_MagicWandScale, m_baseScaleY * g_MagicWandScale);
 
     m_animationTimer += dt;
     if(m_animationTimer >= FRAME_TIME)
@@ -47,11 +52,6 @@ void MagicMissileProjectile::Update(float dt)
     if (m_particleManager != nullptr && m_emitter == nullptr) {
         auto magicWandConfig = m_particleManager->GetConfig("magicWand");
         m_emitter = m_particleManager->SpawnEmitter(magicWandConfig, m_sprite.getPosition());
-        
-        // Apply static scaling based on config
-        float scaleX = magicWandConfig.weaponScaleX;
-        float scaleY = magicWandConfig.weaponScaleY;
-        m_sprite.setScale(m_baseScaleX * scaleX, m_baseScaleY * scaleY);
     }
 
     if (m_emitter) {

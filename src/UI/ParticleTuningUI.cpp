@@ -8,6 +8,10 @@ extern float g_AxeAmountOverride;
 extern float g_AxeShadowDelay;
 extern float g_AxeScale;
 extern float g_PlayerSpeedMultiplier;
+extern float g_MagicWandSpeed;
+extern float g_MagicWandScale;
+extern float g_FireWandSpeed;
+extern float g_FireWandScale;
 
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)

@@ -48,10 +48,8 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     m_sprite.setTexture(texture);
     if(!frames.empty())
     {
-        m_sprite.setOrigin(frames[0].width / 2.0f, frames[0].height / 2.0f);
-        // m_baseScaleX = 76.0f / static_cast<float>(frames[0].width);
-        // m_baseScaleY = 76.0f / static_cast<float>(frames[0].height);
-        // m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+        // Anchor pivot to middle-bottom (feet) of the character sprite
+        m_sprite.setOrigin(frames[0].width / 2.0f, static_cast<float>(frames[0].height));
     }
     
     // Fallback if multiplier is somehow zero or missing

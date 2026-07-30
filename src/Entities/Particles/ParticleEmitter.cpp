@@ -116,7 +116,12 @@ void ParticleEmitter::EmitParticle(const sf::Vector2f& spawnPos)
     p.lifetime = 0.0f;
     p.maxLifetime = m_config.startLifetime;
     p.textureRect = m_textureRect;
-    p.color = m_config.startColor;
+    p.color = sf::Color(
+        static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorR))),
+        static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorG))),
+        static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorB))),
+        static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorA)))
+    );
     
     // Initial size is a random value between minSize and maxSize
     p.initialSize = RandomFloat(m_config.minSize, m_config.maxSize);

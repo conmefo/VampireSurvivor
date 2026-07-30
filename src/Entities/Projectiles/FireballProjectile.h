@@ -15,6 +15,7 @@ private:
     TextureAtlas* m_atlas;
     vs::ParticleEmitter* m_trailEmitter = nullptr;
     float m_areaMultiplier;
+    bool m_hasExploded = false;
 
     void Explode();
 };

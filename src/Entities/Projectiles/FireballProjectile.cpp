@@ -24,10 +24,15 @@ FireballProjectile::~FireballProjectile()
     Explode();
 }
 
+extern float g_FireWandScale;
+
 void FireballProjectile::Update(float dt)
 {
     Projectile::Update(dt);
     
+    // Apply real-time g_FireWandScale slider tuning
+    m_sprite.setScale(m_areaMultiplier * g_FireWandScale, m_areaMultiplier * g_FireWandScale);
+
     if (m_projManager && m_projManager->GetParticleManager() != nullptr && m_trailEmitter == nullptr) {
         auto fireWandConfig = m_projManager->GetParticleManager()->GetConfig("fireWand");
         
@@ -36,17 +41,6 @@ void FireballProjectile::Update(float dt)
         fireWandConfig.maxSize *= m_areaMultiplier;
         
         m_trailEmitter = m_projManager->GetParticleManager()->SpawnEmitter(fireWandConfig, GetPosition());
-
-        // --- Static Scale Application ---
-        // We do not sync live tuning anymore, so we set the target scale once here
-        sf::Vector2f staticScale(fireWandConfig.weaponScaleX * m_areaMultiplier, fireWandConfig.weaponScaleY * m_areaMultiplier);
-        if (m_isScaling) {
-            // Update the tween's target scale dynamically
-            m_targetScale = staticScale;
-        } else {
-            // Apply scale directly
-            m_sprite.setScale(staticScale);
-        }
     }
 
     if (m_trailEmitter)
@@ -70,7 +64,8 @@ void FireballProjectile::Update(float dt)
 
 void FireballProjectile::Explode()
 {
-    if (!m_projManager || !m_atlas) return;
+    if (!m_projManager || !m_atlas || m_hasExploded) return;
+    m_hasExploded = true;
 
     // Trigger the FireballSequence state machine
     // This perfectly matches FireballSpawner$$FireballSequence

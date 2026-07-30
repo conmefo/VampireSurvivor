@@ -10,6 +10,9 @@ MagicMissileWeapon::MagicMissileWeapon(const WeaponProfile& profile)
 {
 }
 
+float g_MagicWandSpeed = 175.0f;
+float g_MagicWandScale = 0.45f;
+
 void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Player& player, sf::Vector2f targetPosition, int projectileIndex)
 {
     (void)projectileIndex;
@@ -49,9 +52,7 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
         return;
     }
 
-    // Increased projectile speed to 200 for normal gameplay testing
-    constexpr float BASE_PROJECTILE_SPEED = 280.0f;
-    float speed = BASE_PROJECTILE_SPEED * m_profile.GetSpeed();
+    float speed = g_MagicWandSpeed * m_profile.GetSpeed();
     sf::Vector2f velocity = targetDir * speed;
 
     constexpr float LIFETIME = 5.0f;
@@ -59,11 +60,17 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
     float area = m_profile.GetArea();
     int penetration = m_profile.GetPenetrating();
 
+    // Add subtle randomized spawn offset jitter so burst missiles don't stack on top of each other
+    float jitterScale = std::min(1.0f, static_cast<float>(projectileIndex) * 0.5f);
+    float jitterX = (((float)rand() / (float)RAND_MAX) - 0.5f) * 16.0f * jitterScale;
+    float jitterY = (((float)rand() / (float)RAND_MAX) - 0.5f) * 16.0f * jitterScale;
+    sf::Vector2f spawnPos = player.GetPosition() + sf::Vector2f(jitterX, jitterY);
+
     auto projectile = std::make_unique<MagicMissileProjectile>(
         *data1.texture,
         data1.rect,
         data2.rect,
-        player.GetPosition(),
+        spawnPos,
         velocity,
         LIFETIME,
         power,

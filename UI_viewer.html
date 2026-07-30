@@ -115,6 +115,11 @@
         <div class="sidebar">
             <h3>Sprite Info</h3>
             <div class="info-box" id="info">Hover or click a sprite to inspect</div>
+            <div style="margin-bottom: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
+                <button onclick="zoomToSprite('ProjectileFireball')" style="background:#007acc; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball (Base)</button>
+                <button onclick="zoomToSprite('ProjectileFireball2')" style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball 2</button>
+                <button onclick="zoomToSprite('ProjectileFireballDouble')" style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball Double</button>
+            </div>
             <input type="text" id="searchInput" placeholder="Search sprite..." autocomplete="off">
             <h3 id="sprite-list-header" style="margin-top: 10px;">Sprite List</h3>
             <div id="list"></div>
