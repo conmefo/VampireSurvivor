@@ -58,10 +58,16 @@ void ParticleEmitter::Update(float dt)
         }
     }
 
-    // Sync live tuning RGB colors to startColor
+    // Sync live tuning RGB colors to startColor and endColor (fade alpha only, preserve RGB hue)
     m_config.startColor.r = static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorR)));
     m_config.startColor.g = static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorG)));
     m_config.startColor.b = static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorB)));
+    m_config.startColor.a = static_cast<sf::Uint8>(std::max(0.0f, std::min(255.0f, m_config.colorA)));
+
+    m_config.endColor.r = m_config.startColor.r;
+    m_config.endColor.g = m_config.startColor.g;
+    m_config.endColor.b = m_config.startColor.b;
+    m_config.endColor.a = 0;
 
     // Update Particles
     for (auto it = m_particles.begin(); it != m_particles.end(); )
@@ -82,6 +88,15 @@ void ParticleEmitter::Update(float dt)
             }
 
             it->position += it->velocity * dt;
+            
+            // Apply tail convergence (pull particles inward toward trail center line over lifetime)
+            if (m_config.tailConvergence > 0.0f && it->offsetDist > 0.001f && it->maxLifetime > 0.0f)
+            {
+                float pullAmount = it->offsetDist * m_config.tailConvergence * (dt / it->maxLifetime);
+                pullAmount = std::min(pullAmount, it->offsetDist);
+                it->position -= it->offsetDir * pullAmount;
+                it->offsetDist -= pullAmount;
+            }
             
             float t = it->GetNormalizedLifetime();
             
@@ -147,6 +162,8 @@ void ParticleEmitter::EmitParticle(const sf::Vector2f& spawnPos)
     
     sf::Vector2f offset(std::cos(offsetAngle) * radius, std::sin(offsetAngle) * radius);
     p.position = spawnPos + offset;
+    p.offsetDist = radius;
+    p.offsetDir = (radius > 0.001f) ? (offset / radius) : sf::Vector2f(0.0f, 0.0f);
 
     // Direction based on emissionDirection or offset/random
     sf::Vector2f dir;

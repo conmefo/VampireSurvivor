@@ -34,6 +34,7 @@ bool ParticleDataManager::LoadFromJson(const std::string& filepath)
             config.endSize = value.value("endSize", 1.0f);
             config.shapeRadius = value.value("shapeRadius", 0.0f);
             config.shapeAngle = value.value("shapeAngle", 360.0f);
+            config.tailConvergence = value.value("tailConvergence", 0.0f);
             config.gravityModifier = value.value("gravityModifier", 0.0f);
             config.damping = value.value("damping", 0.0f);
             config.colorR = value.value("colorR", 255.0f);

@@ -17,9 +17,6 @@ ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::Part
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
-    m_background->SetColor(sf::Color(0, 0, 0, 180));
-    m_background->SetSize(sf::Vector2f(1100.0f, 500.0f));
-
     // Tuning sliders unattached
 }
 

@@ -162,7 +162,14 @@ void ParticleManager::Draw(sf::RenderTarget& target) const
         }
 
         sf::RenderStates states;
-        states.blendMode = emitter->GetConfig().blendMode;
+        float bType = emitter->GetConfig().blendModeType;
+        if (bType < 0.5f) {
+            states.blendMode = sf::BlendAlpha;
+        } else if (bType < 1.5f) {
+            states.blendMode = sf::BlendAdd;
+        } else {
+            states.blendMode = sf::BlendMultiply;
+        }
         if (!emitter->GetConfig().textureId.empty()) {
             states.texture = m_atlas->GetTextureData(emitter->GetConfig().textureId).texture;
         } else {

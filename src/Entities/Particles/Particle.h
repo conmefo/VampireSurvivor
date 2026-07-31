@@ -17,6 +17,9 @@ struct Particle
     float rotation = 0.0f;
     float rotationSpeed = 0.0f;
     sf::IntRect textureRect; // The sprite slice for this particle
+
+    sf::Vector2f offsetDir;
+    float offsetDist = 0.0f;
     
     // Returns true if the particle is still alive
     bool IsAlive() const { return lifetime < maxLifetime; }

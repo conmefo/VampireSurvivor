@@ -454,7 +454,7 @@ void GameState::Update(float dt) {
     }
 
     // DEBUG MODE: Set to true to disable enemy spawning/movement and spawn static dummies for testing
-    constexpr bool DebugStaticTargetsMode = true;
+    constexpr bool DebugStaticTargetsMode = false;
 
     if (!DebugStaticTargetsMode) {
         UpdateStageSpawner(dt);

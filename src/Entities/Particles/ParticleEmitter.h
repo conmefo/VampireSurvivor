@@ -37,6 +37,7 @@ struct ParticleEmitterConfig
     
     float shapeRadius = 0.0f;
     float shapeAngle = 360.0f; // Spread angle in degrees
+    float tailConvergence = 0.0f; // 0.0 = no inward pull, 1.0+ = particles pull towards trail center line as they age
     
     bool looping = true;
     float duration = 1.0f; // Total duration of the emitter if not looping
@@ -46,7 +47,8 @@ struct ParticleEmitterConfig
     int burstCount = 0;
     float gravityModifier = 0.0f;
     float damping = 0.0f;
-    sf::BlendMode blendMode = sf::BlendAlpha;
+    sf::BlendMode blendMode = sf::BlendAdd;
+    float blendModeType = 1.0f; // 0.0 = Alpha Blend (Exact RGB), 1.0 = Additive Glow
     
     bool overrideColor = false;
 };
