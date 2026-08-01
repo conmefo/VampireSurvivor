@@ -153,8 +153,8 @@ void ParticleEmitter::EmitParticle(const sf::Vector2f& spawnPos)
         p.rotationSpeed = 0.0f;
     }
 
-    // Calculate position offset based on shape radius and spread angle
-    float radius = RandomFloat(0.0f, m_config.shapeRadius);
+    // Calculate position offset based on shape radius and spread angle using uniform disk sampling
+    float radius = std::sqrt(RandomFloat(0.0f, 1.0f)) * m_config.shapeRadius;
     
     // The spawn offset should be a full circle spread, decoupled from the velocity spread angle.
     // This allows shapeRadius to act as the "head" size and shapeAngle to act as the "tail" spread.

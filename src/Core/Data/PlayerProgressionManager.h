@@ -11,6 +11,7 @@ private:
     int m_gold = 0;
     std::unordered_set<std::string> m_unlockedCharacters;
     std::unordered_map<std::string, int> m_purchasedPowerUps;
+    std::unordered_set<std::string> m_disabledPowerUps;
 
 public:
     PlayerProgressionManager() = default;
@@ -29,8 +30,12 @@ public:
     int GetPowerUpLevel(const std::string& powerUpId) const;
     void BuyPowerUp(const std::string& powerUpId, const PowerUpDataManager& dataManager);
     void RefundAllPowerUps(const PowerUpDataManager& dataManager);
+
+    bool IsPowerUpDisabled(const std::string& powerUpId) const;
+    void ToggleDisablePowerUp(const std::string& powerUpId);
     
     int GetTotalPurchasedPowerUps() const;
+    int GetPowerUpMarkup() const;
     int GetNextPowerUpPrice(const std::string& powerUpId, const PowerUpDataManager& dataManager) const;
 
     float GetGlobalStatBuff(const std::string& statKey, const PowerUpDataManager& powerUpData) const;

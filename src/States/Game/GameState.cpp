@@ -21,10 +21,12 @@
 #include "../../Entities/Weapons/KnifeWeapon.h"
 #include "../../Entities/Weapons/AxeWeapon.h"
 #include "../../Entities/Weapons/GarlicWeapon.h"
+#include "../../Entities/Weapons/SantaWaterWeapon.h"
 #include "../../Entities/Pickups/TreasureChestManager.h"
 #include "../../Core/Math/MathUtils.h"
 #include "../../Core/Physics/Collision.h"
 #include "../../UI/Elements/RunGoldDisplay.h"
+#include "../../UI/ParticleTuningUI.h"
 
 namespace {
 constexpr std::size_t MaxRuntimeEnemies = 80;
@@ -105,7 +107,8 @@ bool StartsWith(const std::string& value, const char* prefix) {
 } // namespace
 
 GameState::GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId)
-    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterId(selectedCharacterId) {}
+    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterId(selectedCharacterId)
+    , m_weaponFactory(m_context.weaponData) {}
 
 GameState::~GameState()
 {
@@ -126,6 +129,9 @@ void GameState::Init() {
     m_damageNumbers.Initialize(m_context.atlas);
     m_treasureChests = std::make_unique<TreasureChestManager>();
     m_treasureChests->Initialize(m_context.atlas);
+
+    // Wire the factory into the player's weapon inventory
+    // (will be called again after player is created below)
 
     m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
 
@@ -163,6 +169,8 @@ void GameState::Init() {
     {
         m_player = std::make_unique<Player>(profile, *texture, frames);
         m_player->SetPosition(m_cameraCenter);
+        m_player->GetWeaponInventory().SetFactory(&m_weaponFactory);
+        m_player->ApplyGlobalBuffs(m_context.progressionData, m_context.powerUpData);
 
         m_player->SetOnHitVfxCallback([this](const std::string& vfxName, sf::Vector2f pos) {
             const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(vfxName);
@@ -185,29 +193,19 @@ void GameState::Init() {
         {
             m_player->GetWeaponInventory().AddWeapon(std::make_unique<WhipWeapon>(wp));
         }
-        else if(wp.GetId() == "MAGIC_MISSILE")
+        // Spawn starting weapon(s) via factory
+        auto startingWeapon = m_weaponFactory.Create(wp.GetId());
+        if(startingWeapon)
         {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<MagicMissileWeapon>(wp));
+            m_player->GetWeaponInventory().AddWeapon(std::move(startingWeapon));
         }
-        else if(wp.GetId() == "FIREBALL")
+
+        // Test Santa Water in gameplay!
+        const WeaponProfile& holyWaterWp = m_context.weaponData.GetWeaponById("HOLYWATER");
+        if(holyWaterWp.GetId() == "HOLYWATER")
         {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<FireballWeapon>(wp));
-        }
-        else if(wp.GetId() == "KNIFE")
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<KnifeWeapon>(wp));
-        }
-        else if(wp.GetId() == "AXE")
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<AxeWeapon>(wp));
-        }
-        else if(wp.GetId() == "GARLIC")
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<GarlicWeapon>(wp));
-        }
-        else if(wp.GetId() == "DIAMOND")
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<RunetracerWeapon>(wp));
+            auto hw = m_weaponFactory.Create("HOLYWATER");
+            if(hw) m_player->GetWeaponInventory().AddWeapon(std::move(hw));
         }
 
     }
@@ -271,9 +269,12 @@ void GameState::Init() {
 
         m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
         UpdateStageTimerText();
+
+        static vs::ParticleEmitterConfig dummyConfig;
+        m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, const_cast<sf::Font&>(*boldFont), dummyConfig);
+        m_tuningUI->SetPosition(sf::Vector2f(20.0f, 100.0f));
     }
 
-    // Tuning UI unattached
     ApplyCameraToView();
 }
 
@@ -341,6 +342,20 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::G) {
         AddRunGold(100);
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
+        // Debug: level-up Santa Water
+        if(m_player)
+        {
+            m_player->GetWeaponInventory().LevelUpWeapon("HOLYWATER");
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J) {
+        // Debug: level-down Santa Water
+        if(m_player)
+        {
+            m_player->GetWeaponInventory().LevelDownWeapon("HOLYWATER");
+        }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {
         if(m_player && m_treasureChests)
@@ -454,7 +469,7 @@ void GameState::Update(float dt) {
     }
 
     // DEBUG MODE: Set to true to disable enemy spawning/movement and spawn static dummies for testing
-    constexpr bool DebugStaticTargetsMode = false;
+    constexpr bool DebugStaticTargetsMode = true;
 
     if (!DebugStaticTargetsMode) {
         UpdateStageSpawner(dt);

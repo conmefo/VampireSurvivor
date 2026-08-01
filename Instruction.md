@@ -125,11 +125,11 @@ We will implement the aiming logic in the weapon subclasses.
 - Rely on base Weapon::Update for volley delays (amount & repeatInterval).
 - Add to WeaponInventory and GameState for spawning.
 
-## Implementation Plan: Axe Weapon
+## Implementation Plan: Santa Water (Holy Water) Weapon & Damage Zone System
 
-- Decompiled original C# logic to extract Axe trajectory behavior.
-- Added AXE entry to `WEAPON_DATA.json` using config from original game values (Gravity = 625, Speed = 600 base).
-- Found sprite `ProjectileAxe1` using `extract_sprites_by_guid.py` at `X: 554, Y: 348` in `vfx.png` and registered in `vfx_atlas.json`.
-- Created `AxeProjectile` (applies gravity, continuous rotation).
-- Created `AxeWeapon` (calculates fan-out spread using `Angle = -90 + Dir * 45 * index`).
-- Registered `AxeWeapon` into `WeaponInventory` and `GameState`.
+- Implement Santa Water weapon, airborne bottle flight physics, translucent blue circle ground pool, tick damage system, and clean OOP design patterns strictly compliant with CoreManifesto.md (Allman bracing style, Zero-Space control flow rule, absolute encapsulation).
+- **Targeting Strategy Pattern (`CircleSequenceTargetingStrategy`)**: Decouples 12-step angle ($0^\circ..330^\circ$) and radius ($0.25..0.35 \times \text{ScreenMinDim}$) calculations and enemy homing logic from weapon class.
+- **Santa Water Weapon (`SantaWaterWeapon`)**: Reads `HOLYWATER` parameters from `WEAPON_DATA.json` (interval: 4500ms, repeatInterval: 300ms, duration: 2000ms, hitBoxDelay: 500ms, area: 1.0) and handles multi-bottle burst scheduling.
+- **Airborne Bottle Projectile (`SantaWaterProjectile`)**: Spawns at $Y = \text{PlayerY} + 0.6 \times \text{ScreenHeight}$ (top of screen), lobs to target position over 0.75s, rotates $-360^\circ$ over 0.6s, and triggers `SantaWaterZone` on landing.
+- **Ground Damage Pool Zone (`SantaWaterZone`)**: Renders translucent blue ground circle (`{r: 0, g: 0, b: 255, a: 51}`), scales radius by $16.0 \times \text{AreaMultiplier}$, and ticks damage against enemies inside every 500ms until despawning after 2.0s.
+

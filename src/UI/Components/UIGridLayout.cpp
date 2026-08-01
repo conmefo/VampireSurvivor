@@ -158,6 +158,10 @@ void UIGridLayout::Draw(sf::RenderTarget& target)
         {
             m_stampCard.SetBgColor(sf::Color(150, 150, 150));
         }
+        else if (m_dataset[i].isDisabled)
+        {
+            m_stampCard.SetBgColor(sf::Color(125, 125, 125, 255));
+        }
         else
         {
             m_stampCard.SetBgColor(sf::Color::White);

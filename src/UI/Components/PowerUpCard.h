@@ -41,6 +41,7 @@ private:
 
     int m_maxLevel = 0;
     int m_currentLevel = 0;
+    bool m_isDisabled = false;
 
     float m_scale = 1.0f;
 

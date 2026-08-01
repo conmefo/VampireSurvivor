@@ -65,6 +65,15 @@ void PowerUpCard::InjectData(const PowerUpData& data)
     m_currentLevel = data.currentLevel;
     m_maxLevel = data.maxLevel;
     
+    if (m_currentLevel == 0)
+    {
+        m_titleText.setFillColor(sf::Color(70, 70, 70, 255)); // Same as unactive card background color
+    }
+    else
+    {
+        m_titleText.setFillColor(sf::Color::White); // White for level > 0
+    }
+    
     if(data.iconRect.width > 0 && data.iconRect.height > 0)
     {
         m_iconSprite.setTextureRect(data.iconRect);

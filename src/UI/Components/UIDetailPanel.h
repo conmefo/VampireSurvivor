@@ -33,6 +33,8 @@ private:
     sf::Text m_priceText;
     std::unique_ptr<UIButton> m_buyButton;
     sf::Sprite m_coinIcon;
+    sf::Sprite m_checkboxBgSprite;
+    sf::Sprite m_checkmarkIcon;
 
     sf::Sprite m_innerFrameSprite;
     sf::Sprite m_iconSprite;
@@ -41,6 +43,9 @@ private:
 
     PowerUpData m_currentData;
     std::function<void(const std::string&)> m_onBuyClicked;
+    bool m_showCheckmark = false;
+    bool m_showCoinIcon = true;
+    bool m_isMaxLevelMode = false;
 
     void UpdateLayout();
 };

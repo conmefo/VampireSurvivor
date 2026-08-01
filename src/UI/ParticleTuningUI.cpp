@@ -10,14 +10,44 @@ extern float g_AxeScale;
 extern float g_PlayerSpeedMultiplier;
 extern float g_MagicWandSpeed;
 extern float g_MagicWandScale;
-extern float g_FireWandSpeed;
-extern float g_FireWandScale;
+extern float g_SantaWaterDropHeight;
+extern float g_SantaWaterFlightTime;
+extern float g_SantaWaterSpinSpeed;
+extern float g_SantaWaterBottleScale;
+extern float g_SantaWaterXSpread;
+extern float g_SantaWaterYSpread;
+extern float g_SantaWaterZoneRadius;
+extern float g_SantaWaterZoneAlpha;
+extern float g_SantaWaterColorR;
+extern float g_SantaWaterColorG;
+extern float g_SantaWaterColorB;
+extern float g_SantaWaterFlameRate;
+extern float g_SantaWaterFlameLife;
+extern float g_SantaWaterFlameSizeStart;
+extern float g_SantaWaterFlameSizeEnd;
+extern float g_SantaWaterAmountOverride;
 
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
-    // Tuning sliders unattached
+    
+    AddSlider("BotScale", 0.2f, 3.0f, &g_SantaWaterBottleScale);
+    AddSlider("DropHgt", 50.0f, 600.0f, &g_SantaWaterDropHeight);
+    AddSlider("FlightT", 0.1f, 2.0f, &g_SantaWaterFlightTime);
+    AddSlider("XSpread", 0.0f, 500.0f, &g_SantaWaterXSpread);
+    AddSlider("YSpread", 0.0f, 200.0f, &g_SantaWaterYSpread);
+    AddSlider("SpinSpd", -720.0f, 0.0f, &g_SantaWaterSpinSpeed);
+    AddSlider("ZoneRad", 10.0f, 200.0f, &g_SantaWaterZoneRadius);
+    AddSlider("ZoneAlpha", 0.0f, 255.0f, &g_SantaWaterZoneAlpha);
+    AddSlider("Red", 0.0f, 255.0f, &g_SantaWaterColorR);
+    AddSlider("Green", 0.0f, 255.0f, &g_SantaWaterColorG);
+    AddSlider("Blue", 0.0f, 255.0f, &g_SantaWaterColorB);
+    AddSlider("FlmRate", 1.0f, 60.0f, &g_SantaWaterFlameRate);
+    AddSlider("FlmLife", 0.1f, 2.0f, &g_SantaWaterFlameLife);
+    AddSlider("FlmSzSt", 0.05f, 2.0f, &g_SantaWaterFlameSizeStart);
+    AddSlider("FlmSzEd", 0.1f, 3.0f, &g_SantaWaterFlameSizeEnd);
+    AddSlider("Amount", 1.0f, 10.0f, &g_SantaWaterAmountOverride);
 }
 
 void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, float* targetPtr)

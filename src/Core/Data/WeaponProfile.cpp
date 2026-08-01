@@ -2,7 +2,7 @@
 
 WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
                              const std::string& bulletType, const std::string& hitVFX,
-                             float power, float area, float speed, int amount, int poolLimit,
+                             float power, float area, float speed, float duration, float hitBoxDelay, int amount, int poolLimit,
                              int interval, int repeatInterval, int penetrating)
     : m_id(id)
     , m_name(name)
@@ -13,12 +13,35 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
     , m_power(power)
     , m_area(area)
     , m_speed(speed)
+    , m_duration(duration)
+    , m_hitBoxDelay(hitBoxDelay)
     , m_amount(amount)
     , m_poolLimit(poolLimit)
     , m_interval(interval)
     , m_repeatInterval(repeatInterval)
     , m_penetrating(penetrating)
+    , m_currentLevel(1)
 {
+}
+
+void WeaponProfile::ApplyDelta(const WeaponLevelDelta& delta)
+{
+    m_power    += delta.power;
+    m_area     += delta.area;
+    m_speed    += delta.speed;
+    m_duration += delta.duration;
+    m_amount   += delta.amount;
+    m_currentLevel++;
+}
+
+void WeaponProfile::RevertDelta(const WeaponLevelDelta& delta)
+{
+    m_power    -= delta.power;
+    m_area     -= delta.area;
+    m_speed    -= delta.speed;
+    m_duration -= delta.duration;
+    m_amount   -= delta.amount;
+    m_currentLevel--;
 }
 
 const std::string& WeaponProfile::GetId() const { return m_id; }
@@ -31,8 +54,11 @@ const std::string& WeaponProfile::GetHitVFX() const { return m_hitVFX; }
 float WeaponProfile::GetPower() const { return m_power; }
 float WeaponProfile::GetArea() const { return m_area; }
 float WeaponProfile::GetSpeed() const { return m_speed; }
-int WeaponProfile::GetAmount() const { return m_amount; }
-int WeaponProfile::GetPoolLimit() const { return m_poolLimit; }
-int WeaponProfile::GetInterval() const { return m_interval; }
-int WeaponProfile::GetRepeatInterval() const { return m_repeatInterval; }
-int WeaponProfile::GetPenetrating() const { return m_penetrating; }
+float WeaponProfile::GetDuration() const { return m_duration; }
+float WeaponProfile::GetHitBoxDelay() const { return m_hitBoxDelay; }
+int   WeaponProfile::GetAmount() const { return m_amount; }
+int   WeaponProfile::GetPoolLimit() const { return m_poolLimit; }
+int   WeaponProfile::GetInterval() const { return m_interval; }
+int   WeaponProfile::GetRepeatInterval() const { return m_repeatInterval; }
+int   WeaponProfile::GetPenetrating() const { return m_penetrating; }
+int   WeaponProfile::GetCurrentLevel() const { return m_currentLevel; }

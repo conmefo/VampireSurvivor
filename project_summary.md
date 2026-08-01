@@ -468,3 +468,14 @@ Throughout all implementations, we rigorously enforced your **Core Manifesto**:
 * **Character Sprite Resolution Tweak:**
   * **Struggle:** We needed to find out how to precisely alter the bounding box scaling of the player on the screen.
   * **Fix:** Located the absolute bounding constraints (`76x76` pixels) safely encapsulated inside `Player.cpp`'s constructor, proving that our texture atlas scales independently of underlying image dimensions.
+
+***
+
+## Update: Santa Water (Holy Water) Weapon & Ground Pool Implementation
+* **Completed:** Fully implemented the **Santa Water** weapon, airborne bottle falling trajectory, and translucent blue circle ground damage pool zone.
+* **Core Components:**
+  * `SantaWaterWeapon`: Manages 12-step target sequence calculations ($0^\circ..330^\circ$, radius $150..350\text{px}$) and multi-bottle burst scheduling (`interval: 4500ms`, `repeatInterval: 300ms`).
+  * `SantaWaterProjectile`: Airborne bottle falling physics ($Y = \text{PlayerY} - 500\text{px} \rightarrow \text{TargetPos}$, $0.75\text{s}$ flight duration, $-360^\circ$ rotation).
+  * `SantaWaterZone`: Translucent blue ground circle overlay (`{r: 0, g: 120, b: 255, a: 51}` fill with **no outline**), scaling radius by $32.0 \times 2.0 \times \text{AreaMultiplier}$, and executing damage ticks against enemies standing in the pool every $500\text{ms}$ (`hitBoxDelay`) until expiring after $2.0\text{s}$ (`duration`).
+* **Manifesto Compliance:** Achieved 100% adherence to `CoreManifesto.md` (Allman bracing, zero-space control flow, absolute encapsulation, data-driven parameters from `WEAPON_DATA.json`).
+

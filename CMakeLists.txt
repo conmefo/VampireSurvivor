@@ -50,6 +50,8 @@ add_executable(VampireSurvivors
     src/Entities/Projectiles/KnifeProjectile.cpp
     src/Entities/Projectiles/AxeProjectile.cpp
     src/Entities/Projectiles/GarlicProjectile.cpp
+    src/Entities/Projectiles/SantaWaterProjectile.cpp
+    src/Entities/Projectiles/SantaWaterZone.cpp
     src/Entities/Pickups/ExperienceGemManager.cpp
     src/Entities/Pickups/TreasureChestManager.cpp
     src/Entities/DamageNumberManager.cpp
@@ -63,6 +65,8 @@ add_executable(VampireSurvivors
     src/Entities/Weapons/KnifeWeapon.cpp
     src/Entities/Weapons/AxeWeapon.cpp
     src/Entities/Weapons/GarlicWeapon.cpp
+    src/Entities/Weapons/SantaWaterWeapon.cpp
+    src/Entities/Weapons/WeaponFactory.cpp
     src/Components/AnimationComponent.cpp
     src/Components/TrailRenderer.cpp
     src/Components/ProjectileShadowTrailComponent.cpp

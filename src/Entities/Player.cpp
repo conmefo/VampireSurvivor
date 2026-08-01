@@ -1,4 +1,6 @@
 #include "Player.h"
+#include "../Core/Data/PlayerProgressionManager.h"
+#include "../Core/Data/PowerUpDataManager.h"
 #include <cmath>
 
 namespace
@@ -70,6 +72,17 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     m_currentHealth = m_maxHealth;
 
     m_animator.Initialize(frames, ANIMATION_SPEED);
+}
+
+void Player::ApplyGlobalBuffs(const PlayerProgressionManager& progression, const PowerUpDataManager& powerUpData)
+{
+    m_mightBuff = progression.GetGlobalStatBuff("power", powerUpData);
+    m_areaBuff = progression.GetGlobalStatBuff("area", powerUpData);
+    m_durationBuff = progression.GetGlobalStatBuff("duration", powerUpData);
+    m_cooldownBuff = progression.GetGlobalStatBuff("cooldown", powerUpData);
+    m_amountBuff = static_cast<int>(progression.GetGlobalStatBuff("amount", powerUpData));
+    float moveBuff = progression.GetGlobalStatBuff("moveSpeed", powerUpData);
+    m_moveSpeedMultiplier += moveBuff;
 }
 
 float g_PlayerSpeedMultiplier = 0.6f;

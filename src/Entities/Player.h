@@ -29,6 +29,15 @@ public:
     
     void Revive();
 
+    void ApplyGlobalBuffs(const class PlayerProgressionManager& progression, const class PowerUpDataManager& powerUpData);
+
+    float GetMightMultiplier() const { return 1.0f + m_mightBuff; }
+    float GetAreaMultiplier() const { return 1.0f + m_areaBuff; }
+    float GetDurationMultiplier() const { return 1.0f + m_durationBuff; }
+    float GetCooldownMultiplier() const { return 1.0f - m_cooldownBuff; }
+    int GetBonusAmount() const { return m_amountBuff; }
+    float GetMoveSpeedMultiplier() const { return m_moveSpeedMultiplier; }
+
     void SetOnHitVfxCallback(std::function<void(const std::string&, sf::Vector2f)> callback) { m_onHitVfxCallback = std::move(callback); }
 
     WeaponInventory& GetWeaponInventory() { return m_weaponInventory; }
@@ -73,6 +82,12 @@ private:
     Tweener m_deathScaleXTweener;
     Tweener m_deathScaleYTweener;
     Tweener m_deathColorTweener;
+
+    float m_mightBuff = 0.0f;
+    float m_areaBuff = 0.0f;
+    float m_durationBuff = 0.0f;
+    float m_cooldownBuff = 0.0f;
+    int m_amountBuff = 0;
 
     std::function<void(const std::string&, sf::Vector2f)> m_onHitVfxCallback;
 };

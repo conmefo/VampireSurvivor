@@ -23,6 +23,13 @@ bool PlayerProgressionManager::Save(const std::string& filepath) const
         powerupsObj[pair.first] = pair.second;
     }
     j["purchasedPowerUps"] = powerupsObj;
+
+    json disabledArray = json::array();
+    for (const std::string& disId : m_disabledPowerUps)
+    {
+        disabledArray.push_back(disId);
+    }
+    j["disabledPowerUps"] = disabledArray;
     
     std::ofstream file(filepath);
     if (!file.is_open())
@@ -77,6 +84,18 @@ bool PlayerProgressionManager::Load(const std::string& filepath)
             if (it.value().is_number_integer())
             {
                 m_purchasedPowerUps[it.key()] = it.value().get<int>();
+            }
+        }
+    }
+
+    m_disabledPowerUps.clear();
+    if (j.contains("disabledPowerUps") && j["disabledPowerUps"].is_array())
+    {
+        for (const auto& item : j["disabledPowerUps"])
+        {
+            if (item.is_string())
+            {
+                m_disabledPowerUps.insert(item.get<std::string>());
             }
         }
     }
@@ -152,36 +171,44 @@ void PlayerProgressionManager::BuyPowerUp(const std::string& powerUpId, const Po
 
 void PlayerProgressionManager::RefundAllPowerUps(const PowerUpDataManager& dataManager)
 {
-    // Need to refund exact amount paid for all upgrades
-    // Reconstruct the cost sequence
     int totalRefund = 0;
-    
-    // We have to simulate the purchasing process to know how much was spent, 
-    // because price scales with TotalPurchasedPowerUps.
-    // However, the inflation rule in standard game is per global power-up level.
-    // It's a sum of (BasePrice * (1 + 0.1 * i)) where i is the order they were bought.
-    // Wait, the order of buying matters for refund? Yes.
-    // Since we didn't store the exact order, it might be slightly off.
-    // Let's just do a naive total refund by clearing powerups and adding back the sum
-    // or just say we don't refund the inflation part perfectly without history.
-    // Actually, in original game, order doesn't matter for total cost because 
-    // the total inflation is the sum of (base prices * their respective global indices).
-    // Let's just iterate every purchased power up and sum its base price. Then add the total inflation.
-    
     int globalIndex = 0;
-    // We don't have order, so just refund an approximate or exact amount if we sort it.
+    
     for (const auto& pair : m_purchasedPowerUps)
     {
         const PowerUpProfile& profile = dataManager.GetPowerUpById(pair.first);
-        for(int i = 0; i < pair.second; ++i)
+        int basePrice = profile.GetBasePrice();
+        for(int lvl = 0; lvl < pair.second; ++lvl)
         {
-            totalRefund += static_cast<int>(profile.GetBasePrice() * (1.0f + 0.1f * globalIndex));
+            // Exact Ghidra cost formula: (tierIndex + 1) * basePrice + markup(globalIndex)
+            int markup = globalIndex * 20;
+            int cost = (lvl + 1) * basePrice + markup;
+            totalRefund += cost;
             globalIndex++;
         }
     }
     
     AddGold(totalRefund);
     m_purchasedPowerUps.clear();
+    m_disabledPowerUps.clear();
+    Save();
+}
+
+bool PlayerProgressionManager::IsPowerUpDisabled(const std::string& powerUpId) const
+{
+    return m_disabledPowerUps.find(powerUpId) != m_disabledPowerUps.end();
+}
+
+void PlayerProgressionManager::ToggleDisablePowerUp(const std::string& powerUpId)
+{
+    if(m_disabledPowerUps.find(powerUpId) != m_disabledPowerUps.end())
+    {
+        m_disabledPowerUps.erase(powerUpId);
+    }
+    else
+    {
+        m_disabledPowerUps.insert(powerUpId);
+    }
     Save();
 }
 
@@ -195,14 +222,24 @@ int PlayerProgressionManager::GetTotalPurchasedPowerUps() const
     return total;
 }
 
+int PlayerProgressionManager::GetPowerUpMarkup() const
+{
+    // Ghidra: get_PowerUpMarkUp = totalBoughtLevels * 20
+    return GetTotalPurchasedPowerUps() * 20;
+}
+
 int PlayerProgressionManager::GetNextPowerUpPrice(const std::string& powerUpId, const PowerUpDataManager& dataManager) const
 {
     const PowerUpProfile& profile = dataManager.GetPowerUpById(powerUpId);
     int basePrice = profile.GetBasePrice();
-    int totalPurchased = GetTotalPurchasedPowerUps();
+    int currentBoughtLevel = GetPowerUpLevel(powerUpId);
     
-    // Calculate inflated price
-    return static_cast<int>(basePrice * (1.0f + 0.1f * totalPurchased));
+    // Exact Ghidra formula from PlayerStats$$GetPrice:
+    // (currentBoughtLevel + 1) * basePrice + PowerUpMarkUp
+    int tierBaseCost = (currentBoughtLevel + 1) * basePrice;
+    int markup = GetPowerUpMarkup();
+    
+    return tierBaseCost + markup;
 }
 
 float PlayerProgressionManager::GetGlobalStatBuff(const std::string& statKey, const PowerUpDataManager& powerUpData) const
@@ -210,6 +247,12 @@ float PlayerProgressionManager::GetGlobalStatBuff(const std::string& statKey, co
     float totalBuff = 0.0f;
     for (const auto& pair : m_purchasedPowerUps)
     {
+        // Skip sealed / disabled powerups (matches GameManager$$ApplyPurchasedPowerUpData)
+        if (IsPowerUpDisabled(pair.first))
+        {
+            continue;
+        }
+
         const PowerUpProfile& profile = powerUpData.GetPowerUpById(pair.first);
         int level = pair.second;
         

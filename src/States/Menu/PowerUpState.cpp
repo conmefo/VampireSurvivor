@@ -28,10 +28,12 @@ void PowerUpState::Init()
     m_mainPanelBg.SetCornerScale(1.5f);
     m_mainPanelBg.Update();
 
-    m_titleText.setFont(m_context.fonts.Get(FontID::Main));
+    const sf::Font& mainFont = m_context.fonts.Get(FontID::Main);
+    const sf::Font& boldFont = m_context.fonts.Get(FontID::Bold);
+
+    m_titleText.setFont(mainFont);
     m_titleText.setString("PowerUp  Selection");
     m_titleText.setCharacterSize(45);
-    m_titleText.setStyle(sf::Text::Bold);
     sf::FloatRect titleBounds = m_titleText.getLocalBounds();
     m_titleText.setOrigin(titleBounds.left + titleBounds.width / 2.0f, titleBounds.top + titleBounds.height / 2.0f);
     m_titleText.setPosition(864.0f, 160.0f);
@@ -39,8 +41,7 @@ void PowerUpState::Init()
     auto refundButton = std::make_unique<UIButton>(m_context.atlas, "button_c9_mouseover", 12.0f, 12.0f, 12.0f, 12.0f);
     refundButton->SetSize(sf::Vector2f(400.0f, 70.0f));
     refundButton->SetPosition(sf::Vector2f(864.0f - 200.0f, 210.0f));
-    refundButton->SetText("Refund PowerUps", m_context.fonts.Get(FontID::Main), 30);
-    refundButton->SetTextStyle(sf::Text::Bold);
+    refundButton->SetText("Refund PowerUps", mainFont, 30);
     refundButton->SetStateColors(sf::Color::White, sf::Color(220, 220, 220), sf::Color(150, 150, 150), sf::Color(100, 100, 100));
     refundButton->SetCornerScale(2.0f);
     refundButton->SetOnClickCallback([this]() {
@@ -51,16 +52,15 @@ void PowerUpState::Init()
     auto backButton = std::make_unique<UIButton>(m_context.atlas, "button_c8_normal", 10.0f, 10.0f, 10.0f, 10.0f);
     backButton->SetSize(sf::Vector2f(130.0f, 54.0f));
     backButton->SetPosition(sf::Vector2f(Core::VIRTUAL_WIDTH * 0.65f - 65.0f, 54.0f - 27.0f));
-    backButton->SetText("BACK", m_context.fonts.Get(FontID::Main), 26);
-    backButton->SetTextStyle(sf::Text::Bold);
+    backButton->SetText("BACK", mainFont, 26);
     backButton->SetStateColors(sf::Color::White, sf::Color(220, 220, 220), sf::Color(150, 150, 150), sf::Color(100, 100, 100));
     backButton->SetCornerScale(2.0f);
     backButton->SetOnClickCallback([this]() {
         m_context.stateManager.PopState();
     });
     
-    // --- ScrollView Setup ---
-    auto grid = std::make_unique<UIGridLayout>(m_context.atlas, m_context.fonts.Get(FontID::Main));
+    // --- ScrollView Setup (PowerUp cards grid uses Bold font) ---
+    auto grid = std::make_unique<UIGridLayout>(m_context.atlas, boldFont);
     m_gridPtr = grid.get();
     
     // 4 columns * 174 width + 3 * 15 padding = 741 total width
@@ -69,7 +69,7 @@ void PowerUpState::Init()
     scrollView->SetPadding(10.0f, 15.0f);
     scrollView->SetContent(std::move(grid));
     
-    auto detailPanel = std::make_unique<UIDetailPanel>(m_context.atlas, m_context.fonts.Get(FontID::Main));
+    auto detailPanel = std::make_unique<UIDetailPanel>(m_context.atlas, mainFont);
     detailPanel->SetSize(sf::Vector2f(776.0f, 150.0f));
     detailPanel->SetPosition(sf::Vector2f(Core::VIRTUAL_WIDTH / 2.0f - 388.0f, 905.0f));
     detailPanel->SetCornerScale(2.0f);
@@ -80,7 +80,16 @@ void PowerUpState::Init()
     });
 
     m_detailPtr->SetOnBuyClicked([this](const std::string& powerUpId) {
-        m_context.progressionData.BuyPowerUp(powerUpId, m_context.powerUpData);
+        int currentLvl = m_context.progressionData.GetPowerUpLevel(powerUpId);
+        const PowerUpProfile& profile = m_context.powerUpData.GetPowerUpById(powerUpId);
+        if (currentLvl >= profile.GetMaxLevel())
+        {
+            m_context.progressionData.ToggleDisablePowerUp(powerUpId);
+        }
+        else
+        {
+            m_context.progressionData.BuyPowerUp(powerUpId, m_context.powerUpData);
+        }
         RefreshData();
     });
     
@@ -93,7 +102,7 @@ void PowerUpState::Init()
     m_uiManager.AddElement(std::move(scrollView));
     m_uiManager.AddElement(std::move(detailPanel));
     
-    auto goldDisplay = std::make_unique<GoldDisplayWidget>(m_context.atlas, nullptr, m_context.fonts.Get(FontID::Main));
+    auto goldDisplay = std::make_unique<GoldDisplayWidget>(m_context.atlas, nullptr, mainFont);
     m_uiManager.AddElement(std::move(goldDisplay));
 }
 
@@ -145,6 +154,7 @@ void PowerUpState::RefreshData()
         item.maxLevel = profile.GetMaxLevel();
         item.currentLevel = m_context.progressionData.GetPowerUpLevel(id);
         item.price = m_context.progressionData.GetNextPowerUpPrice(id, m_context.powerUpData);
+        item.isDisabled = m_context.progressionData.IsPowerUpDisabled(id);
 
         AssetTextureData iconData = m_context.atlas.GetTextureData(item.textureId);
         if (iconData.texture) item.iconRect = iconData.rect;
@@ -155,11 +165,9 @@ void PowerUpState::RefreshData()
         uiData.push_back(item);
     }
     
+    int focusedIndex = m_gridPtr->GetFocusedIndex();
+    if (focusedIndex < 0) focusedIndex = 0;
+
     m_gridPtr->SetDataset(uiData);
-    
-    // Force detail panel to update visually if something is selected
-    if (m_detailPtr)
-    {
-        // Actually, we could just trigger selection change again
-    }
+    m_gridPtr->SelectIndex(focusedIndex);
 }

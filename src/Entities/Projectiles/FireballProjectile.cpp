@@ -36,9 +36,11 @@ void FireballProjectile::Update(float dt)
     if (m_projManager && m_projManager->GetParticleManager() != nullptr && m_trailEmitter == nullptr) {
         auto fireWandConfig = m_projManager->GetParticleManager()->GetConfig("fireWand");
         
-        // Adjust for weapon area multiplier directly before spawning
+        // Adjust particle system dynamically for weapon area multiplier (buffs & upgrades)
         fireWandConfig.minSize *= m_areaMultiplier;
         fireWandConfig.maxSize *= m_areaMultiplier;
+        fireWandConfig.shapeRadius *= m_areaMultiplier;
+        fireWandConfig.emitterOffset *= m_areaMultiplier;
         
         m_trailEmitter = m_projManager->GetParticleManager()->SpawnEmitter(fireWandConfig, GetPosition());
     }

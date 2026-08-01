@@ -106,7 +106,7 @@
 
 <body>
 
-    <h2>Antigravity - VFX Atlas Interactive Inspector</h2>
+    <h2>Antigravity - UI Atlas Interactive Inspector</h2>
     <div class="container">
         <div id="canvas-container">
             <canvas id="atlasCanvas"></canvas>
@@ -116,9 +116,12 @@
             <h3>Sprite Info</h3>
             <div class="info-box" id="info">Hover or click a sprite to inspect</div>
             <div style="margin-bottom: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
-                <button onclick="zoomToSprite('ProjectileFireball')" style="background:#007acc; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball (Base)</button>
-                <button onclick="zoomToSprite('ProjectileFireball2')" style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball 2</button>
-                <button onclick="zoomToSprite('ProjectileFireballDouble')" style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Fireball Double</button>
+                <button onclick="zoomToSprite('button_c5_normal')" style="background:#007acc; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button C5 (Buy)</button>
+                <button onclick="zoomToSprite('button_c8_normal')" style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button C8 (Back)</button>
+                <button onclick="zoomToSprite('button_c9_mouseover')" style="background:#28a745; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button C9 (Refund)</button>
+                <button onclick="zoomToSprite('frame1_c2')" style="background:#17a2b8; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame 1 C2</button>
+                <button onclick="zoomToSprite('frame5_c4')" style="background:#17a2b8; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame 5 C4</button>
+                <button onclick="zoomToSprite('frameD')" style="background:#e83e8c; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame D</button>
             </div>
             <input type="text" id="searchInput" placeholder="Search sprite..." autocomplete="off">
             <h3 id="sprite-list-header" style="margin-top: 10px;">Sprite List</h3>
@@ -127,8 +130,8 @@
     </div>
 
     <script>
-        const IMAGE_SRC = 'assets/Graphics/Spritesheets/vfx.png';
-        const JSON_SRC = 'assets/Data/vfx_atlas.json';
+        const IMAGE_SRC = 'assets/Graphics/Spritesheets/UI.png';
+        const JSON_SRC = 'assets/Data/ui_atlas.json';
 
         const canvasContainer = document.getElementById('canvas-container');
         const canvas = document.getElementById('atlasCanvas');

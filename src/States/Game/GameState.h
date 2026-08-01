@@ -11,6 +11,7 @@
 #include "../../UI/ParticleTuningUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
+#include "../../Entities/Weapons/WeaponFactory.h"
 #include "../../Core/Data/WeaponDataManager.h"
 #include "../../Core/Data/StageWaveDataManager.h"
 #include "../../UI/PlayerHUD.h"
@@ -143,4 +144,5 @@ class GameState : public BaseState {
     std::unique_ptr<TreasureChestManager> m_treasureChests;
     std::unique_ptr<TreasureRewardView> m_treasureRewardView;
     std::unique_ptr<PlayerHUD> m_playerHUD;
+    WeaponFactory m_weaponFactory;
 };

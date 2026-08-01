@@ -12,6 +12,7 @@ struct PowerUpData
     int currentLevel;
     int maxLevel;
     int price;
+    bool isDisabled = false;
     
     // Cached rects for O(1) texture swapping without pointer indirection
     sf::IntRect iconRect;

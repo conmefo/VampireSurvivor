@@ -42,6 +42,11 @@ protected:
     sf::Vector2f m_targetScale;
 
 public:
+    void SetColor(sf::Color color)
+    {
+        m_sprite.setColor(color);
+    }
+
     void SetScaleTween(sf::Vector2f targetScale, float duration)
     {
         m_initialScale = m_sprite.getScale();

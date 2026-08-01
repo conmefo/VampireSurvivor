@@ -13,6 +13,7 @@ public:
 
     void SetDataset(const std::vector<PowerUpData>& data);
     void SelectIndex(int index);
+    int GetFocusedIndex() const { return m_focusedIndex; }
     
     // O(1) mathematical hit detection
     int GetIndexAtPosition(float x, float y) const;

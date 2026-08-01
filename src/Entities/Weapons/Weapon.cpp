@@ -43,6 +43,7 @@ sf::Vector2f Weapon::GetTargetPosition(EnemyPool& enemyPool, Player& player)
 
 float g_AxeAmountOverride = -1.0f;
 float g_WhipAmountOverride = -1.0f;
+float g_SantaWaterAmountOverride = -1.0f;
 
 void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool)
 {
@@ -53,7 +54,7 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
 
     if(m_cooldownTimer <= 0.0f)
     {
-        int amount = m_profile.GetAmount();
+        int amount = m_profile.GetAmount() + player.GetBonusAmount();
         
         // Tuning override
         if (m_profile.GetId() == "AXE" && g_AxeAmountOverride > 0.0f)
@@ -63,6 +64,10 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
         else if (m_profile.GetId() == "WHIP" && g_WhipAmountOverride > 0.0f)
         {
             amount = static_cast<int>(g_WhipAmountOverride);
+        }
+        else if (m_profile.GetId() == "HOLYWATER" && g_SantaWaterAmountOverride > 0.0f)
+        {
+            amount = static_cast<int>(g_SantaWaterAmountOverride);
         }
 
         float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
@@ -92,11 +97,64 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
             }
         }
         
-        m_cooldownTimer = static_cast<float>(m_profile.GetInterval()) / 1000.0f;
+        float baseCooldown = static_cast<float>(m_profile.GetInterval()) / 1000.0f;
+        m_cooldownTimer = std::max(0.1f, baseCooldown * player.GetCooldownMultiplier());
     }
 }
 
 const WeaponProfile& Weapon::GetProfile() const
 {
     return m_profile;
+}
+
+void Weapon::SetLevelDeltas(const std::vector<WeaponLevelDelta>& deltas)
+{
+    m_levelDeltas = deltas;
+}
+
+void Weapon::SetObserver(IWeaponLevelObserver* observer)
+{
+    m_observer = observer;
+}
+
+bool Weapon::CanLevelUp() const
+{
+    return m_profile.GetCurrentLevel() - 1 < static_cast<int>(m_levelDeltas.size());
+}
+
+bool Weapon::CanLevelDown() const
+{
+    return m_profile.GetCurrentLevel() > 1;
+}
+
+void Weapon::LevelDown()
+{
+    if(!CanLevelDown())
+    {
+        return;
+    }
+
+    // Revert the delta that was applied at (currentLevel - 1) → index (currentLevel - 2)
+    const WeaponLevelDelta& delta = m_levelDeltas[m_profile.GetCurrentLevel() - 2];
+    m_profile.RevertDelta(delta);
+}
+
+void Weapon::LevelUp()
+{
+    if(!CanLevelUp())
+    {
+        return;
+    }
+
+    const WeaponLevelDelta& delta = m_levelDeltas[m_profile.GetCurrentLevel() - 1];
+    m_profile.ApplyDelta(delta);
+
+    // Notify observer if this level triggers an evolution
+    if(!delta.addEvolvedWeapon.empty() && m_observer)
+    {
+        m_observer->OnWeaponEvolution(delta.addEvolvedWeapon);
+    }
+
+    // Weapon-specific hook (e.g. SantaWaterWeapon reshuffles drop positions)
+    OnLevelUp();
 }
