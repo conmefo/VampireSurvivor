@@ -5,48 +5,52 @@
 *   **Group ID:** Group51
 *   **Group Name:** Group51
 *   **Project Name:** Vampire Survivors Clone (Antigravity Engine)
-*   **Date range:** 2026-06-29 – 2026-07-04
+*   **Date range:** 2026-07-27 – 2026-08-01
 
 ## Tasks Completed This Week
 
-**[Your Student ID] – [Your Full Name]**
+**Võ Bá Thông**
 
-*   Architected the `TextureAtlas` sub-system to parse and load external `ui_atlas.json` layout metadata.
-*   Solved the spatial origins mismatch between Unity (Bottom-Left) and SFML (Top-Left) by deriving the geometric inversion formula ($Y_{\text{SFML}} = H_{\text{texture}} - Y_{\text{source}} - H_{\text{sprite}}$).
-*   Designed the `NineSliceComponent` rendering utility implementing the 9-Patch algorithm for distortion-free UI scaling.
-*   Implemented the "Dirty Flag" optimization pattern to defer heavy vertex calculations to a single frame update, minimizing CPU overhead.
+*   **Weapon Leveling & Evolution Architecture**: Designed the `WeaponLevelDelta` value object pattern and refactored `WeaponProfile` to dynamically load and merge multi-tier level stats from JSON data (`WEAPON_DATA.json`).
+*   **Weapon Factory & Observer Pattern**: Implemented `WeaponFactory` (Factory Pattern) to centralize weapon instantiation and `IWeaponLevelObserver` to decouple weapon evolution signals from inventory logic.
+*   **Santa Water Targeting & Particle Simulation**: Derived trigonometric radial targeting step algorithms and implemented quadratic emission rate scaling ($\text{Rate} \propto \text{Area}^2$) with fixed flame dimensions for consistent visual density.
+*   **Power-Up Shop & Price Inflation Engine**: Engineered the Power-Up shop progression system featuring dynamic price markup calculations ($\text{Price} = (\text{Level} + 1) \times \text{BasePrice} + \text{TotalShopLevels} \times \text{Markup}$) and persistent save state serialization (`save_data.json`).
+*   **Global Player Buff Pipeline**: Created a 3-tier additive stat pool (`Might`, `Area`, `Duration`, `Cooldown`, `Amount`, `MoveSpeed`) calculated at stage start and applied dynamically to all active weapons during combat.
+*   **Power-Up Shop UI Polish**: Designed interactive MAX level checkbox controls (`menu_checkbox_24_bg` + `yes16`), dynamic card tinting (`sf::Color(125, 125, 125)`), text bounding box centering math, and bold typography hierarchy (`courier_bold.ttf`).
 
-*Evidence: Code commits in `src/Core/Resources/TextureAtlas.cpp`, `src/UI/Components/NineSliceComponent.cpp`, and architectural specifications in `InstructionList/0008_9SlicesScaleInstruction.md` and `InstructionList/0013_JsonReaderInstruction.md`.*
+*Evidence: Code commits in `src/Core/Data/PlayerProgressionManager.cpp`, `src/Core/Data/WeaponProfile.cpp`, `src/Entities/Weapons/WeaponFactory.cpp`, `src/Entities/Weapons/SantaWaterWeapon.cpp`, `src/UI/Components/UIDetailPanel.cpp`, and `src/UI/Components/PowerUpCard.cpp`.*
 
-**[Other Member's Student ID] – [Other Member's Full Name]**
+**Hồ Quang Minh**
 
-*   *(To be filled in by your group member)*
+*   **Stage Tilemap & Environment Collisions**: Optimized spatial grid collision detection bounds and tilemap rendering pipeline for seamless large-map navigation.
+*   **Audio Engine & Sound Effects Integration**: Implemented sound effect triggers for UI button interactions, power-up purchases, projectile impacts, and stage soundtrack transitions.
+*   **Enemy Horde Pre-allocation & Spawning**: Refactored enemy pool memory pre-allocation and sprite animation batch updates to maintain smooth 60 FPS performance during heavy mob waves.
+
+*Evidence: Code commits in stage rendering, sound manager integration, and enemy wave pooling systems.*
 
 ## AI Usage Declaration
 
-This week, we utilized AI (Gemini) extensively as a pair-programming architect and code reviewer, focusing heavily on establishing our core UI rendering systems without sacrificing engine performance. We tackled two major architectural challenges: Texture Atlas Deserialization and Dynamic UI Scaling (9-Slice).
+This week, we utilized AI (Gemini) extensively as a pair-programming technical advisor and code refactoring assistant. We focused on building a clean, scalable Power-Up progression shop and integrating a multi-tiered stat multiplier system into our game loop without introducing performance regressions or violating Object-Oriented Design principles.
 
 **How we used AI:**
 
-**Challenge 1: Texture Atlas Deserialization (Spatial Mismatch)**
-1.  **Identifying the Problem:** I discovered a fundamental spatial conflict: Unity's exported metadata uses a Bottom-Left origin, while our SFML engine requires a Top-Left origin.
-2.  **My Suggestion & Prompting:** Instead of asking the AI to write the code blindly, I formulated the mathematical inversion formula (`Y_SFML = H_texture - Y_source - H_sprite`) myself. I drafted a comprehensive technical specification blueprint detailing the encapsulation rules and mathematical proof, and provided this to the AI.
-3.  **AI Assistance:** I asked the AI to review my logic for any architectural sanity or OOP violations based on our `CoreManifesto.md`. The AI verified my formula, warned me against writing a fragile custom C++ string parser, and suggested integrating the industry-standard `nlohmann/json` library via CMake. It then generated the structural implementation plan for `TextureAtlas.h/.cpp`, which I reviewed and integrated.
+**Challenge 1: Multi-Tiered Stat Buff Pipeline & Shop Inflation Math**
+1.  **Identifying the Problem:** Integrating persistent shop buffs into active combat weapons was challenging because applying multipliers in the wrong order or modifying base weapon profiles directly led to cumulative stat corruption during runs. Furthermore, shop item prices needed to scale dynamically based on total purchased upgrades across the entire store.
+2.  **My Suggestion & Prompting:** I formulated a 3-tier decoupled architecture: Base Character Stats + Shop Power-Up Passives + In-Game Weapon Level Deltas. I defined the mathematical formula for price inflation ($\text{Price} = (\text{Level} + 1) \times \text{BasePrice} + \text{Markup}$) and specified that global passives must act as read-only multipliers on runtime weapon execution.
+3.  **AI Assistance:** I prompted the AI to review my proposed mathematical model and check for potential control-flow side effects. The AI verified the mathematical correctness, helped write the clean C++ data structures for `PlayerProgressionManager`, and assisted in writing unit-safe stat getters (`GetMightMultiplier`, `GetAreaMultiplier`, `GetCooldownMultiplier`) that prevent divide-by-zero or negative cooldown errors.
 
-**Challenge 2: Nine-Slice UI Scaling & Optimization**
-1.  **Identifying the Problem:** Scaling UI textures directly caused severe visual distortion (stretched borders). We needed a 9-Patch algorithm to dynamically scale UI panels without distortion, but doing complex vertex math every frame would bottleneck the CPU.
-2.  **My Suggestion & Prompting:** I designed the architectural concept of a `NineSliceComponent` that processes exactly 36 vertices (9 quads) in a single GPU draw call. To solve the performance issue, I outlined the "Dirty Flag" optimization pattern (caching size mutations and only recalculating geometry when explicitly changed). I prompted the AI with this strict design specification, forbidding it from calculating geometry inside the active render loop.
-3.  **AI Assistance:** The AI acted as my implementation assistant. I provided it with the mathematical requirements (screen coordinates vs UV texture mapping), and the AI successfully drafted the tedious quad-generation C++ code, rigorously mapping the correct corners and edges based on my specified margins. The AI also strictly adhered to our Zero-Space control flow and Allman bracing standards, significantly accelerating development while following my exact structural design.
-
-Link: https://drive.google.com/file/d/1l6bO6fog1eM6K4_10oMshg5GawmEkr_o/view?usp=sharing
+**Challenge 2: Stateful Shop UI & Precise Text Alignment**
+1.  **Identifying the Problem:** In the Power-Up Shop, maxed-out items required a custom checkbox interface (active vs. sealed toggle), while description text spans varied wildly in length, causing visual clipping against shop buttons.
+2.  **My Suggestion & Prompting:** I designed the UI layout rules: text description bounding boxes must be dynamically calculated and centered relative to the detail container, maxed-out cards must replace the standard "Buy" button with an interactive checkbox sprite (`menu_checkbox_24_bg` + `yes16`), and unactive/sealed cards must receive a consistent dark gray background tint (`sf::Color(125, 125, 125)`).
+3.  **AI Assistance:** The AI acted as an implementation assistant for layout geometry math. I specified the bounding box constraints, and the AI calculated the exact SFML origin offsets (`setOrigin(left + width/2, top + height/2)`) and text wrapping limits (`TextUtility::WrapText`), eliminating visual clipping and ensuring pixel-perfect layout alignment across all screen resolution scaling modes.
 
 ## Tasks Planned for Next Week
 
-*   Implement the unified `ResourceManager` to transition entirely to string-based asset pools, replacing manual enums.
-*   Build the `MainMenuState` integrating dynamic UI bounds and hierarchical sprite animators.
-*   Migrate raw assets to the Unity-style categorized directory architecture and automate CMake post-build copy steps.
+*   Implement in-game chest drop rewards and item selection UI overlay.
+*   Add weapon evolution merging mechanics when specific weapon and passive item requirements are met.
+*   Expand enemy wave database configurations and balance stage difficulty progression.
 
 ## Issues
 
-*   **Issue:** We experienced high CPU usage due to recalculating UI vertex geometry every single frame whenever a window resized.
-*   **Resolution:** Addressed by designing a "Dirty Flag" pattern inside the `NineSliceComponent`. It now caches property mutations and defers all heavy math calculations until just before rendering, ensuring single draw calls and maximum performance.
+*   **Issue:** Combining multiple stat sources (Shop upgrades, character base stats, and weapon level deltas) risked mutating raw weapon profile data, causing stat multipliers to stack compoundingly every frame.
+*   **Resolution:** Addressed by establishing a strict read-only execution flow where base weapon profiles remain immutable, and effective combat stats ($\text{Base} \times \text{Multiplier}$) are computed transiently inside weapon attack loops (`Weapon::Update` & `SantaWaterWeapon::FireOne`).
