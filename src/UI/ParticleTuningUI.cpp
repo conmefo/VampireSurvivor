@@ -27,27 +27,25 @@ extern float g_SantaWaterFlameSizeStart;
 extern float g_SantaWaterFlameSizeEnd;
 extern float g_SantaWaterAmountOverride;
 
+extern float g_LightningRingSpeed;
+extern float g_LightningRingScaleX;
+extern float g_LightningRingScaleY;
+extern float g_LightningRingRotation;
+extern float g_LightningRingStrikeRadius;
+extern float g_LightningRingDuration;
+
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
     
-    AddSlider("BotScale", 0.2f, 3.0f, &g_SantaWaterBottleScale);
-    AddSlider("DropHgt", 50.0f, 600.0f, &g_SantaWaterDropHeight);
-    AddSlider("FlightT", 0.1f, 2.0f, &g_SantaWaterFlightTime);
-    AddSlider("XSpread", 0.0f, 500.0f, &g_SantaWaterXSpread);
-    AddSlider("YSpread", 0.0f, 200.0f, &g_SantaWaterYSpread);
-    AddSlider("SpinSpd", -720.0f, 0.0f, &g_SantaWaterSpinSpeed);
-    AddSlider("ZoneRad", 10.0f, 200.0f, &g_SantaWaterZoneRadius);
-    AddSlider("ZoneAlpha", 0.0f, 255.0f, &g_SantaWaterZoneAlpha);
-    AddSlider("Red", 0.0f, 255.0f, &g_SantaWaterColorR);
-    AddSlider("Green", 0.0f, 255.0f, &g_SantaWaterColorG);
-    AddSlider("Blue", 0.0f, 255.0f, &g_SantaWaterColorB);
-    AddSlider("FlmRate", 1.0f, 60.0f, &g_SantaWaterFlameRate);
-    AddSlider("FlmLife", 0.1f, 2.0f, &g_SantaWaterFlameLife);
-    AddSlider("FlmSzSt", 0.05f, 2.0f, &g_SantaWaterFlameSizeStart);
-    AddSlider("FlmSzEd", 0.1f, 3.0f, &g_SantaWaterFlameSizeEnd);
-    AddSlider("Amount", 1.0f, 10.0f, &g_SantaWaterAmountOverride);
+    // Lightning Ring Tuning Sliders
+    AddSlider("LgtSpeed", 500.0f, 10000.0f, &g_LightningRingSpeed);
+    AddSlider("LgtThick", 0.05f, 2.0f, &g_LightningRingScaleY);
+    AddSlider("LgtLength", 0.2f, 4.0f, &g_LightningRingScaleX);
+    AddSlider("LgtAngle", 0.0f, 360.0f, &g_LightningRingRotation);
+    AddSlider("LgtRadius", 10.0f, 200.0f, &g_LightningRingStrikeRadius);
+    AddSlider("LgtDuratn", 0.1f, 3.0f, &g_LightningRingDuration);
 }
 
 void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, float* targetPtr)
