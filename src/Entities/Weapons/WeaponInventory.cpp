@@ -11,6 +11,13 @@ void WeaponInventory::AddWeapon(std::unique_ptr<Weapon> weapon)
 {
     if(weapon)
     {
+        Weapon* existing = FindWeaponById(weapon->GetProfile().GetId());
+        if(existing)
+        {
+            existing->LevelUp();
+            return;
+        }
+
         weapon->SetObserver(this);
         m_weapons.push_back(std::move(weapon));
     }
@@ -34,12 +41,16 @@ void WeaponInventory::Draw(sf::RenderTarget& target) const
 
 void WeaponInventory::LevelUpWeapon(const std::string& weaponId)
 {
-    Weapon* weapon = FindWeaponById(weaponId);
-    if(weapon)
+    bool found = false;
+    for(auto& weapon : m_weapons)
     {
-        weapon->LevelUp();
+        if(weapon->GetProfile().GetId() == weaponId)
+        {
+            weapon->LevelUp();
+            found = true;
+        }
     }
-    else
+    if(!found)
     {
         std::cerr << "WeaponInventory::LevelUpWeapon: weapon '" << weaponId << "' not found\n";
     }
@@ -47,12 +58,16 @@ void WeaponInventory::LevelUpWeapon(const std::string& weaponId)
 
 void WeaponInventory::LevelDownWeapon(const std::string& weaponId)
 {
-    Weapon* weapon = FindWeaponById(weaponId);
-    if(weapon)
+    bool found = false;
+    for(auto& weapon : m_weapons)
     {
-        weapon->LevelDown();
+        if(weapon->GetProfile().GetId() == weaponId)
+        {
+            weapon->LevelDown();
+            found = true;
+        }
     }
-    else
+    if(!found)
     {
         std::cerr << "WeaponInventory::LevelDownWeapon: weapon '" << weaponId << "' not found\n";
     }
@@ -60,21 +75,8 @@ void WeaponInventory::LevelDownWeapon(const std::string& weaponId)
 
 void WeaponInventory::OnWeaponEvolution(const std::string& evolvedWeaponId)
 {
-    if(!m_factory)
-    {
-        std::cerr << "WeaponInventory::OnWeaponEvolution: no factory set\n";
-        return;
-    }
-    // Create and add the evolved weapon using the factory
-    auto evolved = m_factory->Create(evolvedWeaponId);
-    if(evolved)
-    {
-        AddWeapon(std::move(evolved));
-    }
-    else
-    {
-        std::cerr << "WeaponInventory::OnWeaponEvolution: failed to create '" << evolvedWeaponId << "'\n";
-    }
+    // Evolved weapon logic detached for now until evolution mechanics are fully implemented
+    (void)evolvedWeaponId;
 }
 
 Weapon* WeaponInventory::FindWeaponById(const std::string& weaponId)

@@ -269,10 +269,6 @@ void GameState::Init() {
 
         m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
         UpdateStageTimerText();
-
-        static vs::ParticleEmitterConfig dummyConfig;
-        m_tuningUI = std::make_unique<ParticleTuningUI>(m_context.atlas, const_cast<sf::Font&>(*boldFont), dummyConfig);
-        m_tuningUI->SetPosition(sf::Vector2f(20.0f, 100.0f));
     }
 
     ApplyCameraToView();
@@ -344,17 +340,17 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         AddRunGold(100);
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
-        // Debug: level-up Santa Water
+        // Debug: level-up Song of Mana
         if(m_player)
         {
-            m_player->GetWeaponInventory().LevelUpWeapon("HOLYWATER");
+            m_player->GetWeaponInventory().LevelUpWeapon("SONG");
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J) {
-        // Debug: level-down Santa Water
+        // Debug: level-down Song of Mana
         if(m_player)
         {
-            m_player->GetWeaponInventory().LevelDownWeapon("HOLYWATER");
+            m_player->GetWeaponInventory().LevelDownWeapon("SONG");
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {

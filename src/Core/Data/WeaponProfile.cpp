@@ -26,21 +26,31 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
 
 void WeaponProfile::ApplyDelta(const WeaponLevelDelta& delta)
 {
-    m_power    += delta.power;
-    m_area     += delta.area;
-    m_speed    += delta.speed;
-    m_duration += delta.duration;
-    m_amount   += delta.amount;
+    m_power          += delta.power;
+    m_area           += delta.area;
+    m_speed          += delta.speed;
+    m_duration       += delta.duration;
+    m_hitBoxDelay    += delta.hitBoxDelay;
+    m_amount         += delta.amount;
+    m_interval       += delta.interval;
+    m_repeatInterval += delta.repeatInterval;
+    m_penetrating    += delta.penetrating;
+    m_poolLimit      += delta.poolLimit;
     m_currentLevel++;
 }
 
 void WeaponProfile::RevertDelta(const WeaponLevelDelta& delta)
 {
-    m_power    -= delta.power;
-    m_area     -= delta.area;
-    m_speed    -= delta.speed;
-    m_duration -= delta.duration;
-    m_amount   -= delta.amount;
+    m_power          -= delta.power;
+    m_area           -= delta.area;
+    m_speed          -= delta.speed;
+    m_duration       -= delta.duration;
+    m_hitBoxDelay    -= delta.hitBoxDelay;
+    m_amount         -= delta.amount;
+    m_interval       -= delta.interval;
+    m_repeatInterval -= delta.repeatInterval;
+    m_penetrating    -= delta.penetrating;
+    m_poolLimit      -= delta.poolLimit;
     m_currentLevel--;
 }
 

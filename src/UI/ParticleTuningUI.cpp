@@ -27,25 +27,37 @@ extern float g_SantaWaterFlameSizeStart;
 extern float g_SantaWaterFlameSizeEnd;
 extern float g_SantaWaterAmountOverride;
 
-extern float g_LightningRingSpeed;
-extern float g_LightningRingScaleX;
-extern float g_LightningRingScaleY;
-extern float g_LightningRingRotation;
-extern float g_LightningRingStrikeRadius;
-extern float g_LightningRingDuration;
+extern float g_SongOfManaDuration;
+extern float g_SongOfManaParticleCount;
+extern float g_SongOfManaColumnWidth;
+extern float g_SongOfManaColumnHeight;
+extern float g_SongOfManaSpeedX;
+extern float g_SongOfManaSpeedY;
+extern float g_SongOfManaDecel;
+extern float g_SongOfManaFadeTime;
+extern float g_SongOfManaDelay;
+extern float g_SongOfManaParticleScale;
+extern float g_SongOfManaParticleAlpha;
+extern float g_SongOfManaBounceDampening;
 
 ParticleTuningUI::ParticleTuningUI(TextureAtlas& atlas, sf::Font& font, vs::ParticleEmitterConfig& targetConfig)
     : m_atlas(atlas), m_font(font), m_config(targetConfig)
 {
     m_background = std::make_unique<UIPanel>(atlas, "frame1_c2", 10.0f, 10.0f, 10.0f, 10.0f);
     
-    // Lightning Ring Tuning Sliders
-    AddSlider("LgtSpeed", 500.0f, 10000.0f, &g_LightningRingSpeed);
-    AddSlider("LgtThick", 0.05f, 2.0f, &g_LightningRingScaleY);
-    AddSlider("LgtLength", 0.2f, 4.0f, &g_LightningRingScaleX);
-    AddSlider("LgtAngle", 0.0f, 360.0f, &g_LightningRingRotation);
-    AddSlider("LgtRadius", 10.0f, 200.0f, &g_LightningRingStrikeRadius);
-    AddSlider("LgtDuratn", 0.1f, 3.0f, &g_LightningRingDuration);
+    // Song of Mana Tuning Sliders
+    AddSlider("SngDuratn", 0.1f, 10.0f, &g_SongOfManaDuration);
+    AddSlider("SngCount", 10.0f, 500.0f, &g_SongOfManaParticleCount);
+    AddSlider("SngWidth", 5.0f, 300.0f, &g_SongOfManaColumnWidth);
+    AddSlider("SngHeight", 50.0f, 1000.0f, &g_SongOfManaColumnHeight);
+    AddSlider("SngSpeedX", 10.0f, 3000.0f, &g_SongOfManaSpeedX);
+    AddSlider("SngSpeedY", 50.0f, 2000.0f, &g_SongOfManaSpeedY);
+    AddSlider("SngDecel", 0.0f, 10.0f, &g_SongOfManaDecel);
+    AddSlider("SngFade", 0.05f, 2.0f, &g_SongOfManaFadeTime);
+    AddSlider("SngDelay", 0.0f, 5.0f, &g_SongOfManaDelay);
+    AddSlider("SngScale", 0.5f, 4.0f, &g_SongOfManaParticleScale);
+    AddSlider("SngAlpha", 0.1f, 1.0f, &g_SongOfManaParticleAlpha);
+    AddSlider("SngBncDmp", 0.1f, 1.0f, &g_SongOfManaBounceDampening);
 }
 
 void ParticleTuningUI::AddSlider(const std::string& name, float min, float max, float* targetPtr)

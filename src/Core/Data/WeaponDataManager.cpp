@@ -77,11 +77,16 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         {
             const auto& levelJson = levelsArray[i];
             WeaponLevelDelta delta;
-            delta.power    = levelJson.value("power", 0.0f);
-            delta.area     = levelJson.value("area", 0.0f);
-            delta.speed    = levelJson.value("speed", 0.0f);
-            delta.duration = levelJson.value("duration", 0) / 1000.0f; // ms to seconds
-            delta.amount   = levelJson.value("amount", 0);
+            delta.power          = levelJson.value("power", 0.0f);
+            delta.area           = levelJson.value("area", 0.0f);
+            delta.speed          = levelJson.value("speed", 0.0f);
+            delta.duration       = levelJson.value("duration", 0) / 1000.0f; // ms to seconds
+            delta.hitBoxDelay    = levelJson.value("hitBoxDelay", 0) / 1000.0f; // ms to seconds
+            delta.amount         = levelJson.value("amount", 0);
+            delta.interval       = levelJson.value("interval", 0);
+            delta.repeatInterval = levelJson.value("repeatInterval", 0);
+            delta.penetrating    = levelJson.value("penetrating", 0);
+            delta.poolLimit      = levelJson.value("poolLimit", 0);
             delta.addEvolvedWeapon = levelJson.value("addEvolvedWeapon", "");
             deltas.push_back(delta);
         }

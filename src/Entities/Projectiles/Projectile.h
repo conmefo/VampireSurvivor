@@ -14,7 +14,7 @@ public:
     virtual void Draw(sf::RenderTarget& target) const;
 
     virtual bool IsExpired() const;
-    sf::FloatRect GetGlobalBounds() const;
+    virtual sf::FloatRect GetGlobalBounds() const;
     float GetPower() const;
     const std::string& GetHitVfxName() const;
 
