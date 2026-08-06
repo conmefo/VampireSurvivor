@@ -21,6 +21,7 @@ public:
     void TakeDamage(float amount);
     void Heal(float amount);
     void AddExperience(float amount);
+    void GrantInvulnerability(float duration);
     
     float GetCurrentHealth() const { return m_currentHealth; }
     float GetMaxHealth() const { return m_maxHealth; }
@@ -47,6 +48,7 @@ public:
     void SetMagnetMultiplier(float mult) { m_magnetMultiplier = mult; }
 
     void SetOnHitVfxCallback(std::function<void(const std::string&, sf::Vector2f)> callback) { m_onHitVfxCallback = std::move(callback); }
+    void SetOnLevelUpCallback(std::function<void()> callback) { m_onLevelUpCallback = std::move(callback); }
 
     WeaponInventory& GetWeaponInventory() { return m_weaponInventory; }
     sf::Vector2f GetFacingDirection() const { return m_currentDirection; }
@@ -105,4 +107,5 @@ private:
     float m_magnetMultiplier = 1.0f;
 
     std::function<void(const std::string&, sf::Vector2f)> m_onHitVfxCallback;
+    std::function<void()> m_onLevelUpCallback;
 };

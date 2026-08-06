@@ -67,8 +67,9 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         int interval = weaponJson.value("interval", 1000);
         int repeatInterval = weaponJson.value("repeatInterval", 0);
         int penetrating = weaponJson.value("penetrating", 1);
+        int rarity = weaponJson.value("rarity", 100);
 
-        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, duration, hitBoxDelay, magnet, amount, poolLimit, interval, repeatInterval, penetrating);
+        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, duration, hitBoxDelay, magnet, amount, poolLimit, interval, repeatInterval, penetrating, rarity);
         m_weapons.insert({id, profile});
 
         // --- Level deltas from indices [1..N] ---

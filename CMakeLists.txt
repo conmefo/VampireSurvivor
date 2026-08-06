@@ -146,6 +146,11 @@ add_executable(VampireSurvivors
     src/Core/Data/HitVfxDataManager.cpp
     src/Core/Data/ParticleDataManager.cpp
     src/Core/Data/StageWaveDataManager.cpp
+    src/Core/LevelUp/LevelUpInventoryFilter.cpp
+    src/Core/LevelUp/LevelUpRollEngine.cpp
+    src/Core/LevelUp/LevelUpSessionController.cpp
+    src/UI/Components/LevelUpItemCard.cpp
+    src/UI/Views/SimpleTextLevelUpView.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 

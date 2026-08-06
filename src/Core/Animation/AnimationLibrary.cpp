@@ -10,10 +10,40 @@ AnimationLibrary::AnimationLibrary(const TextureAtlas& atlas)
 {
 }
 
+void AnimationLibrary::RegisterAnimation(const std::string& species, const std::string& state, const AnimationData& animData)
+{
+    m_library[species][state] = animData;
+}
+
+AnimationData AnimationLibrary::CreateFromAtlasFrames(
+    const std::vector<std::string>& frameKeys,
+    float frameDuration,
+    bool isLooping) const
+{
+    AnimationData animData;
+    animData.frameDuration = frameDuration;
+    animData.isLooping = isLooping;
+
+    for (const auto& key : frameKeys)
+    {
+        AssetTextureData textureData = m_atlas.GetTextureData(key);
+        if (textureData.texture)
+        {
+            animData.frames.push_back(textureData);
+        }
+        else
+        {
+            std::cerr << "AnimationLibrary: Missing frame key [" << key << "] in atlas.\n";
+        }
+    }
+
+    return animData;
+}
+
 void AnimationLibrary::LoadFromJson(const std::string& filepath)
 {
     std::ifstream file(filepath);
-    if(!file.is_open())
+    if (!file.is_open())
     {
         std::cerr << "AnimationLibrary: Failed to open " << filepath << "\n";
         return;
@@ -24,42 +54,43 @@ void AnimationLibrary::LoadFromJson(const std::string& filepath)
     {
         file >> j;
     }
-    catch(const json::parse_error& e)
+    catch (const json::parse_error& e)
     {
         std::cerr << "AnimationLibrary: Parse error in " << filepath << ": " << e.what() << "\n";
         return;
     }
 
-    for(auto it = j.begin(); it != j.end(); ++it)
+    for (auto it = j.begin(); it != j.end(); ++it)
     {
         std::string species = it.key();
         auto statesJson = it.value();
 
-        for(auto stateIt = statesJson.begin(); stateIt != statesJson.end(); ++stateIt)
+        for (auto stateIt = statesJson.begin(); stateIt != statesJson.end(); ++stateIt)
         {
             std::string state = stateIt.key();
             auto dataJson = stateIt.value();
 
             AnimationData animData;
-            
-            if(dataJson.contains("frameDuration"))
+            animData.name = species + "_" + state;
+
+            if (dataJson.contains("frameDuration"))
             {
                 animData.frameDuration = dataJson["frameDuration"].get<float>();
             }
-            
-            if(dataJson.contains("isLooping"))
+
+            if (dataJson.contains("isLooping"))
             {
                 animData.isLooping = dataJson["isLooping"].get<bool>();
             }
 
-            if(dataJson.contains("frames"))
+            if (dataJson.contains("frames"))
             {
-                for(const auto& frameKey : dataJson["frames"])
+                for (const auto& frameKey : dataJson["frames"])
                 {
                     std::string key = frameKey.get<std::string>();
                     AssetTextureData textureData = m_atlas.GetTextureData(key);
-                    
-                    if(!textureData.texture)
+
+                    if (!textureData.texture)
                     {
                         std::cerr << "AnimationLibrary: Missing frame key [" << key << "] in atlas.\n";
                         AssetTextureData emptyData;
@@ -82,15 +113,25 @@ void AnimationLibrary::LoadFromJson(const std::string& filepath)
 const AnimationData* AnimationLibrary::GetAnimation(const std::string& species, const std::string& state) const
 {
     auto speciesIt = m_library.find(species);
-    if(speciesIt != m_library.end())
+    if (speciesIt != m_library.end())
     {
         auto stateIt = speciesIt->second.find(state);
-        if(stateIt != speciesIt->second.end())
+        if (stateIt != speciesIt->second.end())
         {
             return &stateIt->second;
         }
     }
-    
+
     std::cerr << "AnimationLibrary: Animation not found [" << species << "][" << state << "]\n";
     return nullptr;
+}
+
+bool AnimationLibrary::HasAnimation(const std::string& species, const std::string& state) const
+{
+    auto speciesIt = m_library.find(species);
+    if (speciesIt != m_library.end())
+    {
+        return speciesIt->second.find(state) != speciesIt->second.end();
+    }
+    return false;
 }

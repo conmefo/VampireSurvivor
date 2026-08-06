@@ -26,7 +26,6 @@
             background-size: 20px 20px;
             background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
             overflow: hidden;
-            /* Prevent native scrolling, we handle pan/zoom */
             flex: 3;
             cursor: grab;
         }
@@ -48,7 +47,7 @@
             background: #2a2a2a;
             padding: 15px;
             border-radius: 8px;
-            min-width: 250px;
+            min-width: 270px;
         }
 
         .info-box {
@@ -58,6 +57,27 @@
             margin-bottom: 10px;
             border-left: 4px solid #007acc;
             font-size: 14px;
+        }
+
+        #spritesheetSelect {
+            width: 100%;
+            padding: 8px;
+            background: #1e1e1e;
+            border: 1.5px solid #007acc;
+            color: #fff;
+            border-radius: 4px;
+            font-size: 14px;
+            font-weight: bold;
+            cursor: pointer;
+            outline: none;
+            box-sizing: border-box;
+            margin-bottom: 10px;
+            transition: border-color 0.2s, background-color 0.2s;
+        }
+
+        #spritesheetSelect:hover {
+            border-color: #00aaff;
+            background: #252525;
         }
 
         #searchInput {
@@ -101,6 +121,14 @@
             margin-top: 0;
             color: #007acc;
         }
+
+        label {
+            display: block;
+            font-size: 13px;
+            font-weight: bold;
+            margin-bottom: 4px;
+            color: #007acc;
+        }
     </style>
 </head>
 
@@ -113,28 +141,39 @@
         </div>
 
         <div class="sidebar">
+            <label for="spritesheetSelect">Active Spritesheet:</label>
+            <select id="spritesheetSelect" onchange="changeSpritesheet(this.value)">
+                <option value="ui">UI Atlas (UI.png)</option>
+                <option value="items">Items Atlas (items.png)</option>
+                <option value="vfx">VFX Atlas (vfx.png)</option>
+                <option value="illustrations">Illustrations Atlas (illustrations.png)</option>
+                <option value="damageNumbers">Damage Numbers Atlas</option>
+            </select>
+
             <h3>Sprite Info</h3>
             <div class="info-box" id="info">Hover or click a sprite to inspect</div>
+
             <div style="margin-bottom: 10px; display: flex; gap: 5px; flex-wrap: wrap;">
-                <button onclick="zoomToSprite('button_c5_normal')"
+                <button onclick="quickZoomUi('button_c5_normal')"
                     style="background:#007acc; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button
                     C5 (Buy)</button>
-                <button onclick="zoomToSprite('button_c8_normal')"
+                <button onclick="quickZoomUi('button_c8_normal')"
                     style="background:#444; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button
                     C8 (Back)</button>
-                <button onclick="zoomToSprite('button_c9_mouseover')"
+                <button onclick="quickZoomUi('button_c9_mouseover')"
                     style="background:#28a745; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Button
                     C9 (Refund)</button>
-                <button onclick="zoomToSprite('frame1_c2')"
+                <button onclick="quickZoomUi('frame1_c2')"
                     style="background:#17a2b8; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame
                     1 C2</button>
-                <button onclick="zoomToSprite('frame5_c4')"
+                <button onclick="quickZoomUi('frame5_c4')"
                     style="background:#17a2b8; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame
                     5 C4</button>
-                <button onclick="zoomToSprite('frameD')"
+                <button onclick="quickZoomUi('frameD')"
                     style="background:#e83e8c; color:#fff; border:none; padding:5px 8px; border-radius:4px; cursor:pointer; font-size:12px;">Frame
                     D</button>
             </div>
+
             <input type="text" id="searchInput" placeholder="Search sprite..." autocomplete="off">
             <h3 id="sprite-list-header" style="margin-top: 10px;">Sprite List</h3>
             <div id="list"></div>
@@ -142,15 +181,42 @@
     </div>
 
     <script>
-        const IMAGE_SRC = 'assets/Graphics/Spritesheets/items.png';
-        const JSON_SRC = 'assets/Data/items_atlas.json';
+        const SPRITESHEETS = {
+            ui: {
+                name: "UI Atlas",
+                image: "assets/Graphics/Spritesheets/UI.png",
+                json: "assets/Data/ui_atlas.json"
+            },
+            items: {
+                name: "Items Atlas",
+                image: "assets/Graphics/Spritesheets/items.png",
+                json: "assets/Data/items_atlas.json"
+            },
+            vfx: {
+                name: "VFX Atlas",
+                image: "assets/Graphics/Spritesheets/vfx.png",
+                json: "assets/Data/vfx_atlas.json"
+            },
+            illustrations: {
+                name: "Illustrations Atlas",
+                image: "assets/Graphics/Spritesheets/illustrations.png",
+                json: "assets/Data/illustration_atlas.json"
+            },
+            damageNumbers: {
+                name: "Damage Numbers",
+                image: "assets/Graphics/Spritesheets/UI.png",
+                json: "assets/Data/damage_numbers_atlas.json"
+            }
+        };
 
         const canvasContainer = document.getElementById('canvas-container');
         const canvas = document.getElementById('atlasCanvas');
         const ctx = canvas.getContext('2d');
         const searchInput = document.getElementById('searchInput');
         const listDiv = document.getElementById('list');
+        const spritesheetSelect = document.getElementById('spritesheetSelect');
 
+        let currentSheetKey = 'ui';
         let sprites = {};
         let img = new Image();
         let currentHighlightKey = null;
@@ -163,26 +229,80 @@
         let dragStartX = 0;
         let dragStartY = 0;
 
-        fetch(JSON_SRC)
-            .then(response => response.json())
-            .then(data => {
-                sprites = data;
-                img.src = IMAGE_SRC;
-            })
-            .catch(err => alert("JSON not found or invalid format!"));
+        // Initial setup
+        window.addEventListener('resize', resizeCanvas);
+        loadSpritesheet(currentSheetKey);
 
-        img.onload = function () {
-            // Setup canvas native resolution vs display size
-            resizeCanvas();
-            window.addEventListener('resize', resizeCanvas);
+        function changeSpritesheet(sheetKey) {
+            if (sheetKey === currentSheetKey) return;
+            loadSpritesheet(sheetKey);
+        }
 
-            // Center the image initially
-            offsetX = (canvas.width - img.width) / 2;
-            offsetY = (canvas.height - img.height) / 2;
+        function loadSpritesheet(sheetKey) {
+            currentSheetKey = sheetKey;
+            spritesheetSelect.value = sheetKey;
+            const sheet = SPRITESHEETS[sheetKey];
+            if (!sheet) return;
 
-            drawEverything();
-            buildList();
-        };
+            document.getElementById('info').innerHTML = `Loading ${sheet.name}...`;
+
+            fetch(sheet.json)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network response was not ok");
+                    return response.json();
+                })
+                .then(data => {
+                    sprites = data;
+                    currentHighlightKey = null;
+                    img = new Image();
+
+                    img.onload = function () {
+                        resizeCanvas();
+
+                        // Center image initially
+                        offsetX = (canvas.width - img.width) / 2;
+                        offsetY = (canvas.height - img.height) / 2;
+                        scale = 1;
+
+                        document.getElementById('info').innerHTML = `Hover or click a sprite to inspect`;
+                        drawEverything();
+                        buildList();
+                        applySearchFilter();
+                    };
+
+                    img.src = sheet.image;
+                })
+                .catch(err => {
+                    alert(`Failed to load ${sheet.name} (${sheet.json})!`);
+                    document.getElementById('info').innerHTML = `Error loading ${sheet.name}`;
+                });
+        }
+
+        function quickZoomUi(spriteKey) {
+            if (currentSheetKey !== 'ui') {
+                spritesheetSelect.value = 'ui';
+                currentSheetKey = 'ui';
+                const sheet = SPRITESHEETS.ui;
+
+                fetch(sheet.json)
+                    .then(res => res.json())
+                    .then(data => {
+                        sprites = data;
+                        currentHighlightKey = null;
+                        img = new Image();
+                        img.onload = function () {
+                            resizeCanvas();
+                            drawEverything();
+                            buildList();
+                            applySearchFilter();
+                            zoomToSprite(spriteKey);
+                        };
+                        img.src = sheet.image;
+                    });
+            } else {
+                zoomToSprite(spriteKey);
+            }
+        }
 
         function resizeCanvas() {
             canvas.width = canvasContainer.clientWidth;
@@ -214,7 +334,7 @@
                     ctx.fillRect(sp.x, sfmlY, sp.width, sp.height);
 
                     ctx.strokeStyle = '#00aaff';
-                    ctx.lineWidth = 2 / scale; // Keep line width visually consistent regardless of zoom
+                    ctx.lineWidth = 2 / scale;
                 } else {
                     ctx.strokeStyle = 'rgba(0, 122, 204, 0.3)';
                     ctx.lineWidth = 1 / scale;
@@ -227,7 +347,8 @@
 
         function buildList() {
             const keys = Object.keys(sprites).sort();
-            document.getElementById('sprite-list-header').innerText = `Sprite List (${keys.length})`;
+            const sheetName = SPRITESHEETS[currentSheetKey] ? SPRITESHEETS[currentSheetKey].name : 'Sprite';
+            document.getElementById('sprite-list-header').innerText = `${sheetName} (${keys.length})`;
 
             listDiv.innerHTML = '';
             keys.forEach(key => {
@@ -281,13 +402,13 @@
             const cy = sfmlY + sp.height / 2;
 
             // Calculate ideal scale to fit sprite with padding
-            const padding = 100; // pixels
+            const padding = 100;
             const scaleX = canvas.width / (sp.width + padding);
             const scaleY = canvas.height / (sp.height + padding);
 
             scale = Math.min(scaleX, scaleY);
             if (scale < 1) scale = 1;
-            if (scale > 6) scale = 6; // Max zoom cap
+            if (scale > 6) scale = 6;
 
             // Center camera on sprite
             offsetX = canvas.width / 2 - cx * scale;
@@ -296,13 +417,8 @@
             updateSelection(key, true);
         }
 
-        // ==========================================
-        // INPUT EVENTS: PAN, ZOOM, HOVER, SEARCH
-        // ==========================================
-
-        // Search Filter
-        searchInput.addEventListener('input', function (e) {
-            const q = e.target.value.toLowerCase();
+        function applySearchFilter() {
+            const q = searchInput.value.toLowerCase();
             const items = document.querySelectorAll('.sprite-item');
             items.forEach(item => {
                 if (item.innerText.toLowerCase().includes(q)) {
@@ -311,7 +427,13 @@
                     item.style.display = 'none';
                 }
             });
-        });
+        }
+
+        // ==========================================
+        // INPUT EVENTS: PAN, ZOOM, HOVER, SEARCH
+        // ==========================================
+
+        searchInput.addEventListener('input', applySearchFilter);
 
         // Mouse Wheel Zooming
         canvas.addEventListener('wheel', function (e) {
@@ -324,16 +446,13 @@
             const wheel = e.deltaY < 0 ? 1 : -1;
             const zoomFactor = Math.exp(wheel * zoomIntensity);
 
-            // Convert screen coords to world coords
             const worldX = (mouseX - offsetX) / scale;
             const worldY = (mouseY - offsetY) / scale;
 
-            // Apply limits to scale
             let newScale = scale * zoomFactor;
             if (newScale < 0.1) newScale = 0.1;
             if (newScale > 15) newScale = 15;
 
-            // Adjust offset to keep mouse point anchored
             offsetX = mouseX - worldX * newScale;
             offsetY = mouseY - worldY * newScale;
             scale = newScale;
@@ -360,12 +479,11 @@
                 return;
             }
 
-            // If not dragging, check hover intersections
+            // Check hover intersections
             const rect = canvas.getBoundingClientRect();
             const mouseX = e.clientX - rect.left;
             const mouseY = e.clientY - rect.top;
 
-            // Convert screen coords back to world coords
             const worldX = (mouseX - offsetX) / scale;
             const worldY = (mouseY - offsetY) / scale;
 
@@ -386,7 +504,6 @@
             }
         });
 
-        // Ensure image drag doesn't conflict with pan logic
         canvas.addEventListener('dragstart', e => e.preventDefault());
     </script>
 </body>

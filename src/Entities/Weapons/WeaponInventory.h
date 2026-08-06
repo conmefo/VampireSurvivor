@@ -29,6 +29,11 @@ public:
     void LevelUpWeapon(const std::string& weaponId);
     void LevelDownWeapon(const std::string& weaponId);
 
+    const std::vector<std::unique_ptr<Weapon>>& GetWeapons() const { return m_weapons; }
+    Weapon* GetWeapon(const std::string& weaponId) { return FindWeaponById(weaponId); }
+    const Weapon* GetWeapon(const std::string& weaponId) const;
+    bool HasWeapon(const std::string& weaponId) const;
+
     // IWeaponLevelObserver — called when a weapon's level-up triggers evolution
     void OnWeaponEvolution(const std::string& evolvedWeaponId) override;
 

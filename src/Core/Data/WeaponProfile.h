@@ -26,13 +26,14 @@ private:
     int   m_repeatInterval;
     int   m_penetrating;
     int   m_currentLevel;
+    int   m_rarity = 100;
 
 public:
     WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
                   const std::string& bulletType, const std::string& hitVFX,
                   float power = 1.0f, float area = 1.0f, float speed = 1.0f, float duration = 2.0f, float hitBoxDelay = 0.5f,
                   float magnet = 0.0f, int amount = 1, int poolLimit = 0,
-                  int interval = 1000, int repeatInterval = 0, int penetrating = 1);
+                  int interval = 1000, int repeatInterval = 0, int penetrating = 1, int rarity = 100);
 
     // Accumulates a level delta into runtime stats. Called by Weapon::LevelUp().
     void ApplyDelta(const WeaponLevelDelta& delta);
@@ -58,4 +59,5 @@ public:
     int   GetRepeatInterval() const;
     int   GetPenetrating() const;
     int   GetCurrentLevel() const;
+    int   GetRarity() const;
 };

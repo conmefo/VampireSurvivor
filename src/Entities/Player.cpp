@@ -270,6 +270,14 @@ void Player::Heal(float amount)
     }
 }
 
+void Player::GrantInvulnerability(float duration)
+{
+    if (duration > m_invulnTimer)
+    {
+        m_invulnTimer = duration;
+    }
+}
+
 float Player::GetTargetExperience() const
 {
     int lvl = m_level;
@@ -319,6 +327,10 @@ void Player::AddExperience(float amount)
     {
         m_experience -= targetExp;
         m_level++;
+        if (m_onLevelUpCallback)
+        {
+            m_onLevelUpCallback();
+        }
         targetExp = GetTargetExperience();
     }
 }

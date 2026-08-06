@@ -17,6 +17,8 @@
 #include "../../Core/Data/StageWaveDataManager.h"
 #include "../../UI/PlayerHUD.h"
 #include "../../UI/Elements/ExpBar.h"
+#include "../../Core/LevelUp/LevelUpSessionController.h"
+#include "../../UI/Views/SimpleTextLevelUpView.h"
 #include "../BaseState.h"
 #include <memory>
 #include <random>
@@ -149,4 +151,6 @@ class GameState : public BaseState {
     std::unique_ptr<PlayerHUD> m_playerHUD;
     std::unique_ptr<ExpBar> m_expBar;
     WeaponFactory m_weaponFactory;
+    LevelUpSessionController m_levelUpController;
+    std::unique_ptr<SimpleTextLevelUpView> m_levelUpView;
 };

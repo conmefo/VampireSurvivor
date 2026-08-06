@@ -39,6 +39,21 @@ void WeaponInventory::Draw(sf::RenderTarget& target) const
     }
 }
 
+const Weapon* WeaponInventory::GetWeapon(const std::string& weaponId) const
+{
+    for(const auto& weapon : m_weapons)
+    {
+        if(weapon->GetProfile().GetId() == weaponId)
+            return weapon.get();
+    }
+    return nullptr;
+}
+
+bool WeaponInventory::HasWeapon(const std::string& weaponId) const
+{
+    return GetWeapon(weaponId) != nullptr;
+}
+
 void WeaponInventory::LevelUpWeapon(const std::string& weaponId)
 {
     bool found = false;

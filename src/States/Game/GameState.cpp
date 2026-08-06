@@ -238,7 +238,111 @@ void GameState::Init() {
         m_treasureRewardView =
             std::make_unique<TreasureRewardView>(m_context.atlas, *boldFont);
         m_treasureRewardView->SetOnGoldAdded([this](int gold) { AddRunGold(gold); });
+    }
 
+    if (font)
+    {
+        int rerolls = m_context.progressionData.GetPowerUpLevel("reroll");
+        int skips = m_context.progressionData.GetPowerUpLevel("skip");
+        int banishes = m_context.progressionData.GetPowerUpLevel("banish");
+        m_levelUpController.InitSession(rerolls, skips, banishes);
+
+        m_levelUpView = std::make_unique<SimpleTextLevelUpView>(m_context.atlas, *font);
+
+        m_levelUpView->SetOnSelectOption([this](int index) {
+            if (m_player)
+            {
+                m_levelUpController.SelectOption(index, *m_player, m_context.weaponData, m_weaponFactory, [this](int gold) {
+                    AddRunGold(gold);
+                });
+                if (m_levelUpController.IsSessionActive())
+                {
+                    m_levelUpView->UpdateChoices(
+                        m_levelUpController.GetCurrentChoices(),
+                        m_levelUpController.GetPendingLevelUpCount(),
+                        m_levelUpController.GetRerollCharges(),
+                        m_levelUpController.GetSkipCharges(),
+                        m_levelUpController.GetBanishCharges()
+                    );
+                }
+            }
+        });
+
+        m_levelUpView->SetOnReroll([this]() {
+            if (m_player)
+            {
+                if (m_levelUpController.Reroll(*m_player, m_context.weaponData))
+                {
+                    m_levelUpView->UpdateChoices(
+                        m_levelUpController.GetCurrentChoices(),
+                        m_levelUpController.GetPendingLevelUpCount(),
+                        m_levelUpController.GetRerollCharges(),
+                        m_levelUpController.GetSkipCharges(),
+                        m_levelUpController.GetBanishCharges()
+                    );
+                }
+            }
+        });
+
+        m_levelUpView->SetOnSkip([this]() {
+            if (m_player)
+            {
+                if (m_levelUpController.Skip(*m_player))
+                {
+                    if (m_levelUpController.IsSessionActive())
+                    {
+                        m_levelUpView->UpdateChoices(
+                            m_levelUpController.GetCurrentChoices(),
+                            m_levelUpController.GetPendingLevelUpCount(),
+                            m_levelUpController.GetRerollCharges(),
+                            m_levelUpController.GetSkipCharges(),
+                            m_levelUpController.GetBanishCharges()
+                        );
+                    }
+                }
+            }
+        });
+
+        m_levelUpView->SetOnBanish([this](int index) {
+            if (m_player)
+            {
+                if (m_levelUpController.Banish(index, *m_player, m_context.weaponData))
+                {
+                    m_levelUpView->UpdateChoices(
+                        m_levelUpController.GetCurrentChoices(),
+                        m_levelUpController.GetPendingLevelUpCount(),
+                        m_levelUpController.GetRerollCharges(),
+                        m_levelUpController.GetSkipCharges(),
+                        m_levelUpController.GetBanishCharges()
+                    );
+                }
+            }
+        });
+    }
+
+    if (m_player)
+    {
+        m_player->SetOnLevelUpCallback([this]() {
+            m_levelUpController.QueueLevelUp();
+            if (!m_levelUpController.IsSessionActive() && m_player)
+            {
+                m_levelUpController.StartNextLevelUp(*m_player, m_context.weaponData);
+                if (m_levelUpView && m_levelUpController.IsSessionActive())
+                {
+                    m_levelUpView->UpdateChoices(
+                        m_levelUpController.GetCurrentChoices(),
+                        m_levelUpController.GetPendingLevelUpCount(),
+                        m_levelUpController.GetRerollCharges(),
+                        m_levelUpController.GetSkipCharges(),
+                        m_levelUpController.GetBanishCharges()
+                    );
+                }
+            }
+        });
+    }
+
+    if(boldFont)
+    {
         m_stageTimerText.setFont(*boldFont);
         m_stageTimerText.setCharacterSize(42);
         m_stageTimerText.setFillColor(sf::Color(245, 245, 235));
@@ -266,6 +370,15 @@ void GameState::Init() {
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
+    if (m_levelUpController.IsSessionActive())
+    {
+        if (m_levelUpView)
+        {
+            m_levelUpView->HandleEvent(event, window);
+        }
+        return;
+    }
+
     if(m_treasureRewardView && m_treasureRewardView->IsVisible())
     {
         m_treasureRewardView->HandleEvent(event);
@@ -452,6 +565,15 @@ void GameState::Update(float dt) {
     if(m_treasureRewardView && m_treasureRewardView->IsVisible())
     {
         m_treasureRewardView->Update(dt);
+        return;
+    }
+
+    if (m_levelUpController.IsSessionActive())
+    {
+        if (m_levelUpView)
+        {
+            m_levelUpView->Update(dt);
+        }
         return;
     }
 
@@ -746,6 +868,15 @@ void GameState::Draw(sf::RenderWindow &window) {
         treasureView.setViewport(viewport);
         window.setView(treasureView);
         m_treasureRewardView->Draw(window);
+        window.setView(previousView);
+    }
+
+    if(m_levelUpController.IsSessionActive() && m_levelUpView)
+    {
+        sf::View levelUpUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        levelUpUiView.setViewport(viewport);
+        window.setView(levelUpUiView);
+        m_levelUpView->Draw(window);
         window.setView(previousView);
     }
 }
