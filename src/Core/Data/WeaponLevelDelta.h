@@ -11,6 +11,7 @@ struct WeaponLevelDelta
     float speed          = 0.0f;
     float duration       = 0.0f; // seconds
     float hitBoxDelay    = 0.0f; // seconds
+    float magnet         = 0.0f; // percentage ratio (e.g. 0.50 = +50%)
     int   amount         = 0;
     int   interval       = 0;    // ms
     int   repeatInterval = 0;    // ms

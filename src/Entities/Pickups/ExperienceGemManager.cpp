@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <cmath>
+#include <random>
 
 namespace
 {
@@ -24,7 +25,9 @@ namespace
 
 void ExperienceGemManager::Initialize(TextureAtlas& atlas)
 {
-    m_gemTextureData = atlas.GetTextureData("GemBlue");
+    m_blueTextureData = atlas.GetTextureData("GemBlue");
+    m_greenTextureData = atlas.GetTextureData("GemGreen");
+    m_redTextureData = atlas.GetTextureData("GemRed");
 }
 
 void ExperienceGemManager::Clear()
@@ -32,9 +35,76 @@ void ExperienceGemManager::Clear()
     m_gems.clear();
 }
 
+AssetTextureData ExperienceGemManager::GetTextureDataForValue(float value, GemType& outType) const
+{
+    if (value >= 20.0f)
+    {
+        outType = GemType::Red;
+        return m_redTextureData.texture ? m_redTextureData : m_blueTextureData;
+    }
+    else if (value >= 5.0f)
+    {
+        outType = GemType::Green;
+        return m_greenTextureData.texture ? m_greenTextureData : m_blueTextureData;
+    }
+    else
+    {
+        outType = GemType::Blue;
+        return m_blueTextureData;
+    }
+}
+
+void ExperienceGemManager::ApplyTextureDataToSprite(sf::Sprite& sprite, const AssetTextureData& data) const
+{
+    if (!data.texture) return;
+    sprite.setTexture(*data.texture);
+    sprite.setTextureRect(data.rect);
+    sprite.setOrigin(
+        static_cast<float>(data.rect.width) / 2.0f,
+        static_cast<float>(data.rect.height) / 2.0f);
+}
+
 void ExperienceGemManager::Spawn(const sf::Vector2f& position, float value)
 {
-    if(value <= 0.0f || !m_gemTextureData.texture)
+    if (value <= 0.0f)
+    {
+        return;
+    }
+
+    // 400-Gem Compression Cap Rule:
+    // If on-screen gems reach the 400 limit, aggregate incoming XP into an existing Red Gem instead of spawning a new entity.
+    if (m_gems.size() >= MaxOnScreenGems)
+    {
+        // Search for an existing Red Gem on the ground to accumulate XP into
+        ExperienceGem* targetGem = nullptr;
+        for (ExperienceGem& gem : m_gems)
+        {
+            if (gem.type == GemType::Red)
+            {
+                targetGem = &gem;
+                break;
+            }
+        }
+
+        // If no Red Gem exists yet, convert the first available gem to a Red Gem
+        if (!targetGem && !m_gems.empty())
+        {
+            targetGem = &m_gems.front();
+            targetGem->type = GemType::Red;
+            ApplyTextureDataToSprite(targetGem->sprite, m_redTextureData.texture ? m_redTextureData : m_blueTextureData);
+        }
+
+        if (targetGem)
+        {
+            targetGem->value += value;
+            return;
+        }
+    }
+
+    // Normal spawn when below the 400-gem limit
+    GemType gemType = GemType::Blue;
+    AssetTextureData texData = GetTextureDataForValue(value, gemType);
+    if (!texData.texture)
     {
         return;
     }
@@ -42,25 +112,58 @@ void ExperienceGemManager::Spawn(const sf::Vector2f& position, float value)
     ExperienceGem gem;
     gem.position = position;
     gem.value = value;
-    gem.sprite.setTexture(*m_gemTextureData.texture);
-    gem.sprite.setTextureRect(m_gemTextureData.rect);
-    gem.sprite.setOrigin(
-        static_cast<float>(m_gemTextureData.rect.width) / 2.0f,
-        static_cast<float>(m_gemTextureData.rect.height) / 2.0f);
+    gem.type = gemType;
+    ApplyTextureDataToSprite(gem.sprite, texData);
     gem.sprite.setScale(GemScale, GemScale);
     gem.sprite.setPosition(position);
 
     m_gems.push_back(gem);
 }
 
+void ExperienceGemManager::SpawnMultiple(const sf::Vector2f& centerPosition, int count, float valuePerGem)
+{
+    float radius = 50.0f;
+    for (int i = 0; i < count; ++i)
+    {
+        float angle = static_cast<float>(i) * (2.0f * 3.14159265f / static_cast<float>(count));
+        sf::Vector2f offset(std::cos(angle) * radius, std::sin(angle) * radius);
+        Spawn(centerPosition + offset, valuePerGem);
+    }
+}
+
+void ExperienceGemManager::SpawnRandomInRadius(const sf::Vector2f& centerPosition, int count, float minRadius, float maxRadius)
+{
+    static std::mt19937 rng{std::random_device{}()};
+    std::uniform_real_distribution<float> angleDist(0.0f, 2.0f * 3.14159265f);
+    std::uniform_real_distribution<float> radiusDist(minRadius, maxRadius);
+    std::uniform_real_distribution<float> valDist(1.0f, 25.0f);
+
+    for (int i = 0; i < count; ++i)
+    {
+        float angle = angleDist(rng);
+        float radius = radiusDist(rng);
+        float val = valDist(rng);
+        sf::Vector2f offset(std::cos(angle) * radius, std::sin(angle) * radius);
+        Spawn(centerPosition + offset, val);
+    }
+}
+
 void ExperienceGemManager::Update(float dt, Player& player)
 {
-    const sf::Vector2f playerPosition = player.GetPosition();
+    const sf::Vector2f playerCenter = player.GetCenterPosition();
     const float collectDistance = player.GetCollisionRadius() + CollectRadius;
+
+    // Effective magnet radius = BaseMagnetRadius * PlayerMultiplier * UITuningMultiplier.
+    // GetMagnetRadius() already encodes (BaseMagnet * PlayerMultiplier), so we only apply
+    // m_magnetRadiusMultiplier once here. We must NOT multiply GetMagnetMultiplier() again.
+    const float effectiveMagnetRadius = player.GetMagnetRadius() * m_magnetRadiusMultiplier;
+    const float radiusRatio = std::max(1.0f, effectiveMagnetRadius / BaseMagnetRadius);
+    const float outwardSpeed = m_baseOutwardSpeed * std::sqrt(radiusRatio);
+    const float inwardAccel = m_baseInwardAccel * radiusRatio;
 
     for(ExperienceGem& gem : m_gems)
     {
-        const sf::Vector2f toPlayer = playerPosition - gem.position;
+        const sf::Vector2f toPlayer = playerCenter - gem.position;
         const float distance = Length(toPlayer);
 
         if(distance <= collectDistance)
@@ -70,10 +173,34 @@ void ExperienceGemManager::Update(float dt, Player& player)
             continue;
         }
 
-        if(distance <= MagnetRadius)
+        // Trigger attraction when gem enters magnet radius OR is already attracted
+        if(distance <= effectiveMagnetRadius || gem.isBeingAttracted)
         {
-            const float pull = 1.0f + (MagnetRadius - distance) / MagnetRadius;
-            gem.position += Normalize(toPlayer) * MagnetSpeed * pull * dt;
+            if (!gem.isBeingAttracted)
+            {
+                gem.isBeingAttracted = true;
+                // Initial outward pop impulse away from player
+                sf::Vector2f awayDir = Normalize(-toPlayer);
+                // If awayDir is zero, default to up vector
+                if (awayDir.x == 0.0f && awayDir.y == 0.0f)
+                {
+                    awayDir = sf::Vector2f(0.0f, -1.0f);
+                }
+                gem.velocity = awayDir * outwardSpeed;
+            }
+
+            // Continuous gravitational pull acceleration toward player
+            sf::Vector2f pullDir = Normalize(toPlayer);
+            gem.velocity += pullDir * inwardAccel * dt;
+
+            // Cap max velocity so gems don't overshoot infinitely
+            float currentSpeed = Length(gem.velocity);
+            if (currentSpeed > m_maxMagnetSpeed)
+            {
+                gem.velocity = Normalize(gem.velocity) * m_maxMagnetSpeed;
+            }
+
+            gem.position += gem.velocity * dt;
             gem.sprite.setPosition(gem.position);
         }
     }

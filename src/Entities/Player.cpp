@@ -83,6 +83,12 @@ void Player::ApplyGlobalBuffs(const PlayerProgressionManager& progression, const
     m_amountBuff = static_cast<int>(progression.GetGlobalStatBuff("amount", powerUpData));
     float moveBuff = progression.GetGlobalStatBuff("moveSpeed", powerUpData);
     m_moveSpeedMultiplier += moveBuff;
+
+    float magnetPowerUpBuff = progression.GetGlobalStatBuff("magnet", powerUpData);
+    if (magnetPowerUpBuff > 0.0f)
+    {
+        AddAttractorbLevel(magnetPowerUpBuff);
+    }
 }
 
 float g_PlayerSpeedMultiplier = 0.6f;
@@ -264,6 +270,33 @@ void Player::Heal(float amount)
     }
 }
 
+float Player::GetTargetExperience() const
+{
+    int lvl = m_level;
+    if (lvl <= 1) return 5.0f;
+    if (lvl < 20) return 5.0f + 10.0f * (lvl - 1);
+    if (lvl == 20) return 5.0f + 10.0f * 19 + 600.0f; // 795.0f
+
+    // Level 21..40
+    float xp20 = 5.0f + 10.0f * 19 + 600.0f;
+    if (lvl < 40) return xp20 + 13.0f * (lvl - 20);
+    if (lvl == 40) return (xp20 + 13.0f * 20) + 2400.0f;
+
+    // Level 41+
+    float xp40 = (xp20 + 13.0f * 20) + 2400.0f;
+    return xp40 + 16.0f * (lvl - 40);
+}
+
+float Player::GetExpProgressRatio() const
+{
+    float target = GetTargetExperience();
+    if (target <= 0.0f) return 0.0f;
+    float ratio = m_experience / target;
+    if (ratio < 0.0f) ratio = 0.0f;
+    if (ratio > 1.0f) ratio = 1.0f;
+    return ratio;
+}
+
 void Player::AddExperience(float amount)
 {
     if(amount <= 0.0f)
@@ -271,7 +304,23 @@ void Player::AddExperience(float amount)
         return;
     }
 
-    m_experience += amount;
+    // Apply 100% Growth buff when at milestone level 20 or 40
+    float growthMultiplier = 1.0f;
+    if (m_level == 20 || m_level == 40)
+    {
+        growthMultiplier += 1.0f;
+    }
+
+    m_experience += amount * growthMultiplier;
+
+    // Check for level-ups
+    float targetExp = GetTargetExperience();
+    while (m_experience >= targetExp)
+    {
+        m_experience -= targetExp;
+        m_level++;
+        targetExp = GetTargetExperience();
+    }
 }
 
 void Player::Revive()

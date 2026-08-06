@@ -186,26 +186,14 @@ void GameState::Init() {
         });
 
         m_playerHUD = std::make_unique<PlayerHUD>(*m_player);
+        m_expBar = std::make_unique<ExpBar>(m_context.atlas, m_context.fonts.Get(FontID::Main));
 
-        // Add Starting Weapon
-        const WeaponProfile& wp = m_context.weaponData.GetWeaponById(profile.GetStartingWeaponId());
-        if(wp.GetId() == "WHIP")
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::make_unique<WhipWeapon>(wp));
-        }
-        // Spawn starting weapon(s) via factory
-        auto startingWeapon = m_weaponFactory.Create(wp.GetId());
+        sf::Vector2f playerStartPos = m_player->GetPosition();
+        const std::string& startingWeaponId = profile.GetStartingWeaponId();
+        auto startingWeapon = m_weaponFactory.Create(startingWeaponId);
         if(startingWeapon)
         {
             m_player->GetWeaponInventory().AddWeapon(std::move(startingWeapon));
-        }
-
-        // Test Santa Water in gameplay!
-        const WeaponProfile& holyWaterWp = m_context.weaponData.GetWeaponById("HOLYWATER");
-        if(holyWaterWp.GetId() == "HOLYWATER")
-        {
-            auto hw = m_weaponFactory.Create("HOLYWATER");
-            if(hw) m_player->GetWeaponInventory().AddWeapon(std::move(hw));
         }
 
     }
@@ -269,6 +257,9 @@ void GameState::Init() {
 
         m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
         UpdateStageTimerText();
+
+        m_gemTuningUI = std::make_unique<GemTuningUI>(m_context.atlas, *font, m_experienceGems);
+        m_gemTuningUI->SetPosition(sf::Vector2f(110.0f, 100.0f));
     }
 
     ApplyCameraToView();
@@ -359,6 +350,44 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
             m_treasureChests->Spawn(m_player->GetPosition() + sf::Vector2f(80.0f, 0.0f));
         }
         return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1) {
+        if (m_player) {
+            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 2.0f); // 10 Blue Gems
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2) {
+        if (m_player) {
+            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 10.0f); // 10 Green Gems
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3) {
+        if (m_player) {
+            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 50.0f); // 10 Red Gems
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4) {
+        if (m_player) {
+            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 450, 2.0f); // Test 400-gem aggregation cap
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
+        if (m_player) {
+            m_player->AddExperience(500.0f); // Fast forward level-up progression
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F6) {
+        if (m_player) {
+            m_experienceGems.SpawnRandomInRadius(m_player->GetPosition(), 30, 40.0f, 300.0f); // Random gems around player
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F7) {
+        if (m_player) {
+            auto attractorb = m_weaponFactory.Create("MAGNET");
+            if (attractorb) {
+                m_player->GetWeaponInventory().AddWeapon(std::move(attractorb));
+            }
+        }
+        return;
 #endif
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
@@ -400,12 +429,24 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         m_tuningUI->HandleEvent(event, window);
         window.setView(oldView);
     }
+
+    if (m_gemTuningUI) {
+        sf::View oldView = window.getView();
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
+        m_gemTuningUI->HandleEvent(event, window);
+        window.setView(oldView);
+    }
 }
 
 void GameState::Update(float dt) {
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->Update(dt);
+    }
+    if(m_expBar)
+    {
+        m_expBar->Update(dt, m_player.get());
     }
 
     if(m_treasureRewardView && m_treasureRewardView->IsVisible())
@@ -579,6 +620,11 @@ void GameState::Update(float dt) {
         m_tuningUI->Update(dt);
     }
 
+    if (m_gemTuningUI) {
+        m_gemTuningUI->SetPosition(sf::Vector2f(110.0f, 100.0f));
+        m_gemTuningUI->Update(dt);
+    }
+
     if (m_testEmitter) {
         m_testEmitter->SetPosition(m_cameraCenter + sf::Vector2f(0.0f, m_testParticleConfig.emitterOffset));
         m_testEmitter->GetConfig() = m_testParticleConfig;
@@ -600,6 +646,8 @@ void GameState::Draw(sf::RenderWindow &window) {
     }
     m_enemyPool.Draw(window);
 
+    m_experienceGems.Draw(window);
+
     if(m_player)
     {
         m_player->Draw(window);
@@ -611,7 +659,6 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_particleManager.Draw(window);
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
-    m_experienceGems.Draw(window);
     if(m_treasureChests)
     {
         m_treasureChests->Draw(window);
@@ -637,6 +684,11 @@ void GameState::Draw(sf::RenderWindow &window) {
     rightDimBar.setPosition(ViewWidth - 96.0f, 0.0f);
     window.draw(rightDimBar);
 
+    if(m_expBar)
+    {
+        m_expBar->Draw(window);
+    }
+
     DrawStageTimer(window);
     if(m_runGoldDisplay)
     {
@@ -650,6 +702,13 @@ void GameState::Draw(sf::RenderWindow &window) {
         sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
         window.setView(tuningUiView);
         m_tuningUI->Draw(window);
+        window.setView(previousView);
+    }
+
+    if (m_gemTuningUI) {
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
+        m_gemTuningUI->Draw(window);
         window.setView(previousView);
     }
 

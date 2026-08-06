@@ -10,6 +10,7 @@
 #include "SantaWaterWeapon.h"
 #include "LightningRingWeapon.h"
 #include "SongOfManaWeapon.h"
+#include "../Items/AttractorbItem.h"
 #include <iostream>
 
 WeaponFactory::WeaponFactory(WeaponDataManager& weaponData)
@@ -70,6 +71,10 @@ std::unique_ptr<Weapon> WeaponFactory::Create(const std::string& weaponId) const
     else if(bulletType == "SONG" || bulletType == "MANNAGGIA")
     {
         weapon = std::make_unique<SongOfManaWeapon>(profile);
+    }
+    else if(bulletType == "MAGNET")
+    {
+        weapon = std::make_unique<AttractorbItem>(profile);
     }
     else
     {

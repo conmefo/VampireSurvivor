@@ -19,6 +19,7 @@ private:
     float m_speed;
     float m_duration;
     float m_hitBoxDelay;
+    float m_magnet;
     int   m_amount;
     int   m_poolLimit;
     int   m_interval;
@@ -29,7 +30,8 @@ private:
 public:
     WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
                   const std::string& bulletType, const std::string& hitVFX,
-                  float power = 1.0f, float area = 1.0f, float speed = 1.0f, float duration = 2.0f, float hitBoxDelay = 0.5f, int amount = 1, int poolLimit = 0,
+                  float power = 1.0f, float area = 1.0f, float speed = 1.0f, float duration = 2.0f, float hitBoxDelay = 0.5f,
+                  float magnet = 0.0f, int amount = 1, int poolLimit = 0,
                   int interval = 1000, int repeatInterval = 0, int penetrating = 1);
 
     // Accumulates a level delta into runtime stats. Called by Weapon::LevelUp().
@@ -49,6 +51,7 @@ public:
     float GetSpeed() const;
     float GetDuration() const;
     float GetHitBoxDelay() const;
+    float GetMagnet() const;
     int   GetAmount() const;
     int   GetPoolLimit() const;
     int   GetInterval() const;

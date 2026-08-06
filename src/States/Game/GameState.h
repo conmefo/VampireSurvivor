@@ -8,6 +8,7 @@
 #include "../../Entities/Particles/ParticleManager.h"
 #include "../../Entities/Pickups/ExperienceGemManager.h"
 #include "../../Entities/DamageNumberManager.h"
+#include "../../UI/GemTuningUI.h"
 #include "../../UI/ParticleTuningUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
@@ -15,6 +16,7 @@
 #include "../../Core/Data/WeaponDataManager.h"
 #include "../../Core/Data/StageWaveDataManager.h"
 #include "../../UI/PlayerHUD.h"
+#include "../../UI/Elements/ExpBar.h"
 #include "../BaseState.h"
 #include <memory>
 #include <random>
@@ -136,6 +138,7 @@ class GameState : public BaseState {
     vs::ParticleManager m_particleManager;
     vs::ParticleEmitterConfig m_testParticleConfig;
     std::unique_ptr<ParticleTuningUI> m_tuningUI;
+    std::unique_ptr<GemTuningUI> m_gemTuningUI;
     vs::ParticleEmitterConfig m_bloodTearConfig;
     vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
@@ -144,5 +147,6 @@ class GameState : public BaseState {
     std::unique_ptr<TreasureChestManager> m_treasureChests;
     std::unique_ptr<TreasureRewardView> m_treasureRewardView;
     std::unique_ptr<PlayerHUD> m_playerHUD;
+    std::unique_ptr<ExpBar> m_expBar;
     WeaponFactory m_weaponFactory;
 };

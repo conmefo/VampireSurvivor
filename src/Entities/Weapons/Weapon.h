@@ -27,6 +27,7 @@ public:
     bool CanLevelDown() const;
 
     void SetLevelDeltas(const std::vector<WeaponLevelDelta>& deltas);
+    const std::vector<WeaponLevelDelta>& GetLevelDeltas() const { return m_levelDeltas; }
     void SetObserver(IWeaponLevelObserver* observer);
 
     const WeaponProfile& GetProfile() const;

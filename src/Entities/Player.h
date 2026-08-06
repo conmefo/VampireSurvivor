@@ -25,6 +25,9 @@ public:
     float GetCurrentHealth() const { return m_currentHealth; }
     float GetMaxHealth() const { return m_maxHealth; }
     float GetExperience() const { return m_experience; }
+    int GetLevel() const { return m_level; }
+    float GetTargetExperience() const;
+    float GetExpProgressRatio() const;
     bool IsDead() const { return m_isDead; }
     
     void Revive();
@@ -37,6 +40,11 @@ public:
     float GetCooldownMultiplier() const { return 1.0f - m_cooldownBuff; }
     int GetBonusAmount() const { return m_amountBuff; }
     float GetMoveSpeedMultiplier() const { return m_moveSpeedMultiplier; }
+    float GetMagnetRadius() const { return m_baseMagnetRadius * GetMagnetMultiplier(); }
+    float GetMagnetMultiplier() const { return m_magnetMultiplier; }
+    void AddMagnetBonus(float bonus) { m_magnetMultiplier *= (1.0f + bonus); }
+    void AddAttractorbLevel(float bonus) { AddMagnetBonus(bonus); }
+    void SetMagnetMultiplier(float mult) { m_magnetMultiplier = mult; }
 
     void SetOnHitVfxCallback(std::function<void(const std::string&, sf::Vector2f)> callback) { m_onHitVfxCallback = std::move(callback); }
 
@@ -45,6 +53,10 @@ public:
     sf::Vector2f GetBottomPosition() const {
         sf::FloatRect bounds = m_sprite.getGlobalBounds();
         return sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height);
+    }
+    sf::Vector2f GetCenterPosition() const {
+        sf::FloatRect bounds = m_sprite.getGlobalBounds();
+        return sf::Vector2f(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
     }
 
 private:
@@ -75,6 +87,7 @@ private:
     float m_currentHealth = 100.0f;
     float m_maxHealth = 100.0f;
     float m_experience = 0.0f;
+    int m_level = 1;
     float m_invulnTimer = 0.0f;
     float m_flashTimer = 0.0f;
     bool m_isDead = false;
@@ -88,6 +101,8 @@ private:
     float m_durationBuff = 0.0f;
     float m_cooldownBuff = 0.0f;
     int m_amountBuff = 0;
+    float m_baseMagnetRadius = 96.0f;
+    float m_magnetMultiplier = 1.0f;
 
     std::function<void(const std::string&, sf::Vector2f)> m_onHitVfxCallback;
 };

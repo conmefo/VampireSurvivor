@@ -61,13 +61,14 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         float speed = weaponJson.value("speed", 1.0f);
         float duration = weaponJson.value("duration", 2000) / 1000.0f; // ms to seconds
         float hitBoxDelay = weaponJson.value("hitBoxDelay", 500) / 1000.0f; // ms to seconds
+        float magnet = weaponJson.value("magnet", 0.0f);
         int amount = weaponJson.value("amount", 1);
         int poolLimit = weaponJson.value("poolLimit", 0);
         int interval = weaponJson.value("interval", 1000);
         int repeatInterval = weaponJson.value("repeatInterval", 0);
         int penetrating = weaponJson.value("penetrating", 1);
 
-        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, duration, hitBoxDelay, amount, poolLimit, interval, repeatInterval, penetrating);
+        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, duration, hitBoxDelay, magnet, amount, poolLimit, interval, repeatInterval, penetrating);
         m_weapons.insert({id, profile});
 
         // --- Level deltas from indices [1..N] ---
@@ -82,6 +83,7 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
             delta.speed          = levelJson.value("speed", 0.0f);
             delta.duration       = levelJson.value("duration", 0) / 1000.0f; // ms to seconds
             delta.hitBoxDelay    = levelJson.value("hitBoxDelay", 0) / 1000.0f; // ms to seconds
+            delta.magnet         = levelJson.value("magnet", 0.0f);
             delta.amount         = levelJson.value("amount", 0);
             delta.interval       = levelJson.value("interval", 0);
             delta.repeatInterval = levelJson.value("repeatInterval", 0);
