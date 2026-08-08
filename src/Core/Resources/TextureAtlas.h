@@ -30,6 +30,9 @@ public:
     // Retrieves the unified asset data (Texture + Viewport Rect)
     AssetTextureData GetTextureData(const std::string& assetId) const;
 
+    // Retrieves region info (textureId + rect) for debugging
+    bool GetRegionInfo(const std::string& assetId, std::string& outTextureId, sf::IntRect& outRect) const;
+
     // Factory method for standalone sprites
     sf::Sprite CreateSprite(const std::string& assetId) const;
 

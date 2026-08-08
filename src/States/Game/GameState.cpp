@@ -381,7 +381,7 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 
     if(m_treasureRewardView && m_treasureRewardView->IsVisible())
     {
-        m_treasureRewardView->HandleEvent(event);
+        m_treasureRewardView->HandleEvent(event, &window);
         return;
     }
 
@@ -461,6 +461,33 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         if(m_player && m_treasureChests)
         {
             m_treasureChests->Spawn(m_player->GetPosition() + sf::Vector2f(80.0f, 0.0f));
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed &&
+               (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)) {
+        if(m_treasureRewardView)
+        {
+            m_treasureRewardView->Show(100, m_runGold, 1);
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed &&
+               (event.key.code == sf::Keyboard::Num3 || event.key.code == sf::Keyboard::Numpad3)) {
+        if(m_treasureRewardView)
+        {
+            m_treasureRewardView->Show(300, m_runGold, 3);
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed &&
+               (event.key.code == sf::Keyboard::Num5 || event.key.code == sf::Keyboard::Numpad5)) {
+        if(m_treasureRewardView)
+        {
+            m_treasureRewardView->Show(500, m_runGold, 5);
+        }
+        return;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::T) {
+        if(m_treasureRewardView)
+        {
+            m_treasureRewardView->Show(150, m_runGold, 1);
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1) {

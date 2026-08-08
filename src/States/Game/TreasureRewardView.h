@@ -1,66 +1,50 @@
 #pragma once
 
 #include "../../Core/Resources/TextureAtlas.h"
+#include "../../UI/Components/NineSliceComponent.h"
+#include "TreasurePhases/ITreasurePhaseState.h"
+#include "TreasurePhases/TreasureRewardViewContext.h"
+#include "TreasurePhases/TreasurePhase1IdleState.h"
+#include "TreasurePhases/TreasurePhase2OpeningState.h"
 
 #include <SFML/Graphics.hpp>
 #include <functional>
-#include <random>
-#include <vector>
+#include <memory>
 
 class TreasureRewardView
 {
 public:
     TreasureRewardView(TextureAtlas& atlas, const sf::Font& boldFont);
 
-    void Show(int goldReward, int currentRunGold);
+    void Show(int goldReward, int currentRunGold, int itemCount = 1);
     bool IsVisible() const;
     void CompleteImmediately();
 
     void SetOnGoldAdded(std::function<void(int)> callback);
     void SetOnComplete(std::function<void()> callback);
 
-    void HandleEvent(const sf::Event& event);
+    void HandleEvent(const sf::Event& event, const sf::RenderWindow* window = nullptr);
     void Update(float dt);
+    void UpdateLayout(const sf::Vector2f& viewSize, const sf::Vector2f& viewCenter);
     void Draw(sf::RenderTarget& target) const;
 
+    void SetState(std::unique_ptr<ITreasurePhaseState> newState);
+
+    TreasureRewardViewContext& GetContext() { return m_context; }
+    const TreasureRewardViewContext& GetContext() const { return m_context; }
+
 private:
-    struct CoinParticle
-    {
-        sf::Vector2f velocity;
-        float delay = 0.0f;
-        float spinOffset = 0.0f;
-        float scale = 1.0f;
-    };
-
-    void ConfigureSprite(sf::Sprite& sprite, const AssetTextureData& data) const;
-    void RebuildCoinBurst();
-    void ApplyPendingGold();
     void Finish();
-    float GetRevealProgress() const;
 
-    std::vector<AssetTextureData> m_openFrames;
-    std::vector<AssetTextureData> m_frontFrames;
-    std::vector<AssetTextureData> m_coinFrames;
-    AssetTextureData m_moneyPile{};
+    TextureAtlas& m_atlas;
     const sf::Font& m_font;
 
     sf::RectangleShape m_backdrop;
-    mutable sf::Sprite m_chest;
-    mutable sf::Sprite m_chestFront;
-    mutable sf::Sprite m_rewardIcon;
-    sf::Text m_rewardLabel;
-    sf::Text m_rewardValue;
-    sf::Text m_totalValue;
-    sf::Text m_continuePrompt;
-    std::vector<CoinParticle> m_coins;
+    NineSliceComponent m_nineSliceBg;
 
-    std::function<void(int)> m_onGoldAdded;
-    std::function<void()> m_onComplete;
-    std::mt19937 m_random{0xC01DC0DEu};
-    float m_elapsed = 0.0f;
-    int m_goldReward = 0;
-    int m_startingGold = 0;
-    int m_appliedGold = 0;
+    TreasureRewardViewContext m_context;
+    std::unique_ptr<ITreasurePhaseState> m_currentState;
+
     bool m_visible = false;
     bool m_finishing = false;
 };

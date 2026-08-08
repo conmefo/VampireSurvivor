@@ -95,6 +95,10 @@ add_executable(VampireSurvivors
     src/States/Game/PauseMenuView.cpp
     src/States/Game/GameOverView.cpp
     src/States/Game/TreasureRewardView.cpp
+    src/States/Game/TreasurePhases/TreasurePhase1IdleState.cpp
+    src/States/Game/TreasurePhases/TreasurePhase2OpeningState.cpp
+    src/States/Game/TreasurePhases/TreasurePhase3RewardState.cpp
+    src/States/Game/TreasurePhases/TreasureItemDetailCardWidget.cpp
     src/States/Game/StageLoadingState.cpp
     src/World/TileMap.cpp
     src/World/TileMapManager.cpp

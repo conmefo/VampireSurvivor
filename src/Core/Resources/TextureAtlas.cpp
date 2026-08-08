@@ -75,6 +75,18 @@ AssetTextureData TextureAtlas::GetTextureData(const std::string& assetId) const
     return { nullptr, sf::IntRect() };
 }
 
+bool TextureAtlas::GetRegionInfo(const std::string& assetId, std::string& outTextureId, sf::IntRect& outRect) const
+{
+    auto it = m_regions.find(assetId);
+    if (it != m_regions.end())
+    {
+        outTextureId = it->second.textureId;
+        outRect = it->second.rect;
+        return true;
+    }
+    return false;
+}
+
 sf::Sprite TextureAtlas::CreateSprite(const std::string& assetId) const
 {
     sf::Sprite sprite;
