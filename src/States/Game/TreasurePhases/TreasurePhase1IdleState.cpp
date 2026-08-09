@@ -54,21 +54,41 @@ void TreasurePhase1IdleState::OnEnter(TreasureRewardViewContext& ctx)
         m_arrowAnimator.SetOriginMode(AnimationOriginMode::CenterEachFrame);
     }
 
+    m_gBallFrames.clear();
+    for(int i = 1; i <= 5; ++i)
+    {
+        AssetTextureData data = ctx.atlas.GetTextureData("gBall0" + std::to_string(i));
+        if(data.texture)
+        {
+            m_gBallFrames.push_back(data);
+        }
+    }
+
     m_idleFrameIndex = 0;
     m_idleFrameTimer = 0.0f;
     m_idleDelayTimer = 0.0f;
     m_idleInPause = false;
 
+    // Start intro sequence: Phase 0 (Background frame rotate -180 deg left + scale 0 to 1)
+    m_introPhase = 0;
+    m_introTimer = 0.0f;
+
+    m_gBallIndex = 0;
+    m_gBallTimer = 0.0f;
+
+    m_openBtnIntroTimer = 0.0f;
+
     m_isExiting = false;
     m_exitTimer = 0.0f;
-    m_showArrows = true;
+    m_showArrows = false;
 
     UpdateLayout(ctx.viewSize, ctx.viewCenter, ctx);
 }
 
 void TreasurePhase1IdleState::HandleEvent(const sf::Event& event, const sf::RenderWindow* window, TreasureRewardViewContext& /*ctx*/)
 {
-    if(m_isExiting)
+    // Enable input ONLY after intro animation completes (m_introPhase == 3) and not exiting
+    if(m_introPhase < 3 || m_isExiting)
     {
         return;
     }
@@ -108,6 +128,82 @@ void TreasurePhase1IdleState::HandleEvent(const sf::Event& event, const sf::Rend
 
 void TreasurePhase1IdleState::Update(float dt, TreasureRewardViewContext& ctx)
 {
+    // Update Intro Sequence
+    if(m_introPhase == 0) // Background rotate -180 deg left + scale up
+    {
+        m_introTimer += dt;
+        float progress = std::clamp(m_introTimer / m_introDuration, 0.0f, 1.0f);
+        float smoothT = progress * progress * (3.0f - 2.0f * progress);
+
+        float bgRotation = -180.0f * (1.0f - smoothT); // -180 deg to 0 deg
+        float bgScale = smoothT;                      // 0.0 to 1.0
+
+        ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+        ctx.nineSliceBg.setPosition(ctx.viewCenter);
+        ctx.nineSliceBg.setRotation(bgRotation);
+        ctx.nineSliceBg.setScale(bgScale, bgScale);
+        ctx.nineSliceBg.Update();
+
+        if(m_introTimer >= m_introDuration)
+        {
+            m_introPhase = 1; // Advance to gBall film projector
+            m_gBallIndex = 0;
+            m_gBallTimer = 0.0f;
+        }
+        return;
+    }
+    else if(m_introPhase == 1) // gBall film projector (01..05, no loop)
+    {
+        ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+        ctx.nineSliceBg.setPosition(ctx.viewCenter);
+        ctx.nineSliceBg.setRotation(0.0f);
+        ctx.nineSliceBg.setScale(1.0f, 1.0f);
+        ctx.nineSliceBg.Update();
+
+        m_gBallTimer += dt;
+        if(m_gBallTimer >= m_gBallFrameDuration)
+        {
+            m_gBallTimer -= m_gBallFrameDuration;
+            m_gBallIndex++;
+            if(m_gBallIndex >= m_gBallFrames.size() || m_gBallIndex >= 5)
+            {
+                m_introPhase = 2; // Advance to OPEN button grow+rotate intro
+                m_openBtnIntroTimer = 0.0f;
+            }
+        }
+        return;
+    }
+    else if(m_introPhase == 2) // OPEN button grow + rotate intro
+    {
+        m_openBtnIntroTimer += dt;
+        float progress = std::clamp(m_openBtnIntroTimer / m_openBtnIntroDuration, 0.0f, 1.0f);
+        float smoothT = progress * progress * (3.0f - 2.0f * progress);
+
+        float btnRotation = -180.0f * (1.0f - smoothT); // -180 deg to 0 deg
+        float btnScale = smoothT;                       // 0.0 to 1.0
+
+        float scaleX = ctx.viewSize.x / 1920.0f;
+        float scaleY = ctx.viewSize.y / 1080.0f;
+        float btnW = m_config.buttonWidth * scaleX;
+        float btnH = m_config.buttonHeight * scaleY;
+        sf::Vector2f btnCenter(ctx.viewCenter.x, ctx.panelPos.y + m_config.buttonYOffset * scaleY);
+
+        m_openButtonBg.setOrigin(btnW * 0.5f, btnH * 0.5f);
+        m_openButtonBg.setPosition(btnCenter);
+        m_openButtonBg.setRotation(btnRotation);
+        m_openButtonBg.setScale(btnScale, btnScale);
+
+        m_openButtonText.setRotation(btnRotation);
+        m_openButtonText.setScale(btnScale, btnScale);
+
+        if(m_openBtnIntroTimer >= m_openBtnIntroDuration)
+        {
+            m_introPhase = 3; // Fully active!
+            m_showArrows = true;
+        }
+        return;
+    }
+
     if(m_isExiting)
     {
         m_exitTimer += dt;
@@ -193,7 +289,8 @@ void TreasurePhase1IdleState::UpdateLayout(const sf::Vector2f& viewSize, const s
     float panelCornerScale = 1.4f * scaleY;
     ctx.nineSliceBg.SetSize(ctx.panelSize);
     ctx.nineSliceBg.SetCornerScale(panelCornerScale);
-    ctx.nineSliceBg.setPosition(ctx.panelPos);
+    ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+    ctx.nineSliceBg.setPosition(viewCenter);
     ctx.nineSliceBg.Update();
 
     CenterText(m_titleText, viewCenter.x, ctx.panelPos.y + m_config.titleYOffset * scaleY);
@@ -204,8 +301,8 @@ void TreasurePhase1IdleState::UpdateLayout(const sf::Vector2f& viewSize, const s
     sf::Vector2f btnPos = btnCenter - sf::Vector2f(btnW * 0.5f, btnH * 0.5f);
 
     m_openButtonBg.SetSize(sf::Vector2f(btnW, btnH));
-    m_openButtonBg.setOrigin(0.0f, 0.0f);
-    m_openButtonBg.setPosition(btnPos);
+    m_openButtonBg.setOrigin(btnW * 0.5f, btnH * 0.5f);
+    m_openButtonBg.setPosition(btnCenter);
     m_openButtonBg.setRotation(0.0f);
     m_openButtonBg.setScale(1.0f, 1.0f);
     m_openButtonBg.Update();
@@ -225,29 +322,65 @@ void TreasurePhase1IdleState::UpdateLayout(const sf::Vector2f& viewSize, const s
 
 void TreasurePhase1IdleState::Draw(sf::RenderTarget& target, const TreasureRewardViewContext& ctx) const
 {
-    target.draw(m_titleText);
+    // Draw Title only after panel background intro phase completes (or during intro scaling)
+    if(m_introPhase > 0)
+    {
+        target.draw(m_titleText);
+    }
 
+    // Draw Chest
     if(!m_idleFrames.empty() && m_idleFrameIndex < m_idleFrames.size())
     {
         float scaleY = ctx.panelSize.y / 860.0f;
         ConfigureSprite(m_chestSprite, m_idleFrames[m_idleFrameIndex]);
 
-        // Recalculate position Y so bottom-center origin chest stays at the exact same screen location
         float chestBottomY = ctx.panelPos.y + (m_config.chestYOffset + 11.0f * m_config.chestScale) * scaleY;
         m_chestSprite.setPosition(ctx.viewCenter.x, chestBottomY);
-        m_chestSprite.setScale(m_config.chestScale * scaleY, m_config.chestScale * scaleY);
+
+        float chestScaleMultiplier = 1.0f;
+        if(m_introPhase == 0)
+        {
+            float progress = std::clamp(m_introTimer / m_introDuration, 0.0f, 1.0f);
+            chestScaleMultiplier = progress * progress * (3.0f - 2.0f * progress);
+        }
+
+        m_chestSprite.setScale(m_config.chestScale * scaleY * chestScaleMultiplier, m_config.chestScale * scaleY * chestScaleMultiplier);
         target.draw(m_chestSprite);
     }
 
-    // Draw OPEN button while scale > 0
-    if(!m_isExiting || m_exitTimer < m_config.buttonExitDuration)
+    // Draw gBall Film Projector (Phase 1: gBall01..gBall05, bottom origin, expanding scale)
+    if(m_introPhase == 1 && !m_gBallFrames.empty() && m_gBallIndex < m_gBallFrames.size())
+    {
+        float scaleY = ctx.panelSize.y / 860.0f;
+        const AssetTextureData& ballData = m_gBallFrames[m_gBallIndex];
+        if(ballData.texture && ballData.rect.width > 0 && ballData.rect.height > 0)
+        {
+            m_gBallSprite.setTexture(*ballData.texture, false);
+            m_gBallSprite.setTextureRect(ballData.rect);
+            // Bottom-center origin
+            m_gBallSprite.setOrigin(
+                static_cast<float>(ballData.rect.width) * 0.5f,
+                static_cast<float>(ballData.rect.height));
+
+            float chestBottomY = ctx.panelPos.y + (m_config.chestYOffset + 11.0f * m_config.chestScale) * scaleY;
+            float ballY = chestBottomY - 10.0f * scaleY; // Located middle (close) bottom of view/chest area
+            m_gBallSprite.setPosition(ctx.viewCenter.x, ballY);
+
+            float currentBallScale = (m_gBallIndex < m_gBallScales.size()) ? m_gBallScales[m_gBallIndex] : 1.0f;
+            m_gBallSprite.setScale(currentBallScale * scaleY, currentBallScale * scaleY);
+            target.draw(m_gBallSprite);
+        }
+    }
+
+    // Draw OPEN button during Phase 2 (intro grow+rotate), Phase 3 (idle), or while exiting
+    if(m_introPhase >= 2 && (!m_isExiting || m_exitTimer < m_config.buttonExitDuration))
     {
         target.draw(m_openButtonBg);
         target.draw(m_openButtonText);
     }
 
-    // Draw cursor arrows when not exiting
-    if(m_showArrows && !m_isExiting && m_leftArrow.getTexture() && m_rightArrow.getTexture())
+    // Draw cursor arrows when fully active and not exiting
+    if(m_introPhase == 3 && m_showArrows && !m_isExiting && m_leftArrow.getTexture() && m_rightArrow.getTexture())
     {
         target.draw(m_leftArrow);
         target.draw(m_rightArrow);

@@ -742,5 +742,26 @@
     {
       "seal": 1
     }
+  ],
+  "PET_PULSE": [
+    {
+      "level": 0,
+      "bulletType": "PET_PULSE",
+      "name": "Pulse Pet",
+      "description": "Summons a spirit pet that periodically emits a radial shockwave pushing enemies back. Higher ranks decrease cooldown.",
+      "texture": "items",
+      "frameName": "OrbGlow.png",
+      "isPowerUp": true,
+      "price": 500,
+      "petPulse": 1.0,
+      "unlockedRank": 1,
+      "active": true
+    },
+    {
+      "petPulse": 1.0
+    },
+    {
+      "petPulse": 1.0
+    }
   ]
 }

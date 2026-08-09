@@ -84,6 +84,7 @@ add_executable(VampireSurvivors
     src/Entities/VfxManager.cpp
     src/Entities/Particles/ParticleEmitter.cpp
     src/Entities/Particles/ParticleManager.cpp
+    src/Entities/Pets/PulsePet.cpp
     src/States/StateManager.cpp
     src/States/Menu/MainMenuState.cpp
     src/main.cpp

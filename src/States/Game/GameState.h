@@ -6,6 +6,7 @@
 #include "../../Entities/Player.h"
 #include "../../Entities/VfxManager.h"
 #include "../../Entities/Particles/ParticleManager.h"
+#include "../../Entities/Pets/PulsePet.h"
 #include "../../Entities/Pickups/ExperienceGemManager.h"
 #include "../../Entities/DamageNumberManager.h"
 #include "../../UI/GemTuningUI.h"
@@ -153,4 +154,5 @@ class GameState : public BaseState {
     WeaponFactory m_weaponFactory;
     LevelUpSessionController m_levelUpController;
     std::unique_ptr<SimpleTextLevelUpView> m_levelUpView;
+    std::unique_ptr<PulsePet> m_pulsePet;
 };

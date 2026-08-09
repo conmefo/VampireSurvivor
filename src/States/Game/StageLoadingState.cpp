@@ -44,12 +44,13 @@ void StageLoadingState::Init()
         }
     }
 
+    m_treasureAnimator.SetOriginMode(AnimationOriginMode::BottomCenterEachFrame);
     m_treasureAnimator.Play(&m_treasureAnimData);
 
     float vx = Core::VIRTUAL_WIDTH;
     float vy = Core::VIRTUAL_HEIGHT;
 
-    m_treasureSprite.setPosition(vx - 175.0f, vy - 140.0f);
+    m_treasureSprite.setPosition(vx - 123.4f, vy - 63.2f);
     m_treasureSprite.setScale(4.3f, 3.2f);
     
     sf::FloatRect bounds = m_loadingText.getLocalBounds();

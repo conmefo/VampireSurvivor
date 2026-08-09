@@ -84,22 +84,29 @@ void TreasurePhase2OpeningState::OnEnter(TreasureRewardViewContext& ctx)
     }
     m_rewardTimer = 0.0f;
 
-    // Determine target gold payout based on chest tier (1, 3, 5 items)
-    std::mt19937 targetRng(1337 + static_cast<unsigned int>(ctx.itemCount * 777 + ctx.viewCenter.x));
-    if(ctx.itemCount <= 1)
+    if(ctx.goldReward > 0)
     {
-        std::uniform_int_distribution<int> goldDist(100, 200);
-        m_targetGold = goldDist(targetRng);
-    }
-    else if(ctx.itemCount == 3)
-    {
-        std::uniform_int_distribution<int> goldDist(300, 600);
-        m_targetGold = goldDist(targetRng);
+        m_targetGold = ctx.goldReward;
     }
     else
     {
-        std::uniform_int_distribution<int> goldDist(500, 1000);
-        m_targetGold = goldDist(targetRng);
+        std::mt19937 targetRng(1337 + static_cast<unsigned int>(ctx.itemCount * 777 + ctx.viewCenter.x));
+        if(ctx.itemCount <= 1)
+        {
+            std::uniform_int_distribution<int> goldDist(100, 200);
+            m_targetGold = goldDist(targetRng);
+        }
+        else if(ctx.itemCount == 3)
+        {
+            std::uniform_int_distribution<int> goldDist(300, 600);
+            m_targetGold = goldDist(targetRng);
+        }
+        else
+        {
+            std::uniform_int_distribution<int> goldDist(500, 1000);
+            m_targetGold = goldDist(targetRng);
+        }
+        ctx.goldReward = m_targetGold;
     }
 
     m_currentGold = 0;
@@ -364,7 +371,10 @@ void TreasurePhase2OpeningState::UpdateLayout(const sf::Vector2f& viewSize, cons
     float panelCornerScale = 1.4f * scaleY;
     ctx.nineSliceBg.SetSize(ctx.panelSize);
     ctx.nineSliceBg.SetCornerScale(panelCornerScale);
-    ctx.nineSliceBg.setPosition(ctx.panelPos);
+    ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+    ctx.nineSliceBg.setPosition(viewCenter);
+    ctx.nineSliceBg.setRotation(0.0f);
+    ctx.nineSliceBg.setScale(1.0f, 1.0f);
     ctx.nineSliceBg.Update();
 
     // Calculate positions for per-reel PrizeBG cards (locked onto each reel's exact center ray line!)

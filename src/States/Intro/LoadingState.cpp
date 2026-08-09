@@ -68,14 +68,14 @@ void LoadingState::Init()
         }
     }
 
+    m_treasureAnimator.SetOriginMode(AnimationOriginMode::BottomCenterEachFrame);
     m_treasureAnimator.Play(&m_treasureAnimData);
 
-    // Positioning: Treasure in bottom-right
-    // Assume Virtual Bounds
+    // Positioning: Treasure in bottom-right with bottom-center origin
     float vx = Core::VIRTUAL_WIDTH;
     float vy = Core::VIRTUAL_HEIGHT;
 
-    m_treasureSprite.setPosition(vx - 175.0f, vy - 130.0f);
+    m_treasureSprite.setPosition(vx - 123.4f, vy - 53.2f);
     m_treasureSprite.setScale(4.3f, 3.2f);
 
     float textRightX = vx - 200.0f;

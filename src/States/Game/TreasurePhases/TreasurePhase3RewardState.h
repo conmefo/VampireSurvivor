@@ -110,6 +110,11 @@ private:
     mutable TreasureItemDetailCardWidget m_detailCardWidget;
     std::size_t m_currentCardIndex = 0;
 
+    // Exit transition animation state (when closing the treasure)
+    bool m_isExiting = false;
+    float m_exitTimer = 0.0f;
+    float m_exitDuration = 0.17f;
+
     mutable sf::Sprite m_chestSprite;
     mutable sf::Sprite m_chestFrontSprite;
     mutable sf::Sprite m_prizeBgSprite;

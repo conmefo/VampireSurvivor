@@ -68,6 +68,24 @@ private:
     float m_idleDelayTimer = 0.0f;
     bool m_idleInPause = false;
 
+    // Intro animation state
+    // Phase 0: Panel background rotate 180 deg left (-180 -> 0) + scale up (0 -> 1)
+    // Phase 1: gBall film projector (gBall01..05 sequence, bottom origin, expanding scale)
+    // Phase 2: OPEN button grow + rotate intro (-180 -> 0)
+    // Phase 3: Fully active / Idle
+    int m_introPhase = 0;
+    float m_introTimer = 0.0f;
+    float m_introDuration = 0.10f;
+
+    std::vector<AssetTextureData> m_gBallFrames;
+    std::size_t m_gBallIndex = 0;
+    float m_gBallTimer = 0.0f;
+    float m_gBallFrameDuration = 0.06f;
+    std::vector<float> m_gBallScales = {1.8f, 2.2f, 3.5f, 5.0f, 7.0f};
+
+    float m_openBtnIntroTimer = 0.0f;
+    float m_openBtnIntroDuration = 0.20f;
+
     // Exit transition animation state
     bool m_isExiting = false;
     float m_exitTimer = 0.0f;
@@ -78,4 +96,5 @@ private:
     mutable sf::Sprite m_leftArrow;
     mutable sf::Sprite m_rightArrow;
     mutable sf::Sprite m_chestSprite;
+    mutable sf::Sprite m_gBallSprite;
 };

@@ -172,6 +172,12 @@ void GameState::Init() {
         m_player->GetWeaponInventory().SetFactory(&m_weaponFactory);
         m_player->ApplyGlobalBuffs(m_context.progressionData, m_context.powerUpData);
 
+        int pulsePetLevel = m_context.progressionData.GetPowerUpLevel("PET_PULSE");
+        if (pulsePetLevel >= 1)
+        {
+            m_pulsePet = std::make_unique<PulsePet>(m_context.atlas, pulsePetLevel);
+        }
+
         m_player->SetOnHitVfxCallback([this](const std::string& vfxName, sf::Vector2f pos) {
             const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(vfxName);
             if(vfxProfile.GetId() != -1) {
@@ -647,6 +653,11 @@ void GameState::Update(float dt) {
         if (m_playerHUD) {
             m_playerHUD->Update(dt);
         }
+
+        if (m_pulsePet)
+        {
+            m_pulsePet->Update(dt, *m_player, m_enemyPool);
+        }
     }
     UpdateStageTimer(dt);
     if(m_runState != RunState::Playing)
@@ -808,6 +819,11 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_particleManager.Draw(window);
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
+
+    if (m_pulsePet)
+    {
+        m_pulsePet->Draw(window);
+    }
     if(m_treasureChests)
     {
         m_treasureChests->Draw(window);

@@ -126,6 +126,10 @@ void SpriteAnimator::ApplyFrame(sf::Sprite& targetSprite)
             const auto& f0 = m_currentAnim->frames[0];
             targetSprite.setOrigin(f0.rect.width / 2.0f, f0.rect.height / 2.0f);
         }
+        else if (m_originMode == AnimationOriginMode::BottomCenterEachFrame)
+        {
+            targetSprite.setOrigin(frameData.rect.width / 2.0f, static_cast<float>(frameData.rect.height));
+        }
     }
 }
 

@@ -76,6 +76,11 @@ void PowerUpCard::InjectData(const PowerUpData& data)
     
     if(data.iconRect.width > 0 && data.iconRect.height > 0)
     {
+        AssetTextureData iconTexData = m_atlas.GetTextureData(data.textureId);
+        if (iconTexData.texture)
+        {
+            m_iconSprite.setTexture(*iconTexData.texture);
+        }
         m_iconSprite.setTextureRect(data.iconRect);
         m_iconSprite.setOrigin(data.iconRect.width / 2.0f, data.iconRect.height / 2.0f);
         m_iconBaseScale = sf::Vector2f(35.0f / data.iconRect.width, 35.0f / data.iconRect.height);

@@ -100,7 +100,7 @@ void TreasurePhase3RewardState::OnEnter(TreasureRewardViewContext& ctx)
 
 void TreasurePhase3RewardState::HandleEvent(const sf::Event& event, const sf::RenderWindow* window, TreasureRewardViewContext& ctx)
 {
-    if(!m_doneButtonActive)
+    if(!m_doneButtonActive || m_isExiting)
     {
         return;
     }
@@ -137,15 +137,43 @@ void TreasurePhase3RewardState::HandleEvent(const sf::Event& event, const sf::Re
         {
             m_detailCardWidget.StartShrink();
         }
-        else if(m_currentCardIndex + 1 >= m_prizeCards.size() && (m_detailCardWidget.IsShrinking() || m_detailCardWidget.IsHidden()))
+
+        // If on the last card, start exit transition sequence!
+        if(m_currentCardIndex + 1 >= m_prizeCards.size())
         {
-            if(ctx.finish) ctx.finish();
+            m_isExiting = true;
+            m_exitTimer = 0.0f;
         }
     }
 }
 
 void TreasurePhase3RewardState::Update(float dt, TreasureRewardViewContext& ctx)
 {
+    if(m_isExiting)
+    {
+        m_exitTimer += dt;
+        float progress = std::clamp(m_exitTimer / m_exitDuration, 0.0f, 1.0f);
+        float smoothProgress = progress * progress * (3.0f - 2.0f * progress);
+
+        // Big background frame: rotate 180 degrees to the right (+180 deg) + scale down to 0
+        float bgRotation = 180.0f * smoothProgress;
+        float bgScale = 1.0f - smoothProgress;
+
+        ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+        ctx.nineSliceBg.setPosition(ctx.viewCenter);
+        ctx.nineSliceBg.setRotation(bgRotation);
+        ctx.nineSliceBg.setScale(bgScale, bgScale);
+        ctx.nineSliceBg.Update();
+
+        m_detailCardWidget.Update(dt);
+
+        if(m_exitTimer >= m_exitDuration)
+        {
+            if(ctx.finish) ctx.finish();
+        }
+        return;
+    }
+
     m_phaseTimer += dt;
 
     // Update per-reel Prize Cards pop & VFX timers
@@ -199,9 +227,10 @@ void TreasurePhase3RewardState::Update(float dt, TreasureRewardViewContext& ctx)
             m_detailCardWidget.SetCardInfo(m_prizeCards[m_currentCardIndex].rewardData, static_cast<int>(m_currentCardIndex), static_cast<int>(m_prizeCards.size()), ctx.atlas);
             m_detailCardWidget.StartGrow();
         }
-        else
+        else if(!m_isExiting)
         {
-            if(ctx.finish) ctx.finish();
+            m_isExiting = true;
+            m_exitTimer = 0.0f;
         }
     }
 
@@ -228,6 +257,18 @@ void TreasurePhase3RewardState::UpdateLayout(const sf::Vector2f& viewSize, const
     ctx.viewCenter = viewCenter;
     ctx.panelSize = sf::Vector2f(640.0f * scaleX, 860.0f * scaleY);
     ctx.panelPos = viewCenter - ctx.panelSize / 2.0f;
+
+    float panelCornerScale = 1.4f * scaleY;
+    ctx.nineSliceBg.SetSize(ctx.panelSize);
+    ctx.nineSliceBg.SetCornerScale(panelCornerScale);
+    if(!m_isExiting)
+    {
+        ctx.nineSliceBg.setOrigin(ctx.panelSize.x * 0.5f, ctx.panelSize.y * 0.5f);
+        ctx.nineSliceBg.setPosition(viewCenter);
+        ctx.nineSliceBg.setRotation(0.0f);
+        ctx.nineSliceBg.setScale(1.0f, 1.0f);
+    }
+    ctx.nineSliceBg.Update();
 
     // Calculate positions for per-reel PrizeBG cards (locked onto each reel's exact center ray line!)
     int beamCount = std::max(1, ctx.itemCount);
@@ -382,12 +423,22 @@ void TreasurePhase3RewardState::Draw(sf::RenderTarget& target, const TreasureRew
         }
     }
 
+    float exitScaleMultiplier = 1.0f;
+    float doneExitRotation = 0.0f;
+    if(m_isExiting)
+    {
+        float progress = std::clamp(m_exitTimer / m_exitDuration, 0.0f, 1.0f);
+        float smoothProgress = progress * progress * (3.0f - 2.0f * progress);
+        exitScaleMultiplier = 1.0f - smoothProgress;
+        doneExitRotation = 180.0f * smoothProgress; // Rotate 180 deg to the right!
+    }
+
     // 3. Draw Per-Reel PrizeBG Cards (rendered statically at full size since pop animation played in Phase 2)
     if(m_prizeBgData.texture)
     {
         for(const auto& card : m_prizeCards)
         {
-            float cardScaleCurrent = m_config.cardConfig.cardScale * scaleY;
+            float cardScaleCurrent = m_config.cardConfig.cardScale * scaleY * exitScaleMultiplier;
 
             ConfigureSprite(m_prizeBgSprite, m_prizeBgData);
             m_prizeBgSprite.setPosition(card.position);
@@ -430,17 +481,28 @@ void TreasurePhase3RewardState::Draw(sf::RenderTarget& target, const TreasureRew
     {
         ConfigureSprite(m_chestFrontSprite, m_chestOpenFrontFrame);
         m_chestFrontSprite.setPosition(ctx.viewCenter.x, chestBottomY);
-        m_chestFrontSprite.setScale(m_config.chestScale * scaleY, m_config.chestScale * scaleY);
+        m_chestFrontSprite.setScale(m_config.chestScale * scaleY * exitScaleMultiplier, m_config.chestScale * scaleY * exitScaleMultiplier);
         target.draw(m_chestFrontSprite);
     }
 
-    // 6. Draw "DONE" Button with Appear Effect (rotate + scale UP - reverse of OPEN button exit animation)
+    // 6. Draw "DONE" Button with Appear / Exit Effect
     if(m_doneButtonActive)
     {
-        float t = std::clamp(m_doneAppearTimer / m_config.doneAppearDuration, 0.0f, 1.0f);
-        float smoothT = t * t * (3.0f - 2.0f * t); // Smoothstep curve
-        float scale = smoothT;
-        float angle = (1.0f - smoothT) * -180.0f;
+        float scale = 1.0f;
+        float angle = 0.0f;
+
+        if(m_isExiting)
+        {
+            scale = exitScaleMultiplier;
+            angle = doneExitRotation; // Rotate 180 deg to right + scale down
+        }
+        else
+        {
+            float t = std::clamp(m_doneAppearTimer / m_config.doneAppearDuration, 0.0f, 1.0f);
+            float smoothT = t * t * (3.0f - 2.0f * t); // Smoothstep curve
+            scale = smoothT;
+            angle = (1.0f - smoothT) * -180.0f;
+        }
 
         if(scale > 0.0f)
         {
@@ -456,7 +518,7 @@ void TreasurePhase3RewardState::Draw(sf::RenderTarget& target, const TreasureRew
             m_doneButtonText.setScale(scale, scale);
             target.draw(m_doneButtonText);
 
-            if(m_leftArrow.getTexture() && m_rightArrow.getTexture())
+            if(!m_isExiting && m_leftArrow.getTexture() && m_rightArrow.getTexture())
             {
                 m_leftArrow.setRotation(angle);
                 m_leftArrow.setScale(m_config.arrowScale * scaleY * scale, m_config.arrowScale * scaleY * scale);

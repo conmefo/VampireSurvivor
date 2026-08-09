@@ -8,7 +8,8 @@ enum class AnimationOriginMode
 {
     KeepExisting,         // Preserve target sprite's origin set by calling entity/view (Default)
     CenterEachFrame,      // Recalculate (width/2, height/2) on every frame step
-    FixedFirstFrameCenter // Lock origin to frame 0's center (width/2, height/2)
+    FixedFirstFrameCenter, // Lock origin to frame 0's center (width/2, height/2)
+    BottomCenterEachFrame  // Recalculate (width/2, height) on every frame step
 };
 
 class SpriteAnimator
