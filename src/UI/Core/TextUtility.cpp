@@ -1,23 +1,25 @@
 #include "TextUtility.h"
+#include <SFML/System/String.hpp>
 
 namespace UI
 {
     void TextUtility::WrapText(sf::Text& text, float maxWidth)
     {
-        std::string sourceStr = text.getString().toAnsiString();
-        std::string resultStr = "";
-        std::string currentLine = "";
-        std::string word = "";
+        sf::String sourceStr = text.getString();
+        sf::String resultStr;
+        sf::String currentLine;
+        sf::String word;
 
-        for(char c : sourceStr)
+        for (std::size_t i = 0; i < sourceStr.getSize(); ++i)
         {
-            if(c == ' ' || c == '\n')
+            sf::Uint32 c = sourceStr[i];
+            if (c == ' ' || c == '\n')
             {
-                if(!word.empty())
+                if (!word.isEmpty())
                 {
-                    std::string testLine = currentLine.empty() ? word : currentLine + " " + word;
+                    sf::String testLine = currentLine.isEmpty() ? word : currentLine + " " + word;
                     text.setString(testLine);
-                    if(text.getLocalBounds().width > maxWidth)
+                    if (text.getLocalBounds().width > maxWidth)
                     {
                         resultStr += currentLine + "\n";
                         currentLine = word;
@@ -26,12 +28,12 @@ namespace UI
                     {
                         currentLine = testLine;
                     }
-                    word = "";
+                    word.clear();
                 }
-                if(c == '\n')
+                if (c == '\n')
                 {
                     resultStr += currentLine + "\n";
-                    currentLine = "";
+                    currentLine.clear();
                 }
             }
             else
@@ -40,11 +42,11 @@ namespace UI
             }
         }
 
-        if(!word.empty())
+        if (!word.isEmpty())
         {
-            std::string testLine = currentLine.empty() ? word : currentLine + " " + word;
+            sf::String testLine = currentLine.isEmpty() ? word : currentLine + " " + word;
             text.setString(testLine);
-            if(text.getLocalBounds().width > maxWidth)
+            if (text.getLocalBounds().width > maxWidth)
             {
                 resultStr += currentLine + "\n";
                 currentLine = word;

@@ -32,6 +32,10 @@ struct StageInfo
     std::string stageKey;
     std::string stageName;
     std::string stageNumber;
+    std::string description;
+    std::string uiFrame;
+    int order = 99999;
+    bool unlocked = true;
     int timeLimitSeconds = 1800;
     float clockSpeed = 1.0f;
     float xpBonus = 1.0f;
@@ -46,6 +50,7 @@ public:
 
     const std::vector<StageWaveDefinition>* GetStageWaves(const std::string& stageKey) const;
     const StageInfo* GetStageInfo(const std::string& stageKey) const;
+    std::vector<StageInfo> GetOrderedStageInfos() const;
 
 private:
     std::unordered_map<std::string, std::vector<StageWaveDefinition>> m_stageWaves;

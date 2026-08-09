@@ -92,6 +92,9 @@ add_executable(VampireSurvivors
     src/States/Intro/WarningState.cpp
     src/States/Menu/PowerUpState.cpp
     src/States/Menu/CharacterSelectionScreen.cpp
+    src/States/Menu/StageSelectionScreen.cpp
+    src/UI/Elements/StageItemWidget.cpp
+    src/UI/Views/StageSelectionView.cpp
     src/States/Game/GameState.cpp
     src/States/Game/PauseMenuView.cpp
     src/States/Game/GameOverView.cpp

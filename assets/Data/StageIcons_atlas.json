@@ -1,0 +1,194 @@
+{
+    "stage_astralstair": {
+        "x": 1,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_batcountry": {
+        "x": 159,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_bone": {
+        "x": 317,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_bridge": {
+        "x": 475,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_BufoonSchool": {
+        "x": 633,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_carlocart": {
+        "x": 791,
+        "y": 927,
+        "width": 156,
+        "height": 96
+    },
+    "stage_chalcedony": {
+        "x": 1,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_chapel": {
+        "x": 159,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_cityjungle": {
+        "x": 317,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_EmeraldDiorama": {
+        "x": 475,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_forest": {
+        "x": 633,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_foscari": {
+        "x": 791,
+        "y": 829,
+        "width": 156,
+        "height": 96
+    },
+    "stage_foscari2": {
+        "x": 1,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_green": {
+        "x": 1,
+        "y": 633,
+        "width": 156,
+        "height": 96
+    },
+    "stage_highway": {
+        "x": 1,
+        "y": 535,
+        "width": 156,
+        "height": 96
+    },
+    "stage_kagero": {
+        "x": 1,
+        "y": 437,
+        "width": 156,
+        "height": 96
+    },
+    "stage_laborratory": {
+        "x": 1,
+        "y": 339,
+        "width": 156,
+        "height": 96
+    },
+    "stage_library": {
+        "x": 1,
+        "y": 241,
+        "width": 156,
+        "height": 96
+    },
+    "stage_machine": {
+        "x": 1,
+        "y": 143,
+        "width": 156,
+        "height": 96
+    },
+    "stage_mazerella": {
+        "x": 1,
+        "y": 45,
+        "width": 156,
+        "height": 96
+    },
+    "stage_molise": {
+        "x": 159,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_moonspell": {
+        "x": 317,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_odetocastlevania": {
+        "x": 475,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_plant": {
+        "x": 633,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_rash": {
+        "x": 791,
+        "y": 731,
+        "width": 156,
+        "height": 96
+    },
+    "stage_spazie": {
+        "x": 159,
+        "y": 633,
+        "width": 156,
+        "height": 96
+    },
+    "stage_thecoop": {
+        "x": 159,
+        "y": 535,
+        "width": 156,
+        "height": 96
+    },
+    "stage_tower": {
+        "x": 159,
+        "y": 437,
+        "width": 156,
+        "height": 96
+    },
+    "stage_water": {
+        "x": 159,
+        "y": 339,
+        "width": 156,
+        "height": 96
+    },
+    "stage_westwoods": {
+        "x": 159,
+        "y": 241,
+        "width": 156,
+        "height": 96
+    },
+    "stage_whiteout": {
+        "x": 159,
+        "y": 143,
+        "width": 156,
+        "height": 96
+    },
+    "stage_x": {
+        "x": 159,
+        "y": 45,
+        "width": 156,
+        "height": 96
+    }
+}

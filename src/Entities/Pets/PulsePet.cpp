@@ -1,4 +1,6 @@
 #include "PulsePet.h"
+#include "../DamageNumberManager.h"
+#include "../Pickups/ExperienceGemManager.h"
 #include <cmath>
 #include <algorithm>
 #include <iostream>
@@ -26,7 +28,7 @@ PulsePet::PulsePet(TextureAtlas& atlas, int level, PulsePetConfig config)
     }
 }
 
-void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool)
+void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems)
 {
     // --- 1. Film Projector Frame Animation ---
     m_frameTimer += dt;
@@ -105,10 +107,10 @@ void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool)
 
         if (m_ringTimer >= m_config.scaleUpDuration)
         {
-            // Reached peak scale - start fading down AND trigger knockback at this exact moment!
+            // Reached peak scale - start fading down AND trigger knockback/damage at this exact moment!
             m_shockwaveState = ShockwaveState::Fading;
             m_ringTimer = 0.0f;
-            TriggerShockwave(enemyPool);
+            TriggerShockwave(enemyPool, damageNumbers, experienceGems);
         }
     }
     else if (m_shockwaveState == ShockwaveState::Fading)
@@ -132,7 +134,7 @@ void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool)
     }
 }
 
-void PulsePet::TriggerShockwave(EnemyPool& enemyPool)
+void PulsePet::TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems)
 {
     float baseWidth = (m_ringTextureData.rect.width > 0) ? static_cast<float>(m_ringTextureData.rect.width) : 32.0f;
     float ringRadius = (baseWidth / 2.0f) * m_config.targetRingScale;
@@ -141,16 +143,33 @@ void PulsePet::TriggerShockwave(EnemyPool& enemyPool)
     std::vector<EnemyBase*> activeEnemies = enemyPool.GetActiveEnemies();
     for (EnemyBase* enemy : activeEnemies)
     {
-        if (!enemy || !enemy->IsActive()) continue;
+        if (!enemy || !enemy->IsActive() || !enemy->IsAlive()) continue;
 
         sf::Vector2f enemyPos = enemy->GetPosition();
         sf::Vector2f diff = enemyPos - currentRingCenter;
         float distance = std::sqrt(diff.x * diff.x + diff.y * diff.y);
 
-        // Only enemies inside the radius of the ring at the moment it starts fading out get knocked back
+        // Only enemies inside the radius of the ring at peak moment get damaged and knocked back
         if (distance <= ringRadius)
         {
             sf::Vector2f knockbackDir = (distance > 0.001f) ? (diff / distance) : sf::Vector2f(1.0f, 0.0f);
+
+            // Deal shockwave damage
+            if (m_config.damage > 0.0f)
+            {
+                bool killed = enemy->TakeDamage(m_config.damage, knockbackDir);
+
+                if (damageNumbers)
+                {
+                    damageNumbers->Spawn(m_config.damage, enemyPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
+                }
+                if (killed && experienceGems)
+                {
+                    experienceGems->Spawn(enemyPos, enemy->GetExpYield());
+                }
+            }
+
+            // Apply knockback
             enemy->ApplyKnockback(knockbackDir * m_config.knockbackForce);
         }
     }

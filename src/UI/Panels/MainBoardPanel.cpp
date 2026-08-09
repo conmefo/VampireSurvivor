@@ -22,6 +22,20 @@ MainBoardPanel::MainBoardPanel(TextureAtlas& atlas, const sf::Font& font, const 
 
 MainBoardPanel::~MainBoardPanel() = default;
 
+void MainBoardPanel::SetTitle(const std::string& title)
+{
+    m_titleText.setString(title);
+    sf::FloatRect bounds = m_titleText.getLocalBounds();
+    m_titleText.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+    m_titleText.setPosition(m_position.x + m_size.x / 2.0f, m_position.y + PADDING_Y + TITLE_HEIGHT / 2.0f);
+}
+
+void MainBoardPanel::SetShowDetailPanel(bool show)
+{
+    m_showDetailPanel = show;
+    InitializeLayout(m_size);
+}
+
 void MainBoardPanel::InitializeLayout(const sf::Vector2f& size)
 {
     SetSize(size);
@@ -31,7 +45,9 @@ void MainBoardPanel::InitializeLayout(const sf::Vector2f& size)
     m_titleText.setPosition(m_position.x + size.x / 2.0f, m_position.y + PADDING_Y + TITLE_HEIGHT / 2.0f);
 
     float rosterY = m_position.y + PADDING_Y + TITLE_HEIGHT + INNER_SPACING;
-    float rosterHeight = size.y - PADDING_Y * 2.0f - TITLE_HEIGHT - INNER_SPACING * 2.0f - DETAIL_HEIGHT;
+    float currentDetailHeight = m_showDetailPanel ? DETAIL_HEIGHT : 0.0f;
+    float innerSpacingTotal = m_showDetailPanel ? (INNER_SPACING * 2.0f) : INNER_SPACING;
+    float rosterHeight = size.y - PADDING_Y * 2.0f - TITLE_HEIGHT - innerSpacingTotal - currentDetailHeight;
     
     if(m_scrollView)
     {
@@ -46,9 +62,9 @@ void MainBoardPanel::InitializeLayout(const sf::Vector2f& size)
         }
     }
 
-    float detailY = rosterY + rosterHeight + INNER_SPACING;
-    if(m_detailPanel)
+    if(m_showDetailPanel && m_detailPanel)
     {
+        float detailY = rosterY + rosterHeight + INNER_SPACING;
         m_detailPanel->SetPosition(sf::Vector2f(m_position.x + PADDING_X, detailY));
         m_detailPanel->SetSize(sf::Vector2f(size.x - PADDING_X * 2.0f, DETAIL_HEIGHT));
     }
@@ -67,7 +83,7 @@ void MainBoardPanel::Update(float deltaTime)
     {
         m_scrollView->Update(deltaTime);
     }
-    if(m_detailPanel)
+    if(m_showDetailPanel && m_detailPanel)
     {
         m_detailPanel->Update(deltaTime);
     }
@@ -80,7 +96,7 @@ void MainBoardPanel::HandleEvent(const sf::Event& event, const sf::RenderWindow&
     {
         m_scrollView->HandleEvent(event, window);
     }
-    if(m_detailPanel)
+    if(m_showDetailPanel && m_detailPanel)
     {
         m_detailPanel->HandleEvent(event, window);
     }
@@ -95,7 +111,7 @@ void MainBoardPanel::Draw(sf::RenderTarget& target)
     {
         m_scrollView->Draw(target);
     }
-    if(m_detailPanel)
+    if(m_showDetailPanel && m_detailPanel)
     {
         m_detailPanel->Draw(target);
     }

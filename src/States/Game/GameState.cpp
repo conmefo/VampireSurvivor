@@ -656,7 +656,7 @@ void GameState::Update(float dt) {
 
         if (m_pulsePet)
         {
-            m_pulsePet->Update(dt, *m_player, m_enemyPool);
+            m_pulsePet->Update(dt, *m_player, m_enemyPool, &m_damageNumbers, &m_experienceGems);
         }
     }
     UpdateStageTimer(dt);

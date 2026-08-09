@@ -1,4 +1,5 @@
 #include "CharacterSelectionScreen.h"
+#include "StageSelectionScreen.h"
 #include "../Game/GameState.h"
 #include "../Game/StageLoadingState.h"
 #include "../StateManager.h"
@@ -36,15 +37,11 @@ void CharacterSelectionScreen::Init()
         m_view->SetOnConfirmClicked([this](const std::vector<std::string>& characterIds)
         {
             if (characterIds.empty()) return;
-            std::cout << "Starting game with characters: ";
+            std::cout << "Transitioning to stage selection with characters: ";
             for (const auto& id : characterIds) std::cout << id << " ";
             std::cout << std::endl;
             
-            m_context.stateManager.PopState(); // Pop CharacterSelectionScreen
-            m_context.stateManager.PopState(); // Pop MainMenuState
-            
-            // Hardcode stage 1 for now, as StageSelectionState is future scope
-            m_context.stateManager.AddState(std::make_unique<StageLoadingState>(m_context, m_mapManager, characterIds.front(), 1));
+            m_context.stateManager.AddState(std::make_unique<StageSelectionScreen>(m_context, m_mapManager, characterIds));
         });
 
         for (int i = 0; i < 3; ++i) {

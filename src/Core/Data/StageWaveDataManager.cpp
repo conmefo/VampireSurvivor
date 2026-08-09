@@ -95,12 +95,22 @@ std::vector<StageWaveEvent> ReadEvents(const nlohmann::json& waveJson)
     return events;
 }
 
+#include <algorithm>
+
 StageInfo ReadStageInfo(const std::string& stageKey, const nlohmann::json& stageJson)
 {
     StageInfo info;
     info.stageKey = stageKey;
+    info.order = ReadIntField(stageJson, "order", 99999);
     info.stageName = ReadStringField(stageJson, "stageName", stageKey);
     info.stageNumber = ReadStringField(stageJson, "stageNumber", "");
+    info.description = ReadStringField(stageJson, "description", "");
+    info.uiFrame = ReadStringField(stageJson, "uiFrame", "");
+
+    if (stageJson.contains("unlocked") && stageJson["unlocked"].is_boolean())
+    {
+        info.unlocked = stageJson["unlocked"].get<bool>();
+    }
 
     if(stageJson.contains("mods") && stageJson["mods"].is_object())
     {
@@ -201,4 +211,17 @@ const StageInfo* StageWaveDataManager::GetStageInfo(const std::string& stageKey)
     }
 
     return &it->second;
+}
+
+std::vector<StageInfo> StageWaveDataManager::GetOrderedStageInfos() const
+{
+    std::vector<StageInfo> list;
+    for (const auto& pair : m_stageInfo)
+    {
+        list.push_back(pair.second);
+    }
+    std::sort(list.begin(), list.end(), [](const StageInfo& a, const StageInfo& b) {
+        return a.order < b.order;
+    });
+    return list;
 }

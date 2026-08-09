@@ -18,6 +18,7 @@ private:
     RosterGridPanel* m_rosterGridRaw;
     std::unique_ptr<DetailPanel> m_detailPanel;
     sf::Text m_titleText;
+    bool m_showDetailPanel = true;
 
     static constexpr float PADDING_X = 20.0f;
     static constexpr float PADDING_Y = 20.0f;
@@ -30,6 +31,10 @@ public:
     ~MainBoardPanel() override;
 
     void InitializeLayout(const sf::Vector2f& size);
+
+    void SetTitle(const std::string& title);
+
+    void SetShowDetailPanel(bool show);
 
     RosterGridPanel* GetRosterGrid() const { return m_rosterGridRaw; }
     DetailPanel* GetDetailPanel() const { return m_detailPanel.get(); }

@@ -30,8 +30,12 @@ struct PulsePetConfig
     uint8_t ringMaxOpacity = 53;          // Max alpha/opacity of rings3 sprite (0-255)
 
     // --- Shockwave Mechanics ---
+    float damage = 10.0f;                  // Damage dealt to enemies inside ring at peak moment (8-12 HP)
     float knockbackForce = 400.0f;         // Push force applied to enemies inside ring at peak moment
 };
+
+class DamageNumberManager;
+class ExperienceGemManager;
 
 class PulsePet
 {
@@ -39,7 +43,7 @@ public:
     PulsePet(TextureAtlas& atlas, int level = 1, PulsePetConfig config = PulsePetConfig());
     ~PulsePet() = default;
 
-    void Update(float dt, const Player& player, EnemyPool& enemyPool);
+    void Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers = nullptr, ExperienceGemManager* experienceGems = nullptr);
     void Draw(sf::RenderTarget& target);
 
     // Getters / Setters for live tweaking
@@ -79,5 +83,5 @@ private:
     sf::Sprite m_ringSprite;
     AssetTextureData m_ringTextureData{nullptr, sf::IntRect()};
 
-    void TriggerShockwave(EnemyPool& enemyPool);
+    void TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems);
 };
