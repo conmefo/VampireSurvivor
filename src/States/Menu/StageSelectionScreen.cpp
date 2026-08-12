@@ -35,13 +35,11 @@ void StageSelectionScreen::Init()
             else if (stage.stageKey == "WAREHOUSE") stageId = 3;
             else stageId = 1;
 
-            std::string firstChar = m_selectedCharacterIds.empty() ? " Antonio" : m_selectedCharacterIds.front();
-
             m_context.stateManager.PopState(); // Pop StageSelectionScreen
             m_context.stateManager.PopState(); // Pop CharacterSelectionScreen
             m_context.stateManager.PopState(); // Pop MainMenuState
 
-            m_context.stateManager.AddState(std::make_unique<StageLoadingState>(m_context, m_mapManager, firstChar, stageId));
+            m_context.stateManager.AddState(std::make_unique<StageLoadingState>(m_context, m_mapManager, m_selectedCharacterIds, stageId));
         });
 
         // Composite background matching character selection screen

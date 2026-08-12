@@ -43,9 +43,10 @@ namespace
     }
 }
 
-Player::Player(const CharacterProfile& profile, const sf::Texture& texture, const std::vector<sf::IntRect>& frames)
+Player::Player(const CharacterProfile& profile, const sf::Texture& texture, const std::vector<sf::IntRect>& frames, int playerIndex)
     : m_animator(m_sprite),
-      m_moveSpeedMultiplier(profile.GetStat("moveSpeed"))
+      m_moveSpeedMultiplier(profile.GetStat("moveSpeed")),
+      m_playerIndex(playerIndex)
 {
     m_sprite.setTexture(texture);
     if(!frames.empty())
@@ -127,23 +128,71 @@ void Player::Update(float dt)
 
     sf::Vector2f direction(0.0f, 0.0f);
 
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+    if(!m_isMultiplayer)
     {
-        direction.y -= 1.0f;
+        // Single Player mode: allow both WASD and Arrow keys
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W) || sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            direction.y -= 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            direction.y += 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            direction.x -= 1.0f;
+            m_sprite.setScale(-m_baseScaleX, m_baseScaleY);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            direction.x += 1.0f;
+            m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+        }
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::S) || sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+    else if(m_playerIndex == 0)
     {
-        direction.y += 1.0f;
+        // Multiplayer P1: WASD controls
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::W))
+        {
+            direction.y -= 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::S))
+        {
+            direction.y += 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+        {
+            direction.x -= 1.0f;
+            m_sprite.setScale(-m_baseScaleX, m_baseScaleY);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+        {
+            direction.x += 1.0f;
+            m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+        }
     }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+    else
     {
-        direction.x -= 1.0f;
-        m_sprite.setScale(-m_baseScaleX, m_baseScaleY); // Flip sprite left
-    }
-    if(sf::Keyboard::isKeyPressed(sf::Keyboard::D) || sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
-    {
-        direction.x += 1.0f;
-        m_sprite.setScale(m_baseScaleX, m_baseScaleY); // Flip sprite right
+        // Multiplayer P2: Arrow key controls
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up))
+        {
+            direction.y -= 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down))
+        {
+            direction.y += 1.0f;
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left))
+        {
+            direction.x -= 1.0f;
+            m_sprite.setScale(-m_baseScaleX, m_baseScaleY);
+        }
+        if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right))
+        {
+            direction.x += 1.0f;
+            m_sprite.setScale(m_baseScaleX, m_baseScaleY);
+        }
     }
 
     float length = std::sqrt(direction.x * direction.x + direction.y * direction.y);

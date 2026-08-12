@@ -13,7 +13,7 @@ std::vector<LevelUpOption> LevelUpInventoryFilter::GetAvailableOptions(
 
     const auto& allWeapons = weaponData.GetAllWeapons();
     const int currentWeaponCount = static_cast<int>(inventory.GetWeapons().size());
-    constexpr int MAX_WEAPONS = 6;
+    const int maxWeapons = inventory.GetMaxSlots();
 
     for (const auto& [id, profile] : allWeapons)
     {
@@ -48,7 +48,7 @@ std::vector<LevelUpOption> LevelUpInventoryFilter::GetAvailableOptions(
         }
         else
         {
-            if (currentWeaponCount < MAX_WEAPONS)
+            if (currentWeaponCount < maxWeapons)
             {
                 LevelUpOption opt;
                 opt.id = id;

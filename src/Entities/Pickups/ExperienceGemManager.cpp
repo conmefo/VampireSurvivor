@@ -1,7 +1,9 @@
 #include "ExperienceGemManager.h"
+#include "../Player.h"
 
 #include <algorithm>
 #include <cmath>
+#include <limits>
 #include <random>
 
 namespace
@@ -148,27 +150,44 @@ void ExperienceGemManager::SpawnRandomInRadius(const sf::Vector2f& centerPositio
     }
 }
 
-void ExperienceGemManager::Update(float dt, Player& player)
+void ExperienceGemManager::Update(float dt, const std::vector<std::unique_ptr<Player>>& players)
 {
-    const sf::Vector2f playerCenter = player.GetCenterPosition();
-    const float collectDistance = player.GetCollisionRadius() + CollectRadius;
-
-    // Effective magnet radius = BaseMagnetRadius * PlayerMultiplier * UITuningMultiplier.
-    // GetMagnetRadius() already encodes (BaseMagnet * PlayerMultiplier), so we only apply
-    // m_magnetRadiusMultiplier once here. We must NOT multiply GetMagnetMultiplier() again.
-    const float effectiveMagnetRadius = player.GetMagnetRadius() * m_magnetRadiusMultiplier;
-    const float radiusRatio = std::max(1.0f, effectiveMagnetRadius / BaseMagnetRadius);
-    const float outwardSpeed = m_baseOutwardSpeed * std::sqrt(radiusRatio);
-    const float inwardAccel = m_baseInwardAccel * radiusRatio;
-
     for(ExperienceGem& gem : m_gems)
     {
+        // Find nearest alive player
+        Player* nearestPlayer = nullptr;
+        float nearestDistSq = std::numeric_limits<float>::max();
+        for(const auto& p : players)
+        {
+            if(!p || p->IsDead()) continue;
+            sf::Vector2f diff = p->GetCenterPosition() - gem.position;
+            float distSq = diff.x * diff.x + diff.y * diff.y;
+            if(distSq < nearestDistSq)
+            {
+                nearestDistSq = distSq;
+                nearestPlayer = p.get();
+            }
+        }
+
+        if(!nearestPlayer) continue;
+
+        const sf::Vector2f playerCenter = nearestPlayer->GetCenterPosition();
+        const float collectDistance = nearestPlayer->GetCollisionRadius() + CollectRadius;
+
+        const float effectiveMagnetRadius = nearestPlayer->GetMagnetRadius() * m_magnetRadiusMultiplier;
+        const float radiusRatio = std::max(1.0f, effectiveMagnetRadius / BaseMagnetRadius);
+        const float outwardSpeed = m_baseOutwardSpeed * std::sqrt(radiusRatio);
+        const float inwardAccel = m_baseInwardAccel * radiusRatio;
+
         const sf::Vector2f toPlayer = playerCenter - gem.position;
         const float distance = Length(toPlayer);
 
         if(distance <= collectDistance)
         {
-            player.AddExperience(gem.value);
+            if(m_onGemCollected)
+            {
+                m_onGemCollected(gem.value);
+            }
             gem.value = 0.0f;
             continue;
         }

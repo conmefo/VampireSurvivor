@@ -1,6 +1,7 @@
 #include "SongOfManaWeapon.h"
 #include "../Projectiles/SongOfManaProjectile.h"
 #include "../../Entities/Player.h"
+#include "../../Core/Audio/IAudioService.h"
 #include <cmath>
 #include <algorithm>
 #include <iostream>
@@ -19,6 +20,16 @@ void SongOfManaWeapon::Update(float dt, ProjectileManager& projManager, TextureA
 
     if (m_cooldownTimer <= 0.0f)
     {
+        // Audio: play weapon fire SFX
+        if (m_audioService && m_fireSfxId != SfxID::None)
+        {
+            PlaySoundOptions opts;
+            opts.position = player.GetPosition();
+            opts.isSpatial = true;
+            opts.priority = AudioPriority::High;
+            m_audioService->PlaySfx(m_fireSfxId, opts);
+        }
+
         sf::Vector2f targetPosition = GetTargetPosition(enemyPool, player);
         FireOne(projManager, atlas, player, targetPosition, 0);
 

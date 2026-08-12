@@ -6,8 +6,8 @@
 #include <iostream>
 #include <sstream>
 
-StageLoadingState::StageLoadingState(StateContext context, TileMapManager& mapManager, const std::string& characterId, int stageId)
-    : BaseState(context), m_mapManager(mapManager), m_characterId(characterId), m_stageId(stageId), m_isLoadComplete(false), m_hasError(false)
+StageLoadingState::StageLoadingState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& characterIds, int stageId)
+    : BaseState(context), m_mapManager(mapManager), m_characterIds(characterIds), m_stageId(stageId), m_isLoadComplete(false), m_hasError(false)
 {
 }
 
@@ -117,7 +117,7 @@ void StageLoadingState::Update(float dt)
         
         // Transition to GameState
         m_context.stateManager.PopState();
-        m_context.stateManager.AddState(std::make_unique<GameState>(m_context, m_mapManager, m_characterId));
+        m_context.stateManager.AddState(std::make_unique<GameState>(m_context, m_mapManager, m_characterIds));
     }
 }
 

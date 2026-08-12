@@ -11,7 +11,33 @@
 #include "LightningRingWeapon.h"
 #include "SongOfManaWeapon.h"
 #include "../Items/AttractorbItem.h"
+#include "../../Core/Audio/AudioIdentifiers.h"
 #include <iostream>
+#include <unordered_map>
+
+namespace {
+// Maps bullet type strings to their firing SFX IDs.
+SfxID GetFireSfxForBulletType(const std::string& bulletType)
+{
+    static const std::unordered_map<std::string, SfxID> sfxMap = {
+        {"WHIP", SfxID::WhipAttack},
+        {"MAGIC_MISSILE", SfxID::MagicMissileFire},
+        {"FIREBALL", SfxID::FireballFire},
+        {"KNIFE", SfxID::KnifeFire},
+        {"AXE", SfxID::AxeFire},
+        {"GARLIC", SfxID::GarlicPulse},
+        {"DIAMOND", SfxID::MagicMissileFire}, // Runetracer reuses missile sound
+        {"HOLYWATER", SfxID::SantaWaterThrow},
+        {"LIGHTNING", SfxID::LightningStrike},
+        {"TP_ELEC1", SfxID::LightningStrike},
+        {"SONG", SfxID::SongOfManaPulse},
+        {"MANNAGGIA", SfxID::SongOfManaPulse}
+    };
+
+    auto it = sfxMap.find(bulletType);
+    return (it != sfxMap.end()) ? it->second : SfxID::None;
+}
+} // namespace
 
 WeaponFactory::WeaponFactory(WeaponDataManager& weaponData)
     : m_weaponData(weaponData)
@@ -83,5 +109,6 @@ std::unique_ptr<Weapon> WeaponFactory::Create(const std::string& weaponId) const
     }
 
     weapon->SetLevelDeltas(deltas);
+    weapon->SetFireSfx(GetFireSfxForBulletType(bulletType));
     return weapon;
 }

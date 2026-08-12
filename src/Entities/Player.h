@@ -12,7 +12,7 @@ extern float g_PlayerSpeedMultiplier;
 class Player : public Agent
 {
 public:
-    Player(const CharacterProfile& profile, const sf::Texture& texture, const std::vector<sf::IntRect>& frames);
+    Player(const CharacterProfile& profile, const sf::Texture& texture, const std::vector<sf::IntRect>& frames, int playerIndex = 0);
     ~Player() override = default;
 
     void Update(float dt) override;
@@ -27,6 +27,9 @@ public:
     float GetMaxHealth() const { return m_maxHealth; }
     float GetExperience() const { return m_experience; }
     int GetLevel() const { return m_level; }
+    int GetPlayerIndex() const { return m_playerIndex; }
+    void SetIsMultiplayer(bool isMultiplayer) { m_isMultiplayer = isMultiplayer; }
+    bool IsMultiplayer() const { return m_isMultiplayer; }
     float GetTargetExperience() const;
     float GetExpProgressRatio() const;
     bool IsDead() const { return m_isDead; }
@@ -93,6 +96,8 @@ private:
     float m_invulnTimer = 0.0f;
     float m_flashTimer = 0.0f;
     bool m_isDead = false;
+    int m_playerIndex = 0;
+    bool m_isMultiplayer = false;
 
     Tweener m_deathScaleXTweener;
     Tweener m_deathScaleYTweener;

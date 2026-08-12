@@ -5,6 +5,7 @@
 #include <vector>
 #include <unordered_set>
 #include <functional>
+#include <memory>
 
 class Player;
 class WeaponDataManager;
@@ -22,11 +23,19 @@ public:
     bool HasPendingLevelUp() const { return m_pendingLevelUps > 0; }
     int GetPendingLevelUpCount() const { return m_pendingLevelUps; }
 
+    void StartNextLevelUp(const std::vector<std::unique_ptr<Player>>& players, int sharedLevel, const WeaponDataManager& weaponData);
     void StartNextLevelUp(Player& player, const WeaponDataManager& weaponData);
 
+    bool SelectOption(int index, const std::vector<std::unique_ptr<Player>>& players, int sharedLevel, const WeaponDataManager& weaponData, WeaponFactory& factory, std::function<void(int)> onGoldGranted = nullptr);
     bool SelectOption(int index, Player& player, const WeaponDataManager& weaponData, WeaponFactory& factory, std::function<void(int)> onGoldGranted = nullptr);
+
+    bool Reroll(const std::vector<std::unique_ptr<Player>>& players, int sharedLevel, const WeaponDataManager& weaponData);
     bool Reroll(Player& player, const WeaponDataManager& weaponData);
+
+    bool Skip(const std::vector<std::unique_ptr<Player>>& players, std::function<void(float)> onBonusExp = nullptr);
     bool Skip(Player& player);
+
+    bool Banish(int index, const std::vector<std::unique_ptr<Player>>& players, int sharedLevel, const WeaponDataManager& weaponData);
     bool Banish(int index, Player& player, const WeaponDataManager& weaponData);
 
     const std::vector<LevelUpOption>& GetCurrentChoices() const { return m_currentChoices; }

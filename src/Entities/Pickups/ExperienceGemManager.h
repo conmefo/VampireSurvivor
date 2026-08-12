@@ -1,10 +1,13 @@
 #pragma once
 
 #include "../../Core/Resources/TextureAtlas.h"
-#include "../Player.h"
 
 #include <SFML/Graphics.hpp>
 #include <vector>
+#include <memory>
+#include <functional>
+
+class Player;
 
 class ExperienceGemManager
 {
@@ -15,7 +18,8 @@ public:
     void SpawnMultiple(const sf::Vector2f& centerPosition, int count, float valuePerGem);
     void SpawnRandomInRadius(const sf::Vector2f& centerPosition, int count, float minRadius, float maxRadius);
     std::size_t GetActiveGemCount() const { return m_gems.size(); }
-    void Update(float dt, Player& player);
+    void Update(float dt, const std::vector<std::unique_ptr<Player>>& players);
+    void SetOnGemCollected(std::function<void(float)> callback) { m_onGemCollected = std::move(callback); }
     void Draw(sf::RenderTarget& target) const;
 
     // Tuning getters & setters for rubber band magnet physics
@@ -66,4 +70,5 @@ private:
     AssetTextureData m_greenTextureData{nullptr, sf::IntRect()};
     AssetTextureData m_redTextureData{nullptr, sf::IntRect()};
     std::vector<ExperienceGem> m_gems;
+    std::function<void(float)> m_onGemCollected;
 };

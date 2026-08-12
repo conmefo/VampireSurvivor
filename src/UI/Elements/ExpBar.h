@@ -13,7 +13,7 @@ public:
     ~ExpBar() = default;
 
     void SetPositionAndSize(const sf::Vector2f& position, const sf::Vector2f& size);
-    void Update(float dt, const Player* player);
+    void Update(float dt, int level, float expProgressRatio);
     void Draw(sf::RenderTarget& target) const;
 
 private:

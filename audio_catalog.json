@@ -1,0 +1,2098 @@
+[
+    {
+        "file_name": "BGM_Glitch.ogg",
+        "path": "App/Audio/Addressable/BGM/BGM_Glitch.ogg",
+        "guid": "f15ad469ba2a83f4d85ae26dcc0762de",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Eudaimonia M. / Glitch event theme"
+    },
+    {
+        "file_name": "VS_Music_v04-01.ogg",
+        "path": "App/Audio/Addressable/BGM/VS_Music_v04-01.ogg",
+        "guid": "e06b7e1ef6f48a044a96f2cf0dc5c065",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Mad Forest stage theme ('The Beginning' by Will Davies)"
+    },
+    {
+        "file_name": "bgm_TheEndIntro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_TheEndIntro.ogg",
+        "guid": "a16a7c30c9e4aae468d934804be1c1c5",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Final Boss theme (The Directer final climax fight)"
+    },
+    {
+        "file_name": "bgm_TheEndMain.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_TheEndMain.ogg",
+        "guid": "fa6341b43f81e3d4eb06dc55c0e576ff",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Final Boss theme (The Directer final climax fight)"
+    },
+    {
+        "file_name": "bgm_elrond_WIP.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_WIP.ogg",
+        "guid": "494db9a35ca69f34996ca7547f120251",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_WIP"
+    },
+    {
+        "file_name": "bgm_elrond_bone.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_bone.ogg",
+        "guid": "561758158dfec6545ac23a9624c4bf35",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_bone"
+    },
+    {
+        "file_name": "bgm_elrond_boss0.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss0.ogg",
+        "guid": "a04f426723a1ef44daa57e827bad8610",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_boss1.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss1.ogg",
+        "guid": "905d48a4cff1dfe4cb23e4a60224fc48",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_boss2.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss2.ogg",
+        "guid": "edd535455d47de34c8be0525751092d5",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_boss3.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss3.ogg",
+        "guid": "2abdd7944f13854478e80044833f4fec",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_boss4.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss4.ogg",
+        "guid": "b280b735b63babd40ad52500c00d0bfc",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_boss5.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_boss5.ogg",
+        "guid": "4f263fafb9f3e8a4f910dfc1313fc373",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Boss Fight theme (Encounter with stage bosses)"
+    },
+    {
+        "file_name": "bgm_elrond_bridge.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_bridge.ogg",
+        "guid": "2e6ea7035e51b3e43830e27779e01597",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_bridge"
+    },
+    {
+        "file_name": "bgm_elrond_carts.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_carts.ogg",
+        "guid": "cff71d8abfd26534d8d57e72a090830f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Carlo Cart stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_carts_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_carts_intro.ogg",
+        "guid": "f57a738f63d328044bdaf248f51c779f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Carlo Cart stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_chapel.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_chapel.ogg",
+        "guid": "d4c91a3d60b28f4499d941bc8320bf8f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Cappella Magna stage theme ('Hell's Redeemer')"
+    },
+    {
+        "file_name": "bgm_elrond_chapet.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_chapet.ogg",
+        "guid": "70af281ff268b854e83ca80b1ce0bfc2",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Cappella Magna stage theme ('Hell's Redeemer')"
+    },
+    {
+        "file_name": "bgm_elrond_deceptionK.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_deceptionK.ogg",
+        "guid": "ea9dddf7e2f089b4a9390b1581782c7a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_deceptionK"
+    },
+    {
+        "file_name": "bgm_elrond_devil_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_devil_intro.ogg",
+        "guid": "d96b34bf1cff73b409aaef540be70f6f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Moongolow / Crimson Devil event theme"
+    },
+    {
+        "file_name": "bgm_elrond_devil_loop.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_devil_loop.ogg",
+        "guid": "7b0db43e8e116c04f9437f5f9ca23c65",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Moongolow / Crimson Devil event theme"
+    },
+    {
+        "file_name": "bgm_elrond_dust.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_dust.ogg",
+        "guid": "0785314f2bcda734792440914265443c",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_dust"
+    },
+    {
+        "file_name": "bgm_elrond_fighting.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_fighting.ogg",
+        "guid": "280ed2d82efc21b4b8d97e4337c1c95e",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_fighting"
+    },
+    {
+        "file_name": "bgm_elrond_flame.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_flame.ogg",
+        "guid": "b666089ae1485f94b8d80cdd8ebca486",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_flame"
+    },
+    {
+        "file_name": "bgm_elrond_forest.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_forest.ogg",
+        "guid": "a4eafc03acfa3874fa3b930ed50fc172",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Mad Forest stage theme ('The Beginning' by Will Davies)"
+    },
+    {
+        "file_name": "bgm_elrond_foscariK.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_foscariK.ogg",
+        "guid": "542c37b1ac47795439521de8ace6bd5a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_foscariK"
+    },
+    {
+        "file_name": "bgm_elrond_gatti.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_gatti.ogg",
+        "guid": "5611b5dc8db5d3b4886e3b28f936611d",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_gatti"
+    },
+    {
+        "file_name": "bgm_elrond_lab.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_lab.ogg",
+        "guid": "70ea191bac3695a4abcdba21c1e60a2a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Laborratory stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_lab_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_lab_intro.ogg",
+        "guid": "2b1d7f5fd5ee84847a7485e3e9d94295",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Laborratory stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_library.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_library.ogg",
+        "guid": "5318ae3422e48ba428b3cff7298e14b8",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Inlaid Library stage theme ('Reincarnated Echoes' / 'Libro Inferno')"
+    },
+    {
+        "file_name": "bgm_elrond_machine.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_machine.ogg",
+        "guid": "53380681e407c7544bb11b0deb500caf",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_machine"
+    },
+    {
+        "file_name": "bgm_elrond_magicK.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_magicK.ogg",
+        "guid": "7c6f627c3fade8e4aa54fe0c0841a5b6",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_magicK"
+    },
+    {
+        "file_name": "bgm_elrond_mana.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_mana.ogg",
+        "guid": "67b5667d7205ccd47b7358bbe9ad6d3f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_mana"
+    },
+    {
+        "file_name": "bgm_elrond_peggi.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_peggi.ogg",
+        "guid": "884fb51125eec904984d99af43a96f57",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_peggi"
+    },
+    {
+        "file_name": "bgm_elrond_pizza.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_pizza.ogg",
+        "guid": "0d028b9b76e79ff43b13fd79fbc2e99f",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_pizza"
+    },
+    {
+        "file_name": "bgm_elrond_plant.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_plant.ogg",
+        "guid": "56dc14e7ae2bf5f4891caf6be6c3961c",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Dairy Plant stage theme ('Iron Green Intent')"
+    },
+    {
+        "file_name": "bgm_elrond_redblue.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_redblue.ogg",
+        "guid": "4db81e834af3fec49b53e19849b8cbf7",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_redblue"
+    },
+    {
+        "file_name": "bgm_elrond_secret.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_secret.ogg",
+        "guid": "e84cfb1b10fa322409b00fca9f0d91dd",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Secret Menu / Unlocks theme"
+    },
+    {
+        "file_name": "bgm_elrond_snow.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_snow.ogg",
+        "guid": "f5b40e0c2b8accc4a82850db6b61dfce",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Whiteout / Snow stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_solution.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_solution.ogg",
+        "guid": "ee5219e15f341064bbdb7fc32a15bea4",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_solution"
+    },
+    {
+        "file_name": "bgm_elrond_spacedude.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_spacedude.ogg",
+        "guid": "5b047b90aa70757409445d22f25c4b4d",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Space 54 stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_spacedude_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_spacedude_intro.ogg",
+        "guid": "cd84d2182fc769f4489d647210518501",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Space 54 stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_spoopy.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_spoopy.ogg",
+        "guid": "41b6fc72fcc86e4488cdbe5bbe5fa329",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_spoopy"
+    },
+    {
+        "file_name": "bgm_elrond_squirrel_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_squirrel_intro.ogg",
+        "guid": "31aa712ae60c7fc4e87b6ee6ed68215d",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_squirrel_intro"
+    },
+    {
+        "file_name": "bgm_elrond_squirrel_loop.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_squirrel_loop.ogg",
+        "guid": "16e3af9772fb0104a990977f95b7fde3",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_squirrel_loop"
+    },
+    {
+        "file_name": "bgm_elrond_tower.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_tower.ogg",
+        "guid": "f50df845169bfff41904c796f402783c",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Gala / Inlaid Tower stage theme"
+    },
+    {
+        "file_name": "bgm_elrond_tuesday_intro.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_tuesday_intro.ogg",
+        "guid": "811862e139f62d9468d96609f9adbd70",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_tuesday_intro"
+    },
+    {
+        "file_name": "bgm_elrond_tuesday_loop.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_tuesday_loop.ogg",
+        "guid": "ea1d53c14d9eb154ba7ce7c001a5642b",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_tuesday_loop"
+    },
+    {
+        "file_name": "bgm_elrond_vento.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_vento.ogg",
+        "guid": "805d2ada190e48e4eab4e9ce6963c326",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_vento"
+    },
+    {
+        "file_name": "bgm_elrond_warK.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_warK.ogg",
+        "guid": "0796c2a1ac8694b4b9746505d473f89a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_warK"
+    },
+    {
+        "file_name": "bgm_elrond_water.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_elrond_water.ogg",
+        "guid": "c69ee20854deadd4ea80574f1d1cc192",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_elrond_water"
+    },
+    {
+        "file_name": "bgm_library.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_library.ogg",
+        "guid": "613c0c29410f35541bdffe99ba4fdca8",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Inlaid Library stage theme ('Reincarnated Echoes' / 'Libro Inferno')"
+    },
+    {
+        "file_name": "bgm_proooot.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_proooot.ogg",
+        "guid": "3e149fa0efb72a348a557d35dfa1053b",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "BGM track: bgm_proooot"
+    },
+    {
+        "file_name": "bgm_vica_01.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_01.ogg",
+        "guid": "b018ff69d9ce42749b05b36f3e4ad52c",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_02.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_02.ogg",
+        "guid": "ad8af9444c29edc4a9bbbca9a3fe0658",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_03.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_03.ogg",
+        "guid": "8b0a94b0ec27a23478d722b03286581a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_04.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_04.ogg",
+        "guid": "ec59fe2d06ab7be46a4cf484d4643691",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_05.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_05.ogg",
+        "guid": "aa289f257d2e5d14b994584aa38cbbf6",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_07.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_07.ogg",
+        "guid": "83b5a861801de67488db7543c21f73b3",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_08.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_08.ogg",
+        "guid": "84917aa926b312743a4bde7ec320a5f3",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_09.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_09.ogg",
+        "guid": "65e138e7b0155f841b2ad78599a1537a",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_10.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_10.ogg",
+        "guid": "ee7e89bb35604c849bd9804f2022d777",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_11.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_11.ogg",
+        "guid": "490338a44cab80a4691afb9012154125",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_vica_12.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_vica_12.ogg",
+        "guid": "25f9637cf1c0a8649a857c89b5430ac3",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Stage BGM by Filippo Vicarelli"
+    },
+    {
+        "file_name": "bgm_will_beginning.ogg",
+        "path": "App/Audio/Addressable/BGM/bgm_will_beginning.ogg",
+        "guid": "ece6a36f912f1cc47901a0ce33b6c099",
+        "category": "BGM (Music)",
+        "scene_context": "Stage / Menu Background Music",
+        "description": "Mad Forest stage theme ('The Beginning' by Will Davies)"
+    },
+    {
+        "file_name": "Darkasso_Open.ogg",
+        "path": "App/Audio/Addressable/SFX/Darkasso_Open.ogg",
+        "guid": "b4283e4d9636ec843a7b3f48fedc731a",
+        "category": "UI SFX",
+        "scene_context": "Arcana / Darkana Wheel",
+        "description": "Arcana card spin, flip, and selection fanfare"
+    },
+    {
+        "file_name": "sfx_darkassoJingle.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_darkassoJingle.wav",
+        "guid": "ce96987507bc17a4ca0e6d11507b7e4a",
+        "category": "UI SFX",
+        "scene_context": "Arcana / Darkana Wheel",
+        "description": "Arcana card spin, flip, and selection fanfare"
+    },
+    {
+        "file_name": "sfx_geiger1.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_geiger1.wav",
+        "guid": "4a53cf1d8fc23c343ac7d838d43e1cc9",
+        "category": "Gameplay SFX",
+        "scene_context": "Space 54 / Space Dude",
+        "description": "Geiger counter clicks & Space Dude weapon activation ticks"
+    },
+    {
+        "file_name": "sfx_geiger2.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_geiger2.wav",
+        "guid": "21b07901791023c4b9767754bb3915e6",
+        "category": "Gameplay SFX",
+        "scene_context": "Space 54 / Space Dude",
+        "description": "Geiger counter clicks & Space Dude weapon activation ticks"
+    },
+    {
+        "file_name": "sfx_geiger3.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_geiger3.wav",
+        "guid": "68aef3a82f1f9ab45bb224a72216fc7d",
+        "category": "Gameplay SFX",
+        "scene_context": "Space 54 / Space Dude",
+        "description": "Geiger counter clicks & Space Dude weapon activation ticks"
+    },
+    {
+        "file_name": "sfx_geiger4.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_geiger4.wav",
+        "guid": "2add7148e6d0dc44784b018c46411b40",
+        "category": "Gameplay SFX",
+        "scene_context": "Space 54 / Space Dude",
+        "description": "Geiger counter clicks & Space Dude weapon activation ticks"
+    },
+    {
+        "file_name": "sfx_treasure_1.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_1.wav",
+        "guid": "553d236a5a488994699ed72eb55423c3",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 1-item Treasure Chest"
+    },
+    {
+        "file_name": "sfx_treasure_1B.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_1B.wav",
+        "guid": "376f202fa1ee981439ea842f35c80487",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 1-item Treasure Chest"
+    },
+    {
+        "file_name": "sfx_treasure_2.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_2.wav",
+        "guid": "107e50ab9d46533418ba95388c66cbb3",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 3-item Treasure Chest"
+    },
+    {
+        "file_name": "sfx_treasure_2B.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_2B.wav",
+        "guid": "5cb996460bc59f94a859be0f691a564e",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 3-item Treasure Chest"
+    },
+    {
+        "file_name": "sfx_treasure_3.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_3.wav",
+        "guid": "49ac0199f46409f468247bbdc203a88f",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 5-item (Jackpot) Treasure Chest"
+    },
+    {
+        "file_name": "sfx_treasure_3B.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_treasure_3B.wav",
+        "guid": "8b3212bbaded44246b5e95acf439d22b",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Opening 5-item (Jackpot) Treasure Chest"
+    },
+    {
+        "file_name": "sfx_wind.wav",
+        "path": "App/Audio/Addressable/SFX/sfx_wind.wav",
+        "guid": "3ef2ced4c8ba2a243a15d8ae2406e0bb",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_wind.wav)"
+    },
+    {
+        "file_name": "Cat1.wav",
+        "path": "AudioClip/Cat1.wav",
+        "guid": "596e0b3d89886cf4faec400872170d27",
+        "category": "Weapon SFX",
+        "scene_context": "Gatti Amari (Cat Weapon)",
+        "description": "Cat meows and brawl sound effects"
+    },
+    {
+        "file_name": "Cat2.wav",
+        "path": "AudioClip/Cat2.wav",
+        "guid": "0e4f5c5620fd907488dbcbd2cdc42d2a",
+        "category": "Weapon SFX",
+        "scene_context": "Gatti Amari (Cat Weapon)",
+        "description": "Cat meows and brawl sound effects"
+    },
+    {
+        "file_name": "Cat3.wav",
+        "path": "AudioClip/Cat3.wav",
+        "guid": "5a33804eb78a5054491ed18a1e5af8f8",
+        "category": "Weapon SFX",
+        "scene_context": "Gatti Amari (Cat Weapon)",
+        "description": "Cat meows and brawl sound effects"
+    },
+    {
+        "file_name": "Cat5.wav",
+        "path": "AudioClip/Cat5.wav",
+        "guid": "82b603e617918d7439634a7d14adcfe4",
+        "category": "Weapon SFX",
+        "scene_context": "Gatti Amari (Cat Weapon)",
+        "description": "Cat meows and brawl sound effects"
+    },
+    {
+        "file_name": "CatE.wav",
+        "path": "AudioClip/CatE.wav",
+        "guid": "898be90c285e55b40a546a38acea1ea3",
+        "category": "Weapon SFX",
+        "scene_context": "Gatti Amari (Cat Weapon)",
+        "description": "Cat meows and brawl sound effects"
+    },
+    {
+        "file_name": "Gunastrophe_SFX.wav",
+        "path": "AudioClip/Gunastrophe_SFX.wav",
+        "guid": "17d6f6a48c54ff14e84306f1c37bbe27",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (Gunastrophe_SFX.wav)"
+    },
+    {
+        "file_name": "Powerup.wav",
+        "path": "AudioClip/Powerup.wav",
+        "guid": "b2c1b9ffb7c23a046a05dbdc39871057",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (Powerup.wav)"
+    },
+    {
+        "file_name": "Winner SFX.wav",
+        "path": "AudioClip/Winner SFX.wav",
+        "guid": "930d2046ebbcc1a40a385653b0f26876",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (Winner SFX.wav)"
+    },
+    {
+        "file_name": "belltoll.wav",
+        "path": "AudioClip/belltoll.wav",
+        "guid": "f83e8e7033b2d6f429006012327bbd79",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (belltoll.wav)"
+    },
+    {
+        "file_name": "bumper2.wav",
+        "path": "AudioClip/bumper2.wav",
+        "guid": "13751dc85c0c78f4aae265e8fa9f0d6c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (bumper2.wav)"
+    },
+    {
+        "file_name": "cff_acc.wav",
+        "path": "AudioClip/cff_acc.wav",
+        "guid": "614c49ff4fdbf564ebb0e6e49ae46973",
+        "category": "Weapon SFX",
+        "scene_context": "Phiera Der Tuphello / Eight The Sparrow",
+        "description": "Pugnala pistol firing sounds"
+    },
+    {
+        "file_name": "cff_gtr.wav",
+        "path": "AudioClip/cff_gtr.wav",
+        "guid": "cab8a180187502d47a5c4313b1f43f84",
+        "category": "Weapon SFX",
+        "scene_context": "Phiera Der Tuphello / Eight The Sparrow",
+        "description": "Pugnala pistol firing sounds"
+    },
+    {
+        "file_name": "cff_shm.wav",
+        "path": "AudioClip/cff_shm.wav",
+        "guid": "93fc5798f41aec044bf5fd87d1b47cfa",
+        "category": "Weapon SFX",
+        "scene_context": "Phiera Der Tuphello / Eight The Sparrow",
+        "description": "Pugnala pistol firing sounds"
+    },
+    {
+        "file_name": "cff_xlf.wav",
+        "path": "AudioClip/cff_xlf.wav",
+        "guid": "f1c2c0d3fa4b8464cb83feee2cc4a2fb",
+        "category": "Weapon SFX",
+        "scene_context": "Phiera Der Tuphello / Eight The Sparrow",
+        "description": "Pugnala pistol firing sounds"
+    },
+    {
+        "file_name": "clap.wav",
+        "path": "AudioClip/clap.wav",
+        "guid": "a15725d05303b03488e3ecc8f322f4a7",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (clap.wav)"
+    },
+    {
+        "file_name": "glass01.wav",
+        "path": "AudioClip/glass01.wav",
+        "guid": "fd513db6fb7e52644a7c30f4073c067e",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass02.wav",
+        "path": "AudioClip/glass02.wav",
+        "guid": "a968d30a446e70442af3915fff8ea864",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass03.wav",
+        "path": "AudioClip/glass03.wav",
+        "guid": "fab7eed979d376e4f8df0a32ec6ad87a",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass04.wav",
+        "path": "AudioClip/glass04.wav",
+        "guid": "e0f99a7ec70b66f40bb78ff89fde3c3b",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass05.wav",
+        "path": "AudioClip/glass05.wav",
+        "guid": "e2d205e1189450f4f819ba8df706eb04",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass06.wav",
+        "path": "AudioClip/glass06.wav",
+        "guid": "957438749eb192841a9274c22bfa6e55",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass07.wav",
+        "path": "AudioClip/glass07.wav",
+        "guid": "7b1ad321c5174564ea935af735cea233",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass08.wav",
+        "path": "AudioClip/glass08.wav",
+        "guid": "e4b02e6ff18e5314a9b30f4e9a93649c",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass09.wav",
+        "path": "AudioClip/glass09.wav",
+        "guid": "bd1080df12f7cc64abc914fec72d913c",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass10.wav",
+        "path": "AudioClip/glass10.wav",
+        "guid": "21fb1d80f3eeaba41a55f331514c12e0",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass11.wav",
+        "path": "AudioClip/glass11.wav",
+        "guid": "f585f9a2e6d606746af74b9d184d4fbb",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass12.wav",
+        "path": "AudioClip/glass12.wav",
+        "guid": "a8546cd88b689404fb5d35ebf1f461b0",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass13.wav",
+        "path": "AudioClip/glass13.wav",
+        "guid": "6d8ae9e7bf91e7842ab1560e20dfc9f6",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass13_fixed.wav",
+        "path": "AudioClip/glass13_fixed.wav",
+        "guid": "",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass14.wav",
+        "path": "AudioClip/glass14.wav",
+        "guid": "76485fccdc0217c4ba8c791b40c796d7",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass15.wav",
+        "path": "AudioClip/glass15.wav",
+        "guid": "71cb0fd185729034bacc59a52e38eb23",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass16.wav",
+        "path": "AudioClip/glass16.wav",
+        "guid": "012027c45d74f4f41afdc238cb7cfa5f",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass17.wav",
+        "path": "AudioClip/glass17.wav",
+        "guid": "00d62625f8089d14796f2758ff0edff7",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass18.wav",
+        "path": "AudioClip/glass18.wav",
+        "guid": "e7b62bc125f2f734f96b2606f2e4c2ce",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass19.wav",
+        "path": "AudioClip/glass19.wav",
+        "guid": "e3810a81f5e28cb4ea9ea8ef50c9c675",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass20.wav",
+        "path": "AudioClip/glass20.wav",
+        "guid": "ac9530ebe7edbcb408d2f4b36e8bc5e1",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass21.wav",
+        "path": "AudioClip/glass21.wav",
+        "guid": "c05d5828753e8d747ab0e762b3454b44",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass22.wav",
+        "path": "AudioClip/glass22.wav",
+        "guid": "0e1da4e62113fbc42ad3393aff46ba9b",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass23.wav",
+        "path": "AudioClip/glass23.wav",
+        "guid": "8d0bfe388bec4f54e8beb43c14d42bd7",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass24.wav",
+        "path": "AudioClip/glass24.wav",
+        "guid": "ecae66cc5cb27bc41a421664ac43e7c8",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "glass25.wav",
+        "path": "AudioClip/glass25.wav",
+        "guid": "2b407e91dce7b074cbbde3d99080981c",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "haha.wav",
+        "path": "AudioClip/haha.wav",
+        "guid": "94957950ca85274478502c3011dd2a6c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (haha.wav)"
+    },
+    {
+        "file_name": "sfx_4fud.wav",
+        "path": "AudioClip/sfx_4fud.wav",
+        "guid": "d0007c71daa8aac4ab05ba6e12f1b539",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4fud.wav)"
+    },
+    {
+        "file_name": "sfx_4hana.wav",
+        "path": "AudioClip/sfx_4hana.wav",
+        "guid": "8e837793580f4fb4aa47ec8e714bdbb2",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4hana.wav)"
+    },
+    {
+        "file_name": "sfx_4max.wav",
+        "path": "AudioClip/sfx_4max.wav",
+        "guid": "3f2f6740c3c027646b3b295d89b2a02d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4max.wav)"
+    },
+    {
+        "file_name": "sfx_4mud.wav",
+        "path": "AudioClip/sfx_4mud.wav",
+        "guid": "bceb0e344ed440e4b86d7fe8b7bdbbac",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4mud.wav)"
+    },
+    {
+        "file_name": "sfx_4seasons.wav",
+        "path": "AudioClip/sfx_4seasons.wav",
+        "guid": "5efcee34712589c4fba5532d1eb8c5ef",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4seasons.wav)"
+    },
+    {
+        "file_name": "sfx_4tai.wav",
+        "path": "AudioClip/sfx_4tai.wav",
+        "guid": "23d99d2deb754424f85822c03ddc0f7d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_4tai.wav)"
+    },
+    {
+        "file_name": "sfx_Key1.wav",
+        "path": "AudioClip/sfx_Key1.wav",
+        "guid": "27564ef487162d64a9d9a485e70bed99",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_Key1.wav)"
+    },
+    {
+        "file_name": "sfx_Key2.wav",
+        "path": "AudioClip/sfx_Key2.wav",
+        "guid": "ac62b38b8e42b1043b62280de93f9447",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_Key2.wav)"
+    },
+    {
+        "file_name": "sfx_Key3.wav",
+        "path": "AudioClip/sfx_Key3.wav",
+        "guid": "f322e45b88d8be440a90bcbc42458169",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_Key3.wav)"
+    },
+    {
+        "file_name": "sfx_Key4.wav",
+        "path": "AudioClip/sfx_Key4.wav",
+        "guid": "8e39804b153dc454c81e185d53e6dcd4",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_Key4.wav)"
+    },
+    {
+        "file_name": "sfx_Key5.wav",
+        "path": "AudioClip/sfx_Key5.wav",
+        "guid": "2c1d614c12e31a749ac0086e268dfa20",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_Key5.wav)"
+    },
+    {
+        "file_name": "sfx_KeyWrong.wav",
+        "path": "AudioClip/sfx_KeyWrong.wav",
+        "guid": "5244c64b87605c44eb2d659fc9ae1ef8",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_KeyWrong.wav)"
+    },
+    {
+        "file_name": "sfx_PowerUp12.wav",
+        "path": "AudioClip/sfx_PowerUp12.wav",
+        "guid": "104fa417e5934e141b4d19aacc2e8fa6",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_PowerUp12.wav)"
+    },
+    {
+        "file_name": "sfx_WorldEater_8.wav",
+        "path": "AudioClip/sfx_WorldEater_8.wav",
+        "guid": "ff15c0f75cbcb77498b53d8ebf58483b",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_WorldEater_8.wav)"
+    },
+    {
+        "file_name": "sfx_alarm_loop6.wav",
+        "path": "AudioClip/sfx_alarm_loop6.wav",
+        "guid": "1b2855c0b8f7cd841aeda6f3fed11da2",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_alarm_loop6.wav)"
+    },
+    {
+        "file_name": "sfx_attack1.wav",
+        "path": "AudioClip/sfx_attack1.wav",
+        "guid": "7e4161e39ee21bd46a14c9146ec793c3",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_autoLB.wav",
+        "path": "AudioClip/sfx_autoLB.wav",
+        "guid": "951eb0390dbbb9947ad24b0deaa32d83",
+        "category": "UI SFX",
+        "scene_context": "Level Up UI Controls",
+        "description": "Banish, Reroll, Skip, or Auto-level button click"
+    },
+    {
+        "file_name": "sfx_autoLevel.wav",
+        "path": "AudioClip/sfx_autoLevel.wav",
+        "guid": "40a28334cf283da45afec695e6f153a3",
+        "category": "UI SFX",
+        "scene_context": "Level Up UI Controls",
+        "description": "Banish, Reroll, Skip, or Auto-level button click"
+    },
+    {
+        "file_name": "sfx_bangu.wav",
+        "path": "AudioClip/sfx_bangu.wav",
+        "guid": "c8bee3d51752ffd4d87b92b887eb3bd1",
+        "category": "UI SFX",
+        "scene_context": "Level Up UI Controls",
+        "description": "Banish, Reroll, Skip, or Auto-level button click"
+    },
+    {
+        "file_name": "sfx_bell2.ogg",
+        "path": "AudioClip/sfx_bell2.ogg",
+        "guid": "0d2292095eb403348bd157dfc9df940f",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_bell2.ogg)"
+    },
+    {
+        "file_name": "sfx_bubble.wav",
+        "path": "AudioClip/sfx_bubble.wav",
+        "guid": "60a003af3c0a0274daac3d95b9f39b6c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_bubble.wav)"
+    },
+    {
+        "file_name": "sfx_bumper3.wav",
+        "path": "AudioClip/sfx_bumper3.wav",
+        "guid": "ebc4f86ce873720428b4ba1c28bb58c8",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_bumper3.wav)"
+    },
+    {
+        "file_name": "sfx_cheers.wav",
+        "path": "AudioClip/sfx_cheers.wav",
+        "guid": "f012af15e8c21864ab158a2de52c35a1",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_cheers.wav)"
+    },
+    {
+        "file_name": "sfx_clones.wav",
+        "path": "AudioClip/sfx_clones.wav",
+        "guid": "2c554f56e30c05f49ab9d5971a0f6808",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_clones.wav)"
+    },
+    {
+        "file_name": "sfx_coin_double4.wav",
+        "path": "AudioClip/sfx_coin_double4.wav",
+        "guid": "0cbaed4db9f73f94f888992fda8f91b0",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_crystal6.wav",
+        "path": "AudioClip/sfx_crystal6.wav",
+        "guid": "1ad4ee9a4c104cf4099eab66dc647c20",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_crystal6.wav)"
+    },
+    {
+        "file_name": "sfx_crystal8.wav",
+        "path": "AudioClip/sfx_crystal8.wav",
+        "guid": "f0ee58fac21e1a944ba75fbecf8af493",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_crystal8.wav)"
+    },
+    {
+        "file_name": "sfx_crystal_12.wav",
+        "path": "AudioClip/sfx_crystal_12.wav",
+        "guid": "892c899a46eb715499f8b2db60ce53fb",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_crystal_12.wav)"
+    },
+    {
+        "file_name": "sfx_crystal_quick.wav",
+        "path": "AudioClip/sfx_crystal_quick.wav",
+        "guid": "e8aeb6f57e25d5b478e9e432d96a86e5",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_crystal_quick.wav)"
+    },
+    {
+        "file_name": "sfx_death_4.wav",
+        "path": "AudioClip/sfx_death_4.wav",
+        "guid": "ba46ada35e519fd418c6e0edf3705711",
+        "category": "Combat SFX",
+        "scene_context": "Enemy / Boss Death",
+        "description": "Enemy or boss death scream"
+    },
+    {
+        "file_name": "sfx_deathscream.wav",
+        "path": "AudioClip/sfx_deathscream.wav",
+        "guid": "75bc98184b23f654090a93f78bb8fe11",
+        "category": "Combat SFX",
+        "scene_context": "Enemy / Boss Death",
+        "description": "Enemy or boss death scream"
+    },
+    {
+        "file_name": "sfx_dice_shake.wav",
+        "path": "AudioClip/sfx_dice_shake.wav",
+        "guid": "85dfc1427473918488f35a30b806ecfb",
+        "category": "UI SFX",
+        "scene_context": "Level Up UI Controls",
+        "description": "Banish, Reroll, Skip, or Auto-level button click"
+    },
+    {
+        "file_name": "sfx_digit.wav",
+        "path": "AudioClip/sfx_digit.wav",
+        "guid": "e4ee0061f86f4154f8843174d9917cc9",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_digit.wav)"
+    },
+    {
+        "file_name": "sfx_enemyHit.wav",
+        "path": "AudioClip/sfx_enemyHit.wav",
+        "guid": "f2728de12df6430469360cc20100d91c",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_error13.wav",
+        "path": "AudioClip/sfx_error13.wav",
+        "guid": "fe3b55be40a2f7d42a2b6956ebfea245",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_error13.wav)"
+    },
+    {
+        "file_name": "sfx_evilgong.wav",
+        "path": "AudioClip/sfx_evilgong.wav",
+        "guid": "86c804d8dedf68e4fa1849322585fb82",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_evilgong.wav)"
+    },
+    {
+        "file_name": "sfx_exp45.wav",
+        "path": "AudioClip/sfx_exp45.wav",
+        "guid": "405949707614b4f4ea4f8fb7d9257545",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp5.wav",
+        "path": "AudioClip/sfx_exp5.wav",
+        "guid": "cb0157048062ab143a9cda1067f4364c",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_cluster5.wav",
+        "path": "AudioClip/sfx_exp_cluster5.wav",
+        "guid": "e699ef789892b6048a3f472f2da3618e",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_cluster8.wav",
+        "path": "AudioClip/sfx_exp_cluster8.wav",
+        "guid": "20d3b6e2a87292147a001955dc79a0d1",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_double1.wav",
+        "path": "AudioClip/sfx_exp_double1.wav",
+        "guid": "6dca2fa2c65fc504b841c849a19d3d6e",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_medium11.wav",
+        "path": "AudioClip/sfx_exp_medium11.wav",
+        "guid": "7780a41e6a940f84c93a4bdc04a8e468",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_odd1.wav",
+        "path": "AudioClip/sfx_exp_odd1.wav",
+        "guid": "2532b90d2c9f0724f834daec464dc5b0",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_short_hard15.wav",
+        "path": "AudioClip/sfx_exp_short_hard15.wav",
+        "guid": "f2d1cc885007b20458c0f1f167b5e638",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_short_soft6.wav",
+        "path": "AudioClip/sfx_exp_short_soft6.wav",
+        "guid": "9a7fe75ae66f88145b217b58de678fe2",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_short_soft9.wav",
+        "path": "AudioClip/sfx_exp_short_soft9.wav",
+        "guid": "13b629a228d41b54e8f2f6f453765507",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_exp_shortest_soft10.wav",
+        "path": "AudioClip/sfx_exp_shortest_soft10.wav",
+        "guid": "1a2a99845089551459cb41d6c6743d40",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_explo_night.wav",
+        "path": "AudioClip/sfx_explo_night.wav",
+        "guid": "9d78410b19cfbfc49acda7f074a02a6b",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_explo_soft.wav",
+        "path": "AudioClip/sfx_explo_soft.wav",
+        "guid": "84d81f469301c8640961c1e72147a13f",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_fireloop.wav",
+        "path": "AudioClip/sfx_fireloop.wav",
+        "guid": "e5aed357163db5445a8357c5fb19ce59",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_fireloop.wav)"
+    },
+    {
+        "file_name": "sfx_flikA.wav",
+        "path": "AudioClip/sfx_flikA.wav",
+        "guid": "4a072edf15550bb4fbd590eb1a4f9511",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_flikA.wav)"
+    },
+    {
+        "file_name": "sfx_forbiddenSpell.wav",
+        "path": "AudioClip/sfx_forbiddenSpell.wav",
+        "guid": "ef5bba4019e9c3a45b986aacabc403fd",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_forbiddenSpell.wav)"
+    },
+    {
+        "file_name": "sfx_frostimpact.wav",
+        "path": "AudioClip/sfx_frostimpact.wav",
+        "guid": "6f4513ee79e51f04ab537d82b8848abb",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_gameOver.wav",
+        "path": "AudioClip/sfx_gameOver.wav",
+        "guid": "4e10c1f04ad39bc4fad93660d1093f39",
+        "category": "UI SFX",
+        "scene_context": "Player Death / Game Over",
+        "description": "Player death jingle & Game Over screen transition"
+    },
+    {
+        "file_name": "sfx_gameOverB.wav",
+        "path": "AudioClip/sfx_gameOverB.wav",
+        "guid": "f279cd448d0f9a34bae570389689c796",
+        "category": "UI SFX",
+        "scene_context": "Player Death / Game Over",
+        "description": "Player death jingle & Game Over screen transition"
+    },
+    {
+        "file_name": "sfx_gem.wav",
+        "path": "AudioClip/sfx_gem.wav",
+        "guid": "0c2adf2aa867a17408ee357c02b0096e",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_giant.wav",
+        "path": "AudioClip/sfx_giant.wav",
+        "guid": "b74cbd7c805e15844b5fcb797a7b320c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_giant.wav)"
+    },
+    {
+        "file_name": "sfx_groove.wav",
+        "path": "AudioClip/sfx_groove.wav",
+        "guid": "dd108e9e62b041848852955804343384",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_groove.wav)"
+    },
+    {
+        "file_name": "sfx_guns1.wav",
+        "path": "AudioClip/sfx_guns1.wav",
+        "guid": "5c52ff88f1e52b9499ff7ef68d749cb0",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_guns1.wav)"
+    },
+    {
+        "file_name": "sfx_guns2.wav",
+        "path": "AudioClip/sfx_guns2.wav",
+        "guid": "616407abdc22eba469a4196a819d49e4",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_guns2.wav)"
+    },
+    {
+        "file_name": "sfx_guns3.wav",
+        "path": "AudioClip/sfx_guns3.wav",
+        "guid": "bc0cea471ddcc03499462f5801867c1c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_guns3.wav)"
+    },
+    {
+        "file_name": "sfx_impact.wav",
+        "path": "AudioClip/sfx_impact.wav",
+        "guid": "066b2e1c92d4cdf4ab9d9d97daf9e9bc",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_javelin.wav",
+        "path": "AudioClip/sfx_javelin.wav",
+        "guid": "788f2e94bf2d8844084327ef42092001",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_javelin.wav)"
+    },
+    {
+        "file_name": "sfx_javelin2.wav",
+        "path": "AudioClip/sfx_javelin2.wav",
+        "guid": "89295f61401b35343886377fc1dfa1b9",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_javelin2.wav)"
+    },
+    {
+        "file_name": "sfx_levelup.wav",
+        "path": "AudioClip/sfx_levelup.wav",
+        "guid": "b31fef763bafafe459a03e45f26168a5",
+        "category": "UI / Reward SFX",
+        "scene_context": "Level Up Screen",
+        "description": "Level Up fanfare and menu opening sound"
+    },
+    {
+        "file_name": "sfx_levelupB.wav",
+        "path": "AudioClip/sfx_levelupB.wav",
+        "guid": "8378acf7c65380547a8ab7651ea26ee5",
+        "category": "UI / Reward SFX",
+        "scene_context": "Level Up Screen",
+        "description": "Level Up fanfare and menu opening sound"
+    },
+    {
+        "file_name": "sfx_lightningimpact.wav",
+        "path": "AudioClip/sfx_lightningimpact.wav",
+        "guid": "8830749979c509541b3a03bb09694155",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_littlepickup.wav",
+        "path": "AudioClip/sfx_littlepickup.wav",
+        "guid": "eaec2cfbf94652841800e2494bb7c723",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_magic_chanting.wav",
+        "path": "AudioClip/sfx_magic_chanting.wav",
+        "guid": "717efb248e820354d95141198acc07b9",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_magic_chanting.wav)"
+    },
+    {
+        "file_name": "sfx_magic_charge4.wav",
+        "path": "AudioClip/sfx_magic_charge4.wav",
+        "guid": "3f49c88213e853a4898831fdb80784a3",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_magic_charge4.wav)"
+    },
+    {
+        "file_name": "sfx_magistone.wav",
+        "path": "AudioClip/sfx_magistone.wav",
+        "guid": "e1419cbe51e8184459b094e5c7df7b5c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_magistone.wav)"
+    },
+    {
+        "file_name": "sfx_mlightning1.wav",
+        "path": "AudioClip/sfx_mlightning1.wav",
+        "guid": "dc2aecefc33132b46872aa1bea4ba1c4",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_mlightning1.wav)"
+    },
+    {
+        "file_name": "sfx_moon_beat.wav",
+        "path": "AudioClip/sfx_moon_beat.wav",
+        "guid": "72398009572a5704fb868d00e9dd7526",
+        "category": "Weapon SFX",
+        "scene_context": "Pentagram / Gorgeous Moon",
+        "description": "Gorgeous Moon charging, pulsing, and wiping screen"
+    },
+    {
+        "file_name": "sfx_moon_finisher.wav",
+        "path": "AudioClip/sfx_moon_finisher.wav",
+        "guid": "10761886a6500804bbe355928cda7e0f",
+        "category": "Weapon SFX",
+        "scene_context": "Pentagram / Gorgeous Moon",
+        "description": "Gorgeous Moon charging, pulsing, and wiping screen"
+    },
+    {
+        "file_name": "sfx_moon_starter.wav",
+        "path": "AudioClip/sfx_moon_starter.wav",
+        "guid": "062eff29bfc444943b3d11481afd6f34",
+        "category": "Weapon SFX",
+        "scene_context": "Pentagram / Gorgeous Moon",
+        "description": "Gorgeous Moon charging, pulsing, and wiping screen"
+    },
+    {
+        "file_name": "sfx_morph.wav",
+        "path": "AudioClip/sfx_morph.wav",
+        "guid": "2cd34cabefc7f6a46a1952f36288e770",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_morph.wav)"
+    },
+    {
+        "file_name": "sfx_movement_jump14.wav",
+        "path": "AudioClip/sfx_movement_jump14.wav",
+        "guid": "f22d3138f7dc1fd48ab3d249c87b2aa8",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_movement_jump14.wav)"
+    },
+    {
+        "file_name": "sfx_mwind1.wav",
+        "path": "AudioClip/sfx_mwind1.wav",
+        "guid": "784800bc70c18554ba90187b727a81d9",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_mwind1.wav)"
+    },
+    {
+        "file_name": "sfx_naplow.wav",
+        "path": "AudioClip/sfx_naplow.wav",
+        "guid": "973014ec852af9a4a8bc9e9361b4538f",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_naplow.wav)"
+    },
+    {
+        "file_name": "sfx_noise.wav",
+        "path": "AudioClip/sfx_noise.wav",
+        "guid": "44068ff52608bb64d9a776773735711b",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_noise.wav)"
+    },
+    {
+        "file_name": "sfx_ophion1.wav",
+        "path": "AudioClip/sfx_ophion1.wav",
+        "guid": "375578ccf29d8b047a992a3264bbaa28",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_ophion1.wav)"
+    },
+    {
+        "file_name": "sfx_ophion2.wav",
+        "path": "AudioClip/sfx_ophion2.wav",
+        "guid": "96584bb750d13ae4e9ac71486760dd1d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_ophion2.wav)"
+    },
+    {
+        "file_name": "sfx_ophion3.wav",
+        "path": "AudioClip/sfx_ophion3.wav",
+        "guid": "a6f37c874a1d3ff4b923d68bf9996ecf",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_ophion3.wav)"
+    },
+    {
+        "file_name": "sfx_pan.wav",
+        "path": "AudioClip/sfx_pan.wav",
+        "guid": "6de2e3e8937df644592f036476bfa5d5",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_pan.wav)"
+    },
+    {
+        "file_name": "sfx_paradoxMist.wav",
+        "path": "AudioClip/sfx_paradoxMist.wav",
+        "guid": "d582d2b34706562498d440e66d21c358",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_paradoxMist.wav)"
+    },
+    {
+        "file_name": "sfx_party.wav",
+        "path": "AudioClip/sfx_party.wav",
+        "guid": "52d3bcc6378945547b798a657a890885",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_party.wav)"
+    },
+    {
+        "file_name": "sfx_piano.wav",
+        "path": "AudioClip/sfx_piano.wav",
+        "guid": "32bd45849b65ebd40ae3f4167df25f5d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_piano.wav)"
+    },
+    {
+        "file_name": "sfx_potBreak.wav",
+        "path": "AudioClip/sfx_potBreak.wav",
+        "guid": "11889597428d16a42b05b64f5a803b5b",
+        "category": "Gameplay SFX",
+        "scene_context": "Destructibles",
+        "description": "Breaking braziers / pots / stage light sources"
+    },
+    {
+        "file_name": "sfx_projectile.wav",
+        "path": "AudioClip/sfx_projectile.wav",
+        "guid": "9e38c73b6bf627f49b3752f98d093fc9",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_projectile.wav)"
+    },
+    {
+        "file_name": "sfx_projectile_magic.wav",
+        "path": "AudioClip/sfx_projectile_magic.wav",
+        "guid": "ba6d779299919774c8053bf3746fd22c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_projectile_magic.wav)"
+    },
+    {
+        "file_name": "sfx_projectile_magic2.wav",
+        "path": "AudioClip/sfx_projectile_magic2.wav",
+        "guid": "8ce0a7233ca381a4e914669da3b2a928",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_projectile_magic2.wav)"
+    },
+    {
+        "file_name": "sfx_projectile_magic4.wav",
+        "path": "AudioClip/sfx_projectile_magic4.wav",
+        "guid": "41ba452a1688df44f8278430af8db284",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_projectile_magic4.wav)"
+    },
+    {
+        "file_name": "sfx_ringing.wav",
+        "path": "AudioClip/sfx_ringing.wav",
+        "guid": "e01406c5552f2e4498e55a1e4986a2e2",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_ringing.wav)"
+    },
+    {
+        "file_name": "sfx_rosexpl.wav",
+        "path": "AudioClip/sfx_rosexpl.wav",
+        "guid": "84eb0dee6f0b31041823436a4814334b",
+        "category": "Gameplay SFX",
+        "scene_context": "In-game Pickups",
+        "description": "Collecting XP gems, gold coins, or floor items"
+    },
+    {
+        "file_name": "sfx_scream.wav",
+        "path": "AudioClip/sfx_scream.wav",
+        "guid": "c499b396e21029e4cbcd1cda092439b6",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_scream.wav)"
+    },
+    {
+        "file_name": "sfx_secret.wav",
+        "path": "AudioClip/sfx_secret.wav",
+        "guid": "4adde0e50f746cd4dbfaa3d32e9ecef0",
+        "category": "UI / Reward SFX",
+        "scene_context": "Secret Unlocked",
+        "description": "Secret character or stage discovery chime"
+    },
+    {
+        "file_name": "sfx_soleSAnticipation.wav",
+        "path": "AudioClip/sfx_soleSAnticipation.wav",
+        "guid": "2538f58c3f62d2b4992419badfc006bd",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_soleSAnticipation.wav)"
+    },
+    {
+        "file_name": "sfx_soleSFirstImpact.wav",
+        "path": "AudioClip/sfx_soleSFirstImpact.wav",
+        "guid": "ebf2b19aa80d93d4a80c5625c6ed499c",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_soleSSecondImpact.wav",
+        "path": "AudioClip/sfx_soleSSecondImpact.wav",
+        "guid": "c081f01801a456648ad4a6061e911aa9",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_sounds_ban.wav",
+        "path": "AudioClip/sfx_sounds_ban.wav",
+        "guid": "ffcfdb3ab63799541bbf80dfbac609c4",
+        "category": "UI SFX",
+        "scene_context": "Level Up UI Controls",
+        "description": "Banish, Reroll, Skip, or Auto-level button click"
+    },
+    {
+        "file_name": "sfx_sounds_impact15_2.wav",
+        "path": "AudioClip/sfx_sounds_impact15_2.wav",
+        "guid": "1c33b6631b8ab8449ba7cfd8c6a1a63d",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_sounds_impact9.wav",
+        "path": "AudioClip/sfx_sounds_impact9.wav",
+        "guid": "0a2a541ae28ea814994056e7a4ec98a7",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_sounds_impact9Echo.wav",
+        "path": "AudioClip/sfx_sounds_impact9Echo.wav",
+        "guid": "fbdf5863927ee8745b83ff3fde362f01",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_sounds_interaction13.wav",
+        "path": "AudioClip/sfx_sounds_interaction13.wav",
+        "guid": "b72880f226e3b8d4094d41dca5e8a75d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_sounds_interaction13.wav)"
+    },
+    {
+        "file_name": "sfx_sounds_pause7_in.wav",
+        "path": "AudioClip/sfx_sounds_pause7_in.wav",
+        "guid": "770aa3994c1fd0545a6000177edd7910",
+        "category": "UI SFX",
+        "scene_context": "Pause Menu",
+        "description": "Pause menu open / close toggle sound"
+    },
+    {
+        "file_name": "sfx_sounds_pause7_out.wav",
+        "path": "AudioClip/sfx_sounds_pause7_out.wav",
+        "guid": "65c7f827127099c4da46153ea9d230ba",
+        "category": "UI SFX",
+        "scene_context": "Pause Menu",
+        "description": "Pause menu open / close toggle sound"
+    },
+    {
+        "file_name": "sfx_sounds_powerup18.wav",
+        "path": "AudioClip/sfx_sounds_powerup18.wav",
+        "guid": "5da03eb713cd9394db7bd026df2c6568",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_sounds_powerup18.wav)"
+    },
+    {
+        "file_name": "sfx_sounds_powerup2.wav",
+        "path": "AudioClip/sfx_sounds_powerup2.wav",
+        "guid": "3af99b9cbbedc6141b92966cde1a263c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_sounds_powerup2.wav)"
+    },
+    {
+        "file_name": "sfx_sounds_powerup9.wav",
+        "path": "AudioClip/sfx_sounds_powerup9.wav",
+        "guid": "088d721af5604a24fb9ddccfaa334a0d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_sounds_powerup9.wav)"
+    },
+    {
+        "file_name": "sfx_steal1.wav",
+        "path": "AudioClip/sfx_steal1.wav",
+        "guid": "b84d4c438108fe240ad64a0a37e8b5cb",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_steal1.wav)"
+    },
+    {
+        "file_name": "sfx_steal2.wav",
+        "path": "AudioClip/sfx_steal2.wav",
+        "guid": "adc21f42afc7de84288f709a45b67758",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_steal2.wav)"
+    },
+    {
+        "file_name": "sfx_stream.wav",
+        "path": "AudioClip/sfx_stream.wav",
+        "guid": "2828beafbe0f83049983366afdbe2cff",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_stream.wav)"
+    },
+    {
+        "file_name": "sfx_strike.wav",
+        "path": "AudioClip/sfx_strike.wav",
+        "guid": "e7b91c9872bd2ec4cbc4c6bd312c5d9a",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_strike.wav)"
+    },
+    {
+        "file_name": "sfx_string.wav",
+        "path": "AudioClip/sfx_string.wav",
+        "guid": "f6685c01a9f08664282c5fda2187057c",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_string.wav)"
+    },
+    {
+        "file_name": "sfx_strom.wav",
+        "path": "AudioClip/sfx_strom.wav",
+        "guid": "79c0328b2f504514e821d0f25192a08d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_strom.wav)"
+    },
+    {
+        "file_name": "sfx_titleIntro.wav",
+        "path": "AudioClip/sfx_titleIntro.wav",
+        "guid": "9c11116c1b6edb44aaae4781f7d7b36a",
+        "category": "UI / Title SFX",
+        "scene_context": "Main Menu / Game Start",
+        "description": "Poncle logo chime / Main Title screen entry"
+    },
+    {
+        "file_name": "sfx_titleIntroB.wav",
+        "path": "AudioClip/sfx_titleIntroB.wav",
+        "guid": "30d6574647375ce42a86dd55643b4731",
+        "category": "UI / Title SFX",
+        "scene_context": "Main Menu / Game Start",
+        "description": "Poncle logo chime / Main Title screen entry"
+    },
+    {
+        "file_name": "sfx_treasure_found.wav",
+        "path": "AudioClip/sfx_treasure_found.wav",
+        "guid": "bf5f5c5c1a5e6b84a9f68c53b832a21d",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Treasure chest jingle"
+    },
+    {
+        "file_name": "sfx_treasure_foundB.wav",
+        "path": "AudioClip/sfx_treasure_foundB.wav",
+        "guid": "92e1d5d0688d3f2428ee6f26cc25439d",
+        "category": "Reward / UI SFX",
+        "scene_context": "Treasure Chest Opening",
+        "description": "Treasure chest jingle"
+    },
+    {
+        "file_name": "sfx_vehicle_breaks.wav",
+        "path": "AudioClip/sfx_vehicle_breaks.wav",
+        "guid": "4a7b1158f1b404d47a83e48ae1022c5e",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_vehicle_breaks.wav)"
+    },
+    {
+        "file_name": "sfx_victory1.wav",
+        "path": "AudioClip/sfx_victory1.wav",
+        "guid": "bbac79b2f255fd64c8f4cc98285d34de",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_victory1.wav)"
+    },
+    {
+        "file_name": "sfx_victory2.wav",
+        "path": "AudioClip/sfx_victory2.wav",
+        "guid": "9a882ccf2396ecf48818b92af89dab8b",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_victory2.wav)"
+    },
+    {
+        "file_name": "sfx_weapon_shotgun2.wav",
+        "path": "AudioClip/sfx_weapon_shotgun2.wav",
+        "guid": "17990e88c82386d4eab29a664825832a",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_weapon_shotgun2.wav)"
+    },
+    {
+        "file_name": "sfx_weapon_singleshot18.wav",
+        "path": "AudioClip/sfx_weapon_singleshot18.wav",
+        "guid": "e0150b91adc9335468c75482ff621f12",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_weapon_singleshot18.wav)"
+    },
+    {
+        "file_name": "sfx_weapon_singleshot5.wav",
+        "path": "AudioClip/sfx_weapon_singleshot5.wav",
+        "guid": "6e876b1c94f6a1f4eb375af6afb9018d",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_weapon_singleshot5.wav)"
+    },
+    {
+        "file_name": "sfx_wheelOfFortuneFanfare.ogg",
+        "path": "AudioClip/sfx_wheelOfFortuneFanfare.ogg",
+        "guid": "0e29f91f95c00e1458e5d8e94f508365",
+        "category": "UI SFX",
+        "scene_context": "Arcana / Darkana Wheel",
+        "description": "Arcana card spin, flip, and selection fanfare"
+    },
+    {
+        "file_name": "sfx_wheelOfFortuneTick.ogg",
+        "path": "AudioClip/sfx_wheelOfFortuneTick.ogg",
+        "guid": "f74ce5fdc7c406245af8d0f1cc2fb8f5",
+        "category": "UI SFX",
+        "scene_context": "Arcana / Darkana Wheel",
+        "description": "Arcana card spin, flip, and selection fanfare"
+    },
+    {
+        "file_name": "sfx_whistle.wav",
+        "path": "AudioClip/sfx_whistle.wav",
+        "guid": "a2837807db12e654aa652ea51232a8f0",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_whistle.wav)"
+    },
+    {
+        "file_name": "sfx_window.wav",
+        "path": "AudioClip/sfx_window.wav",
+        "guid": "8d204ffceed37dc428b594ebb4550151",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_window.wav)"
+    },
+    {
+        "file_name": "sfx_wingsA.wav",
+        "path": "AudioClip/sfx_wingsA.wav",
+        "guid": "92ccd99f52da4474f842f627793d810b",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_wingsA.wav)"
+    },
+    {
+        "file_name": "sfx_wingsB.wav",
+        "path": "AudioClip/sfx_wingsB.wav",
+        "guid": "3bbe246501b5cc645a65ff5ec87b590f",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (sfx_wingsB.wav)"
+    },
+    {
+        "file_name": "sfx_wpn_cannon3.wav",
+        "path": "AudioClip/sfx_wpn_cannon3.wav",
+        "guid": "ae62b16aa5d85ca48ad749116ecc0b12",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_wpn_punch2.wav",
+        "path": "AudioClip/sfx_wpn_punch2.wav",
+        "guid": "44a04357f5c853544bc822f8ac9fdcb5",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "sfx_wpn_punch4.wav",
+        "path": "AudioClip/sfx_wpn_punch4.wav",
+        "guid": "2c561cb50ddbc5c43bd13f069f59523f",
+        "category": "Combat SFX",
+        "scene_context": "In-game Combat / Weapon Use",
+        "description": "Weapon strike, enemy impact, or hit sound"
+    },
+    {
+        "file_name": "snowAttack_1.wav",
+        "path": "AudioClip/snowAttack_1.wav",
+        "guid": "623848656ba79994c87df70257dcbe7b",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "snowCharge_1.wav",
+        "path": "AudioClip/snowCharge_1.wav",
+        "guid": "1dc521e4161f3cf47a6780d7f0905091",
+        "category": "Weapon SFX",
+        "scene_context": "Glass Fandango / Ice Weapon",
+        "description": "Ice shatter and glass crystal weapon sounds"
+    },
+    {
+        "file_name": "step01.wav",
+        "path": "AudioClip/step01.wav",
+        "guid": "da00a3c699d97a04e9463cb65e8a3733",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (step01.wav)"
+    },
+    {
+        "file_name": "step02.wav",
+        "path": "AudioClip/step02.wav",
+        "guid": "15c7f47c71280dd4e8c6db325d7d0a77",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (step02.wav)"
+    },
+    {
+        "file_name": "step03.wav",
+        "path": "AudioClip/step03.wav",
+        "guid": "81694a1c4d69f9f43a998b72ff520223",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (step03.wav)"
+    },
+    {
+        "file_name": "step04.wav",
+        "path": "AudioClip/step04.wav",
+        "guid": "73b195dd75a594d42b4d9e0848998bf7",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (step04.wav)"
+    },
+    {
+        "file_name": "sxf_loss.wav",
+        "path": "AudioClip/sxf_loss.wav",
+        "guid": "3c3b2e55d40a18644a076ea01b190b96",
+        "category": "UI SFX",
+        "scene_context": "Player Death / Game Over",
+        "description": "Player death jingle & Game Over screen transition"
+    },
+    {
+        "file_name": "synth3.wav",
+        "path": "AudioClip/synth3.wav",
+        "guid": "1fbcf93b6e781d947a5ef588451b8cfe",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (synth3.wav)"
+    },
+    {
+        "file_name": "espannol.ogg",
+        "path": "Resources/references/sounds/espannol.ogg",
+        "guid": "4559c470cf5df9447b99641797067fdd",
+        "category": "SFX",
+        "scene_context": "Gameplay Event",
+        "description": "General Sound Effect (espannol.ogg)"
+    }
+]

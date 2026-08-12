@@ -43,7 +43,7 @@ struct TreasurePhase2Config
 
     // Background Spreading Distance Falloff Glow Parameters
     float bgGlowMaxRadiusRatio = 1.20f;   // Max spread radius relative to half panel width
-    float bgGlowGrowthDuration = 7.0f;    // Seconds for full spread
+    float bgGlowGrowthDuration = 5.5f;    // Seconds for full spread
     float bgGlowStartAlphaRatio = 0.0f;   // Initial central brightness ratio (0.0 = starts soft/invisible, 0.3 = starts 30% bright)
     float bgGlowMaxAlpha = 220.0f;        // Max central alpha brightness (0..255)
     float bgGlowFalloffExponent = 1.0f;   // Distance falloff curve sharpness (1.0 = linear, 2.0 = smooth bell curve, 3.0+ = tight central beam)

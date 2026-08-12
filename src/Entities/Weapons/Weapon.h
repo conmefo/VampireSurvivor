@@ -6,10 +6,12 @@ class Player;
 #include "../../Core/Data/WeaponLevelDelta.h"
 #include "../Projectiles/ProjectileManager.h"
 #include "IWeaponLevelObserver.h"
+#include "../../Core/Audio/AudioIdentifiers.h"
 #include <SFML/System/Vector2.hpp>
 #include <vector>
 
 class EnemyPool;
+class IAudioService;
 
 class Weapon
 {
@@ -32,6 +34,13 @@ public:
 
     const WeaponProfile& GetProfile() const;
 
+    // Audio: set the SFX played when this weapon fires.
+    void SetFireSfx(SfxID sfxId) { m_fireSfxId = sfxId; }
+    SfxID GetFireSfx() const { return m_fireSfxId; }
+
+    // Audio: set the audio service for this weapon to use.
+    void SetAudioService(IAudioService* audio) { m_audioService = audio; }
+
 protected:
     // Override in subclasses for weapon-specific level-up side effects.
     virtual void OnLevelUp() {}
@@ -41,6 +50,8 @@ protected:
 
     WeaponProfile m_profile;
     float m_cooldownTimer;
+    SfxID m_fireSfxId = SfxID::None;
+    IAudioService* m_audioService = nullptr;
 
 private:
     std::vector<WeaponLevelDelta> m_levelDeltas;

@@ -1,5 +1,4 @@
 #include "ExpBar.h"
-#include "../../Entities/Player.h"
 #include "../../Core/Resources/TextureAtlas.h"
 
 ExpBar::ExpBar(const TextureAtlas& atlas, const sf::Font& font)
@@ -45,16 +44,10 @@ void ExpBar::SetPositionAndSize(const sf::Vector2f& position, const sf::Vector2f
     m_levelText.setPosition(textX, textY);
 }
 
-void ExpBar::Update(float dt, const Player* player)
+void ExpBar::Update(float dt, int level, float expProgressRatio)
 {
-    int currentLevel = 1;
-    float progressRatio = 0.0f;
-
-    if (player)
-    {
-        currentLevel = player->GetLevel();
-        progressRatio = player->GetExpProgressRatio();
-    }
+    int currentLevel = level;
+    float progressRatio = expProgressRatio;
 
     if (currentLevel != m_cachedLevel)
     {

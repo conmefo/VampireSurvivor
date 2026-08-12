@@ -3,6 +3,7 @@
 #include <limits>
 
 #include "../Enemy/EnemyPool.h"
+#include "../../Core/Audio/IAudioService.h"
 
 Weapon::Weapon(const WeaponProfile& profile)
     : m_profile(profile)
@@ -54,6 +55,16 @@ void Weapon::Update(float dt, ProjectileManager& projManager, TextureAtlas& atla
 
     if(m_cooldownTimer <= 0.0f)
     {
+        // Audio: play weapon fire SFX once per burst
+        if (m_audioService && m_fireSfxId != SfxID::None)
+        {
+            PlaySoundOptions opts;
+            opts.position = player.GetPosition();
+            opts.isSpatial = true;
+            opts.priority = AudioPriority::High;
+            m_audioService->PlaySfx(m_fireSfxId, opts);
+        }
+
         int amount = m_profile.GetAmount() + player.GetBonusAmount();
         
         // Tuning override

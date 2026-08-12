@@ -1,0 +1,1214 @@
+[
+    {
+        "weapon_key": "WHIP",
+        "weapon_name": "Whip",
+        "bullet_type": "WHIP",
+        "sfx_files": [
+            "sfx_attack1.wav",
+            "sfx_strike.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "VAMPIRICA",
+        "weapon_name": "Bloody Tear",
+        "bullet_type": "VAMPIRICA",
+        "sfx_files": [
+            "sfx_attack1.wav",
+            "sfx_strike.wav",
+            "sfx_heal.wav"
+        ]
+    },
+    {
+        "weapon_key": "MAGIC_MISSILE",
+        "weapon_name": "Magic Wand",
+        "bullet_type": "MAGIC_MISSILE",
+        "sfx_files": [
+            "sfx_projectile_magic.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "HOLY_MISSILE",
+        "weapon_name": "Holy Wand",
+        "bullet_type": "HOLY_MISSILE",
+        "sfx_files": [
+            "sfx_projectile_magic2.wav",
+            "sfx_projectile_magic4.wav"
+        ]
+    },
+    {
+        "weapon_key": "KNIFE",
+        "weapon_name": "Knife",
+        "bullet_type": "KNIFE",
+        "sfx_files": [
+            "sfx_projectile.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "THOUSAND",
+        "weapon_name": "Thousand Edge",
+        "bullet_type": "THOUSAND",
+        "sfx_files": [
+            "sfx_projectile.wav"
+        ]
+    },
+    {
+        "weapon_key": "AXE",
+        "weapon_name": "Axe",
+        "bullet_type": "AXE",
+        "sfx_files": [
+            "sfx_attack1.wav",
+            "sfx_strike.wav"
+        ]
+    },
+    {
+        "weapon_key": "SCYTHE",
+        "weapon_name": "Death Spiral",
+        "bullet_type": "SCYTHE",
+        "sfx_files": [
+            "sfx_strike.wav",
+            "sfx_impact.wav"
+        ]
+    },
+    {
+        "weapon_key": "CROSS",
+        "weapon_name": "Cross",
+        "bullet_type": "CROSS",
+        "sfx_files": [
+            "sfx_projectile.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "HEAVENSWORD",
+        "weapon_name": "Heaven Sword",
+        "bullet_type": "HEAVENSWORD",
+        "sfx_files": [
+            "sfx_projectile.wav",
+            "sfx_impact.wav"
+        ]
+    },
+    {
+        "weapon_key": "HOLYBOOK",
+        "weapon_name": "King Bible",
+        "bullet_type": "HOLYBOOK",
+        "sfx_files": [
+            "sfx_pageTurn.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "VESPERS",
+        "weapon_name": "Unholy Vespers",
+        "bullet_type": "VESPERS",
+        "sfx_files": [
+            "sfx_magic_chanting.wav",
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "FIREBALL",
+        "weapon_name": "Fire Wand",
+        "bullet_type": "FIREBALL",
+        "sfx_files": [
+            "sfx_fireloop.wav",
+            "sfx_impact.wav"
+        ]
+    },
+    {
+        "weapon_key": "HELLFIRE",
+        "weapon_name": "Hellfire",
+        "bullet_type": "HELLFIRE",
+        "sfx_files": [
+            "sfx_fireloop.wav",
+            "sfx_explo_night.wav"
+        ]
+    },
+    {
+        "weapon_key": "GARLIC",
+        "weapon_name": "Garlic",
+        "bullet_type": "GARLIC",
+        "sfx_files": [
+            "sfx_enemyHit.wav"
+        ]
+    },
+    {
+        "weapon_key": "VORTEX",
+        "weapon_name": "Soul Eater",
+        "bullet_type": "VORTEX",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_gem.wav"
+        ]
+    },
+    {
+        "weapon_key": "HOLYWATER",
+        "weapon_name": "Santa Water",
+        "bullet_type": "HOLYWATER",
+        "sfx_files": [
+            "sfx_potBreak.wav",
+            "sfx_fireloop.wav"
+        ]
+    },
+    {
+        "weapon_key": "BORA",
+        "weapon_name": "La Borra",
+        "bullet_type": "BORA",
+        "sfx_files": [
+            "sfx_stream.wav",
+            "sfx_fireloop.wav"
+        ]
+    },
+    {
+        "weapon_key": "DIAMOND",
+        "weapon_name": "Runetracer",
+        "bullet_type": "DIAMOND",
+        "sfx_files": [
+            "sfx_crystal6.wav",
+            "sfx_crystal_quick.wav"
+        ]
+    },
+    {
+        "weapon_key": "ROCHER",
+        "weapon_name": "NO FUTURE",
+        "bullet_type": "ROCHER",
+        "sfx_files": [
+            "sfx_crystal8.wav",
+            "sfx_explo_night.wav"
+        ]
+    },
+    {
+        "weapon_key": "LIGHTNING",
+        "weapon_name": "Lightning Ring",
+        "bullet_type": "LIGHTNING",
+        "sfx_files": [
+            "sfx_lightningimpact.wav",
+            "sfx_mlightning1.wav"
+        ]
+    },
+    {
+        "weapon_key": "LOOP",
+        "weapon_name": "Thunder Loop",
+        "bullet_type": "LOOP",
+        "sfx_files": [
+            "sfx_lightningimpact.wav",
+            "sfx_mlightning1.wav"
+        ]
+    },
+    {
+        "weapon_key": "PENTAGRAM",
+        "weapon_name": "Pentagram",
+        "bullet_type": "PENTAGRAM",
+        "sfx_files": [
+            "sfx_moon_starter.wav",
+            "sfx_moon_finisher.wav"
+        ]
+    },
+    {
+        "weapon_key": "SIRE",
+        "weapon_name": "Gorgeous Moon",
+        "bullet_type": "SIRE",
+        "sfx_files": [
+            "sfx_moon_starter.wav",
+            "sfx_moon_beat.wav",
+            "sfx_moon_finisher.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILF",
+        "weapon_name": "Peachone",
+        "bullet_type": "SILF",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILF2",
+        "weapon_name": "Ebony Wings",
+        "bullet_type": "SILF2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILF3",
+        "weapon_name": "Vandalier",
+        "bullet_type": "SILF3",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GUNS",
+        "weapon_name": "Phiera Der Tuphello",
+        "bullet_type": "GUNS",
+        "sfx_files": [
+            "cff_acc.wav",
+            "cff_gtr.wav"
+        ]
+    },
+    {
+        "weapon_key": "GUNS2",
+        "weapon_name": "Eight The Sparrow",
+        "bullet_type": "GUNS2",
+        "sfx_files": [
+            "cff_shm.wav",
+            "cff_xlf.wav"
+        ]
+    },
+    {
+        "weapon_key": "GUNS3",
+        "weapon_name": "Phieraggi",
+        "bullet_type": "GUNS3",
+        "sfx_files": [
+            "cff_acc.wav",
+            "cff_gtr.wav",
+            "cff_shm.wav",
+            "cff_xlf.wav"
+        ]
+    },
+    {
+        "weapon_key": "GATTI",
+        "weapon_name": "Gatti Amari",
+        "bullet_type": "GATTI",
+        "sfx_files": [
+            "Cat1.wav",
+            "Cat2.wav",
+            "Cat3.wav",
+            "Cat5.wav",
+            "CatE.wav"
+        ]
+    },
+    {
+        "weapon_key": "STIGRANGATTI",
+        "weapon_name": "Vicious Hunger",
+        "bullet_type": "STIGRANGATTI",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SONG",
+        "weapon_name": "Song of Mana",
+        "bullet_type": "SONG",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MANNAGGIA",
+        "weapon_name": "Mannajja",
+        "bullet_type": "MANNAGGIA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRAPANO",
+        "weapon_name": "Shadow Pinion",
+        "bullet_type": "TRAPANO",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRAPANO2",
+        "weapon_name": "Valkyrie Turner",
+        "bullet_type": "TRAPANO2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "LANCET",
+        "weapon_name": "Clock Lancet",
+        "bullet_type": "LANCET",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CORRIDOR",
+        "weapon_name": "Infinite Corridor",
+        "bullet_type": "CORRIDOR",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "LAUREL",
+        "weapon_name": "Laurel",
+        "bullet_type": "LAUREL",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SHROUD",
+        "weapon_name": "Crimson Shroud",
+        "bullet_type": "SHROUD",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "VENTO",
+        "weapon_name": "Vento Sacro",
+        "bullet_type": "VENTO",
+        "sfx_files": [
+            "sfx_wpn_punch2.wav",
+            "sfx_wpn_punch4.wav"
+        ]
+    },
+    {
+        "weapon_key": "VENTO2",
+        "weapon_name": "Fuwalafuwaloo",
+        "bullet_type": "VENTO2",
+        "sfx_files": [
+            "sfx_wpn_punch4.wav",
+            "sfx_mwind1.wav"
+        ]
+    },
+    {
+        "weapon_key": "BONE",
+        "weapon_name": "Bone",
+        "bullet_type": "BONE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "BONE2",
+        "weapon_name": "Anima of Mortaccio",
+        "bullet_type": "BONE2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CHERRY",
+        "weapon_name": "Cherry Bomb",
+        "bullet_type": "CHERRY",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CHERRY2",
+        "weapon_name": "Yatta Daikarin",
+        "bullet_type": "CHERRY2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CART2",
+        "weapon_name": "Carr\u00e9llo",
+        "bullet_type": "CART2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CART2EVO",
+        "weapon_name": "Carozza!",
+        "bullet_type": "CART2EVO",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FLOWER",
+        "weapon_name": "Celestial Dusting",
+        "bullet_type": "FLOWER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FLOWER2",
+        "weapon_name": "Profusione D'Amore",
+        "bullet_type": "FLOWER2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ROBBA",
+        "weapon_name": "La Robba",
+        "bullet_type": "ROBBA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "JUBILEE",
+        "weapon_name": "Greatest Jubilee",
+        "bullet_type": "JUBILEE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRIASSO1",
+        "weapon_name": "Bracelet",
+        "bullet_type": "TRIASSO1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRIASSO2",
+        "weapon_name": "Bi-Bracelet",
+        "bullet_type": "TRIASSO2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRIASSO3",
+        "weapon_name": "Tri-Bracelet",
+        "bullet_type": "TRIASSO3",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CANDYBOX",
+        "weapon_name": "Candybox",
+        "bullet_type": "CANDYBOX",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CANDYBOX2",
+        "weapon_name": "Super Candybox II Turbo",
+        "bullet_type": "CANDYBOX2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "BATTILIA",
+        "weapon_name": "Pako Battilia",
+        "bullet_type": "BATTILIA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "BATTILIA2",
+        "weapon_name": "Mazzo Familiar",
+        "bullet_type": "BATTILIA2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_AMMO1",
+        "weapon_name": "Ammo Appalate",
+        "bullet_type": "EX_AMMO1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_AMMO2",
+        "weapon_name": "Gunastrophe",
+        "bullet_type": "EX_AMMO2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "VICTORY",
+        "weapon_name": "Victory Sword",
+        "bullet_type": "VICTORY",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SOLES",
+        "weapon_name": "Sole Solution",
+        "bullet_type": "SOLES",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MISSPELL",
+        "weapon_name": "Flames of Misspell",
+        "bullet_type": "MISSPELL",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MISSPELL2",
+        "weapon_name": "Ashes of Muspell",
+        "bullet_type": "MISSPELL2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FOLLOWER_KNIFE1",
+        "weapon_name": "Grant Knife",
+        "bullet_type": "FOLLOWER_KNIFE1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FOLLOWER_KNIFE2",
+        "weapon_name": ".",
+        "bullet_type": "FOLLOWER_KNIFE2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ICELANCE",
+        "weapon_name": "Glass Fandango",
+        "bullet_type": "ICELANCE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ICELANCE2",
+        "weapon_name": "Celestial Voulge",
+        "bullet_type": "ICELANCE2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SANTAJAVELIN",
+        "weapon_name": "Santa Javelin",
+        "bullet_type": "SANTAJAVELIN",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SANTAJAVELIN2",
+        "weapon_name": "Seraphic Cry",
+        "bullet_type": "SANTAJAVELIN2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_GAEA1",
+        "weapon_name": "Gaze of Gaea",
+        "bullet_type": "EX_GAEA1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_GAEA2",
+        "weapon_name": "Embrace of Gaea",
+        "bullet_type": "EX_GAEA2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_MAGISTONE1",
+        "weapon_name": "Magi-Stones",
+        "bullet_type": "EX_MAGISTONE1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_MAGISTONE2",
+        "weapon_name": "Kyra-Stones",
+        "bullet_type": "EX_MAGISTONE2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "PHASER",
+        "weapon_name": "Phas3r",
+        "bullet_type": "PHASER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "PHASER2",
+        "weapon_name": "Photonstorm",
+        "bullet_type": "PHASER2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ARMADIO",
+        "weapon_name": "Arma Dio",
+        "bullet_type": "ARMADIO",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "NDUJA",
+        "weapon_name": "Nduja Fritta",
+        "bullet_type": "NDUJA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "NDUJA_COUNTER",
+        "weapon_name": "Nduja Fritta",
+        "bullet_type": "NDUJA_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CONEOFCOLD",
+        "weapon_name": "Sorbetto",
+        "bullet_type": "CONEOFCOLD",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CONEOFCOLD_COUNTER",
+        "weapon_name": "Sorbetto",
+        "bullet_type": "CONEOFCOLD_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FLOOD",
+        "weapon_name": "Acquazzone",
+        "bullet_type": "FLOOD",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CART",
+        "weapon_name": "Dairy Cart",
+        "bullet_type": "CART",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TRAINHAZARD",
+        "weapon_name": "Take Us Away",
+        "bullet_type": "TRAINHAZARD",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SARABANDE",
+        "weapon_name": "Sarabande of Healing",
+        "bullet_type": "SARABANDE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "WINDOW",
+        "weapon_name": "Stained Glass",
+        "bullet_type": "WINDOW",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "WINDOW2",
+        "weapon_name": "Game Killer",
+        "bullet_type": "WINDOW2",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FIREEXPLOSION",
+        "weapon_name": "Heart of Fire",
+        "bullet_type": "FIREEXPLOSION",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "COLDEXPLOSION",
+        "weapon_name": "Out of Bounds",
+        "bullet_type": "COLDEXPLOSION",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "BLOODLINE",
+        "weapon_name": "Divine Bloodline",
+        "bullet_type": "BLOODLINE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ASTRONOMIA",
+        "weapon_name": "Blood Astronomia",
+        "bullet_type": "ASTRONOMIA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "D20_JETBLACK",
+        "weapon_name": "Wandering the Jet Black",
+        "bullet_type": "D20_JETBLACK",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "D13_MADMOON",
+        "weapon_name": "Wandering the Jet Black",
+        "bullet_type": "D13_MADMOON",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "NOVA_FIRE",
+        "weapon_name": "Fire Nova",
+        "bullet_type": "NOVA_FIRE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "NOVA_ICEE",
+        "weapon_name": "Ice Nova",
+        "bullet_type": "NOVA_ICEE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "NOVA_FEAR",
+        "weapon_name": "Fear Nova",
+        "bullet_type": "NOVA_FEAR",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_GROUNDHIT",
+        "weapon_name": "Ground Hit",
+        "bullet_type": "EX_GROUNDHIT",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "POWER",
+        "weapon_name": "Spinach",
+        "bullet_type": "POWER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "ARMOR",
+        "weapon_name": "Armor",
+        "bullet_type": "ARMOR",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MAXHEALTH",
+        "weapon_name": "Hollow Heart",
+        "bullet_type": "MAXHEALTH",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "REGEN",
+        "weapon_name": "Pummarola",
+        "bullet_type": "REGEN",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "COOLDOWN",
+        "weapon_name": "Empty Tome",
+        "bullet_type": "COOLDOWN",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "AREA",
+        "weapon_name": "Candelabrador",
+        "bullet_type": "AREA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SPEED",
+        "weapon_name": "Bracer",
+        "bullet_type": "SPEED",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "DURATION",
+        "weapon_name": "Spellbinder",
+        "bullet_type": "DURATION",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "AMOUNT",
+        "weapon_name": "Duplicator",
+        "bullet_type": "AMOUNT",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MOVESPEED",
+        "weapon_name": "Wings",
+        "bullet_type": "MOVESPEED",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "MAGNET",
+        "weapon_name": "Attractorb",
+        "bullet_type": "MAGNET",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "LUCK",
+        "weapon_name": "Clover",
+        "bullet_type": "LUCK",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GROWTH",
+        "weapon_name": "Crown",
+        "bullet_type": "GROWTH",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GREED",
+        "weapon_name": "Stone Mask",
+        "bullet_type": "GREED",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "CURSE",
+        "weapon_name": "Skull O'Maniac",
+        "bullet_type": "CURSE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "REVIVAL",
+        "weapon_name": "Tiragis\u00fa",
+        "bullet_type": "REVIVAL",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "PANDORA",
+        "weapon_name": "Torrona's Box",
+        "bullet_type": "PANDORA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "PARMA",
+        "weapon_name": "Parm Aegis ",
+        "bullet_type": "PARMA",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "DOMINION",
+        "weapon_name": "Karoma's Mana",
+        "bullet_type": "DOMINION",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "TETRAFORCE",
+        "weapon_name": "Tetraforce",
+        "bullet_type": "TETRAFORCE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILF_COUNTER",
+        "weapon_name": "Cygnus",
+        "bullet_type": "SILF_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILF2_COUNTER",
+        "weapon_name": "Zhar Ptytsia",
+        "bullet_type": "SILF2_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GUNS_COUNTER",
+        "weapon_name": "Red Muscle",
+        "bullet_type": "GUNS_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GUNS2_COUNTER",
+        "weapon_name": "Twice Upon a Time",
+        "bullet_type": "GUNS2_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GATTI_COUNTER",
+        "weapon_name": "Flock Destroyer",
+        "bullet_type": "GATTI_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_AMMO1_COUNTER",
+        "weapon_name": "Ammo Appalate",
+        "bullet_type": "EX_AMMO1_COUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SANTAJAVELINCOUNTER",
+        "weapon_name": "Levelin'EEE",
+        "bullet_type": "SANTAJAVELINCOUNTER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "SILVER",
+        "weapon_name": "Silver Ring",
+        "bullet_type": "SILVER",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "GOLD",
+        "weapon_name": "Gold Ring",
+        "bullet_type": "GOLD",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "LEFT",
+        "weapon_name": "Metaglio Left",
+        "bullet_type": "LEFT",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "RIGHT",
+        "weapon_name": "Metaglio Right",
+        "bullet_type": "RIGHT",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "FOLLOWER_GARLIC",
+        "weapon_name": "Garlic",
+        "bullet_type": "FOLLOWER_GARLIC",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_TOHILSTATUE",
+        "weapon_name": "Tohil Idol",
+        "bullet_type": "FIREEXPLOSION",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "INSATIABLE",
+        "weapon_name": "Insatiable",
+        "bullet_type": "INSATIABLE",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_COINTOSS1",
+        "weapon_name": "Sossoldi",
+        "bullet_type": "EX_COINTOSS1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    },
+    {
+        "weapon_key": "EX_RUMBA1",
+        "weapon_name": "Rumba",
+        "bullet_type": "EX_RUMBA1",
+        "sfx_files": [
+            "sfx_enemyHit.wav",
+            "sfx_attack1.wav"
+        ]
+    }
+]

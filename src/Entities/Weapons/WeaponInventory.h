@@ -18,10 +18,22 @@ public:
     WeaponInventory() = default;
     ~WeaponInventory() = default;
 
+    WeaponInventory(WeaponInventory&&) = default;
+    WeaponInventory& operator=(WeaponInventory&&) = default;
+
+    WeaponInventory(const WeaponInventory&) = delete;
+    WeaponInventory& operator=(const WeaponInventory&) = delete;
+
     // Called by GameState after creating the WeaponFactory, before adding weapons.
     void SetFactory(WeaponFactory* factory);
 
+    // Audio service injection: all weapons added will receive this service.
+    void SetAudioService(class IAudioService* audio) { m_audioService = audio; }
+
     void AddWeapon(std::unique_ptr<Weapon> weapon);
+    bool IsFull() const { return static_cast<int>(m_weapons.size()) >= m_maxSlots; }
+    int GetMaxSlots() const { return m_maxSlots; }
+    void SetMaxSlots(int maxSlots) { m_maxSlots = maxSlots; }
     void Update(float dt, ProjectileManager& projManager, TextureAtlas& atlas, Player& player, EnemyPool& enemyPool);
     void Draw(sf::RenderTarget& target) const;
 
@@ -42,4 +54,6 @@ private:
 
     std::vector<std::unique_ptr<Weapon>> m_weapons;
     WeaponFactory* m_factory = nullptr;
+    IAudioService* m_audioService = nullptr;
+    int m_maxSlots = 6;
 };

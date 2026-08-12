@@ -27,9 +27,10 @@
 #include "../../Core/Physics/Collision.h"
 #include "../../UI/Elements/RunGoldDisplay.h"
 #include "../../UI/ParticleTuningUI.h"
+#include "../../Core/Audio/AudioIdentifiers.h"
 
 namespace {
-constexpr std::size_t MaxRuntimeEnemies = 80;
+constexpr std::size_t MaxRuntimeEnemies = 2000;
 constexpr int MaxOpeningSpawns = 12;
 constexpr int MaxSpawnBatchPerTick = 3;
 constexpr int MaxEventSpawnBatchPerTick = 4;
@@ -104,10 +105,12 @@ const char *GetStageWaveKey(int stageNumber) {
 bool StartsWith(const std::string& value, const char* prefix) {
     return value.rfind(prefix, 0) == 0;
 }
+
+static bool s_disableLevelUpUI = true;
 } // namespace
 
-GameState::GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId)
-    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterId(selectedCharacterId)
+GameState::GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds)
+    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterIds(selectedCharacterIds)
     , m_weaponFactory(m_context.weaponData) {}
 
 GameState::~GameState()
@@ -122,16 +125,20 @@ GameState::~GameState()
 void GameState::Init() {
     std::cout << "GameState Init" << std::endl;
 
+    m_sharedExperience = 0.0f;
+    m_sharedLevel = 1;
+
     m_vfxManager.Initialize(m_context.atlas);
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
+    m_experienceGems.SetOnGemCollected([this](float xp) {
+        m_context.audio.PlaySfx(SfxID::GemPickup);
+        AddSharedExperience(xp);
+    });
     m_damageNumbers.Initialize(m_context.atlas);
     m_treasureChests = std::make_unique<TreasureChestManager>();
     m_treasureChests->Initialize(m_context.atlas);
-
-    // Wire the factory into the player's weapon inventory
-    // (will be called again after player is created below)
 
     m_worldView.setSize(ViewWidth / WorldZoom, ViewHeight / WorldZoom);
 
@@ -142,81 +149,109 @@ void GameState::Init() {
 
     LoadStage(1);
 
-    const CharacterProfile& profile = m_context.characterData.GetCharacterById(m_selectedCharacterId);
+    // Start stage BGM
+    m_context.audio.PlayMusic(BgmID::StageForest);
 
-    std::string originalSpriteName = profile.GetSpriteName();
-    std::string prefix = originalSpriteName;
-    size_t dotPos = prefix.find_last_of('.');
-    if(dotPos != std::string::npos) { prefix = prefix.substr(0, dotPos); }
-    size_t underscorePos = prefix.find_last_of('_');
-    if(underscorePos != std::string::npos) { prefix = prefix.substr(0, underscorePos); }
+    m_players.clear();
+    m_playerHUDs.clear();
+    m_pulsePets.clear();
 
-    std::vector<sf::IntRect> frames;
-    const sf::Texture* texture = nullptr;
+    const bool isMultiplayer = m_selectedCharacterIds.size() > 1;
+    const int maxWeaponSlots = isMultiplayer ? 3 : 6;
 
-    for(int i = 1; i <= profile.GetWalkingFrames(); ++i)
+    // Collect all starting weapons for initial distribution
+    std::vector<std::string> initialWeaponIds;
+
+    for (std::size_t idx = 0; idx < m_selectedCharacterIds.size(); ++idx)
     {
-        std::string frameName = prefix + (i < 10 ? "_0" : "_") + std::to_string(i);
-        AssetTextureData data = m_context.atlas.GetTextureData(frameName);
-        if(data.texture)
+        const std::string& charId = m_selectedCharacterIds[idx];
+        const CharacterProfile& profile = m_context.characterData.GetCharacterById(charId);
+
+        std::string originalSpriteName = profile.GetSpriteName();
+        std::string prefix = originalSpriteName;
+        size_t dotPos = prefix.find_last_of('.');
+        if(dotPos != std::string::npos) { prefix = prefix.substr(0, dotPos); }
+        size_t underscorePos = prefix.find_last_of('_');
+        if(underscorePos != std::string::npos) { prefix = prefix.substr(0, underscorePos); }
+
+        std::vector<sf::IntRect> frames;
+        const sf::Texture* texture = nullptr;
+
+        for(int i = 1; i <= profile.GetWalkingFrames(); ++i)
         {
-            texture = data.texture;
-            frames.push_back(data.rect);
-        }
-    }
-
-    if(texture && !frames.empty())
-    {
-        m_player = std::make_unique<Player>(profile, *texture, frames);
-        m_player->SetPosition(m_cameraCenter);
-        m_player->GetWeaponInventory().SetFactory(&m_weaponFactory);
-        m_player->ApplyGlobalBuffs(m_context.progressionData, m_context.powerUpData);
-
-        int pulsePetLevel = m_context.progressionData.GetPowerUpLevel("PET_PULSE");
-        if (pulsePetLevel >= 1)
-        {
-            m_pulsePet = std::make_unique<PulsePet>(m_context.atlas, pulsePetLevel);
-        }
-
-        m_player->SetOnHitVfxCallback([this](const std::string& vfxName, sf::Vector2f pos) {
-            const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(vfxName);
-            if(vfxProfile.GetId() != -1) {
-                m_vfxManager.PlayVfx(vfxProfile, pos);
+            std::string frameName = prefix + (i < 10 ? "_0" : "_") + std::to_string(i);
+            AssetTextureData data = m_context.atlas.GetTextureData(frameName);
+            if(data.texture)
+            {
+                texture = data.texture;
+                frames.push_back(data.rect);
             }
-            // Temporarily disabled for clean tuning!
-            // // Spawn blood tear particles as a burst!
-            // auto burstConfig = m_context.particleData.GetConfig("bloodTear");
-            // burstConfig.looping = false;
-            // burstConfig.duration = 0.1f;
-            // m_particleManager.SpawnEmitter(burstConfig, pos);
-        });
-
-        m_playerHUD = std::make_unique<PlayerHUD>(*m_player);
-        m_expBar = std::make_unique<ExpBar>(m_context.atlas, m_context.fonts.Get(FontID::Main));
-
-        sf::Vector2f playerStartPos = m_player->GetPosition();
-        const std::string& startingWeaponId = profile.GetStartingWeaponId();
-        auto startingWeapon = m_weaponFactory.Create(startingWeaponId);
-        if(startingWeapon)
-        {
-            m_player->GetWeaponInventory().AddWeapon(std::move(startingWeapon));
         }
 
+        if(texture && !frames.empty())
+        {
+            auto player = std::make_unique<Player>(profile, *texture, frames, static_cast<int>(idx));
+            player->SetIsMultiplayer(isMultiplayer);
+            sf::Vector2f spawnPos = m_cameraCenter + sf::Vector2f(idx * 50.0f, 0.0f);
+            player->SetPosition(spawnPos);
+            player->GetWeaponInventory().SetFactory(&m_weaponFactory);
+            player->GetWeaponInventory().SetAudioService(&m_context.audio);
+            player->GetWeaponInventory().SetMaxSlots(maxWeaponSlots);
+            player->ApplyGlobalBuffs(m_context.progressionData, m_context.powerUpData);
+
+            int pulsePetLevel = m_context.progressionData.GetPowerUpLevel("PET_PULSE");
+            if (pulsePetLevel >= 1)
+            {
+                m_pulsePets.push_back(std::make_unique<PulsePet>(m_context.atlas, pulsePetLevel));
+            }
+
+            player->SetOnHitVfxCallback([this](const std::string& vfxName, sf::Vector2f pos) {
+                const HitVfxProfile& vfxProfile = m_context.hitVfxData.GetVfxByName(vfxName);
+                if(vfxProfile.GetId() != -1) {
+                    m_vfxManager.PlayVfx(vfxProfile, pos);
+                }
+            });
+
+            m_playerHUDs.push_back(std::make_unique<PlayerHUD>(*player));
+            m_players.push_back(std::move(player));
+
+            const std::string& startWep = profile.GetStartingWeaponId();
+            if(!startWep.empty() && std::find(initialWeaponIds.begin(), initialWeaponIds.end(), startWep) == initialWeaponIds.end())
+            {
+                initialWeaponIds.push_back(startWep);
+            }
+        }
+        else
+        {
+            std::cerr << "Failed to find texture data for player sprite: " << profile.GetSpriteName() << std::endl;
+        }
     }
-    else
+
+    m_expBar = std::make_unique<ExpBar>(m_context.atlas, m_context.fonts.Get(FontID::Main));
+
+    // Distribute starting weapons to all players
+    for (const std::string& wepId : initialWeaponIds)
     {
-        std::cerr << "Failed to find texture data for player sprite: " << profile.GetSpriteName() << std::endl;
+        for (auto& p : m_players)
+        {
+            auto w = m_weaponFactory.Create(wepId);
+            if(w)
+            {
+                p->GetWeaponInventory().AddWeapon(std::move(w));
+            }
+        }
     }
 
     const sf::Font* font = m_context.fonts.GetPtr(FontID::Main);
     const sf::Font* boldFont = m_context.fonts.GetPtr(FontID::Bold);
-    if(font && boldFont)
+    if(font && boldFont && !m_players.empty())
     {
+        const CharacterProfile& profile0 = m_context.characterData.GetCharacterById(m_selectedCharacterIds[0]);
         m_pauseMenu = std::make_unique<PauseMenuView>(
             m_context.atlas,
             *font,
             *boldFont,
-            profile,
+            profile0,
             m_context.weaponData,
             m_context.progressionData,
             m_context.powerUpData);
@@ -256,9 +291,9 @@ void GameState::Init() {
         m_levelUpView = std::make_unique<SimpleTextLevelUpView>(m_context.atlas, *font);
 
         m_levelUpView->SetOnSelectOption([this](int index) {
-            if (m_player)
+            if (!m_players.empty())
             {
-                m_levelUpController.SelectOption(index, *m_player, m_context.weaponData, m_weaponFactory, [this](int gold) {
+                m_levelUpController.SelectOption(index, m_players, m_sharedLevel, m_context.weaponData, m_weaponFactory, [this](int gold) {
                     AddRunGold(gold);
                 });
                 if (m_levelUpController.IsSessionActive())
@@ -275,9 +310,9 @@ void GameState::Init() {
         });
 
         m_levelUpView->SetOnReroll([this]() {
-            if (m_player)
+            if (!m_players.empty())
             {
-                if (m_levelUpController.Reroll(*m_player, m_context.weaponData))
+                if (m_levelUpController.Reroll(m_players, m_sharedLevel, m_context.weaponData))
                 {
                     m_levelUpView->UpdateChoices(
                         m_levelUpController.GetCurrentChoices(),
@@ -291,9 +326,9 @@ void GameState::Init() {
         });
 
         m_levelUpView->SetOnSkip([this]() {
-            if (m_player)
+            if (!m_players.empty())
             {
-                if (m_levelUpController.Skip(*m_player))
+                if (m_levelUpController.Skip(m_players))
                 {
                     if (m_levelUpController.IsSessionActive())
                     {
@@ -310,9 +345,9 @@ void GameState::Init() {
         });
 
         m_levelUpView->SetOnBanish([this](int index) {
-            if (m_player)
+            if (!m_players.empty())
             {
-                if (m_levelUpController.Banish(index, *m_player, m_context.weaponData))
+                if (m_levelUpController.Banish(index, m_players, m_sharedLevel, m_context.weaponData))
                 {
                     m_levelUpView->UpdateChoices(
                         m_levelUpController.GetCurrentChoices(),
@@ -326,13 +361,13 @@ void GameState::Init() {
         });
     }
 
-    if (m_player)
+    for (auto& p : m_players)
     {
-        m_player->SetOnLevelUpCallback([this]() {
+        p->SetOnLevelUpCallback([this]() {
             m_levelUpController.QueueLevelUp();
-            if (!m_levelUpController.IsSessionActive() && m_player)
+            if (!m_levelUpController.IsSessionActive() && !m_players.empty())
             {
-                m_levelUpController.StartNextLevelUp(*m_player, m_context.weaponData);
+                m_levelUpController.StartNextLevelUp(m_players, m_sharedLevel, m_context.weaponData);
                 if (m_levelUpView && m_levelUpController.IsSessionActive())
                 {
                     m_levelUpView->UpdateChoices(
@@ -451,22 +486,13 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
         // Debug: level-up Song of Mana
-        if(m_player)
-        {
-            m_player->GetWeaponInventory().LevelUpWeapon("SONG");
-        }
-        return;
-    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::J) {
-        // Debug: level-down Song of Mana
-        if(m_player)
-        {
-            m_player->GetWeaponInventory().LevelDownWeapon("SONG");
-        }
+        BroadcastWeaponLevelUp("SONG");
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {
-        if(m_player && m_treasureChests)
+        Player* p0 = GetFirstAlivePlayer();
+        if(p0 && m_treasureChests)
         {
-            m_treasureChests->Spawn(m_player->GetPosition() + sf::Vector2f(80.0f, 0.0f));
+            m_treasureChests->Spawn(p0->GetPosition() + sf::Vector2f(80.0f, 0.0f));
         }
         return;
     } else if (event.type == sf::Event::KeyPressed &&
@@ -497,44 +523,74 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F1) {
-        if (m_player) {
-            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 2.0f); // 10 Blue Gems
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            m_experienceGems.SpawnMultiple(p0->GetPosition(), 10, 2.0f); // 10 Blue Gems
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F2) {
-        if (m_player) {
-            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 10.0f); // 10 Green Gems
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            m_experienceGems.SpawnMultiple(p0->GetPosition(), 10, 10.0f); // 10 Green Gems
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F3) {
-        if (m_player) {
-            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 10, 50.0f); // 10 Red Gems
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            m_experienceGems.SpawnMultiple(p0->GetPosition(), 10, 50.0f); // 10 Red Gems
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4) {
-        if (m_player) {
-            m_experienceGems.SpawnMultiple(m_player->GetPosition(), 450, 2.0f); // Test 400-gem aggregation cap
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            m_experienceGems.SpawnMultiple(p0->GetPosition(), 450, 2.0f); // Test 400-gem aggregation cap
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F5) {
-        if (m_player) {
-            m_player->AddExperience(500.0f); // Fast forward level-up progression
-        }
+        AddSharedExperience(500.0f); // Fast forward level-up progression
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F6) {
-        if (m_player) {
-            m_experienceGems.SpawnRandomInRadius(m_player->GetPosition(), 30, 40.0f, 300.0f); // Random gems around player
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            m_experienceGems.SpawnRandomInRadius(p0->GetPosition(), 30, 40.0f, 300.0f); // Random gems around player
         }
         return;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F7) {
-        if (m_player) {
-            auto attractorb = m_weaponFactory.Create("MAGNET");
-            if (attractorb) {
-                m_player->GetWeaponInventory().AddWeapon(std::move(attractorb));
-            }
-        }
+        BroadcastWeaponAdd("MAGNET");
         return;
 #endif
+    } else if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::B || event.key.code == sf::Keyboard::F8)) {
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            const sf::Vector2f pPos = p0->GetPosition();
+            constexpr int count = 500;
+            constexpr float radius = 350.0f;
+            for (int i = 0; i < count; ++i) {
+                const float angle = (2.0f * 3.14159265f * i) / count;
+                const sf::Vector2f spawnPos = pPos + sf::Vector2f(std::cos(angle) * radius, std::sin(angle) * radius);
+                m_enemyPool.Acquire("BAT1", spawnPos);
+            }
+            std::cout << "[STRESS TEST] Spawned 500 enemies! Total active: " << m_enemyPool.GetActiveCount() << std::endl;
+        }
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::N) {
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            const sf::Vector2f pPos = p0->GetPosition();
+            constexpr int count = 1000;
+            constexpr float radius = 450.0f;
+            for (int i = 0; i < count; ++i) {
+                const float angle = (2.0f * 3.14159265f * i) / count;
+                const sf::Vector2f spawnPos = pPos + sf::Vector2f(std::cos(angle) * radius, std::sin(angle) * radius);
+                m_enemyPool.Acquire("ZOMBIE", spawnPos);
+            }
+            std::cout << "[STRESS TEST] Spawned 1000 enemies! Total active: " << m_enemyPool.GetActiveCount() << std::endl;
+        }
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::C) {
+        m_enemyPool.DeactivateAll();
+        std::cout << "[STRESS TEST] Cleared all active enemies!" << std::endl;
+    } else if (event.type == sf::Event::KeyPressed && (event.key.code == sf::Keyboard::V || event.key.code == sf::Keyboard::F9)) {
+        s_disableLevelUpUI = !s_disableLevelUpUI;
+        std::cout << "[STRESS TEST] Level Up UI set to: " << (s_disableLevelUpUI ? "DISABLED" : "ENABLED") << std::endl;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
     } else if (event.type == sf::Event::KeyPressed &&
@@ -547,12 +603,15 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
                (event.key.code == sf::Keyboard::Num1 || event.key.code == sf::Keyboard::Numpad1)) {
         LoadStage(1);
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::K) {
-        if (m_player && !m_player->IsDead()) {
-            m_player->TakeDamage(99999.0f);
+        Player* p0 = GetFirstAlivePlayer();
+        if (p0) {
+            p0->TakeDamage(99999.0f);
         }
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::L) {
-        if (m_player && m_player->IsDead()) {
-            m_player->Revive();
+        for (auto& p : m_players) {
+            if (p && p->IsDead()) {
+                p->Revive();
+            }
         }
     } else if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), m_worldView);
@@ -586,13 +645,16 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
 }
 
 void GameState::Update(float dt) {
+    // Update audio listener position and viewport culling bounds in real-time
+    m_context.audio.Update(dt, GetViewBounds(), m_cameraCenter);
+
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->Update(dt);
     }
     if(m_expBar)
     {
-        m_expBar->Update(dt, m_player.get());
+        m_expBar->Update(dt, m_sharedLevel, GetSharedExpProgressRatio());
     }
 
     if(m_treasureRewardView && m_treasureRewardView->IsVisible())
@@ -634,7 +696,7 @@ void GameState::Update(float dt) {
         return;
     }
 
-    if(m_player && m_player->IsDead())
+    if(AreAllPlayersDead())
     {
         m_runState = RunState::DefeatAnimating;
         m_defeatAnimationTimer = 0.0f;
@@ -642,23 +704,73 @@ void GameState::Update(float dt) {
         return;
     }
 
-    if(m_player)
+    // Camera Center = average of all alive players' positions
+    sf::Vector2f avgPos(0.0f, 0.0f);
+    int aliveCount = 0;
+
+    for (std::size_t i = 0; i < m_players.size(); ++i)
     {
-        m_player->Update(dt);
-        m_cameraCenter = m_player->GetPosition();
-        ApplyCameraToView();
+        auto& p = m_players[i];
+        if (!p) continue;
 
-        m_player->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, *m_player, m_enemyPool);
+        p->Update(dt);
+    }
 
-        if (m_playerHUD) {
-            m_playerHUD->Update(dt);
-        }
+    // 2-Player Screen Boundary Distance Tethering
+    if (m_players.size() >= 2 && m_players[0] && m_players[1] && !m_players[0]->IsDead() && !m_players[1]->IsDead())
+    {
+        sf::Vector2f p0Pos = m_players[0]->GetPosition();
+        sf::Vector2f p1Pos = m_players[1]->GetPosition();
+        sf::Vector2f diff = p1Pos - p0Pos;
 
-        if (m_pulsePet)
+        constexpr float MaxXDist = 650.0f;
+        constexpr float MaxYDist = 360.0f;
+
+        float normX = diff.x / MaxXDist;
+        float normY = diff.y / MaxYDist;
+        float ellipseDistSq = normX * normX + normY * normY;
+
+        if (ellipseDistSq > 1.0f)
         {
-            m_pulsePet->Update(dt, *m_player, m_enemyPool, &m_damageNumbers, &m_experienceGems);
+            float scale = 1.0f / std::sqrt(ellipseDistSq);
+            sf::Vector2f clampedDiff(diff.x * scale, diff.y * scale);
+            sf::Vector2f midpoint = (p0Pos + p1Pos) * 0.5f;
+
+            m_players[0]->SetPosition(midpoint - clampedDiff * 0.5f);
+            m_players[1]->SetPosition(midpoint + clampedDiff * 0.5f);
         }
     }
+
+    for (std::size_t i = 0; i < m_players.size(); ++i)
+    {
+        auto& p = m_players[i];
+        if (!p) continue;
+
+        if (!p->IsDead())
+        {
+            avgPos += p->GetPosition();
+            aliveCount++;
+        }
+
+        p->GetWeaponInventory().Update(dt, m_projectileManager, m_context.atlas, *p, m_enemyPool);
+
+        if (i < m_playerHUDs.size() && m_playerHUDs[i])
+        {
+            m_playerHUDs[i]->Update(dt);
+        }
+
+        if (i < m_pulsePets.size() && m_pulsePets[i])
+        {
+            m_pulsePets[i]->Update(dt, *p, m_enemyPool, &m_damageNumbers, &m_experienceGems);
+        }
+    }
+
+    if (aliveCount > 0)
+    {
+        m_cameraCenter = avgPos / static_cast<float>(aliveCount);
+    }
+    ApplyCameraToView();
+
     UpdateStageTimer(dt);
     if(m_runState != RunState::Playing)
     {
@@ -666,7 +778,7 @@ void GameState::Update(float dt) {
     }
 
     // DEBUG MODE: Set to true to disable enemy spawning/movement and spawn static dummies for testing
-    constexpr bool DebugStaticTargetsMode = true;
+    constexpr bool DebugStaticTargetsMode = false;
 
     if (!DebugStaticTargetsMode) {
         UpdateStageSpawner(dt);
@@ -698,29 +810,41 @@ void GameState::Update(float dt) {
         }
     }
 
+    Player* primaryPlayer = GetFirstAlivePlayer();
+
     auto hits = m_projectileManager.CheckCollisions(collisionTargets);
     for(auto& hit : hits)
     {
         EnemyBase* enemy = static_cast<EnemyBase*>(hit.second);
         Projectile* proj = hit.first;
-        if(enemy && proj && m_player)
+        if(enemy && proj && primaryPlayer)
         {
             sf::Vector2f originalPos = enemy->GetPosition();
             const sf::Vector2f collisionCenter = enemy->GetCollisionCenter();
 
-            sf::Vector2f diff = collisionCenter - m_player->GetPosition();
+            sf::Vector2f diff = collisionCenter - primaryPlayer->GetPosition();
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
             const float damage = proj->GetPower();
             const bool killed = enemy->TakeDamage(damage, knockbackDir);
             m_damageNumbers.Spawn(damage, originalPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
+
+            // Audio: coalesced enemy hit/death SFX (spatial, low priority)
             if(killed)
             {
+                m_context.audio.PlaySfxAt(SfxID::EnemyDeath, originalPos, 1.0f, AudioPriority::Medium);
                 m_experienceGems.Spawn(originalPos, enemy->GetExpYield() * GetStageXpBonus());
                 if(m_bossEnemies.erase(enemy) > 0 && m_treasureChests)
                 {
+                    PlaySoundOptions chestOpts;
+                    chestOpts.priority = AudioPriority::High;
+                    m_context.audio.PlaySfx(SfxID::ChestOpen, chestOpts);
                     m_treasureChests->Spawn(originalPos);
                 }
+            }
+            else
+            {
+                m_context.audio.PlaySfxAt(SfxID::EnemyHit, originalPos, 1.0f, AudioPriority::Low);
             }
 
             constexpr float KNOCKBACK_FORCE = 15.0f;
@@ -734,27 +858,33 @@ void GameState::Update(float dt) {
     m_vfxManager.Update(dt);
     m_particleManager.Update(dt);
     m_damageNumbers.Update(dt);
-    if(m_player && !m_player->IsDead())
+
+    if(!AreAllPlayersDead())
     {
-        m_experienceGems.Update(dt, *m_player);
+        m_experienceGems.Update(dt, m_players);
+
         if(m_treasureChests)
         {
-            m_treasureChests->Update(
-                dt,
-                m_player->GetPosition(),
-                [this](int gold) {
-                    if(m_treasureRewardView)
-                    {
-                        m_treasureRewardView->Show(gold, m_runGold);
-                    }
-                    else
-                    {
-                        AddRunGold(gold);
-                    }
-                });
-            if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+            for (const auto& p : m_players)
             {
-                return;
+                if (!p || p->IsDead()) continue;
+                m_treasureChests->Update(
+                    dt,
+                    p->GetPosition(),
+                    [this](int gold) {
+                        if(m_treasureRewardView)
+                        {
+                            m_treasureRewardView->Show(gold, m_runGold);
+                        }
+                        else
+                        {
+                            AddRunGold(gold);
+                        }
+                    });
+                if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+                {
+                    return;
+                }
             }
         }
     }
@@ -767,10 +897,13 @@ void GameState::Update(float dt) {
     m_enemyPool.ResolveEnemyCollisions();
     ApplyEnemyContactDamage();
 
-    if(m_player && m_player->IsDead())
+    if(AreAllPlayersDead())
     {
         m_runState = RunState::DefeatAnimating;
         m_defeatAnimationTimer = 0.0f;
+        PlaySoundOptions deathOpts;
+        deathOpts.priority = AudioPriority::Critical;
+        m_context.audio.PlaySfx(SfxID::PlayerDeath, deathOpts);
         return;
     }
 
@@ -808,11 +941,15 @@ void GameState::Draw(sf::RenderWindow &window) {
 
     m_experienceGems.Draw(window);
 
-    if(m_player)
+    for (std::size_t i = 0; i < m_players.size(); ++i)
     {
-        m_player->Draw(window);
-        if (m_playerHUD) {
-            m_playerHUD->Draw(window);
+        if (m_players[i])
+        {
+            m_players[i]->Draw(window);
+            if (i < m_playerHUDs.size() && m_playerHUDs[i])
+            {
+                m_playerHUDs[i]->Draw(window);
+            }
         }
     }
 
@@ -820,9 +957,9 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_projectileManager.Draw(window);
     m_vfxManager.Draw(window);
 
-    if (m_pulsePet)
+    for (auto& pet : m_pulsePets)
     {
-        m_pulsePet->Draw(window);
+        if (pet) pet->Draw(window);
     }
     if(m_treasureChests)
     {
@@ -860,6 +997,23 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_runGoldDisplay->Draw(window);
     }
 
+    const sf::Font* debugFont = m_context.fonts.GetPtr(FontID::Main);
+    if (debugFont)
+    {
+        sf::Text enemyHudText;
+        enemyHudText.setFont(*debugFont);
+        enemyHudText.setCharacterSize(22);
+        enemyHudText.setFillColor(sf::Color::Yellow);
+        enemyHudText.setOutlineColor(sf::Color::Black);
+        enemyHudText.setOutlineThickness(2.0f);
+        enemyHudText.setPosition(110.0f, 18.0f);
+
+        const std::string hudStr = "ENEMIES: " + std::to_string(m_enemyPool.GetActiveCount()) +
+                                   " / 2000 | LEVEL-UP: " + (s_disableLevelUpUI ? "DISABLED (Press V to toggle)" : "ENABLED (Press V to toggle)");
+        enemyHudText.setString(hudStr);
+        window.draw(enemyHudText);
+    }
+
     window.setView(previousView);
 
     if (m_tuningUI) {
@@ -888,9 +1042,10 @@ void GameState::Draw(sf::RenderWindow &window) {
         {
             worldSize = m_tileMap->GetWorldSize();
         }
-        if(m_player)
+        Player* p0 = GetFirstAlivePlayer();
+        if(p0)
         {
-            m_pauseMenu->SetPlayerPosition(m_player->GetPosition(), worldSize);
+            m_pauseMenu->SetPlayerPosition(p0->GetPosition(), worldSize);
         }
         m_pauseMenu->Draw(window);
         window.setView(previousView);
@@ -960,12 +1115,16 @@ void GameState::LoadStage(int stageNumber) {
         m_cameraCenter = sf::Vector2f(400.0f, 300.0f);
     }
 
-    if (m_player) {
-        if(m_player->IsDead())
-        {
-            m_player->Revive();
+    for (std::size_t idx = 0; idx < m_players.size(); ++idx)
+    {
+        auto& p = m_players[idx];
+        if (p) {
+            if(p->IsDead())
+            {
+                p->Revive();
+            }
+            p->SetPosition(m_cameraCenter + sf::Vector2f(idx * 50.0f, 0.0f));
         }
-        m_player->SetPosition(m_cameraCenter);
     }
 
     ApplyCameraToView();
@@ -1533,6 +1692,9 @@ void GameState::FinishRun(RunState outcome)
     m_isPaused = false;
     UpdateStageTimerText();
 
+    // Switch to game over BGM
+    m_context.audio.PlayMusic(BgmID::GameOver, false, 1.0f);
+
     if(m_gameOverView)
     {
         m_gameOverView->Show();
@@ -1547,9 +1709,9 @@ void GameState::UpdateDefeatAnimation(float dt)
     }
 
     const float elapsed = std::max(0.0f, dt);
-    if(m_player)
+    for (auto& p : m_players)
     {
-        m_player->Update(elapsed);
+        if (p) p->Update(elapsed);
     }
 
     m_defeatAnimationTimer += elapsed;
@@ -1630,36 +1792,39 @@ void GameState::BankRunGold()
 
 void GameState::ApplyEnemyContactDamage()
 {
-    if(!m_player || m_player->IsDead())
+    if(AreAllPlayersDead())
     {
         return;
     }
 
-    const sf::Vector2f playerPosition = m_player->GetPosition();
-    const float playerRadius = m_player->GetCollisionRadius();
-    float contactDamage = 0.0f;
-
-    for(EnemyBase* enemy : m_enemyPool.GetActiveEnemies())
+    for (auto& player : m_players)
     {
-        if(!enemy || !enemy->IsAlive())
+        if(!player || player->IsDead()) continue;
+
+        const sf::Vector2f playerPosition = player->GetPosition();
+        const float playerRadius = player->GetCollisionRadius();
+        float contactDamage = 0.0f;
+
+        for(EnemyBase* enemy : m_enemyPool.GetActiveEnemies())
         {
-            continue;
+            if(!enemy || !enemy->IsAlive()) continue;
+
+            if(Collision::CircleIntersectsCircle(
+                   playerPosition,
+                   playerRadius,
+                   enemy->GetCollisionCenter(),
+                   enemy->GetCollisionRadius()) &&
+               enemy->GetDamage() > contactDamage)
+            {
+                contactDamage = enemy->GetDamage();
+            }
         }
 
-        if(Collision::CircleIntersectsCircle(
-               playerPosition,
-               playerRadius,
-               enemy->GetCollisionCenter(),
-               enemy->GetCollisionRadius()) &&
-           enemy->GetDamage() > contactDamage)
+        if(contactDamage > 0.0f)
         {
-            contactDamage = enemy->GetDamage();
+            player->TakeDamage(contactDamage);
+            m_context.audio.PlaySfxAt(SfxID::PlayerHit, player->GetPosition(), 1.0f, AudioPriority::High);
         }
-    }
-
-    if(contactDamage > 0.0f)
-    {
-        m_player->TakeDamage(contactDamage);
     }
 }
 
@@ -1690,15 +1855,159 @@ void GameState::DrawHitboxes(sf::RenderTarget &target) {
 
     m_enemyPool.DrawDebug(target);
 
-    if(m_player && !m_player->IsDead())
+    for (const auto& player : m_players)
     {
-        const float radius = m_player->GetCollisionRadius();
-        sf::CircleShape playerHitbox(radius);
-        playerHitbox.setOrigin(radius, radius);
-        playerHitbox.setPosition(m_player->GetPosition());
-        playerHitbox.setFillColor(sf::Color(80, 170, 255, 35));
-        playerHitbox.setOutlineColor(sf::Color(80, 170, 255, 220));
-        playerHitbox.setOutlineThickness(1.0f);
-        target.draw(playerHitbox);
+        if(player && !player->IsDead())
+        {
+            const float radius = player->GetCollisionRadius();
+            sf::CircleShape playerHitbox(radius);
+            playerHitbox.setOrigin(radius, radius);
+            playerHitbox.setPosition(player->GetPosition());
+            playerHitbox.setFillColor(sf::Color(80, 170, 255, 35));
+            playerHitbox.setOutlineColor(sf::Color(80, 170, 255, 220));
+            playerHitbox.setOutlineThickness(1.0f);
+            target.draw(playerHitbox);
+        }
     }
+}
+
+bool GameState::AreAllPlayersDead() const
+{
+    if (m_players.empty()) return true;
+    for (const auto& p : m_players)
+    {
+        if (p && !p->IsDead()) return false;
+    }
+    return true;
+}
+
+Player* GameState::GetFirstAlivePlayer()
+{
+    for (auto& p : m_players)
+    {
+        if (p && !p->IsDead()) return p.get();
+    }
+    return m_players.empty() ? nullptr : m_players[0].get();
+}
+
+void GameState::AddSharedExperience(float amount)
+{
+    if (amount <= 0.0f) return;
+
+    float growthMultiplier = 1.0f;
+    if (m_sharedLevel == 20 || m_sharedLevel == 40)
+    {
+        growthMultiplier += 1.0f;
+    }
+
+    m_sharedExperience += amount * growthMultiplier;
+
+    float targetExp = GetSharedTargetExperience();
+    while (m_sharedExperience >= targetExp)
+    {
+        m_sharedExperience -= targetExp;
+        m_sharedLevel++;
+
+        if (s_disableLevelUpUI)
+        {
+            continue;
+        }
+
+        // Audio: Level up SFX
+        PlaySoundOptions lvlOpts;
+        lvlOpts.priority = AudioPriority::Critical;
+        m_context.audio.PlaySfx(SfxID::LevelUpOpen, lvlOpts);
+
+        m_levelUpController.QueueLevelUp();
+        if (!m_levelUpController.IsSessionActive() && !m_players.empty())
+        {
+            m_levelUpController.StartNextLevelUp(m_players, m_sharedLevel, m_context.weaponData);
+            if (m_levelUpView && m_levelUpController.IsSessionActive())
+            {
+                m_levelUpView->UpdateChoices(
+                    m_levelUpController.GetCurrentChoices(),
+                    m_levelUpController.GetPendingLevelUpCount(),
+                    m_levelUpController.GetRerollCharges(),
+                    m_levelUpController.GetSkipCharges(),
+                    m_levelUpController.GetBanishCharges()
+                );
+            }
+        }
+        targetExp = GetSharedTargetExperience();
+    }
+}
+
+float GameState::GetSharedTargetExperience() const
+{
+    int lvl = m_sharedLevel;
+    if (lvl <= 1) return 5.0f;
+    if (lvl < 20) return 5.0f + 10.0f * (lvl - 1);
+    if (lvl == 20) return 5.0f + 10.0f * 19 + 600.0f;
+
+    float xp20 = 5.0f + 10.0f * 19 + 600.0f;
+    if (lvl < 40) return xp20 + 13.0f * (lvl - 20);
+    if (lvl == 40) return (xp20 + 13.0f * 20) + 2400.0f;
+
+    float xp40 = (xp20 + 13.0f * 20) + 2400.0f;
+    return xp40 + 16.0f * (lvl - 40);
+}
+
+float GameState::GetSharedExpProgressRatio() const
+{
+    float target = GetSharedTargetExperience();
+    if (target <= 0.0f) return 0.0f;
+    float ratio = m_sharedExperience / target;
+    return std::clamp(ratio, 0.0f, 1.0f);
+}
+
+void GameState::BroadcastWeaponAdd(const std::string& weaponId)
+{
+    for (auto& p : m_players)
+    {
+        if (p && !p->GetWeaponInventory().IsFull())
+        {
+            auto w = m_weaponFactory.Create(weaponId);
+            if (w)
+            {
+                p->GetWeaponInventory().AddWeapon(std::move(w));
+            }
+        }
+    }
+}
+
+void GameState::BroadcastWeaponLevelUp(const std::string& weaponId)
+{
+    for (auto& p : m_players)
+    {
+        if (p && p->GetWeaponInventory().HasWeapon(weaponId))
+        {
+            p->GetWeaponInventory().LevelUpWeapon(weaponId);
+        }
+    }
+}
+
+WeaponInventory GameState::BuildMergedInventoryView() const
+{
+    WeaponInventory merged;
+    for (const auto& p : m_players)
+    {
+        if (!p) continue;
+        for (const auto& w : p->GetWeaponInventory().GetWeapons())
+        {
+            if (w && !merged.HasWeapon(w->GetProfile().GetId()))
+            {
+                auto copy = m_weaponFactory.Create(w->GetProfile().GetId());
+                if (copy)
+                {
+                    // Match level
+                    for (int l = 1; l < w->GetProfile().GetCurrentLevel(); ++l)
+                    {
+                        copy->LevelUp();
+                    }
+                    merged.AddWeapon(std::move(copy));
+                }
+            }
+        }
+    }
+    return merged;
 }

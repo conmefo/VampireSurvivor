@@ -35,7 +35,7 @@ class TreasureRewardView;
 
 class GameState : public BaseState {
   public:
-    GameState(StateContext context, TileMapManager& mapManager, const std::string& selectedCharacterId);
+    GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds);
     ~GameState() override;
 
     void Init() override;
@@ -98,6 +98,16 @@ class GameState : public BaseState {
     sf::FloatRect GetViewBounds() const;
     void DrawHitboxes(sf::RenderTarget &target);
 
+    // 2-Player shared progression helpers
+    bool AreAllPlayersDead() const;
+    Player* GetFirstAlivePlayer();
+    void AddSharedExperience(float amount);
+    float GetSharedTargetExperience() const;
+    float GetSharedExpProgressRatio() const;
+    void BroadcastWeaponAdd(const std::string& weaponId);
+    void BroadcastWeaponLevelUp(const std::string& weaponId);
+    WeaponInventory BuildMergedInventoryView() const;
+
     static constexpr float CameraSpeed = 200.0f;
     static constexpr float ViewWidth = 1920.0f;
     static constexpr float ViewHeight = 1080.0f;
@@ -125,8 +135,8 @@ class GameState : public BaseState {
     sf::Text m_stageTimerText;
     sf::Text m_stageTimerShadowText;
     sf::Text m_stageInfoText;
-    std::unique_ptr<Player> m_player;
-    std::string m_selectedCharacterId;
+    std::vector<std::unique_ptr<Player>> m_players;
+    std::vector<std::string> m_selectedCharacterIds;
     int m_currentStage = 1;
     RunState m_runState = RunState::Playing;
     float m_defeatAnimationTimer = 0.0f;
@@ -149,10 +159,14 @@ class GameState : public BaseState {
     DamageNumberManager m_damageNumbers;
     std::unique_ptr<TreasureChestManager> m_treasureChests;
     std::unique_ptr<TreasureRewardView> m_treasureRewardView;
-    std::unique_ptr<PlayerHUD> m_playerHUD;
+    std::vector<std::unique_ptr<PlayerHUD>> m_playerHUDs;
     std::unique_ptr<ExpBar> m_expBar;
     WeaponFactory m_weaponFactory;
     LevelUpSessionController m_levelUpController;
     std::unique_ptr<SimpleTextLevelUpView> m_levelUpView;
-    std::unique_ptr<PulsePet> m_pulsePet;
+    std::vector<std::unique_ptr<PulsePet>> m_pulsePets;
+
+    // Shared 2-player progression state
+    float m_sharedExperience = 0.0f;
+    int m_sharedLevel = 1;
 };

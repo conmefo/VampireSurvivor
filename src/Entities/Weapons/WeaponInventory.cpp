@@ -18,7 +18,14 @@ void WeaponInventory::AddWeapon(std::unique_ptr<Weapon> weapon)
             return;
         }
 
+        if(IsFull())
+        {
+            std::cerr << "WeaponInventory::AddWeapon: inventory full (" << m_maxSlots << " slots), cannot add '" << weapon->GetProfile().GetId() << "'\n";
+            return;
+        }
+
         weapon->SetObserver(this);
+        weapon->SetAudioService(m_audioService);
         m_weapons.push_back(std::move(weapon));
     }
 }

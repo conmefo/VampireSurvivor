@@ -5,6 +5,7 @@
 #include "../StateManager.h"
 #include "PowerUpState.h"
 #include "../../UI/Elements/GoldDisplayWidget.h"
+#include "../../Core/Audio/AudioIdentifiers.h"
 #include <iostream>
 
 
@@ -75,6 +76,9 @@ void MainMenuState::Init() {
 
   SetupCompositeBackground();
   SetupUI();
+
+  // Start main menu background music
+  m_context.audio.PlayMusic(BgmID::MainMenu);
 }
 
 void MainMenuState::SetupUI() {
@@ -128,17 +132,22 @@ void MainMenuState::SetupUI() {
   }
 
   startButton->SetOnClickCallback([this]() {
+    m_context.audio.PlaySfx(SfxID::ButtonClick);
     m_context.stateManager.AddState(std::make_unique<CharacterSelectionScreen>(m_context, m_mapManager));
   });
 
   powerUpBtn->SetOnClickCallback([this]() {
+      m_context.audio.PlaySfx(SfxID::ButtonClick);
       m_context.stateManager.AddState(std::make_unique<PowerUpState>(m_context));
   });
 
   // --- TOP BAR ---
   auto quitBtn = createButton("button_c8_normal", "", "", "QUIT", width * 0.35f, 54.0f, 130.0f, 54.0f, 26);
   quitBtn->SetStateColors(sf::Color::White, sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 150), sf::Color(100, 100, 100, 150));
-  quitBtn->SetOnClickCallback([this]() { m_context.stateManager.PopState(); });
+  quitBtn->SetOnClickCallback([this]() {
+    m_context.audio.PlaySfx(SfxID::ButtonClick);
+    m_context.stateManager.PopState();
+  });
 
   auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 54.0f, 130.0f, 54.0f, 26);
   optionsBtn->SetOnClickCallback([]() { std::cout << "Options Clicked\n"; });

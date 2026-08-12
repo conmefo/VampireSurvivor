@@ -12,7 +12,7 @@
 class StageLoadingState : public BaseState
 {
 public:
-    StageLoadingState(StateContext context, TileMapManager& mapManager, const std::string& characterId, int stageId);
+    StageLoadingState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& characterIds, int stageId);
     ~StageLoadingState() override;
 
     void Init() override;
@@ -24,7 +24,7 @@ private:
     void LoadMapWorker();
 
     TileMapManager& m_mapManager;
-    std::string m_characterId;
+    std::vector<std::string> m_characterIds;
     int m_stageId;
     
     sf::Text m_loadingText;

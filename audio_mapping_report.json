@@ -1,0 +1,2197 @@
+[
+  {
+    "name": "bgm_elrond_bone.ogg",
+    "base_name": "bgm_elrond_bone",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_bone.ogg",
+    "guid": "561758158dfec6545ac23a9624c4bf35",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss0.ogg",
+    "base_name": "bgm_elrond_boss0",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss0.ogg",
+    "guid": "a04f426723a1ef44daa57e827bad8610",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss1.ogg",
+    "base_name": "bgm_elrond_boss1",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss1.ogg",
+    "guid": "905d48a4cff1dfe4cb23e4a60224fc48",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss2.ogg",
+    "base_name": "bgm_elrond_boss2",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss2.ogg",
+    "guid": "edd535455d47de34c8be0525751092d5",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss3.ogg",
+    "base_name": "bgm_elrond_boss3",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss3.ogg",
+    "guid": "2abdd7944f13854478e80044833f4fec",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss4.ogg",
+    "base_name": "bgm_elrond_boss4",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss4.ogg",
+    "guid": "b280b735b63babd40ad52500c00d0bfc",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_boss5.ogg",
+    "base_name": "bgm_elrond_boss5",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_boss5.ogg",
+    "guid": "4f263fafb9f3e8a4f910dfc1313fc373",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_bridge.ogg",
+    "base_name": "bgm_elrond_bridge",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_bridge.ogg",
+    "guid": "2e6ea7035e51b3e43830e27779e01597",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_carts.ogg",
+    "base_name": "bgm_elrond_carts",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_carts.ogg",
+    "guid": "cff71d8abfd26534d8d57e72a090830f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_carts_intro.ogg",
+    "base_name": "bgm_elrond_carts_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_carts_intro.ogg",
+    "guid": "f57a738f63d328044bdaf248f51c779f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_chapel.ogg",
+    "base_name": "bgm_elrond_chapel",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_chapel.ogg",
+    "guid": "d4c91a3d60b28f4499d941bc8320bf8f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_chapet.ogg",
+    "base_name": "bgm_elrond_chapet",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_chapet.ogg",
+    "guid": "70af281ff268b854e83ca80b1ce0bfc2",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_deceptionK.ogg",
+    "base_name": "bgm_elrond_deceptionK",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_deceptionK.ogg",
+    "guid": "ea9dddf7e2f089b4a9390b1581782c7a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_devil_intro.ogg",
+    "base_name": "bgm_elrond_devil_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_devil_intro.ogg",
+    "guid": "d96b34bf1cff73b409aaef540be70f6f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_devil_loop.ogg",
+    "base_name": "bgm_elrond_devil_loop",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_devil_loop.ogg",
+    "guid": "7b0db43e8e116c04f9437f5f9ca23c65",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_dust.ogg",
+    "base_name": "bgm_elrond_dust",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_dust.ogg",
+    "guid": "0785314f2bcda734792440914265443c",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_fighting.ogg",
+    "base_name": "bgm_elrond_fighting",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_fighting.ogg",
+    "guid": "280ed2d82efc21b4b8d97e4337c1c95e",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_flame.ogg",
+    "base_name": "bgm_elrond_flame",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_flame.ogg",
+    "guid": "b666089ae1485f94b8d80cdd8ebca486",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_forest.ogg",
+    "base_name": "bgm_elrond_forest",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_forest.ogg",
+    "guid": "a4eafc03acfa3874fa3b930ed50fc172",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_foscariK.ogg",
+    "base_name": "bgm_elrond_foscariK",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_foscariK.ogg",
+    "guid": "542c37b1ac47795439521de8ace6bd5a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_gatti.ogg",
+    "base_name": "bgm_elrond_gatti",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_gatti.ogg",
+    "guid": "5611b5dc8db5d3b4886e3b28f936611d",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_lab.ogg",
+    "base_name": "bgm_elrond_lab",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_lab.ogg",
+    "guid": "70ea191bac3695a4abcdba21c1e60a2a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_lab_intro.ogg",
+    "base_name": "bgm_elrond_lab_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_lab_intro.ogg",
+    "guid": "2b1d7f5fd5ee84847a7485e3e9d94295",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_library.ogg",
+    "base_name": "bgm_elrond_library",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_library.ogg",
+    "guid": "5318ae3422e48ba428b3cff7298e14b8",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_machine.ogg",
+    "base_name": "bgm_elrond_machine",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_machine.ogg",
+    "guid": "53380681e407c7544bb11b0deb500caf",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_magicK.ogg",
+    "base_name": "bgm_elrond_magicK",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_magicK.ogg",
+    "guid": "7c6f627c3fade8e4aa54fe0c0841a5b6",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_mana.ogg",
+    "base_name": "bgm_elrond_mana",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_mana.ogg",
+    "guid": "67b5667d7205ccd47b7358bbe9ad6d3f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_peggi.ogg",
+    "base_name": "bgm_elrond_peggi",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_peggi.ogg",
+    "guid": "884fb51125eec904984d99af43a96f57",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_pizza.ogg",
+    "base_name": "bgm_elrond_pizza",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_pizza.ogg",
+    "guid": "0d028b9b76e79ff43b13fd79fbc2e99f",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_plant.ogg",
+    "base_name": "bgm_elrond_plant",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_plant.ogg",
+    "guid": "56dc14e7ae2bf5f4891caf6be6c3961c",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_redblue.ogg",
+    "base_name": "bgm_elrond_redblue",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_redblue.ogg",
+    "guid": "4db81e834af3fec49b53e19849b8cbf7",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_secret.ogg",
+    "base_name": "bgm_elrond_secret",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_secret.ogg",
+    "guid": "e84cfb1b10fa322409b00fca9f0d91dd",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_snow.ogg",
+    "base_name": "bgm_elrond_snow",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_snow.ogg",
+    "guid": "f5b40e0c2b8accc4a82850db6b61dfce",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_solution.ogg",
+    "base_name": "bgm_elrond_solution",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_solution.ogg",
+    "guid": "ee5219e15f341064bbdb7fc32a15bea4",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_spacedude.ogg",
+    "base_name": "bgm_elrond_spacedude",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_spacedude.ogg",
+    "guid": "5b047b90aa70757409445d22f25c4b4d",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_spacedude_intro.ogg",
+    "base_name": "bgm_elrond_spacedude_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_spacedude_intro.ogg",
+    "guid": "cd84d2182fc769f4489d647210518501",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_spoopy.ogg",
+    "base_name": "bgm_elrond_spoopy",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_spoopy.ogg",
+    "guid": "41b6fc72fcc86e4488cdbe5bbe5fa329",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_squirrel_intro.ogg",
+    "base_name": "bgm_elrond_squirrel_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_squirrel_intro.ogg",
+    "guid": "31aa712ae60c7fc4e87b6ee6ed68215d",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_squirrel_loop.ogg",
+    "base_name": "bgm_elrond_squirrel_loop",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_squirrel_loop.ogg",
+    "guid": "16e3af9772fb0104a990977f95b7fde3",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_tower.ogg",
+    "base_name": "bgm_elrond_tower",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_tower.ogg",
+    "guid": "f50df845169bfff41904c796f402783c",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_tuesday_intro.ogg",
+    "base_name": "bgm_elrond_tuesday_intro",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_tuesday_intro.ogg",
+    "guid": "811862e139f62d9468d96609f9adbd70",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_tuesday_loop.ogg",
+    "base_name": "bgm_elrond_tuesday_loop",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_tuesday_loop.ogg",
+    "guid": "ea1d53c14d9eb154ba7ce7c001a5642b",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_vento.ogg",
+    "base_name": "bgm_elrond_vento",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_vento.ogg",
+    "guid": "805d2ada190e48e4eab4e9ce6963c326",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_warK.ogg",
+    "base_name": "bgm_elrond_warK",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_warK.ogg",
+    "guid": "0796c2a1ac8694b4b9746505d473f89a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_water.ogg",
+    "base_name": "bgm_elrond_water",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_water.ogg",
+    "guid": "c69ee20854deadd4ea80574f1d1cc192",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_elrond_WIP.ogg",
+    "base_name": "bgm_elrond_WIP",
+    "path": "App/Audio/Addressable/BGM/bgm_elrond_WIP.ogg",
+    "guid": "494db9a35ca69f34996ca7547f120251",
+    "referenced_in": []
+  },
+  {
+    "name": "BGM_Glitch.ogg",
+    "base_name": "BGM_Glitch",
+    "path": "App/Audio/Addressable/BGM/BGM_Glitch.ogg",
+    "guid": "f15ad469ba2a83f4d85ae26dcc0762de",
+    "referenced_in": [
+      "TextAsset/STAGE_DATA.json"
+    ]
+  },
+  {
+    "name": "bgm_library.ogg",
+    "base_name": "bgm_library",
+    "path": "App/Audio/Addressable/BGM/bgm_library.ogg",
+    "guid": "613c0c29410f35541bdffe99ba4fdca8",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_proooot.ogg",
+    "base_name": "bgm_proooot",
+    "path": "App/Audio/Addressable/BGM/bgm_proooot.ogg",
+    "guid": "3e149fa0efb72a348a557d35dfa1053b",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_TheEndIntro.ogg",
+    "base_name": "bgm_TheEndIntro",
+    "path": "App/Audio/Addressable/BGM/bgm_TheEndIntro.ogg",
+    "guid": "a16a7c30c9e4aae468d934804be1c1c5",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_TheEndMain.ogg",
+    "base_name": "bgm_TheEndMain",
+    "path": "App/Audio/Addressable/BGM/bgm_TheEndMain.ogg",
+    "guid": "fa6341b43f81e3d4eb06dc55c0e576ff",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_01.ogg",
+    "base_name": "bgm_vica_01",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_01.ogg",
+    "guid": "b018ff69d9ce42749b05b36f3e4ad52c",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_02.ogg",
+    "base_name": "bgm_vica_02",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_02.ogg",
+    "guid": "ad8af9444c29edc4a9bbbca9a3fe0658",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_03.ogg",
+    "base_name": "bgm_vica_03",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_03.ogg",
+    "guid": "8b0a94b0ec27a23478d722b03286581a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_04.ogg",
+    "base_name": "bgm_vica_04",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_04.ogg",
+    "guid": "ec59fe2d06ab7be46a4cf484d4643691",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_05.ogg",
+    "base_name": "bgm_vica_05",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_05.ogg",
+    "guid": "aa289f257d2e5d14b994584aa38cbbf6",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_07.ogg",
+    "base_name": "bgm_vica_07",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_07.ogg",
+    "guid": "83b5a861801de67488db7543c21f73b3",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_08.ogg",
+    "base_name": "bgm_vica_08",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_08.ogg",
+    "guid": "84917aa926b312743a4bde7ec320a5f3",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_09.ogg",
+    "base_name": "bgm_vica_09",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_09.ogg",
+    "guid": "65e138e7b0155f841b2ad78599a1537a",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_10.ogg",
+    "base_name": "bgm_vica_10",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_10.ogg",
+    "guid": "ee7e89bb35604c849bd9804f2022d777",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_11.ogg",
+    "base_name": "bgm_vica_11",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_11.ogg",
+    "guid": "490338a44cab80a4691afb9012154125",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_vica_12.ogg",
+    "base_name": "bgm_vica_12",
+    "path": "App/Audio/Addressable/BGM/bgm_vica_12.ogg",
+    "guid": "25f9637cf1c0a8649a857c89b5430ac3",
+    "referenced_in": []
+  },
+  {
+    "name": "bgm_will_beginning.ogg",
+    "base_name": "bgm_will_beginning",
+    "path": "App/Audio/Addressable/BGM/bgm_will_beginning.ogg",
+    "guid": "ece6a36f912f1cc47901a0ce33b6c099",
+    "referenced_in": []
+  },
+  {
+    "name": "VS_Music_v04-01.ogg",
+    "base_name": "VS_Music_v04-01",
+    "path": "App/Audio/Addressable/BGM/VS_Music_v04-01.ogg",
+    "guid": "e06b7e1ef6f48a044a96f2cf0dc5c065",
+    "referenced_in": []
+  },
+  {
+    "name": "Darkasso_Open.ogg",
+    "base_name": "Darkasso_Open",
+    "path": "App/Audio/Addressable/SFX/Darkasso_Open.ogg",
+    "guid": "b4283e4d9636ec843a7b3f48fedc731a",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_darkassoJingle.wav",
+    "base_name": "sfx_darkassoJingle",
+    "path": "App/Audio/Addressable/SFX/sfx_darkassoJingle.wav",
+    "guid": "ce96987507bc17a4ca0e6d11507b7e4a",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_geiger1.wav",
+    "base_name": "sfx_geiger1",
+    "path": "App/Audio/Addressable/SFX/sfx_geiger1.wav",
+    "guid": "4a53cf1d8fc23c343ac7d838d43e1cc9",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_geiger2.wav",
+    "base_name": "sfx_geiger2",
+    "path": "App/Audio/Addressable/SFX/sfx_geiger2.wav",
+    "guid": "21b07901791023c4b9767754bb3915e6",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_geiger3.wav",
+    "base_name": "sfx_geiger3",
+    "path": "App/Audio/Addressable/SFX/sfx_geiger3.wav",
+    "guid": "68aef3a82f1f9ab45bb224a72216fc7d",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_geiger4.wav",
+    "base_name": "sfx_geiger4",
+    "path": "App/Audio/Addressable/SFX/sfx_geiger4.wav",
+    "guid": "2add7148e6d0dc44784b018c46411b40",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_1.wav",
+    "base_name": "sfx_treasure_1",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_1.wav",
+    "guid": "553d236a5a488994699ed72eb55423c3",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_1B.wav",
+    "base_name": "sfx_treasure_1B",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_1B.wav",
+    "guid": "376f202fa1ee981439ea842f35c80487",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_2.wav",
+    "base_name": "sfx_treasure_2",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_2.wav",
+    "guid": "107e50ab9d46533418ba95388c66cbb3",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_2B.wav",
+    "base_name": "sfx_treasure_2B",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_2B.wav",
+    "guid": "5cb996460bc59f94a859be0f691a564e",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_3.wav",
+    "base_name": "sfx_treasure_3",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_3.wav",
+    "guid": "49ac0199f46409f468247bbdc203a88f",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_treasure_3B.wav",
+    "base_name": "sfx_treasure_3B",
+    "path": "App/Audio/Addressable/SFX/sfx_treasure_3B.wav",
+    "guid": "8b3212bbaded44246b5e95acf439d22b",
+    "referenced_in": []
+  },
+  {
+    "name": "sfx_wind.wav",
+    "base_name": "sfx_wind",
+    "path": "App/Audio/Addressable/SFX/sfx_wind.wav",
+    "guid": "3ef2ced4c8ba2a243a15d8ae2406e0bb",
+    "referenced_in": []
+  },
+  {
+    "name": "belltoll.wav",
+    "base_name": "belltoll",
+    "path": "AudioClip/belltoll.wav",
+    "guid": "f83e8e7033b2d6f429006012327bbd79",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "bumper2.wav",
+    "base_name": "bumper2",
+    "path": "AudioClip/bumper2.wav",
+    "guid": "13751dc85c0c78f4aae265e8fa9f0d6c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Cat1.wav",
+    "base_name": "Cat1",
+    "path": "AudioClip/Cat1.wav",
+    "guid": "596e0b3d89886cf4faec400872170d27",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Cat2.wav",
+    "base_name": "Cat2",
+    "path": "AudioClip/Cat2.wav",
+    "guid": "0e4f5c5620fd907488dbcbd2cdc42d2a",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Cat3.wav",
+    "base_name": "Cat3",
+    "path": "AudioClip/Cat3.wav",
+    "guid": "5a33804eb78a5054491ed18a1e5af8f8",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Cat5.wav",
+    "base_name": "Cat5",
+    "path": "AudioClip/Cat5.wav",
+    "guid": "82b603e617918d7439634a7d14adcfe4",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "CatE.wav",
+    "base_name": "CatE",
+    "path": "AudioClip/CatE.wav",
+    "guid": "898be90c285e55b40a546a38acea1ea3",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "cff_acc.wav",
+    "base_name": "cff_acc",
+    "path": "AudioClip/cff_acc.wav",
+    "guid": "614c49ff4fdbf564ebb0e6e49ae46973",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "cff_gtr.wav",
+    "base_name": "cff_gtr",
+    "path": "AudioClip/cff_gtr.wav",
+    "guid": "cab8a180187502d47a5c4313b1f43f84",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "cff_shm.wav",
+    "base_name": "cff_shm",
+    "path": "AudioClip/cff_shm.wav",
+    "guid": "93fc5798f41aec044bf5fd87d1b47cfa",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "cff_xlf.wav",
+    "base_name": "cff_xlf",
+    "path": "AudioClip/cff_xlf.wav",
+    "guid": "f1c2c0d3fa4b8464cb83feee2cc4a2fb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "clap.wav",
+    "base_name": "clap",
+    "path": "AudioClip/clap.wav",
+    "guid": "a15725d05303b03488e3ecc8f322f4a7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass01.wav",
+    "base_name": "glass01",
+    "path": "AudioClip/glass01.wav",
+    "guid": "fd513db6fb7e52644a7c30f4073c067e",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass02.wav",
+    "base_name": "glass02",
+    "path": "AudioClip/glass02.wav",
+    "guid": "a968d30a446e70442af3915fff8ea864",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass03.wav",
+    "base_name": "glass03",
+    "path": "AudioClip/glass03.wav",
+    "guid": "fab7eed979d376e4f8df0a32ec6ad87a",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass04.wav",
+    "base_name": "glass04",
+    "path": "AudioClip/glass04.wav",
+    "guid": "e0f99a7ec70b66f40bb78ff89fde3c3b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass05.wav",
+    "base_name": "glass05",
+    "path": "AudioClip/glass05.wav",
+    "guid": "e2d205e1189450f4f819ba8df706eb04",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass06.wav",
+    "base_name": "glass06",
+    "path": "AudioClip/glass06.wav",
+    "guid": "957438749eb192841a9274c22bfa6e55",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass07.wav",
+    "base_name": "glass07",
+    "path": "AudioClip/glass07.wav",
+    "guid": "7b1ad321c5174564ea935af735cea233",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass08.wav",
+    "base_name": "glass08",
+    "path": "AudioClip/glass08.wav",
+    "guid": "e4b02e6ff18e5314a9b30f4e9a93649c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass09.wav",
+    "base_name": "glass09",
+    "path": "AudioClip/glass09.wav",
+    "guid": "bd1080df12f7cc64abc914fec72d913c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass10.wav",
+    "base_name": "glass10",
+    "path": "AudioClip/glass10.wav",
+    "guid": "21fb1d80f3eeaba41a55f331514c12e0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass11.wav",
+    "base_name": "glass11",
+    "path": "AudioClip/glass11.wav",
+    "guid": "f585f9a2e6d606746af74b9d184d4fbb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass12.wav",
+    "base_name": "glass12",
+    "path": "AudioClip/glass12.wav",
+    "guid": "a8546cd88b689404fb5d35ebf1f461b0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass13.wav",
+    "base_name": "glass13",
+    "path": "AudioClip/glass13.wav",
+    "guid": "6d8ae9e7bf91e7842ab1560e20dfc9f6",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass14.wav",
+    "base_name": "glass14",
+    "path": "AudioClip/glass14.wav",
+    "guid": "76485fccdc0217c4ba8c791b40c796d7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass15.wav",
+    "base_name": "glass15",
+    "path": "AudioClip/glass15.wav",
+    "guid": "71cb0fd185729034bacc59a52e38eb23",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass16.wav",
+    "base_name": "glass16",
+    "path": "AudioClip/glass16.wav",
+    "guid": "012027c45d74f4f41afdc238cb7cfa5f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass17.wav",
+    "base_name": "glass17",
+    "path": "AudioClip/glass17.wav",
+    "guid": "00d62625f8089d14796f2758ff0edff7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass18.wav",
+    "base_name": "glass18",
+    "path": "AudioClip/glass18.wav",
+    "guid": "e7b62bc125f2f734f96b2606f2e4c2ce",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass19.wav",
+    "base_name": "glass19",
+    "path": "AudioClip/glass19.wav",
+    "guid": "e3810a81f5e28cb4ea9ea8ef50c9c675",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass20.wav",
+    "base_name": "glass20",
+    "path": "AudioClip/glass20.wav",
+    "guid": "ac9530ebe7edbcb408d2f4b36e8bc5e1",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass21.wav",
+    "base_name": "glass21",
+    "path": "AudioClip/glass21.wav",
+    "guid": "c05d5828753e8d747ab0e762b3454b44",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass22.wav",
+    "base_name": "glass22",
+    "path": "AudioClip/glass22.wav",
+    "guid": "0e1da4e62113fbc42ad3393aff46ba9b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass23.wav",
+    "base_name": "glass23",
+    "path": "AudioClip/glass23.wav",
+    "guid": "8d0bfe388bec4f54e8beb43c14d42bd7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass24.wav",
+    "base_name": "glass24",
+    "path": "AudioClip/glass24.wav",
+    "guid": "ecae66cc5cb27bc41a421664ac43e7c8",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "glass25.wav",
+    "base_name": "glass25",
+    "path": "AudioClip/glass25.wav",
+    "guid": "2b407e91dce7b074cbbde3d99080981c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Gunastrophe_SFX.wav",
+    "base_name": "Gunastrophe_SFX",
+    "path": "AudioClip/Gunastrophe_SFX.wav",
+    "guid": "17d6f6a48c54ff14e84306f1c37bbe27",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "haha.wav",
+    "base_name": "haha",
+    "path": "AudioClip/haha.wav",
+    "guid": "94957950ca85274478502c3011dd2a6c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Powerup.wav",
+    "base_name": "Powerup",
+    "path": "AudioClip/Powerup.wav",
+    "guid": "b2c1b9ffb7c23a046a05dbdc39871057",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4fud.wav",
+    "base_name": "sfx_4fud",
+    "path": "AudioClip/sfx_4fud.wav",
+    "guid": "d0007c71daa8aac4ab05ba6e12f1b539",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4hana.wav",
+    "base_name": "sfx_4hana",
+    "path": "AudioClip/sfx_4hana.wav",
+    "guid": "8e837793580f4fb4aa47ec8e714bdbb2",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4max.wav",
+    "base_name": "sfx_4max",
+    "path": "AudioClip/sfx_4max.wav",
+    "guid": "3f2f6740c3c027646b3b295d89b2a02d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4mud.wav",
+    "base_name": "sfx_4mud",
+    "path": "AudioClip/sfx_4mud.wav",
+    "guid": "bceb0e344ed440e4b86d7fe8b7bdbbac",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4seasons.wav",
+    "base_name": "sfx_4seasons",
+    "path": "AudioClip/sfx_4seasons.wav",
+    "guid": "5efcee34712589c4fba5532d1eb8c5ef",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_4tai.wav",
+    "base_name": "sfx_4tai",
+    "path": "AudioClip/sfx_4tai.wav",
+    "guid": "23d99d2deb754424f85822c03ddc0f7d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_alarm_loop6.wav",
+    "base_name": "sfx_alarm_loop6",
+    "path": "AudioClip/sfx_alarm_loop6.wav",
+    "guid": "1b2855c0b8f7cd841aeda6f3fed11da2",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_attack1.wav",
+    "base_name": "sfx_attack1",
+    "path": "AudioClip/sfx_attack1.wav",
+    "guid": "7e4161e39ee21bd46a14c9146ec793c3",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_autoLB.wav",
+    "base_name": "sfx_autoLB",
+    "path": "AudioClip/sfx_autoLB.wav",
+    "guid": "951eb0390dbbb9947ad24b0deaa32d83",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_autoLevel.wav",
+    "base_name": "sfx_autoLevel",
+    "path": "AudioClip/sfx_autoLevel.wav",
+    "guid": "40a28334cf283da45afec695e6f153a3",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_bangu.wav",
+    "base_name": "sfx_bangu",
+    "path": "AudioClip/sfx_bangu.wav",
+    "guid": "c8bee3d51752ffd4d87b92b887eb3bd1",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_bell2.ogg",
+    "base_name": "sfx_bell2",
+    "path": "AudioClip/sfx_bell2.ogg",
+    "guid": "0d2292095eb403348bd157dfc9df940f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_bubble.wav",
+    "base_name": "sfx_bubble",
+    "path": "AudioClip/sfx_bubble.wav",
+    "guid": "60a003af3c0a0274daac3d95b9f39b6c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_bumper3.wav",
+    "base_name": "sfx_bumper3",
+    "path": "AudioClip/sfx_bumper3.wav",
+    "guid": "ebc4f86ce873720428b4ba1c28bb58c8",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_cheers.wav",
+    "base_name": "sfx_cheers",
+    "path": "AudioClip/sfx_cheers.wav",
+    "guid": "f012af15e8c21864ab158a2de52c35a1",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_clones.wav",
+    "base_name": "sfx_clones",
+    "path": "AudioClip/sfx_clones.wav",
+    "guid": "2c554f56e30c05f49ab9d5971a0f6808",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_coin_double4.wav",
+    "base_name": "sfx_coin_double4",
+    "path": "AudioClip/sfx_coin_double4.wav",
+    "guid": "0cbaed4db9f73f94f888992fda8f91b0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_crystal6.wav",
+    "base_name": "sfx_crystal6",
+    "path": "AudioClip/sfx_crystal6.wav",
+    "guid": "1ad4ee9a4c104cf4099eab66dc647c20",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_crystal8.wav",
+    "base_name": "sfx_crystal8",
+    "path": "AudioClip/sfx_crystal8.wav",
+    "guid": "f0ee58fac21e1a944ba75fbecf8af493",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_crystal_12.wav",
+    "base_name": "sfx_crystal_12",
+    "path": "AudioClip/sfx_crystal_12.wav",
+    "guid": "892c899a46eb715499f8b2db60ce53fb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_crystal_quick.wav",
+    "base_name": "sfx_crystal_quick",
+    "path": "AudioClip/sfx_crystal_quick.wav",
+    "guid": "e8aeb6f57e25d5b478e9e432d96a86e5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_deathscream.wav",
+    "base_name": "sfx_deathscream",
+    "path": "AudioClip/sfx_deathscream.wav",
+    "guid": "75bc98184b23f654090a93f78bb8fe11",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_death_4.wav",
+    "base_name": "sfx_death_4",
+    "path": "AudioClip/sfx_death_4.wav",
+    "guid": "ba46ada35e519fd418c6e0edf3705711",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_dice_shake.wav",
+    "base_name": "sfx_dice_shake",
+    "path": "AudioClip/sfx_dice_shake.wav",
+    "guid": "85dfc1427473918488f35a30b806ecfb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_digit.wav",
+    "base_name": "sfx_digit",
+    "path": "AudioClip/sfx_digit.wav",
+    "guid": "e4ee0061f86f4154f8843174d9917cc9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_enemyHit.wav",
+    "base_name": "sfx_enemyHit",
+    "path": "AudioClip/sfx_enemyHit.wav",
+    "guid": "f2728de12df6430469360cc20100d91c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_error13.wav",
+    "base_name": "sfx_error13",
+    "path": "AudioClip/sfx_error13.wav",
+    "guid": "fe3b55be40a2f7d42a2b6956ebfea245",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_evilgong.wav",
+    "base_name": "sfx_evilgong",
+    "path": "AudioClip/sfx_evilgong.wav",
+    "guid": "86c804d8dedf68e4fa1849322585fb82",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp45.wav",
+    "base_name": "sfx_exp45",
+    "path": "AudioClip/sfx_exp45.wav",
+    "guid": "405949707614b4f4ea4f8fb7d9257545",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp5.wav",
+    "base_name": "sfx_exp5",
+    "path": "AudioClip/sfx_exp5.wav",
+    "guid": "cb0157048062ab143a9cda1067f4364c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_explo_night.wav",
+    "base_name": "sfx_explo_night",
+    "path": "AudioClip/sfx_explo_night.wav",
+    "guid": "9d78410b19cfbfc49acda7f074a02a6b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_explo_soft.wav",
+    "base_name": "sfx_explo_soft",
+    "path": "AudioClip/sfx_explo_soft.wav",
+    "guid": "84d81f469301c8640961c1e72147a13f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_cluster5.wav",
+    "base_name": "sfx_exp_cluster5",
+    "path": "AudioClip/sfx_exp_cluster5.wav",
+    "guid": "e699ef789892b6048a3f472f2da3618e",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_cluster8.wav",
+    "base_name": "sfx_exp_cluster8",
+    "path": "AudioClip/sfx_exp_cluster8.wav",
+    "guid": "20d3b6e2a87292147a001955dc79a0d1",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_double1.wav",
+    "base_name": "sfx_exp_double1",
+    "path": "AudioClip/sfx_exp_double1.wav",
+    "guid": "6dca2fa2c65fc504b841c849a19d3d6e",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_medium11.wav",
+    "base_name": "sfx_exp_medium11",
+    "path": "AudioClip/sfx_exp_medium11.wav",
+    "guid": "7780a41e6a940f84c93a4bdc04a8e468",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_odd1.wav",
+    "base_name": "sfx_exp_odd1",
+    "path": "AudioClip/sfx_exp_odd1.wav",
+    "guid": "2532b90d2c9f0724f834daec464dc5b0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_shortest_soft10.wav",
+    "base_name": "sfx_exp_shortest_soft10",
+    "path": "AudioClip/sfx_exp_shortest_soft10.wav",
+    "guid": "1a2a99845089551459cb41d6c6743d40",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_short_hard15.wav",
+    "base_name": "sfx_exp_short_hard15",
+    "path": "AudioClip/sfx_exp_short_hard15.wav",
+    "guid": "f2d1cc885007b20458c0f1f167b5e638",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_short_soft6.wav",
+    "base_name": "sfx_exp_short_soft6",
+    "path": "AudioClip/sfx_exp_short_soft6.wav",
+    "guid": "9a7fe75ae66f88145b217b58de678fe2",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_exp_short_soft9.wav",
+    "base_name": "sfx_exp_short_soft9",
+    "path": "AudioClip/sfx_exp_short_soft9.wav",
+    "guid": "13b629a228d41b54e8f2f6f453765507",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_fireloop.wav",
+    "base_name": "sfx_fireloop",
+    "path": "AudioClip/sfx_fireloop.wav",
+    "guid": "e5aed357163db5445a8357c5fb19ce59",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_flikA.wav",
+    "base_name": "sfx_flikA",
+    "path": "AudioClip/sfx_flikA.wav",
+    "guid": "4a072edf15550bb4fbd590eb1a4f9511",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_forbiddenSpell.wav",
+    "base_name": "sfx_forbiddenSpell",
+    "path": "AudioClip/sfx_forbiddenSpell.wav",
+    "guid": "ef5bba4019e9c3a45b986aacabc403fd",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_frostimpact.wav",
+    "base_name": "sfx_frostimpact",
+    "path": "AudioClip/sfx_frostimpact.wav",
+    "guid": "6f4513ee79e51f04ab537d82b8848abb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_gameOver.wav",
+    "base_name": "sfx_gameOver",
+    "path": "AudioClip/sfx_gameOver.wav",
+    "guid": "4e10c1f04ad39bc4fad93660d1093f39",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_gameOverB.wav",
+    "base_name": "sfx_gameOverB",
+    "path": "AudioClip/sfx_gameOverB.wav",
+    "guid": "f279cd448d0f9a34bae570389689c796",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_gem.wav",
+    "base_name": "sfx_gem",
+    "path": "AudioClip/sfx_gem.wav",
+    "guid": "0c2adf2aa867a17408ee357c02b0096e",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_giant.wav",
+    "base_name": "sfx_giant",
+    "path": "AudioClip/sfx_giant.wav",
+    "guid": "b74cbd7c805e15844b5fcb797a7b320c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_groove.wav",
+    "base_name": "sfx_groove",
+    "path": "AudioClip/sfx_groove.wav",
+    "guid": "dd108e9e62b041848852955804343384",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_guns1.wav",
+    "base_name": "sfx_guns1",
+    "path": "AudioClip/sfx_guns1.wav",
+    "guid": "5c52ff88f1e52b9499ff7ef68d749cb0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_guns2.wav",
+    "base_name": "sfx_guns2",
+    "path": "AudioClip/sfx_guns2.wav",
+    "guid": "616407abdc22eba469a4196a819d49e4",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_guns3.wav",
+    "base_name": "sfx_guns3",
+    "path": "AudioClip/sfx_guns3.wav",
+    "guid": "bc0cea471ddcc03499462f5801867c1c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_impact.wav",
+    "base_name": "sfx_impact",
+    "path": "AudioClip/sfx_impact.wav",
+    "guid": "066b2e1c92d4cdf4ab9d9d97daf9e9bc",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_javelin.wav",
+    "base_name": "sfx_javelin",
+    "path": "AudioClip/sfx_javelin.wav",
+    "guid": "788f2e94bf2d8844084327ef42092001",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_javelin2.wav",
+    "base_name": "sfx_javelin2",
+    "path": "AudioClip/sfx_javelin2.wav",
+    "guid": "89295f61401b35343886377fc1dfa1b9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_Key1.wav",
+    "base_name": "sfx_Key1",
+    "path": "AudioClip/sfx_Key1.wav",
+    "guid": "27564ef487162d64a9d9a485e70bed99",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_Key2.wav",
+    "base_name": "sfx_Key2",
+    "path": "AudioClip/sfx_Key2.wav",
+    "guid": "ac62b38b8e42b1043b62280de93f9447",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_Key3.wav",
+    "base_name": "sfx_Key3",
+    "path": "AudioClip/sfx_Key3.wav",
+    "guid": "f322e45b88d8be440a90bcbc42458169",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_Key4.wav",
+    "base_name": "sfx_Key4",
+    "path": "AudioClip/sfx_Key4.wav",
+    "guid": "8e39804b153dc454c81e185d53e6dcd4",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_Key5.wav",
+    "base_name": "sfx_Key5",
+    "path": "AudioClip/sfx_Key5.wav",
+    "guid": "2c1d614c12e31a749ac0086e268dfa20",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_KeyWrong.wav",
+    "base_name": "sfx_KeyWrong",
+    "path": "AudioClip/sfx_KeyWrong.wav",
+    "guid": "5244c64b87605c44eb2d659fc9ae1ef8",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_levelup.wav",
+    "base_name": "sfx_levelup",
+    "path": "AudioClip/sfx_levelup.wav",
+    "guid": "b31fef763bafafe459a03e45f26168a5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_levelupB.wav",
+    "base_name": "sfx_levelupB",
+    "path": "AudioClip/sfx_levelupB.wav",
+    "guid": "8378acf7c65380547a8ab7651ea26ee5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_lightningimpact.wav",
+    "base_name": "sfx_lightningimpact",
+    "path": "AudioClip/sfx_lightningimpact.wav",
+    "guid": "8830749979c509541b3a03bb09694155",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_littlepickup.wav",
+    "base_name": "sfx_littlepickup",
+    "path": "AudioClip/sfx_littlepickup.wav",
+    "guid": "eaec2cfbf94652841800e2494bb7c723",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_magic_chanting.wav",
+    "base_name": "sfx_magic_chanting",
+    "path": "AudioClip/sfx_magic_chanting.wav",
+    "guid": "717efb248e820354d95141198acc07b9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_magic_charge4.wav",
+    "base_name": "sfx_magic_charge4",
+    "path": "AudioClip/sfx_magic_charge4.wav",
+    "guid": "3f49c88213e853a4898831fdb80784a3",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_magistone.wav",
+    "base_name": "sfx_magistone",
+    "path": "AudioClip/sfx_magistone.wav",
+    "guid": "e1419cbe51e8184459b094e5c7df7b5c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_mlightning1.wav",
+    "base_name": "sfx_mlightning1",
+    "path": "AudioClip/sfx_mlightning1.wav",
+    "guid": "dc2aecefc33132b46872aa1bea4ba1c4",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_moon_beat.wav",
+    "base_name": "sfx_moon_beat",
+    "path": "AudioClip/sfx_moon_beat.wav",
+    "guid": "72398009572a5704fb868d00e9dd7526",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_moon_finisher.wav",
+    "base_name": "sfx_moon_finisher",
+    "path": "AudioClip/sfx_moon_finisher.wav",
+    "guid": "10761886a6500804bbe355928cda7e0f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_moon_starter.wav",
+    "base_name": "sfx_moon_starter",
+    "path": "AudioClip/sfx_moon_starter.wav",
+    "guid": "062eff29bfc444943b3d11481afd6f34",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_morph.wav",
+    "base_name": "sfx_morph",
+    "path": "AudioClip/sfx_morph.wav",
+    "guid": "2cd34cabefc7f6a46a1952f36288e770",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_movement_jump14.wav",
+    "base_name": "sfx_movement_jump14",
+    "path": "AudioClip/sfx_movement_jump14.wav",
+    "guid": "f22d3138f7dc1fd48ab3d249c87b2aa8",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_mwind1.wav",
+    "base_name": "sfx_mwind1",
+    "path": "AudioClip/sfx_mwind1.wav",
+    "guid": "784800bc70c18554ba90187b727a81d9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_naplow.wav",
+    "base_name": "sfx_naplow",
+    "path": "AudioClip/sfx_naplow.wav",
+    "guid": "973014ec852af9a4a8bc9e9361b4538f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_noise.wav",
+    "base_name": "sfx_noise",
+    "path": "AudioClip/sfx_noise.wav",
+    "guid": "44068ff52608bb64d9a776773735711b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_ophion1.wav",
+    "base_name": "sfx_ophion1",
+    "path": "AudioClip/sfx_ophion1.wav",
+    "guid": "375578ccf29d8b047a992a3264bbaa28",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_ophion2.wav",
+    "base_name": "sfx_ophion2",
+    "path": "AudioClip/sfx_ophion2.wav",
+    "guid": "96584bb750d13ae4e9ac71486760dd1d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_ophion3.wav",
+    "base_name": "sfx_ophion3",
+    "path": "AudioClip/sfx_ophion3.wav",
+    "guid": "a6f37c874a1d3ff4b923d68bf9996ecf",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_pan.wav",
+    "base_name": "sfx_pan",
+    "path": "AudioClip/sfx_pan.wav",
+    "guid": "6de2e3e8937df644592f036476bfa5d5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_paradoxMist.wav",
+    "base_name": "sfx_paradoxMist",
+    "path": "AudioClip/sfx_paradoxMist.wav",
+    "guid": "d582d2b34706562498d440e66d21c358",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_party.wav",
+    "base_name": "sfx_party",
+    "path": "AudioClip/sfx_party.wav",
+    "guid": "52d3bcc6378945547b798a657a890885",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_piano.wav",
+    "base_name": "sfx_piano",
+    "path": "AudioClip/sfx_piano.wav",
+    "guid": "32bd45849b65ebd40ae3f4167df25f5d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_potBreak.wav",
+    "base_name": "sfx_potBreak",
+    "path": "AudioClip/sfx_potBreak.wav",
+    "guid": "11889597428d16a42b05b64f5a803b5b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_PowerUp12.wav",
+    "base_name": "sfx_PowerUp12",
+    "path": "AudioClip/sfx_PowerUp12.wav",
+    "guid": "104fa417e5934e141b4d19aacc2e8fa6",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_projectile.wav",
+    "base_name": "sfx_projectile",
+    "path": "AudioClip/sfx_projectile.wav",
+    "guid": "9e38c73b6bf627f49b3752f98d093fc9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_projectile_magic.wav",
+    "base_name": "sfx_projectile_magic",
+    "path": "AudioClip/sfx_projectile_magic.wav",
+    "guid": "ba6d779299919774c8053bf3746fd22c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_projectile_magic2.wav",
+    "base_name": "sfx_projectile_magic2",
+    "path": "AudioClip/sfx_projectile_magic2.wav",
+    "guid": "8ce0a7233ca381a4e914669da3b2a928",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_projectile_magic4.wav",
+    "base_name": "sfx_projectile_magic4",
+    "path": "AudioClip/sfx_projectile_magic4.wav",
+    "guid": "41ba452a1688df44f8278430af8db284",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_ringing.wav",
+    "base_name": "sfx_ringing",
+    "path": "AudioClip/sfx_ringing.wav",
+    "guid": "e01406c5552f2e4498e55a1e4986a2e2",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_rosexpl.wav",
+    "base_name": "sfx_rosexpl",
+    "path": "AudioClip/sfx_rosexpl.wav",
+    "guid": "84eb0dee6f0b31041823436a4814334b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_scream.wav",
+    "base_name": "sfx_scream",
+    "path": "AudioClip/sfx_scream.wav",
+    "guid": "c499b396e21029e4cbcd1cda092439b6",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_secret.wav",
+    "base_name": "sfx_secret",
+    "path": "AudioClip/sfx_secret.wav",
+    "guid": "4adde0e50f746cd4dbfaa3d32e9ecef0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_soleSAnticipation.wav",
+    "base_name": "sfx_soleSAnticipation",
+    "path": "AudioClip/sfx_soleSAnticipation.wav",
+    "guid": "2538f58c3f62d2b4992419badfc006bd",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_soleSFirstImpact.wav",
+    "base_name": "sfx_soleSFirstImpact",
+    "path": "AudioClip/sfx_soleSFirstImpact.wav",
+    "guid": "ebf2b19aa80d93d4a80c5625c6ed499c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_soleSSecondImpact.wav",
+    "base_name": "sfx_soleSSecondImpact",
+    "path": "AudioClip/sfx_soleSSecondImpact.wav",
+    "guid": "c081f01801a456648ad4a6061e911aa9",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_ban.wav",
+    "base_name": "sfx_sounds_ban",
+    "path": "AudioClip/sfx_sounds_ban.wav",
+    "guid": "ffcfdb3ab63799541bbf80dfbac609c4",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_impact15_2.wav",
+    "base_name": "sfx_sounds_impact15_2",
+    "path": "AudioClip/sfx_sounds_impact15_2.wav",
+    "guid": "1c33b6631b8ab8449ba7cfd8c6a1a63d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_impact9.wav",
+    "base_name": "sfx_sounds_impact9",
+    "path": "AudioClip/sfx_sounds_impact9.wav",
+    "guid": "0a2a541ae28ea814994056e7a4ec98a7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_impact9Echo.wav",
+    "base_name": "sfx_sounds_impact9Echo",
+    "path": "AudioClip/sfx_sounds_impact9Echo.wav",
+    "guid": "fbdf5863927ee8745b83ff3fde362f01",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_interaction13.wav",
+    "base_name": "sfx_sounds_interaction13",
+    "path": "AudioClip/sfx_sounds_interaction13.wav",
+    "guid": "b72880f226e3b8d4094d41dca5e8a75d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_pause7_in.wav",
+    "base_name": "sfx_sounds_pause7_in",
+    "path": "AudioClip/sfx_sounds_pause7_in.wav",
+    "guid": "770aa3994c1fd0545a6000177edd7910",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_pause7_out.wav",
+    "base_name": "sfx_sounds_pause7_out",
+    "path": "AudioClip/sfx_sounds_pause7_out.wav",
+    "guid": "65c7f827127099c4da46153ea9d230ba",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_powerup18.wav",
+    "base_name": "sfx_sounds_powerup18",
+    "path": "AudioClip/sfx_sounds_powerup18.wav",
+    "guid": "5da03eb713cd9394db7bd026df2c6568",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_powerup2.wav",
+    "base_name": "sfx_sounds_powerup2",
+    "path": "AudioClip/sfx_sounds_powerup2.wav",
+    "guid": "3af99b9cbbedc6141b92966cde1a263c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_sounds_powerup9.wav",
+    "base_name": "sfx_sounds_powerup9",
+    "path": "AudioClip/sfx_sounds_powerup9.wav",
+    "guid": "088d721af5604a24fb9ddccfaa334a0d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_steal1.wav",
+    "base_name": "sfx_steal1",
+    "path": "AudioClip/sfx_steal1.wav",
+    "guid": "b84d4c438108fe240ad64a0a37e8b5cb",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_steal2.wav",
+    "base_name": "sfx_steal2",
+    "path": "AudioClip/sfx_steal2.wav",
+    "guid": "adc21f42afc7de84288f709a45b67758",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_stream.wav",
+    "base_name": "sfx_stream",
+    "path": "AudioClip/sfx_stream.wav",
+    "guid": "2828beafbe0f83049983366afdbe2cff",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_strike.wav",
+    "base_name": "sfx_strike",
+    "path": "AudioClip/sfx_strike.wav",
+    "guid": "e7b91c9872bd2ec4cbc4c6bd312c5d9a",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_string.wav",
+    "base_name": "sfx_string",
+    "path": "AudioClip/sfx_string.wav",
+    "guid": "f6685c01a9f08664282c5fda2187057c",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_strom.wav",
+    "base_name": "sfx_strom",
+    "path": "AudioClip/sfx_strom.wav",
+    "guid": "79c0328b2f504514e821d0f25192a08d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_titleIntro.wav",
+    "base_name": "sfx_titleIntro",
+    "path": "AudioClip/sfx_titleIntro.wav",
+    "guid": "9c11116c1b6edb44aaae4781f7d7b36a",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_titleIntroB.wav",
+    "base_name": "sfx_titleIntroB",
+    "path": "AudioClip/sfx_titleIntroB.wav",
+    "guid": "30d6574647375ce42a86dd55643b4731",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_treasure_found.wav",
+    "base_name": "sfx_treasure_found",
+    "path": "AudioClip/sfx_treasure_found.wav",
+    "guid": "bf5f5c5c1a5e6b84a9f68c53b832a21d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_treasure_foundB.wav",
+    "base_name": "sfx_treasure_foundB",
+    "path": "AudioClip/sfx_treasure_foundB.wav",
+    "guid": "92e1d5d0688d3f2428ee6f26cc25439d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_vehicle_breaks.wav",
+    "base_name": "sfx_vehicle_breaks",
+    "path": "AudioClip/sfx_vehicle_breaks.wav",
+    "guid": "4a7b1158f1b404d47a83e48ae1022c5e",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_victory1.wav",
+    "base_name": "sfx_victory1",
+    "path": "AudioClip/sfx_victory1.wav",
+    "guid": "bbac79b2f255fd64c8f4cc98285d34de",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_victory2.wav",
+    "base_name": "sfx_victory2",
+    "path": "AudioClip/sfx_victory2.wav",
+    "guid": "9a882ccf2396ecf48818b92af89dab8b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_weapon_shotgun2.wav",
+    "base_name": "sfx_weapon_shotgun2",
+    "path": "AudioClip/sfx_weapon_shotgun2.wav",
+    "guid": "17990e88c82386d4eab29a664825832a",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_weapon_singleshot18.wav",
+    "base_name": "sfx_weapon_singleshot18",
+    "path": "AudioClip/sfx_weapon_singleshot18.wav",
+    "guid": "e0150b91adc9335468c75482ff621f12",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_weapon_singleshot5.wav",
+    "base_name": "sfx_weapon_singleshot5",
+    "path": "AudioClip/sfx_weapon_singleshot5.wav",
+    "guid": "6e876b1c94f6a1f4eb375af6afb9018d",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wheelOfFortuneFanfare.ogg",
+    "base_name": "sfx_wheelOfFortuneFanfare",
+    "path": "AudioClip/sfx_wheelOfFortuneFanfare.ogg",
+    "guid": "0e29f91f95c00e1458e5d8e94f508365",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wheelOfFortuneTick.ogg",
+    "base_name": "sfx_wheelOfFortuneTick",
+    "path": "AudioClip/sfx_wheelOfFortuneTick.ogg",
+    "guid": "f74ce5fdc7c406245af8d0f1cc2fb8f5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_whistle.wav",
+    "base_name": "sfx_whistle",
+    "path": "AudioClip/sfx_whistle.wav",
+    "guid": "a2837807db12e654aa652ea51232a8f0",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_window.wav",
+    "base_name": "sfx_window",
+    "path": "AudioClip/sfx_window.wav",
+    "guid": "8d204ffceed37dc428b594ebb4550151",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wingsA.wav",
+    "base_name": "sfx_wingsA",
+    "path": "AudioClip/sfx_wingsA.wav",
+    "guid": "92ccd99f52da4474f842f627793d810b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wingsB.wav",
+    "base_name": "sfx_wingsB",
+    "path": "AudioClip/sfx_wingsB.wav",
+    "guid": "3bbe246501b5cc645a65ff5ec87b590f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_WorldEater_8.wav",
+    "base_name": "sfx_WorldEater_8",
+    "path": "AudioClip/sfx_WorldEater_8.wav",
+    "guid": "ff15c0f75cbcb77498b53d8ebf58483b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wpn_cannon3.wav",
+    "base_name": "sfx_wpn_cannon3",
+    "path": "AudioClip/sfx_wpn_cannon3.wav",
+    "guid": "ae62b16aa5d85ca48ad749116ecc0b12",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wpn_punch2.wav",
+    "base_name": "sfx_wpn_punch2",
+    "path": "AudioClip/sfx_wpn_punch2.wav",
+    "guid": "44a04357f5c853544bc822f8ac9fdcb5",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sfx_wpn_punch4.wav",
+    "base_name": "sfx_wpn_punch4",
+    "path": "AudioClip/sfx_wpn_punch4.wav",
+    "guid": "2c561cb50ddbc5c43bd13f069f59523f",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "snowAttack_1.wav",
+    "base_name": "snowAttack_1",
+    "path": "AudioClip/snowAttack_1.wav",
+    "guid": "623848656ba79994c87df70257dcbe7b",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "snowCharge_1.wav",
+    "base_name": "snowCharge_1",
+    "path": "AudioClip/snowCharge_1.wav",
+    "guid": "1dc521e4161f3cf47a6780d7f0905091",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "step01.wav",
+    "base_name": "step01",
+    "path": "AudioClip/step01.wav",
+    "guid": "da00a3c699d97a04e9463cb65e8a3733",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "step02.wav",
+    "base_name": "step02",
+    "path": "AudioClip/step02.wav",
+    "guid": "15c7f47c71280dd4e8c6db325d7d0a77",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "step03.wav",
+    "base_name": "step03",
+    "path": "AudioClip/step03.wav",
+    "guid": "81694a1c4d69f9f43a998b72ff520223",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "step04.wav",
+    "base_name": "step04",
+    "path": "AudioClip/step04.wav",
+    "guid": "73b195dd75a594d42b4d9e0848998bf7",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "sxf_loss.wav",
+    "base_name": "sxf_loss",
+    "path": "AudioClip/sxf_loss.wav",
+    "guid": "3c3b2e55d40a18644a076ea01b190b96",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "synth3.wav",
+    "base_name": "synth3",
+    "path": "AudioClip/synth3.wav",
+    "guid": "1fbcf93b6e781d947a5ef588451b8cfe",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "Winner SFX.wav",
+    "base_name": "Winner SFX",
+    "path": "AudioClip/Winner SFX.wav",
+    "guid": "930d2046ebbcc1a40a385653b0f26876",
+    "referenced_in": [
+      "Resources/ProjectContext.prefab"
+    ]
+  },
+  {
+    "name": "espannol.ogg",
+    "base_name": "espannol",
+    "path": "Resources/references/sounds/espannol.ogg",
+    "guid": "4559c470cf5df9447b99641797067fdd",
+    "referenced_in": []
+  }
+]

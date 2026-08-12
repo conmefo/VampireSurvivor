@@ -14,6 +14,7 @@
 #include "Core/Data/PowerUpDataManager.h"
 #include "Core/Data/HitVfxDataManager.h"
 #include "Core/Data/ParticleDataManager.h"
+#include "Core/Audio/AudioManager.h"
 #include "World/TileMapManager.h"
 #include <SFML/Graphics.hpp>
 #include <iostream>
@@ -150,8 +151,11 @@ int runSfmlTest()
     ParticleDataManager particleDataManager;
     particleDataManager.LoadFromJson("Assets/Data/PARTICLE_DATA.json");
 
+    AudioManager audioManager;
+    audioManager.Initialize("assets/audio/sfx/", "assets/audio/bgm/");
+
     StateManager stateManager;
-    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager);
+    StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager, audioManager);
     TileMapManager mapManager;
 
     stateManager.AddState(std::make_unique<LoadingState>(context, mapManager));
@@ -177,6 +181,9 @@ int runSfmlTest()
         stateManager.Update(dt);
         stateManager.ProcessStateChanges();
 
+        // Update audio system each frame (flushes coalesced SFX, updates BGM fades)
+        audioManager.Update(dt);
+
         if(stateManager.IsEmpty())
         {
             window.close();
@@ -187,6 +194,7 @@ int runSfmlTest()
         window.display();
     }
 
+    audioManager.Cleanup();
     return 0;
 }
 

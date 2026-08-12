@@ -1,6 +1,7 @@
 #include "../Player.h"
 #include "GarlicWeapon.h"
 #include "../Projectiles/GarlicProjectile.h"
+#include "../../Core/Audio/IAudioService.h"
 #include <cmath>
 
 extern float g_PlayerSpeedMultiplier;
@@ -57,6 +58,16 @@ void GarlicWeapon::Update(float dt, ProjectileManager& projManager, TextureAtlas
     {
         m_accumulatorMs -= intervalMs;
         
+        // Audio: play weapon fire SFX (GarlicWeapon bypasses Weapon::Update)
+        if (m_audioService && m_fireSfxId != SfxID::None)
+        {
+            PlaySoundOptions opts;
+            opts.position = player.GetPosition();
+            opts.isSpatial = true;
+            opts.priority = AudioPriority::High;
+            m_audioService->PlaySfx(m_fireSfxId, opts);
+        }
+
         // Spawn/Fire circular pulse trigger logic
         FireOne(projManager, atlas, player, player.GetPosition(), 0);
     }

@@ -2,6 +2,7 @@
 #include "RunetracerWeapon.h"
 #include "../Projectiles/RunetracerProjectile.h"
 #include "../Enemy/EnemyPool.h"
+#include "../../Core/Audio/IAudioService.h"
 #include <random>
 #include <limits>
 
@@ -19,6 +20,16 @@ void RunetracerWeapon::Update(float dt, ProjectileManager& projManager, TextureA
 
     if(m_cooldownTimer <= 0.0f)
     {
+        // Audio: play weapon fire SFX
+        if (m_audioService && m_fireSfxId != SfxID::None)
+        {
+            PlaySoundOptions opts;
+            opts.position = player.GetPosition();
+            opts.isSpatial = true;
+            opts.priority = AudioPriority::High;
+            m_audioService->PlaySfx(m_fireSfxId, opts);
+        }
+
         int amount = m_profile.GetAmount();
         float repeatSec = static_cast<float>(m_profile.GetRepeatInterval()) / 1000.0f;
 

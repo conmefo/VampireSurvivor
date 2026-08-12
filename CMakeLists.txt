@@ -17,7 +17,7 @@ endif()
 include(FetchContent)
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "Build shared libraries" FORCE)
-set(SFML_BUILD_AUDIO OFF CACHE BOOL "Build SFML audio module" FORCE)
+set(SFML_BUILD_AUDIO ON CACHE BOOL "Build SFML audio module" FORCE)
 set(SFML_BUILD_NETWORK OFF CACHE BOOL "Build SFML network module" FORCE)
 set(SFML_BUILD_EXAMPLES OFF CACHE BOOL "Build SFML examples" FORCE)
 set(SFML_BUILD_DOC OFF CACHE BOOL "Build SFML documentation" FORCE)
@@ -110,6 +110,7 @@ add_executable(VampireSurvivors
     src/Core/Animation/Tweener.cpp
     src/Core/Animation/Spring.cpp
     src/Core/Physics/Collision.cpp
+    src/Core/Physics/UniformSpatialGrid.cpp
     src/UI/Core/UIElement.cpp
     src/UI/Panels/UIPanel.cpp
     src/UI/Elements/UIButton.cpp
@@ -159,6 +160,11 @@ add_executable(VampireSurvivors
     src/Core/LevelUp/LevelUpSessionController.cpp
     src/UI/Components/LevelUpItemCard.cpp
     src/UI/Views/SimpleTextLevelUpView.cpp
+    src/Core/Audio/SoundBufferCache.cpp
+    src/Core/Audio/SoundPool.cpp
+    src/Core/Audio/BgmPlayer.cpp
+    src/Core/Audio/SfxCoalescer.cpp
+    src/Core/Audio/AudioManager.cpp
 )
 
 target_include_directories(VampireSurvivors PRIVATE 
@@ -168,6 +174,7 @@ target_include_directories(VampireSurvivors PRIVATE
 target_link_libraries(VampireSurvivors PRIVATE 
     sfml-graphics 
     sfml-window 
+    sfml-audio
     sfml-system
     sfml-main
     nlohmann_json::nlohmann_json
@@ -180,5 +187,8 @@ add_custom_command(TARGET VampireSurvivors POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/assets"
         "$<TARGET_FILE_DIR:VampireSurvivors>/assets"
-    COMMENT "Copying Assets directory to build output..."
+    COMMAND ${CMAKE_COMMAND} -E copy_if_different
+        "${sfml_SOURCE_DIR}/extlibs/bin/x64/openal32.dll"
+        "$<TARGET_FILE_DIR:VampireSurvivors>/openal32.dll"
+    COMMENT "Copying Assets and OpenAL DLL to build output..."
 )
