@@ -106,7 +106,7 @@ bool StartsWith(const std::string& value, const char* prefix) {
     return value.rfind(prefix, 0) == 0;
 }
 
-static bool s_disableLevelUpUI = true;
+static bool s_disableLevelUpUI = false;
 } // namespace
 
 GameState::GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds)
@@ -330,6 +330,13 @@ void GameState::Init() {
             {
                 if (m_levelUpController.Skip(m_players))
                 {
+                    if (!m_levelUpController.IsSessionActive() &&
+                        m_levelUpController.HasPendingLevelUp())
+                    {
+                        m_levelUpController.StartNextLevelUp(
+                            m_players, m_sharedLevel, m_context.weaponData);
+                    }
+
                     if (m_levelUpController.IsSessionActive())
                     {
                         m_levelUpView->UpdateChoices(
@@ -1734,13 +1741,23 @@ float GameState::GetStageXpBonus() const
 EnemyStats GameState::ApplyStageEnemyModifiers(const EnemyStats& stats) const
 {
     EnemyStats adjustedStats = stats;
-    if(!m_activeStageInfo)
+    if(m_activeStageInfo)
     {
-        return adjustedStats;
+        adjustedStats.speed *= std::max(0.0f, m_activeStageInfo->enemySpeedMultiplier);
+        adjustedStats.maxHealth *= std::max(0.0f, m_activeStageInfo->enemyHealthMultiplier);
     }
 
-    adjustedStats.speed *= std::max(0.0f, m_activeStageInfo->enemySpeedMultiplier);
-    adjustedStats.maxHealth *= std::max(0.0f, m_activeStageInfo->enemyHealthMultiplier);
+    for(const auto& player : m_players)
+    {
+        if(player && !player->IsDead())
+        {
+            const float curseMultiplier = std::max(0.0f, player->GetCurseMultiplier());
+            adjustedStats.speed *= curseMultiplier;
+            adjustedStats.maxHealth *= curseMultiplier;
+            break;
+        }
+    }
+
     return adjustedStats;
 }
 
@@ -1766,7 +1783,14 @@ void GameState::AddRunGold(int amount)
         return;
     }
 
-    m_runGold += amount;
+    int rewardedAmount = amount;
+    if(!m_players.empty() && m_players[0])
+    {
+        rewardedAmount = std::max(0, static_cast<int>(std::lround(
+            static_cast<float>(amount) * m_players[0]->GetGreedMultiplier())));
+    }
+
+    m_runGold += rewardedAmount;
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->SetGold(m_runGold);
@@ -1895,6 +1919,10 @@ void GameState::AddSharedExperience(float amount)
     if (amount <= 0.0f) return;
 
     float growthMultiplier = 1.0f;
+    if(!m_players.empty() && m_players[0])
+    {
+        growthMultiplier = m_players[0]->GetGrowthMultiplier();
+    }
     if (m_sharedLevel == 20 || m_sharedLevel == 40)
     {
         growthMultiplier += 1.0f;
@@ -1910,6 +1938,7 @@ void GameState::AddSharedExperience(float amount)
 
         if (s_disableLevelUpUI)
         {
+            targetExp = GetSharedTargetExperience();
             continue;
         }
 

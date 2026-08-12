@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <unordered_map>
 #include "WeaponLevelDelta.h"
 
 class WeaponProfile
@@ -33,7 +34,8 @@ public:
                   const std::string& bulletType, const std::string& hitVFX,
                   float power = 1.0f, float area = 1.0f, float speed = 1.0f, float duration = 2.0f, float hitBoxDelay = 0.5f,
                   float magnet = 0.0f, int amount = 1, int poolLimit = 0,
-                  int interval = 1000, int repeatInterval = 0, int penetrating = 1, int rarity = 100);
+                  int interval = 1000, int repeatInterval = 0, int penetrating = 1, int rarity = 100,
+                  bool isPowerUp = false, bool isUnlocked = true);
 
     // Accumulates a level delta into runtime stats. Called by Weapon::LevelUp().
     void ApplyDelta(const WeaponLevelDelta& delta);
@@ -60,4 +62,14 @@ public:
     int   GetPenetrating() const;
     int   GetCurrentLevel() const;
     int   GetRarity() const;
+    bool  IsPowerUp() const;
+    bool  IsUnlocked() const;
+
+    const std::unordered_map<std::string, float>& GetSpecialStats() const;
+    void SetSpecialStats(const std::unordered_map<std::string, float>& stats);
+
+private:
+    bool m_isPowerUp = false;
+    bool m_isUnlocked = true;
+    std::unordered_map<std::string, float> m_specialStats;
 };

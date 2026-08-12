@@ -2,6 +2,7 @@
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
+#include <unordered_set>
 
 WeaponDataManager::WeaponDataManager()
     : m_fallbackProfile("UNKNOWN", "Unknown Weapon", "Fallback Data", "default_weapon", "NONE", "", 1.0f, 1.0f, 1.0f, 1, 0)
@@ -68,8 +69,50 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         int repeatInterval = weaponJson.value("repeatInterval", 0);
         int penetrating = weaponJson.value("penetrating", 1);
         int rarity = weaponJson.value("rarity", 100);
+        bool isPowerUp = weaponJson.value("isPowerUp", false);
+        bool isUnlocked = weaponJson.value("isUnlocked", true);
 
-        WeaponProfile profile(id, name, description, frameName, bulletType, hitVFX, power, area, speed, duration, hitBoxDelay, magnet, amount, poolLimit, interval, repeatInterval, penetrating, rarity);
+        WeaponProfile profile(
+            id,
+            name,
+            description,
+            frameName,
+            bulletType,
+            hitVFX,
+            power,
+            area,
+            speed,
+            duration,
+            hitBoxDelay,
+            magnet,
+            amount,
+            poolLimit,
+            interval,
+            repeatInterval,
+            penetrating,
+            rarity,
+            isPowerUp,
+            isUnlocked);
+
+        static const std::unordered_set<std::string> passiveStatKeys = {
+            "power", "armor", "maxHp", "regen", "cooldown", "area", "speed",
+            "duration", "amount", "moveSpeed", "magnet", "luck", "growth",
+            "greed", "curse", "revivals"
+        };
+
+        if(isPowerUp)
+        {
+            std::unordered_map<std::string, float> specialStats;
+            for(auto statIt = weaponJson.begin(); statIt != weaponJson.end(); ++statIt)
+            {
+                if(passiveStatKeys.find(statIt.key()) != passiveStatKeys.end() &&
+                   statIt.value().is_number())
+                {
+                    specialStats[statIt.key()] = statIt.value().get<float>();
+                }
+            }
+            profile.SetSpecialStats(specialStats);
+        }
         m_weapons.insert({id, profile});
 
         // --- Level deltas from indices [1..N] ---
@@ -91,6 +134,17 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
             delta.penetrating    = levelJson.value("penetrating", 0);
             delta.poolLimit      = levelJson.value("poolLimit", 0);
             delta.addEvolvedWeapon = levelJson.value("addEvolvedWeapon", "");
+            if(isPowerUp)
+            {
+                for(auto statIt = levelJson.begin(); statIt != levelJson.end(); ++statIt)
+                {
+                    if(passiveStatKeys.find(statIt.key()) != passiveStatKeys.end() &&
+                       statIt.value().is_number())
+                    {
+                        delta.specialStats[statIt.key()] = statIt.value().get<float>();
+                    }
+                }
+            }
             deltas.push_back(delta);
         }
         m_levelDeltas.insert({id, std::move(deltas)});

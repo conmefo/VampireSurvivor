@@ -1,6 +1,8 @@
 #include "Player.h"
 #include "../Core/Data/PlayerProgressionManager.h"
 #include "../Core/Data/PowerUpDataManager.h"
+#include "../Core/Data/WeaponProfile.h"
+#include <algorithm>
 #include <cmath>
 
 namespace
@@ -70,6 +72,7 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     {
         m_maxHealth = 100.0f;
     }
+    m_baseMaxHealth = m_maxHealth;
     m_currentHealth = m_maxHealth;
 
     m_animator.Initialize(frames, ANIMATION_SPEED);
@@ -80,10 +83,14 @@ void Player::ApplyGlobalBuffs(const PlayerProgressionManager& progression, const
     m_mightBuff = progression.GetGlobalStatBuff("power", powerUpData);
     m_areaBuff = progression.GetGlobalStatBuff("area", powerUpData);
     m_durationBuff = progression.GetGlobalStatBuff("duration", powerUpData);
-    m_cooldownBuff = progression.GetGlobalStatBuff("cooldown", powerUpData);
+    m_cooldownBuff = -progression.GetGlobalStatBuff("cooldown", powerUpData);
     m_amountBuff = static_cast<int>(progression.GetGlobalStatBuff("amount", powerUpData));
     float moveBuff = progression.GetGlobalStatBuff("moveSpeed", powerUpData);
     m_moveSpeedMultiplier += moveBuff;
+
+    m_growthBuff = progression.GetGlobalStatBuff("growth", powerUpData);
+    m_greedBuff = progression.GetGlobalStatBuff("greed", powerUpData);
+    m_curseBuff = progression.GetGlobalStatBuff("curse", powerUpData);
 
     float magnetPowerUpBuff = progression.GetGlobalStatBuff("magnet", powerUpData);
     if (magnetPowerUpBuff > 0.0f)
@@ -124,6 +131,11 @@ void Player::Update(float dt)
     {
         m_flashTimer -= dt;
         if (m_flashTimer < 0.0f) m_flashTimer = 0.0f;
+    }
+
+    if(m_recovery > 0.0f)
+    {
+        Heal(m_recovery * dt);
     }
 
     sf::Vector2f direction(0.0f, 0.0f);
@@ -291,7 +303,13 @@ void Player::TakeDamage(float amount)
 {
     if (m_isDead || m_invulnTimer > 0.0f) return;
 
-    m_currentHealth -= amount;
+    const float effectiveDamage = std::max(0.0f, amount - m_armor);
+    if(effectiveDamage <= 0.0f)
+    {
+        return;
+    }
+
+    m_currentHealth -= effectiveDamage;
     if (m_currentHealth <= 0.0f)
     {
         m_currentHealth = 0.0f;
@@ -361,8 +379,7 @@ void Player::AddExperience(float amount)
         return;
     }
 
-    // Apply 100% Growth buff when at milestone level 20 or 40
-    float growthMultiplier = 1.0f;
+    float growthMultiplier = GetGrowthMultiplier();
     if (m_level == 20 || m_level == 40)
     {
         growthMultiplier += 1.0f;
@@ -397,8 +414,91 @@ void Player::Revive()
     m_deathColorTweener.Stop();
 }
 
+int Player::GetPassiveLevel(const std::string& passiveId) const
+{
+    const auto it = m_passiveLevels.find(passiveId);
+    return it == m_passiveLevels.end() ? 0 : it->second;
+}
+
+int Player::GetPassiveCount() const
+{
+    return static_cast<int>(m_passiveLevels.size());
+}
+
+bool Player::LevelUpPassive(
+    const std::string& passiveId,
+    const WeaponProfile& profile,
+    const WeaponLevelDelta* nextDelta)
+{
+    const int currentLevel = GetPassiveLevel(passiveId);
+    if(currentLevel == 0)
+    {
+        ApplyPassiveStats(profile.GetSpecialStats());
+    }
+    else
+    {
+        if(!nextDelta)
+        {
+            return false;
+        }
+        ApplyPassiveStats(nextDelta->specialStats);
+    }
+
+    m_passiveLevels[passiveId] = currentLevel + 1;
+    return true;
+}
+
+void Player::ApplyPassiveStats(const std::unordered_map<std::string, float>& stats)
+{
+    auto getStat = [&stats](const char* key) {
+        const auto it = stats.find(key);
+        return it == stats.end() ? 0.0f : it->second;
+    };
+
+    m_mightBuff += getStat("power");
+    m_armor += getStat("armor");
+    IncreaseMaxHealthPercent(getStat("maxHp"));
+    m_recovery += getStat("regen");
+    m_cooldownBuff -= getStat("cooldown");
+    m_areaBuff += getStat("area");
+    m_speedBuff += getStat("speed");
+    m_durationBuff += getStat("duration");
+    m_amountBuff += static_cast<int>(std::lround(getStat("amount")));
+    m_moveSpeedMultiplier += getStat("moveSpeed");
+    if(getStat("magnet") != 0.0f)
+    {
+        AddMagnetBonus(getStat("magnet"));
+    }
+    m_luckBuff += getStat("luck");
+    m_growthBuff += getStat("growth");
+    m_greedBuff += getStat("greed");
+    m_curseBuff += getStat("curse");
+    m_revivals += static_cast<int>(std::lround(getStat("revivals")));
+}
+
+void Player::IncreaseMaxHealthPercent(float amount)
+{
+    if(amount <= 0.0f)
+    {
+        return;
+    }
+
+    const float increase = m_baseMaxHealth * amount;
+    m_maxHealth += increase;
+    m_currentHealth = std::min(m_maxHealth, m_currentHealth + increase);
+}
+
 void Player::OnHpReachedZero()
 {
+    if(m_revivals > 0)
+    {
+        --m_revivals;
+        m_isDead = false;
+        m_currentHealth = m_maxHealth * 0.5f;
+        m_invulnTimer = 0.75f;
+        return;
+    }
+
     m_isDead = true;
 
     m_deathScaleXTweener.SetStartValue(1.0f);

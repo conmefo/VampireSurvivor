@@ -52,7 +52,7 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
         return;
     }
 
-    float speed = g_MagicWandSpeed * m_profile.GetSpeed();
+    float speed = g_MagicWandSpeed * m_profile.GetSpeed() * player.GetProjectileSpeedMultiplier();
     sf::Vector2f velocity = targetDir * speed;
 
     constexpr float LIFETIME = 5.0f;

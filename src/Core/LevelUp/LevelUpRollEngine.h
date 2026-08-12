@@ -8,6 +8,7 @@
 
 class WeaponInventory;
 class WeaponDataManager;
+class Player;
 
 class LevelUpRollEngine
 {
@@ -24,7 +25,8 @@ public:
         const WeaponInventory& inventory,
         const WeaponDataManager& weaponData,
         const std::unordered_set<std::string>& banishedItemIds,
-        bool limitBreakEnabled = false);
+        bool limitBreakEnabled = false,
+        const Player* player = nullptr);
 
 private:
     LevelUpOption RollWeightedRandom(const std::vector<LevelUpOption>& pool);

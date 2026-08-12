@@ -23,7 +23,7 @@ void AxeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pla
     // Base angle straight up (-90 deg)
     // When multiple axes fire, center them or expand in facing direction:
     // If facing right (+1), offset goes right; if facing left (-1), offset goes left
-    float speedMultiplier = m_profile.GetSpeed();
+    float speedMultiplier = m_profile.GetSpeed() * player.GetProjectileSpeedMultiplier();
     if (speedMultiplier <= 0.0f) speedMultiplier = 1.0f;
 
     float unitySpeed = g_AxeInitialSpeed * speedMultiplier; 

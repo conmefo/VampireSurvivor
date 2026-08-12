@@ -3,7 +3,8 @@
 WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, const std::string& description, const std::string& frameName,
                              const std::string& bulletType, const std::string& hitVFX,
                              float power, float area, float speed, float duration, float hitBoxDelay, float magnet, int amount, int poolLimit,
-                             int interval, int repeatInterval, int penetrating, int rarity)
+                             int interval, int repeatInterval, int penetrating, int rarity,
+                             bool isPowerUp, bool isUnlocked)
     : m_id(id)
     , m_name(name)
     , m_description(description)
@@ -23,6 +24,8 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
     , m_penetrating(penetrating)
     , m_currentLevel(1)
     , m_rarity(rarity)
+    , m_isPowerUp(isPowerUp)
+    , m_isUnlocked(isUnlocked)
 {
 }
 
@@ -78,3 +81,15 @@ int   WeaponProfile::GetRepeatInterval() const { return m_repeatInterval; }
 int   WeaponProfile::GetPenetrating() const { return m_penetrating; }
 int   WeaponProfile::GetCurrentLevel() const { return m_currentLevel; }
 int   WeaponProfile::GetRarity() const { return m_rarity; }
+bool  WeaponProfile::IsPowerUp() const { return m_isPowerUp; }
+bool  WeaponProfile::IsUnlocked() const { return m_isUnlocked; }
+
+const std::unordered_map<std::string, float>& WeaponProfile::GetSpecialStats() const
+{
+    return m_specialStats;
+}
+
+void WeaponProfile::SetSpecialStats(const std::unordered_map<std::string, float>& stats)
+{
+    m_specialStats = stats;
+}

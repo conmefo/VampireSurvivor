@@ -1,5 +1,6 @@
 #include "LevelUpRollEngine.h"
 #include "../../Entities/Weapons/WeaponInventory.h"
+#include "../../Entities/Player.h"
 #include "../../Core/Data/WeaponDataManager.h"
 #include <algorithm>
 #include <numeric>
@@ -22,7 +23,7 @@ LevelUpOption LevelUpRollEngine::CreateFallbackOption(bool isHealthMissing)
         option.id = "FLOOR_CHICKEN";
         option.name = "Floor Chicken";
         option.description = "Restores 30 Health Points.";
-        option.frameName = "FloorChicken";
+        option.frameName = "Roast";
         option.currentLevel = 0;
         option.maxLevel = 1;
         option.type = LevelUpOptionType::FloorChicken;
@@ -80,7 +81,8 @@ std::vector<LevelUpOption> LevelUpRollEngine::RollChoices(
     const WeaponInventory& inventory,
     const WeaponDataManager& weaponData,
     const std::unordered_set<std::string>& banishedItemIds,
-    bool limitBreakEnabled)
+    bool limitBreakEnabled,
+    const Player* player)
 {
     std::vector<LevelUpOption> chosenOptions;
 
@@ -92,8 +94,10 @@ std::vector<LevelUpOption> LevelUpRollEngine::RollChoices(
     int targetSlots = (floatDist(m_rng) < chanceFourth) ? 4 : 3;
 
     // 2. Fetch active candidate pool and owned upgradeable pool
-    std::vector<LevelUpOption> activePool = m_filter.GetAvailableOptions(inventory, weaponData, banishedItemIds, limitBreakEnabled);
-    std::vector<LevelUpOption> ownedPool = m_filter.GetOwnedUpgradeableOptions(inventory, weaponData, banishedItemIds, limitBreakEnabled);
+    std::vector<LevelUpOption> activePool = m_filter.GetAvailableOptions(
+        inventory, weaponData, banishedItemIds, limitBreakEnabled, player);
+    std::vector<LevelUpOption> ownedPool = m_filter.GetOwnedUpgradeableOptions(
+        inventory, weaponData, banishedItemIds, limitBreakEnabled, player);
 
     if (activePool.empty())
     {

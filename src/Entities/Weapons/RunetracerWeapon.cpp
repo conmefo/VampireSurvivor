@@ -113,7 +113,7 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     dir.x = std::cos(finalAngleRadians);
     dir.y = std::sin(finalAngleRadians);
 
-    float speed = m_profile.GetSpeed() * 250.0f; // Base speed pixel multiplier
+    float speed = m_profile.GetSpeed() * player.GetProjectileSpeedMultiplier() * 250.0f; // Base speed pixel multiplier
     sf::Vector2f velocity = dir * speed;
     
     // Hardcoded default duration of 2.25s per the WEAPON_DATA.json we found

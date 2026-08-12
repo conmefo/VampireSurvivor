@@ -7,6 +7,7 @@
 
 class WeaponInventory;
 class WeaponDataManager;
+class Player;
 
 class LevelUpInventoryFilter
 {
@@ -19,12 +20,14 @@ public:
         const WeaponInventory& inventory,
         const WeaponDataManager& weaponData,
         const std::unordered_set<std::string>& banishedItemIds,
-        bool limitBreakEnabled = false) const;
+        bool limitBreakEnabled = false,
+        const Player* player = nullptr) const;
 
     // Returns owned options that are upgradeable
     std::vector<LevelUpOption> GetOwnedUpgradeableOptions(
         const WeaponInventory& inventory,
         const WeaponDataManager& weaponData,
         const std::unordered_set<std::string>& banishedItemIds,
-        bool limitBreakEnabled = false) const;
+        bool limitBreakEnabled = false,
+        const Player* player = nullptr) const;
 };

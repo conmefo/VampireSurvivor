@@ -28,7 +28,7 @@ void LevelUpSessionController::StartNextLevelUp(const std::vector<std::unique_pt
     }
 
     m_isSessionActive = true;
-    float luckMultiplier = 1.0f;
+    float luckMultiplier = players[0] ? players[0]->GetLuckMultiplier() : 1.0f;
     bool healthMissing = false;
 
     for (const auto& p : players)
@@ -50,7 +50,8 @@ void LevelUpSessionController::StartNextLevelUp(const std::vector<std::unique_pt
         inv,
         weaponData,
         m_banishedItemIds,
-        false
+        false,
+        players[0].get()
     );
 }
 
@@ -63,7 +64,7 @@ void LevelUpSessionController::StartNextLevelUp(Player& player, const WeaponData
     }
 
     m_isSessionActive = true;
-    float luckMultiplier = 1.0f; // Can be pulled from player stats/buffs
+    float luckMultiplier = player.GetLuckMultiplier();
     bool healthMissing = (player.GetCurrentHealth() < player.GetMaxHealth());
 
     m_currentChoices = m_rollEngine.RollChoices(
@@ -73,7 +74,8 @@ void LevelUpSessionController::StartNextLevelUp(Player& player, const WeaponData
         player.GetWeaponInventory(),
         weaponData,
         m_banishedItemIds,
-        false
+        false,
+        &player
     );
 }
 
@@ -92,7 +94,24 @@ bool LevelUpSessionController::SelectOption(
 
     const auto& option = m_currentChoices[index];
 
-    if (option.type == LevelUpOptionType::WeaponUpgrade || option.type == LevelUpOptionType::PassiveUpgrade)
+    if (option.type == LevelUpOptionType::PassiveUpgrade)
+    {
+        const WeaponProfile& profile = weaponData.GetWeaponById(option.id);
+        const auto& deltas = weaponData.GetLevelDeltas(option.id);
+        for (auto& p : players)
+        {
+            if (!p) continue;
+
+            const int currentLevel = p->GetPassiveLevel(option.id);
+            const WeaponLevelDelta* nextDelta = nullptr;
+            if (currentLevel > 0 && currentLevel - 1 < static_cast<int>(deltas.size()))
+            {
+                nextDelta = &deltas[currentLevel - 1];
+            }
+            p->LevelUpPassive(option.id, profile, nextDelta);
+        }
+    }
+    else if (option.type == LevelUpOptionType::WeaponUpgrade)
     {
         for (auto& p : players)
         {
@@ -162,7 +181,19 @@ bool LevelUpSessionController::SelectOption(
 
     const auto& option = m_currentChoices[index];
 
-    if (option.type == LevelUpOptionType::WeaponUpgrade || option.type == LevelUpOptionType::PassiveUpgrade)
+    if (option.type == LevelUpOptionType::PassiveUpgrade)
+    {
+        const WeaponProfile& profile = weaponData.GetWeaponById(option.id);
+        const auto& deltas = weaponData.GetLevelDeltas(option.id);
+        const int currentLevel = player.GetPassiveLevel(option.id);
+        const WeaponLevelDelta* nextDelta = nullptr;
+        if (currentLevel > 0 && currentLevel - 1 < static_cast<int>(deltas.size()))
+        {
+            nextDelta = &deltas[currentLevel - 1];
+        }
+        player.LevelUpPassive(option.id, profile, nextDelta);
+    }
+    else if (option.type == LevelUpOptionType::WeaponUpgrade)
     {
         if (player.GetWeaponInventory().HasWeapon(option.id))
         {
@@ -213,7 +244,7 @@ bool LevelUpSessionController::Reroll(const std::vector<std::unique_ptr<Player>>
     }
 
     m_rerollCharges--;
-    float luckMultiplier = 1.0f;
+    float luckMultiplier = players[0] ? players[0]->GetLuckMultiplier() : 1.0f;
     bool healthMissing = false;
 
     for (const auto& p : players)
@@ -234,7 +265,8 @@ bool LevelUpSessionController::Reroll(const std::vector<std::unique_ptr<Player>>
         inv,
         weaponData,
         m_banishedItemIds,
-        false
+        false,
+        players[0].get()
     );
 
     return true;
@@ -248,7 +280,7 @@ bool LevelUpSessionController::Reroll(Player& player, const WeaponDataManager& w
     }
 
     m_rerollCharges--;
-    float luckMultiplier = 1.0f;
+    float luckMultiplier = player.GetLuckMultiplier();
     bool healthMissing = (player.GetCurrentHealth() < player.GetMaxHealth());
 
     m_currentChoices = m_rollEngine.RollChoices(
@@ -258,7 +290,8 @@ bool LevelUpSessionController::Reroll(Player& player, const WeaponDataManager& w
         player.GetWeaponInventory(),
         weaponData,
         m_banishedItemIds,
-        false
+        false,
+        &player
     );
 
     return true;
@@ -327,7 +360,7 @@ bool LevelUpSessionController::Banish(int index, Player& player, const WeaponDat
     m_banishCharges--;
     m_banishedItemIds.insert(m_currentChoices[index].id);
 
-    float luckMultiplier = 1.0f;
+    float luckMultiplier = player.GetLuckMultiplier();
     bool healthMissing = (player.GetCurrentHealth() < player.GetMaxHealth());
 
     m_currentChoices = m_rollEngine.RollChoices(
@@ -337,7 +370,8 @@ bool LevelUpSessionController::Banish(int index, Player& player, const WeaponDat
         player.GetWeaponInventory(),
         weaponData,
         m_banishedItemIds,
-        false
+        false,
+        &player
     );
 
     return true;

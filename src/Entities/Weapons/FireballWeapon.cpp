@@ -88,7 +88,7 @@ void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas
     
     sf::Vector2f finalDir(std::cos(finalAngleRad), std::sin(finalAngleRad));
 
-    float speed = g_FireWandSpeed * m_profile.GetSpeed();
+    float speed = g_FireWandSpeed * m_profile.GetSpeed() * player.GetProjectileSpeedMultiplier();
     sf::Vector2f velocity = finalDir * speed;
     
     // Hardcode duration to 5.0s for Fireball (or read from profile if added)

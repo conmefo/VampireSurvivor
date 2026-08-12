@@ -54,7 +54,7 @@ void KnifeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, P
     }
 
     constexpr float BASE_PROJECTILE_SPEED = 300.0f; // Knife is fast
-    float speed = BASE_PROJECTILE_SPEED * m_profile.GetSpeed();
+    float speed = BASE_PROJECTILE_SPEED * m_profile.GetSpeed() * player.GetProjectileSpeedMultiplier();
     sf::Vector2f velocity = targetDir * speed;
 
     constexpr float LIFETIME = 3.0f;

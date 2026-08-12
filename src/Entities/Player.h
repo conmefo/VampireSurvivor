@@ -4,8 +4,10 @@
 #include "../Components/AnimationComponent.h"
 #include "../Core/Data/CharacterProfile.h"
 #include "Weapons/WeaponInventory.h"
+#include "../Core/Data/WeaponLevelDelta.h"
 #include "../Core/Animation/Tweener.h"
 #include <functional>
+#include <unordered_map>
 
 extern float g_PlayerSpeedMultiplier;
 
@@ -33,6 +35,13 @@ public:
     float GetTargetExperience() const;
     float GetExpProgressRatio() const;
     bool IsDead() const { return m_isDead; }
+
+    int GetPassiveLevel(const std::string& passiveId) const;
+    int GetPassiveCount() const;
+    bool LevelUpPassive(
+        const std::string& passiveId,
+        const class WeaponProfile& profile,
+        const WeaponLevelDelta* nextDelta);
     
     void Revive();
 
@@ -44,11 +53,17 @@ public:
     float GetCooldownMultiplier() const { return 1.0f - m_cooldownBuff; }
     int GetBonusAmount() const { return m_amountBuff; }
     float GetMoveSpeedMultiplier() const { return m_moveSpeedMultiplier; }
+    float GetProjectileSpeedMultiplier() const { return 1.0f + m_speedBuff; }
     float GetMagnetRadius() const { return m_baseMagnetRadius * GetMagnetMultiplier(); }
     float GetMagnetMultiplier() const { return m_magnetMultiplier; }
     void AddMagnetBonus(float bonus) { m_magnetMultiplier *= (1.0f + bonus); }
     void AddAttractorbLevel(float bonus) { AddMagnetBonus(bonus); }
     void SetMagnetMultiplier(float mult) { m_magnetMultiplier = mult; }
+    float GetGrowthMultiplier() const { return 1.0f + m_growthBuff; }
+    float GetLuckMultiplier() const { return 1.0f + m_luckBuff; }
+    float GetGreedMultiplier() const { return 1.0f + m_greedBuff; }
+    float GetCurseMultiplier() const { return 1.0f + m_curseBuff; }
+    float GetArmor() const { return m_armor; }
 
     void SetOnHitVfxCallback(std::function<void(const std::string&, sf::Vector2f)> callback) { m_onHitVfxCallback = std::move(callback); }
     void SetOnLevelUpCallback(std::function<void()> callback) { m_onLevelUpCallback = std::move(callback); }
@@ -66,6 +81,8 @@ public:
 
 private:
     void OnHpReachedZero();
+    void ApplyPassiveStats(const std::unordered_map<std::string, float>& stats);
+    void IncreaseMaxHealthPercent(float amount);
 
     static constexpr float ANIMATION_SPEED = 0.15f;
     static constexpr float BASE_MOVE_SPEED = 150.0f;
@@ -91,6 +108,7 @@ private:
 
     float m_currentHealth = 100.0f;
     float m_maxHealth = 100.0f;
+    float m_baseMaxHealth = 100.0f;
     float m_experience = 0.0f;
     int m_level = 1;
     float m_invulnTimer = 0.0f;
@@ -110,6 +128,15 @@ private:
     int m_amountBuff = 0;
     float m_baseMagnetRadius = 96.0f;
     float m_magnetMultiplier = 1.0f;
+    float m_armor = 0.0f;
+    float m_recovery = 0.0f;
+    float m_speedBuff = 0.0f;
+    float m_growthBuff = 0.0f;
+    float m_luckBuff = 0.0f;
+    float m_greedBuff = 0.0f;
+    float m_curseBuff = 0.0f;
+    int m_revivals = 0;
+    std::unordered_map<std::string, int> m_passiveLevels;
 
     std::function<void(const std::string&, sf::Vector2f)> m_onHitVfxCallback;
     std::function<void()> m_onLevelUpCallback;
