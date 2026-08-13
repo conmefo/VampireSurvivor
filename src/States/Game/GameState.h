@@ -1,6 +1,7 @@
 #pragma once
 #include "../../Entities/Enemy/EnemyDatabase.h"
 #include "../../Entities/Enemy/EnemyPool.h"
+#include "../../Entities/Enemy/EnemyAttackManager.h"
 #include "../../World/TileMap.h"
 #include "../../World/TileMapManager.h"
 #include "../../Entities/Player.h"
@@ -92,6 +93,7 @@ class GameState : public BaseState {
     void ReturnToMainMenu();
     void AddRunGold(int amount);
     void BankRunGold();
+    void SpawnAttackTestEnemies();
     void ApplyEnemyContactDamage();
     float GetStageXpBonus() const;
     EnemyStats ApplyStageEnemyModifiers(const EnemyStats& stats) const;
@@ -120,6 +122,7 @@ class GameState : public BaseState {
     sf::Vector2f m_cameraCenter;
     EnemyDatabase m_enemyDatabase;
     EnemyPool m_enemyPool;
+    EnemyAttackManager m_enemyAttackManager;
     StageWaveDataManager m_stageWaveData;
     const std::vector<StageWaveDefinition>* m_activeStageWaves = nullptr;
     const StageInfo* m_activeStageInfo = nullptr;

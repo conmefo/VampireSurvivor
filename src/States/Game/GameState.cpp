@@ -129,6 +129,7 @@ void GameState::Init() {
     m_sharedLevel = 1;
 
     m_vfxManager.Initialize(m_context.atlas);
+    m_enemyAttackManager.Initialize(m_context.atlas);
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
@@ -600,6 +601,8 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         std::cout << "[STRESS TEST] Level Up UI set to: " << (s_disableLevelUpUI ? "DISABLED" : "ENABLED") << std::endl;
     } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::H) {
         m_showHitboxes = !m_showHitboxes;
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F11) {
+        SpawnAttackTestEnemies();
     } else if (event.type == sf::Event::KeyPressed &&
                (event.key.code == sf::Keyboard::Num2 || event.key.code == sf::Keyboard::Numpad2)) {
         LoadStage(2);
@@ -795,12 +798,14 @@ void GameState::Update(float dt) {
         // Disabled dummy enemy spawns for clean tuning testing
     }
 
+    const std::vector<EnemyBase*> activeEnemies = m_enemyPool.GetActiveEnemies();
+    m_enemyAttackManager.Update(dt, activeEnemies, m_players, m_bossEnemies);
+
     m_projectileManager.SetViewBounds(GetViewBounds());
     m_projectileManager.Update(dt);
 
     // Projectile-enemy collision resolution
     std::vector<CollisionTarget> collisionTargets;
-    const auto& activeEnemies = m_enemyPool.GetActiveEnemies();
     for(EnemyBase* enemy : activeEnemies)
     {
         if(enemy && enemy->IsAlive())
@@ -945,6 +950,7 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_tileMap->Draw(window, m_worldView);
     }
     m_enemyPool.Draw(window);
+    m_enemyAttackManager.Draw(window);
 
     m_experienceGems.Draw(window);
 
@@ -1098,6 +1104,7 @@ void GameState::LoadStage(int stageNumber) {
         m_runGoldDisplay->SetGold(m_runGold);
     }
     m_enemyPool.Clear();
+    m_enemyAttackManager.Clear();
     m_bossEnemies.clear();
     if(m_treasureChests)
     {
@@ -1395,10 +1402,9 @@ EnemyBase* GameState::SpawnEnemyAt(const std::string& enemyId, const sf::Vector2
         return nullptr;
     }
 
-    return m_enemyPool.Acquire(
-        resolvedEnemyId,
-        position,
-        ApplyStageEnemyModifiers(definition->stats));
+    EnemyStats spawnStats = ApplyStageEnemyModifiers(definition->stats);
+
+    return m_enemyPool.Acquire(resolvedEnemyId, position, spawnStats);
 }
 
 void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
@@ -1795,6 +1801,51 @@ void GameState::AddRunGold(int amount)
     {
         m_runGoldDisplay->SetGold(m_runGold);
     }
+}
+
+void GameState::SpawnAttackTestEnemies()
+{
+    Player* player = GetFirstAlivePlayer();
+    if(!player)
+    {
+        return;
+    }
+
+    const sf::Vector2f playerPosition = player->GetPosition();
+    constexpr int RangedEnemyCount = 6;
+    constexpr float RangedEnemyRadius = 360.0f;
+
+    const char* authenticRangedCandidates[] = {"XLMAGIO", "PILE1", "PILE2", "PILE3"};
+    std::vector<std::string> rangedEnemyIds;
+    for(const char* candidate : authenticRangedCandidates)
+    {
+        const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(candidate);
+        if(definition && definition->stats.isRanged)
+        {
+            rangedEnemyIds.emplace_back(candidate);
+        }
+    }
+
+    if(rangedEnemyIds.empty())
+    {
+        std::cout << "[ATTACK TEST] No authentic projectile enemies are loaded for "
+                  << GetStageName(m_currentStage)
+                  << ". Switch to stage 2 with Num2, then press F11.\n";
+        return;
+    }
+
+    for(int index = 0; index < RangedEnemyCount; ++index)
+    {
+        const float angle = (2.0f * Pi * static_cast<float>(index)) /
+                            static_cast<float>(RangedEnemyCount);
+        const sf::Vector2f position = playerPosition + sf::Vector2f(
+            std::cos(angle) * RangedEnemyRadius,
+            std::sin(angle) * RangedEnemyRadius);
+        SpawnEnemyAt(rangedEnemyIds[static_cast<std::size_t>(index) % rangedEnemyIds.size()], position);
+    }
+
+    std::cout << "[ATTACK TEST] Spawned " << RangedEnemyCount
+              << " authentic projectile enemies (PILE/XLMAGIO family).\n";
 }
 
 void GameState::BankRunGold()

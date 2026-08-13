@@ -317,6 +317,15 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
             definition.stats.baseTint = GetIntOrDefault(statJson, "tint", definition.stats.baseTint);
             definition.spriteScale = GetFloatOrDefault(statJson, "spriteScale", definition.spriteScale);
 
+            definition.stats.isRanged = statJson.value("isRanged", false);
+            definition.stats.attackRange = GetFloatOrDefault(statJson, "attackRange", definition.stats.attackRange);
+            definition.stats.attackCooldown = GetFloatOrDefault(statJson, "attackCooldown", definition.stats.attackCooldown);
+            definition.stats.attackTelegraph = GetFloatOrDefault(statJson, "attackTelegraph", definition.stats.attackTelegraph);
+            definition.stats.projectileSpeed = GetFloatOrDefault(statJson, "projectileSpeed", definition.stats.projectileSpeed);
+            definition.stats.projectileDamage = GetFloatOrDefault(statJson, "projectileDamage", definition.stats.projectileDamage);
+            definition.stats.projectileLifetime = GetFloatOrDefault(statJson, "projectileLifetime", definition.stats.projectileLifetime);
+            definition.stats.projectileRadius = GetFloatOrDefault(statJson, "projectileRadius", definition.stats.projectileRadius);
+
             if(authenticStats)
             {
                 ApplyAuthenticScaleAndCollider(definition, *authenticStats);
@@ -327,6 +336,43 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
                     GetFloatOrDefault(*authenticStats, "alpha", definition.stats.baseAlpha);
                 definition.stats.baseTint =
                     GetIntOrDefault(*authenticStats, "tint", definition.stats.baseTint);
+
+                // Only enemies that have an authentic projectile type and fire delay
+                // get ranged attacks. Ordinary enemies, including MUDMAN1 and MUMMY,
+                // keep the game's default contact-damage behavior.
+                const std::string bulletType =
+                    GetStringOrDefault(*authenticStats, "bulletType", "");
+                const float fireDelayMs =
+                    GetFloatOrDefault(*authenticStats, "fireDelay", 0.0f);
+                definition.stats.isRanged = !bulletType.empty() && fireDelayMs > 0.0f;
+                definition.stats.attackRange = definition.stats.isRanged ? 360.0f : 0.0f;
+                definition.stats.attackCooldown = definition.stats.isRanged
+                    ? std::max(0.5f, fireDelayMs / 1000.0f)
+                    : 0.0f;
+                definition.stats.attackTelegraph = definition.stats.isRanged ? 0.45f : 0.65f;
+
+                if(definition.stats.isRanged)
+                {
+                    const nlohmann::json* projectileStats =
+                        FindAuthenticEnemyStats(authenticEnemyData, bulletType);
+                    if(projectileStats)
+                    {
+                        definition.stats.projectileSpeed = std::max(
+                            60.0f,
+                            GetFloatOrDefault(*projectileStats, "speed", definition.stats.projectileSpeed));
+                        definition.stats.projectileDamage = std::max(
+                            1.0f,
+                            GetFloatOrDefault(*projectileStats, "power", definition.stats.damage));
+                    }
+                    else
+                    {
+                        definition.stats.projectileDamage = definition.stats.damage;
+                    }
+
+                    definition.stats.projectileLifetime =
+                        std::max(3.0f, definition.stats.attackRange / definition.stats.projectileSpeed + 1.0f);
+                    definition.stats.projectileRadius = 7.0f;
+                }
             }
 
             ApplyPrototypeBalance(enemyId, definition.stats);

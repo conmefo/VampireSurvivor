@@ -38,6 +38,7 @@ struct EnemyTypeData
     float mass = 1.0f;
     float radius = 14.0f;
     float expYield = 1.0f;
+    float attackRange = 0.0f;
     float spriteScale = 1.0f;
     const sf::Texture* texture = nullptr;
     std::vector<sf::IntRect> animFrames;
@@ -57,6 +58,7 @@ struct EnemyHotSoA
     std::vector<float> damage;
     std::vector<float> radius;
     std::vector<float> expYield;
+    std::vector<float> attackRange;
     std::vector<uint16_t> typeId;
     std::vector<uint32_t> generation;
     std::vector<uint8_t> flags; // Bit 0: Active, Bit 1: Dying, Bit 2: Boss

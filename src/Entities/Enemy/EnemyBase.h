@@ -16,6 +16,16 @@ struct EnemyStats
     float baseAlpha = 1.0f;
     float expYield = 1.0f;
     int baseTint = 16777215;
+
+    // Optional combat profile. A zero attack range keeps the default chase/contact behavior.
+    bool isRanged = false;
+    float attackRange = 0.0f;
+    float attackCooldown = 0.0f;
+    float attackTelegraph = 0.65f;
+    float projectileSpeed = 220.0f;
+    float projectileDamage = 0.0f;
+    float projectileLifetime = 6.0f;
+    float projectileRadius = 7.0f;
 };
 
 class EnemyBase : public Agent
@@ -47,6 +57,15 @@ public:
     float GetExpYield() const;
     sf::Vector2f GetCollisionCenter() const;
     const std::string& GetDefinitionId() const;
+
+    bool HasRangedAttack() const { return m_stats.isRanged && m_stats.attackCooldown > 0.0f; }
+    float GetAttackRange() const { return m_stats.attackRange; }
+    float GetAttackCooldown() const { return m_stats.attackCooldown; }
+    float GetAttackTelegraph() const { return m_stats.attackTelegraph; }
+    float GetProjectileSpeed() const { return m_stats.projectileSpeed; }
+    float GetProjectileDamage() const { return m_stats.projectileDamage > 0.0f ? m_stats.projectileDamage : m_stats.damage; }
+    float GetProjectileLifetime() const { return m_stats.projectileLifetime; }
+    float GetProjectileRadius() const { return m_stats.projectileRadius; }
 
     // Modifiers for Garlic effects
     void ReduceKnockbackResistance(float amount) { m_knockbackResistanceReduction += amount; }

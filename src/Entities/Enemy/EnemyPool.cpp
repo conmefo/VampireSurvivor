@@ -31,6 +31,7 @@ void EnemyHotSoA::Reserve(std::size_t capacity)
     damage.resize(capacity, 0.0f);
     radius.resize(capacity, 14.0f);
     expYield.resize(capacity, 1.0f);
+    attackRange.resize(capacity, 0.0f);
     typeId.resize(capacity, 0);
     generation.resize(capacity, 0);
     flags.resize(capacity, 0);
@@ -85,6 +86,7 @@ uint16_t EnemyPool::GetOrCreateTypeId(const std::string& enemyId, const EnemySta
         data.mass = customStats ? customStats->mass : def->stats.mass;
         data.radius = customStats ? customStats->collisionRadius : def->stats.collisionRadius;
         data.expYield = customStats ? customStats->expYield : def->stats.expYield;
+        data.attackRange = customStats ? customStats->attackRange : def->stats.attackRange;
         data.spriteScale = def->spriteScale;
 
         // Try extracting animation frames
@@ -115,6 +117,7 @@ uint16_t EnemyPool::GetOrCreateTypeId(const std::string& enemyId, const EnemySta
         data.mass = customStats->mass;
         data.radius = customStats->collisionRadius;
         data.expYield = customStats->expYield;
+        data.attackRange = customStats->attackRange;
     }
 
     const uint16_t newId = static_cast<uint16_t>(m_typeCatalog.size());
@@ -161,6 +164,7 @@ EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& po
     m_hot.damage[sparseIndex] = hasCustomStats ? stats.damage : typeData.damage;
     m_hot.radius[sparseIndex] = hasCustomStats ? stats.collisionRadius : typeData.radius;
     m_hot.expYield[sparseIndex] = hasCustomStats ? stats.expYield : typeData.expYield;
+    m_hot.attackRange[sparseIndex] = hasCustomStats ? stats.attackRange : typeData.attackRange;
     m_hot.typeId[sparseIndex] = typeId;
     m_hot.generation[sparseIndex]++;
     m_hot.flags[sparseIndex] = 1; // Active bit
@@ -280,7 +284,10 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
         const float dy = targetPosition.y - m_hot.y[idx];
         const float distSq = dx * dx + dy * dy;
 
-        if (distSq > 0.001f)
+        const float attackRange = m_hot.attackRange[idx];
+        const bool holdingAttackRange = attackRange > 0.0f && distSq <= attackRange * attackRange;
+
+        if (distSq > 0.001f && !holdingAttackRange)
         {
             const float invDist = 1.0f / std::sqrt(distSq);
             const float speed = m_hot.speed[idx];
