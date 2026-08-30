@@ -55,7 +55,9 @@ add_executable(VampireSurvivors
     src/Entities/Projectiles/LightningRingProjectile.cpp
     src/Entities/Projectiles/SongOfManaProjectile.cpp
     src/Entities/Pickups/ExperienceGemManager.cpp
+    src/Entities/Pickups/CoinPickupManager.cpp
     src/Entities/Pickups/TreasureChestManager.cpp
+    src/Entities/Stage/StageHazardManager.cpp
     src/Entities/DamageNumberManager.cpp
     src/UI/PlayerHUD.cpp
     src/Entities/Weapons/Weapon.cpp

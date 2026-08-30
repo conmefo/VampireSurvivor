@@ -28,7 +28,7 @@ PulsePet::PulsePet(TextureAtlas& atlas, int level, PulsePetConfig config)
     }
 }
 
-void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems)
+void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers)
 {
     // --- 1. Film Projector Frame Animation ---
     m_frameTimer += dt;
@@ -110,7 +110,7 @@ void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool, Dama
             // Reached peak scale - start fading down AND trigger knockback/damage at this exact moment!
             m_shockwaveState = ShockwaveState::Fading;
             m_ringTimer = 0.0f;
-            TriggerShockwave(enemyPool, damageNumbers, experienceGems);
+            TriggerShockwave(enemyPool, damageNumbers);
         }
     }
     else if (m_shockwaveState == ShockwaveState::Fading)
@@ -134,7 +134,7 @@ void PulsePet::Update(float dt, const Player& player, EnemyPool& enemyPool, Dama
     }
 }
 
-void PulsePet::TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems)
+void PulsePet::TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers)
 {
     float baseWidth = (m_ringTextureData.rect.width > 0) ? static_cast<float>(m_ringTextureData.rect.width) : 32.0f;
     float ringRadius = (baseWidth / 2.0f) * m_config.targetRingScale;
@@ -157,20 +157,13 @@ void PulsePet::TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damag
             // Deal shockwave damage
             if (m_config.damage > 0.0f)
             {
-                bool killed = enemy->TakeDamage(m_config.damage, knockbackDir);
+                enemyPool.ApplyDamageByPointer(enemy, m_config.damage, knockbackDir, m_config.knockbackForce);
 
                 if (damageNumbers)
                 {
                     damageNumbers->Spawn(m_config.damage, enemyPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
                 }
-                if (killed && experienceGems)
-                {
-                    experienceGems->Spawn(enemyPos, enemy->GetExpYield());
-                }
             }
-
-            // Apply knockback
-            enemy->ApplyKnockback(knockbackDir * m_config.knockbackForce);
         }
     }
 }

@@ -2,6 +2,7 @@
 
 #include <SFML/Graphics.hpp>
 
+#include <functional>
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
@@ -18,6 +19,7 @@ class EnemyAttackManager
 public:
     void Initialize(const TextureAtlas& atlas);
     void Clear();
+    void SetOnBossBurst(std::function<void(const sf::Vector2f&)> callback) { m_onBossBurst = std::move(callback); }
 
     void Update(
         float dt,
@@ -78,4 +80,5 @@ private:
     sf::IntRect m_normalProjectileRect;
     const sf::Texture* m_bossProjectileTexture = nullptr;
     sf::IntRect m_bossProjectileRect;
+    std::function<void(const sf::Vector2f&)> m_onBossBurst;
 };

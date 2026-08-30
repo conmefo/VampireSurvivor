@@ -35,7 +35,6 @@ struct PulsePetConfig
 };
 
 class DamageNumberManager;
-class ExperienceGemManager;
 
 class PulsePet
 {
@@ -43,7 +42,7 @@ public:
     PulsePet(TextureAtlas& atlas, int level = 1, PulsePetConfig config = PulsePetConfig());
     ~PulsePet() = default;
 
-    void Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers = nullptr, ExperienceGemManager* experienceGems = nullptr);
+    void Update(float dt, const Player& player, EnemyPool& enemyPool, DamageNumberManager* damageNumbers = nullptr);
     void Draw(sf::RenderTarget& target);
 
     // Getters / Setters for live tweaking
@@ -83,5 +82,5 @@ private:
     sf::Sprite m_ringSprite;
     AssetTextureData m_ringTextureData{nullptr, sf::IntRect()};
 
-    void TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers, ExperienceGemManager* experienceGems);
+    void TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damageNumbers);
 };

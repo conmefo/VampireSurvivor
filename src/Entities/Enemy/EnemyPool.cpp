@@ -469,6 +469,69 @@ void EnemyPool::QueueDamageByPointer(EnemyBase* enemyPtr, float damage, sf::Vect
     }
 }
 
+bool EnemyPool::ApplyDamageByPointer(EnemyBase* enemyPtr, float damage, sf::Vector2f direction, float knockbackForce)
+{
+    if (!enemyPtr)
+    {
+        return false;
+    }
+
+    for (uint32_t i = 0; i < m_activeCount; ++i)
+    {
+        const uint32_t sparse = m_activeIndices[i];
+        if (m_legacyPool[sparse].get() == enemyPtr)
+        {
+            return ApplyDamageAtIndex(sparse, damage, direction, knockbackForce);
+        }
+    }
+
+    return false;
+}
+
+void EnemyPool::SetOnEnemyDeath(std::function<void(EnemyBase*, const sf::Vector2f&, float)> callback)
+{
+    m_onEnemyDeath = std::move(callback);
+}
+
+bool EnemyPool::ApplyDamageAtIndex(uint32_t index, float damage, const sf::Vector2f& direction, float knockbackForce)
+{
+    if (index >= m_capacity || !(m_hot.flags[index] & 1) || (m_hot.flags[index] & 2) ||
+        index >= m_legacyPool.size())
+    {
+        return false;
+    }
+
+    EnemyBase* legacy = m_legacyPool[index].get();
+    const bool killed = legacy->TakeDamage(damage, direction);
+    m_hot.hp[index] = legacy->GetHealth();
+    m_hot.flashTimer[index] = 0.12f;
+
+    if (!killed)
+    {
+        const float directionLengthSquared = direction.x * direction.x + direction.y * direction.y;
+        if (directionLengthSquared > 0.001f && knockbackForce > 0.0f)
+        {
+            const float inverseLength = 1.0f / std::sqrt(directionLengthSquared);
+            legacy->ApplyKnockback(direction * (inverseLength * knockbackForce));
+            const sf::Vector2f position = legacy->GetPosition();
+            m_hot.x[index] = position.x;
+            m_hot.y[index] = position.y;
+        }
+        return false;
+    }
+
+    m_hot.flags[index] |= 2;
+    const sf::Vector2f deathPosition = legacy->GetPosition();
+    m_hot.x[index] = deathPosition.x;
+    m_hot.y[index] = deathPosition.y;
+    m_deathEvents.push_back({index, deathPosition, m_hot.expYield[index], false});
+    if (m_onEnemyDeath)
+    {
+        m_onEnemyDeath(legacy, deathPosition, m_hot.expYield[index]);
+    }
+    return true;
+}
+
 void EnemyPool::ProcessDamageEvents()
 {
     if (m_damageEvents.empty())
@@ -484,23 +547,7 @@ void EnemyPool::ProcessDamageEvents()
             continue;
         }
 
-        m_hot.hp[idx] -= evt.damage;
-        m_hot.flashTimer[idx] = 0.12f;
-
-        // Apply knockback
-        const float dirLenSq = evt.hitDirection.x * evt.hitDirection.x + evt.hitDirection.y * evt.hitDirection.y;
-        if (dirLenSq > 0.001f)
-        {
-            const float invLen = 1.0f / std::sqrt(dirLenSq);
-            m_hot.x[idx] += (evt.hitDirection.x * invLen) * 8.0f;
-            m_hot.y[idx] += (evt.hitDirection.y * invLen) * 8.0f;
-        }
-
-        if (m_hot.hp[idx] <= 0.0f && !(m_hot.flags[idx] & 2))
-        {
-            m_hot.flags[idx] |= 2; // Mark as dying
-            m_deathEvents.push_back({idx, sf::Vector2f(m_hot.x[idx], m_hot.y[idx]), m_hot.expYield[idx], false});
-        }
+        ApplyDamageAtIndex(idx, evt.damage, evt.hitDirection, 8.0f);
     }
     m_damageEvents.clear();
 }

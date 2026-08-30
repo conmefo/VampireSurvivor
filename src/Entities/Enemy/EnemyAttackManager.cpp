@@ -282,6 +282,11 @@ void EnemyAttackManager::FireBossBurst(const EnemyBase& enemy)
             m_bossProjectileTexture,
             m_bossProjectileRect);
     }
+
+    if(m_onBossBurst)
+    {
+        m_onBossBurst(origin);
+    }
 }
 
 void EnemyAttackManager::SpawnProjectile(

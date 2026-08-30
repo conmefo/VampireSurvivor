@@ -130,12 +130,22 @@ void GameState::Init() {
 
     m_vfxManager.Initialize(m_context.atlas);
     m_enemyAttackManager.Initialize(m_context.atlas);
+    m_enemyAttackManager.SetOnBossBurst([this](const sf::Vector2f& position) {
+        m_stageHazards.SpawnCircle(position, 52.0f, 2.4f, 3.0f);
+    });
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
     m_experienceGems.SetOnGemCollected([this](float xp) {
         m_context.audio.PlaySfx(SfxID::GemPickup);
         AddSharedExperience(xp);
+    });
+    m_coinPickups.SetOnCoinCollected([this](int gold) {
+        AddRunGold(gold);
+        m_context.audio.PlaySfx(SfxID::GemPickup);
+    });
+    m_enemyPool.SetOnEnemyDeath([this](EnemyBase* enemy, const sf::Vector2f& position, float expYield) {
+        HandleEnemyDeath(enemy, position, expYield);
     });
     m_damageNumbers.Initialize(m_context.atlas);
     m_treasureChests = std::make_unique<TreasureChestManager>();
@@ -407,6 +417,12 @@ void GameState::Init() {
         m_stageInfoText.setFillColor(sf::Color(210, 210, 198));
         m_stageInfoText.setOutlineColor(sf::Color(0, 0, 0, 190));
         m_stageInfoText.setOutlineThickness(1.0f);
+
+        m_bossNameText.setFont(*boldFont);
+        m_bossNameText.setCharacterSize(22);
+        m_bossNameText.setFillColor(sf::Color(255, 225, 225));
+        m_bossNameText.setOutlineColor(sf::Color::Black);
+        m_bossNameText.setOutlineThickness(2.0f);
 
         m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
         UpdateStageTimerText();
@@ -771,7 +787,7 @@ void GameState::Update(float dt) {
 
         if (i < m_pulsePets.size() && m_pulsePets[i])
         {
-            m_pulsePets[i]->Update(dt, *p, m_enemyPool, &m_damageNumbers, &m_experienceGems);
+            m_pulsePets[i]->Update(dt, *p, m_enemyPool, &m_damageNumbers);
         }
     }
 
@@ -838,32 +854,20 @@ void GameState::Update(float dt) {
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
             const float damage = proj->GetPower();
-            const bool killed = enemy->TakeDamage(damage, knockbackDir);
+            constexpr float KNOCKBACK_FORCE = 15.0f;
+            const bool killed = m_enemyPool.ApplyDamageByPointer(enemy, damage, knockbackDir, KNOCKBACK_FORCE);
             m_damageNumbers.Spawn(damage, originalPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
 
             // Audio: coalesced enemy hit/death SFX (spatial, low priority)
             if(killed)
             {
                 m_context.audio.PlaySfxAt(SfxID::EnemyDeath, originalPos, 1.0f, AudioPriority::Medium);
-                m_experienceGems.Spawn(originalPos, enemy->GetExpYield() * GetStageXpBonus());
-                if(m_bossEnemies.erase(enemy) > 0 && m_treasureChests)
-                {
-                    PlaySoundOptions chestOpts;
-                    chestOpts.priority = AudioPriority::High;
-                    m_context.audio.PlaySfx(SfxID::ChestOpen, chestOpts);
-                    m_treasureChests->Spawn(originalPos);
-                }
             }
             else
             {
                 m_context.audio.PlaySfxAt(SfxID::EnemyHit, originalPos, 1.0f, AudioPriority::Low);
             }
 
-            constexpr float KNOCKBACK_FORCE = 15.0f;
-            if(!killed)
-            {
-                enemy->ApplyKnockback(knockbackDir * KNOCKBACK_FORCE);
-            }
         }
     }
 
@@ -874,6 +878,8 @@ void GameState::Update(float dt) {
     if(!AreAllPlayersDead())
     {
         m_experienceGems.Update(dt, m_players);
+        m_coinPickups.Update(dt, m_players);
+        m_stageHazards.Update(dt, m_players);
 
         if(m_treasureChests)
         {
@@ -953,6 +959,8 @@ void GameState::Draw(sf::RenderWindow &window) {
     m_enemyAttackManager.Draw(window);
 
     m_experienceGems.Draw(window);
+    m_coinPickups.Draw(window);
+    m_stageHazards.Draw(window);
 
     for (std::size_t i = 0; i < m_players.size(); ++i)
     {
@@ -1005,6 +1013,7 @@ void GameState::Draw(sf::RenderWindow &window) {
     }
 
     DrawStageTimer(window);
+    DrawBossHud(window);
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->Draw(window);
@@ -1106,11 +1115,16 @@ void GameState::LoadStage(int stageNumber) {
     m_enemyPool.Clear();
     m_enemyAttackManager.Clear();
     m_bossEnemies.clear();
+    m_finalBoss = nullptr;
+    m_finalBossSpawned = false;
+    m_normalSpawningStopped = false;
     if(m_treasureChests)
     {
         m_treasureChests->Clear();
     }
     m_experienceGems.Clear();
+    m_coinPickups.Clear();
+    m_stageHazards.Clear();
     m_damageNumbers.Clear();
 
     m_tileMap = m_mapManager.GetMap(stageNumber);
@@ -1202,6 +1216,10 @@ void GameState::ResetStageSpawner()
 
 void GameState::UpdateStageSpawner(float dt)
 {
+    if(m_normalSpawningStopped)
+    {
+        return;
+    }
     if(!m_activeStageWaves || m_activeStageWaves->empty())
     {
         return;
@@ -1315,6 +1333,10 @@ void GameState::ResetStageEventsForCurrentWave()
 
 void GameState::UpdateStageEvents(float dt)
 {
+    if(m_normalSpawningStopped)
+    {
+        return;
+    }
     if(m_runtimeStageEvents.empty())
     {
         return;
@@ -1417,13 +1439,136 @@ void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
 
     for(const std::string& bossId : wave.bosses)
     {
-        if(EnemyBase* boss = SpawnWaveEnemy(bossId))
+        const std::string resolvedBossId = ResolveSpawnEnemyId(bossId);
+        const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(resolvedBossId);
+        if(!definition)
+        {
+            continue;
+        }
+
+        EnemyStats bossStats = ApplyStageEnemyModifiers(definition->stats);
+        bossStats.maxHealth = std::max(80.0f, bossStats.maxHealth * 8.0f);
+        bossStats.damage = std::max(3.0f, bossStats.damage * 1.5f);
+        bossStats.speed *= 0.78f;
+        bossStats.collisionRadius = std::max(22.0f, bossStats.collisionRadius * 1.35f);
+        bossStats.expYield *= 5.0f;
+        bossStats.isRanged = true;
+        bossStats.attackRange = 420.0f;
+        bossStats.attackCooldown = 3.4f;
+        bossStats.attackTelegraph = 0.8f;
+        bossStats.projectileSpeed = 220.0f;
+        bossStats.projectileDamage = std::max(3.0f, bossStats.damage * 0.75f);
+        bossStats.projectileLifetime = 4.5f;
+        bossStats.projectileRadius = 8.0f;
+
+        const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor++);
+        if(EnemyBase* boss = m_enemyPool.Acquire(resolvedBossId, spawnPosition, bossStats))
         {
             m_bossEnemies.insert(boss);
         }
     }
 
     m_spawnedBossWaveMinutes.push_back(wave.minute);
+}
+
+void GameState::StartFinalEncounter()
+{
+    if(m_finalBossSpawned)
+    {
+        return;
+    }
+
+    m_finalBossSpawned = true;
+    m_normalSpawningStopped = true;
+    m_runtimeStageEvents.clear();
+
+    const std::vector<std::string> candidates = {"BOSS_XLDEATH", "XLMANTIS", "XLBAT", "WEREWOLF", "BAT1", "SKELETON"};
+    std::string bossId;
+    for(const std::string& candidate : candidates)
+    {
+        const std::string resolved = ResolveSpawnEnemyId(candidate);
+        if(!resolved.empty() && m_enemyDatabase.GetDefinition(resolved))
+        {
+            bossId = resolved;
+            break;
+        }
+    }
+    if(bossId.empty())
+    {
+        FinishRun(RunState::Completed);
+        return;
+    }
+
+    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(bossId);
+    EnemyStats stats = ApplyStageEnemyModifiers(definition->stats);
+    stats.maxHealth = std::max(500.0f, stats.maxHealth * 16.0f);
+    stats.speed = std::max(35.0f, stats.speed * 0.58f);
+    stats.damage = std::max(8.0f, stats.damage * 2.0f);
+    stats.collisionRadius = std::max(34.0f, stats.collisionRadius * 2.0f);
+    stats.expYield *= 12.0f;
+    stats.isRanged = true;
+    stats.attackRange = 450.0f;
+    stats.attackCooldown = 2.6f;
+    stats.attackTelegraph = 0.75f;
+    stats.projectileSpeed = 270.0f;
+    stats.projectileDamage = std::max(6.0f, stats.damage * 0.8f);
+    stats.projectileLifetime = 4.5f;
+    stats.projectileRadius = 10.0f;
+
+    const sf::FloatRect bounds = GetViewBounds();
+    const sf::Vector2f spawnPosition(bounds.left + bounds.width + 120.0f, bounds.top + bounds.height * 0.5f);
+    m_finalBoss = m_enemyPool.Acquire(bossId, spawnPosition, stats);
+    if(m_finalBoss)
+    {
+        m_bossEnemies.insert(m_finalBoss);
+        m_stageHazards.SpawnCircle(spawnPosition, 72.0f, 2.0f, 4.0f);
+    }
+    else
+    {
+        FinishRun(RunState::Completed);
+    }
+}
+
+void GameState::HandleEnemyDeath(EnemyBase* enemy, const sf::Vector2f& position, float expYield)
+{
+    if(!enemy)
+    {
+        return;
+    }
+
+    m_context.audio.PlaySfxAt(SfxID::EnemyDeath, position, 1.0f, AudioPriority::Medium);
+    m_experienceGems.Spawn(position, expYield * GetStageXpBonus());
+
+    const bool isBoss = m_bossEnemies.erase(enemy) > 0;
+    if(isBoss)
+    {
+        m_coinPickups.SpawnCoin(position, enemy == m_finalBoss ? 100 : 25);
+        if(enemy != m_finalBoss && m_treasureChests)
+        {
+            PlaySoundOptions chestOpts;
+            chestOpts.priority = AudioPriority::High;
+            m_context.audio.PlaySfx(SfxID::ChestOpen, chestOpts);
+            m_treasureChests->Spawn(position);
+        }
+    }
+    else
+    {
+        std::uniform_real_distribution<float> roll(0.0f, 1.0f);
+        if(roll(m_stageEventRng) < 0.28f)
+        {
+            m_coinPickups.SpawnCoin(position, 1);
+        }
+        if(roll(m_stageEventRng) < 0.05f)
+        {
+            m_coinPickups.SpawnHealing(position, 8.0f);
+        }
+    }
+
+    if(enemy == m_finalBoss)
+    {
+        m_finalBoss = nullptr;
+        FinishRun(RunState::Completed);
+    }
 }
 
 const StageWaveDefinition* GameState::GetCurrentStageWave() const
@@ -1594,14 +1739,17 @@ std::string GameState::ResolveSpawnEnemyId(const std::string& requestedId) const
 
 void GameState::UpdateStageTimer(float dt)
 {
-    m_stageElapsed += dt * GetStageClockSpeed();
+    if(!m_finalBossSpawned)
+    {
+        m_stageElapsed += dt * GetStageClockSpeed();
+    }
 
     const int timeLimitSeconds = GetStageTimeLimitSeconds();
     if(timeLimitSeconds > 0 && m_stageElapsed >= static_cast<float>(timeLimitSeconds))
     {
         m_stageElapsed = static_cast<float>(timeLimitSeconds);
         UpdateStageTimerText();
-        FinishRun(RunState::Completed);
+        StartFinalEncounter();
         return;
     }
 
@@ -1656,6 +1804,49 @@ void GameState::DrawStageTimer(sf::RenderTarget& target) const
     target.draw(m_stageTimerShadowText);
     target.draw(m_stageTimerText);
     target.draw(m_stageInfoText);
+}
+
+void GameState::DrawBossHud(sf::RenderTarget& target) const
+{
+    EnemyBase* boss = m_finalBoss;
+    if(!boss || !boss->IsAlive())
+    {
+        for(EnemyBase* candidate : m_bossEnemies)
+        {
+            if(candidate && candidate->IsAlive())
+            {
+                boss = candidate;
+                break;
+            }
+        }
+    }
+    if(!boss || !boss->IsAlive() || !m_bossNameText.getFont())
+    {
+        return;
+    }
+
+    constexpr float width = 440.0f;
+    const float healthRatio = std::clamp(boss->GetHealth() / std::max(1.0f, boss->GetMaxHealth()), 0.0f, 1.0f);
+    sf::RectangleShape backing({width, 18.0f});
+    backing.setOrigin(width / 2.0f, 0.0f);
+    backing.setPosition(ViewWidth / 2.0f, 106.0f);
+    backing.setFillColor(sf::Color(35, 0, 8, 225));
+    backing.setOutlineColor(sf::Color(255, 210, 150));
+    backing.setOutlineThickness(2.0f);
+    target.draw(backing);
+
+    sf::RectangleShape fill({width * healthRatio, 18.0f});
+    fill.setPosition(backing.getPosition().x - width / 2.0f, backing.getPosition().y);
+    fill.setFillColor(sf::Color(210, 35, 50));
+    target.draw(fill);
+
+    sf::Text name = m_bossNameText;
+    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(boss->GetDefinitionId());
+    name.setString("BOSS: " + (definition ? definition->name : boss->GetDefinitionId()));
+    const sf::FloatRect bounds = name.getLocalBounds();
+    name.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height);
+    name.setPosition(ViewWidth / 2.0f, 102.0f);
+    target.draw(name);
 }
 
 std::string GameState::FormatStageTime(int totalSeconds) const

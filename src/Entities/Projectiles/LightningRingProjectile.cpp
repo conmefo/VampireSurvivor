@@ -90,7 +90,7 @@ void LightningRingProjectile::ExecuteStrike()
                 sf::Vector2f diff = enemy->GetPosition() - m_targetPos;
                 if (diff.x * diff.x + diff.y * diff.y <= radiusSq)
                 {
-                    enemy->TakeDamage(GetPower());
+                    m_enemyPool->ApplyDamageByPointer(enemy, GetPower());
                 }
             }
         }

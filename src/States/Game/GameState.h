@@ -9,6 +9,8 @@
 #include "../../Entities/Particles/ParticleManager.h"
 #include "../../Entities/Pets/PulsePet.h"
 #include "../../Entities/Pickups/ExperienceGemManager.h"
+#include "../../Entities/Pickups/CoinPickupManager.h"
+#include "../../Entities/Stage/StageHazardManager.h"
 #include "../../Entities/DamageNumberManager.h"
 #include "../../UI/GemTuningUI.h"
 #include "../../UI/ParticleTuningUI.h"
@@ -74,6 +76,8 @@ class GameState : public BaseState {
     EnemyBase* SpawnWaveEnemy(const std::string& enemyId);
     EnemyBase* SpawnEnemyAt(const std::string& enemyId, const sf::Vector2f& position);
     void SpawnWaveBosses(const StageWaveDefinition& wave);
+    void StartFinalEncounter();
+    void HandleEnemyDeath(EnemyBase* enemy, const sf::Vector2f& position, float expYield);
     const StageWaveDefinition* GetCurrentStageWave() const;
     sf::Vector2f GetWaveSpawnPosition(int spawnIndex) const;
     sf::Vector2f GetStageEventSpawnPosition(const RuntimeStageEvent& event, int spawnIndex) const;
@@ -82,6 +86,7 @@ class GameState : public BaseState {
     void UpdateStageTimer(float dt);
     void UpdateStageTimerText();
     void DrawStageTimer(sf::RenderTarget& target) const;
+    void DrawBossHud(sf::RenderTarget& target) const;
     std::string FormatStageTime(int totalSeconds) const;
     float GetStageClockSpeed() const;
     int GetStageTimeLimitSeconds() const;
@@ -132,12 +137,16 @@ class GameState : public BaseState {
     int m_waveSpawnCursor = 0;
     std::vector<int> m_spawnedBossWaveMinutes;
     std::unordered_set<EnemyBase*> m_bossEnemies;
+    EnemyBase* m_finalBoss = nullptr;
+    bool m_finalBossSpawned = false;
+    bool m_normalSpawningStopped = false;
     std::vector<RuntimeStageEvent> m_runtimeStageEvents;
     std::mt19937 m_stageEventRng{std::random_device{}()};
     sf::RectangleShape m_stageTimerBacking;
     sf::Text m_stageTimerText;
     sf::Text m_stageTimerShadowText;
     sf::Text m_stageInfoText;
+    sf::Text m_bossNameText;
     std::vector<std::unique_ptr<Player>> m_players;
     std::vector<std::string> m_selectedCharacterIds;
     int m_currentStage = 1;
@@ -159,6 +168,8 @@ class GameState : public BaseState {
     vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
     ExperienceGemManager m_experienceGems;
+    CoinPickupManager m_coinPickups;
+    StageHazardManager m_stageHazards;
     DamageNumberManager m_damageNumbers;
     std::unique_ptr<TreasureChestManager> m_treasureChests;
     std::unique_ptr<TreasureRewardView> m_treasureRewardView;

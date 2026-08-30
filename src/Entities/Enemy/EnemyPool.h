@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics.hpp>
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <unordered_map>
@@ -112,6 +113,8 @@ public:
     // High-performance event-based damage & grid API
     void QueueDamage(uint32_t index, float damage, sf::Vector2f direction);
     void QueueDamageByPointer(EnemyBase* enemyPtr, float damage, sf::Vector2f direction);
+    bool ApplyDamageByPointer(EnemyBase* enemyPtr, float damage, sf::Vector2f direction = {0.0f, 0.0f}, float knockbackForce = 8.0f);
+    void SetOnEnemyDeath(std::function<void(EnemyBase*, const sf::Vector2f&, float)> callback);
     void ProcessDamageEvents();
     void ProcessDeathEvents();
 
@@ -125,6 +128,7 @@ public:
 private:
     uint16_t GetOrCreateTypeId(const std::string& enemyId, const EnemyStats* customStats = nullptr);
     void DeactivateIndex(uint32_t denseIdx);
+    bool ApplyDamageAtIndex(uint32_t index, float damage, const sf::Vector2f& direction, float knockbackForce);
 
     const EnemyDatabase& m_enemyDatabase;
     std::size_t m_capacity = 0;
@@ -148,6 +152,7 @@ private:
     // Event Buffers
     std::vector<DamageEvent> m_damageEvents;
     std::vector<DeathEvent> m_deathEvents;
+    std::function<void(EnemyBase*, const sf::Vector2f&, float)> m_onEnemyDeath;
 
     // Rendering Extraction & Bucket Y-Sorting
     std::vector<RenderEnemy> m_renderBuffer;
