@@ -17,6 +17,9 @@ public:
     // Returns nullptr if the id is unknown.
     std::unique_ptr<Weapon> Create(const std::string& weaponId) const;
 
+    // Returns whether this build has gameplay code for a weapon bullet type.
+    static bool SupportsBulletType(const std::string& bulletType);
+
 private:
     WeaponDataManager& m_weaponData;
 };

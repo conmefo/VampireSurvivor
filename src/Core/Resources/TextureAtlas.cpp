@@ -1,4 +1,6 @@
 #include "TextureAtlas.h"
+#include <algorithm>
+#include <cctype>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
@@ -60,6 +62,34 @@ AssetTextureData TextureAtlas::GetTextureData(const std::string& assetId) const
         if (atlasTex)
         {
             return { atlasTex, it->second.rect };
+        }
+    }
+
+    // Game data uses upper-case item IDs while the extracted atlas preserves
+    // the original mixed-case sprite names (for example, WHIP and Whip).
+    // Resolve only a case-only mismatch before treating the asset as missing.
+    const auto sameIgnoringCase = [&assetId](const std::string& candidate)
+    {
+        return candidate.size() == assetId.size() &&
+            std::equal(candidate.begin(), candidate.end(), assetId.begin(),
+                [](char left, char right)
+                {
+                    return std::tolower(static_cast<unsigned char>(left)) ==
+                        std::tolower(static_cast<unsigned char>(right));
+                });
+    };
+
+    for(const auto& [name, region] : m_regions)
+    {
+        if(!sameIgnoringCase(name))
+        {
+            continue;
+        }
+
+        const sf::Texture* atlasTex = m_textureManager.GetPtr(region.textureId);
+        if(atlasTex)
+        {
+            return { atlasTex, region.rect };
         }
     }
     

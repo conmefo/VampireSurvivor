@@ -14,6 +14,7 @@
 #include "../../Core/Audio/AudioIdentifiers.h"
 #include <iostream>
 #include <unordered_map>
+#include <unordered_set>
 
 namespace {
 // Maps bullet type strings to their firing SFX IDs.
@@ -44,6 +45,16 @@ WeaponFactory::WeaponFactory(WeaponDataManager& weaponData)
 {
 }
 
+bool WeaponFactory::SupportsBulletType(const std::string& bulletType)
+{
+    static const std::unordered_set<std::string> supportedTypes = {
+        "WHIP", "MAGIC_MISSILE", "FIREBALL", "KNIFE", "AXE", "GARLIC",
+        "DIAMOND", "HOLYWATER", "LIGHTNING", "TP_ELEC1", "SONG",
+        "MANNAGGIA", "MAGNET"
+    };
+    return supportedTypes.find(bulletType) != supportedTypes.end();
+}
+
 std::unique_ptr<Weapon> WeaponFactory::Create(const std::string& weaponId) const
 {
     const WeaponProfile& profile = m_weaponData.GetWeaponById(weaponId);
@@ -57,6 +68,12 @@ std::unique_ptr<Weapon> WeaponFactory::Create(const std::string& weaponId) const
     std::unique_ptr<Weapon> weapon;
 
     const std::string& bulletType = profile.GetBulletType();
+
+    if(!SupportsBulletType(bulletType))
+    {
+        std::cerr << "WeaponFactory: No subclass for bullet type '" << bulletType << "'\n";
+        return nullptr;
+    }
 
     if(bulletType == "WHIP")
     {
@@ -102,12 +119,6 @@ std::unique_ptr<Weapon> WeaponFactory::Create(const std::string& weaponId) const
     {
         weapon = std::make_unique<AttractorbItem>(profile);
     }
-    else
-    {
-        std::cerr << "WeaponFactory: No subclass for bullet type '" << bulletType << "'\n";
-        return nullptr;
-    }
-
     weapon->SetLevelDeltas(deltas);
     weapon->SetFireSfx(GetFireSfxForBulletType(bulletType));
     return weapon;

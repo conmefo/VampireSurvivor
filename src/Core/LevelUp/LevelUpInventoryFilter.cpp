@@ -1,6 +1,7 @@
 #include "LevelUpInventoryFilter.h"
 #include "../../Entities/Weapons/WeaponInventory.h"
 #include "../../Entities/Weapons/Weapon.h"
+#include "../../Entities/Weapons/WeaponFactory.h"
 #include "../../Entities/Player.h"
 #include "../../Core/Data/WeaponDataManager.h"
 
@@ -56,6 +57,12 @@ std::vector<LevelUpOption> LevelUpInventoryFilter::GetAvailableOptions(
             opt.rarity = profile.GetRarity();
             opt.isNew = currentLevel == 0;
             options.push_back(opt);
+            continue;
+        }
+
+        // Do not offer a weapon card that this build cannot instantiate.
+        if(!WeaponFactory::SupportsBulletType(profile.GetBulletType()))
+        {
             continue;
         }
 

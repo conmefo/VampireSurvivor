@@ -84,8 +84,11 @@ PauseMenuView::PauseMenuView(
     m_characterSprite.setPosition(125.0f, 240.0f);
 
     const WeaponProfile& weapon = weapons.GetWeaponById(character.GetStartingWeaponId());
-    m_weaponSprite = m_atlas.CreateSprite(
-        weapon.GetFrameName().empty() ? character.GetStartingWeaponId() : weapon.GetFrameName());
+    if(weapon.GetId() != "UNKNOWN")
+    {
+        m_weaponSprite = m_atlas.CreateSprite(
+            weapon.GetFrameName().empty() ? character.GetStartingWeaponId() : weapon.GetFrameName());
+    }
     FitSprite(m_weaponSprite, 58.0f, 58.0f);
     m_weaponSprite.setPosition(235.0f, 267.0f);
 

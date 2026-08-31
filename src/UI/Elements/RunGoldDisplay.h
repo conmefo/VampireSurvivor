@@ -18,6 +18,7 @@ public:
 
 private:
     sf::Sprite m_coinIcon;
+    AssetTextureData m_idleCoinFrame;
     std::vector<AssetTextureData> m_coinFrames;
     const sf::Font& m_font;
     int m_gold = -1;

@@ -24,6 +24,7 @@ RunGoldDisplay::RunGoldDisplay(TextureAtlas& atlas, const sf::Font& font)
     const AssetTextureData coinData = atlas.GetTextureData("CoinGold");
     if(coinData.texture)
     {
+        m_idleCoinFrame = coinData;
         m_coinIcon.setTexture(*coinData.texture);
         m_coinIcon.setTextureRect(coinData.rect);
         m_coinIcon.setOrigin(
@@ -91,6 +92,16 @@ void RunGoldDisplay::Update(float dt)
     }
     else
     {
+        m_coinFrameIndex = 0;
+        m_coinFrameTimer = 0.0f;
+        if(m_idleCoinFrame.texture)
+        {
+            m_coinIcon.setTexture(*m_idleCoinFrame.texture, false);
+            m_coinIcon.setTextureRect(m_idleCoinFrame.rect);
+            m_coinIcon.setOrigin(
+                static_cast<float>(m_idleCoinFrame.rect.width) * 0.5f,
+                static_cast<float>(m_idleCoinFrame.rect.height) * 0.5f);
+        }
         m_coinIcon.setScale(CoinScale, CoinScale);
     }
 }

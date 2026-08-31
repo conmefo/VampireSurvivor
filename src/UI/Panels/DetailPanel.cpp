@@ -51,8 +51,11 @@ void DetailPanel::SetCharacterProfile(const CharacterProfile& profile, const Wea
     if (weaponManager)
     {
         const WeaponProfile& wp = weaponManager->GetWeaponById(profile.GetStartingWeaponId());
-        std::string weaponFrame = wp.GetFrameName();
-        m_weaponSprite = m_atlas.CreateSprite(weaponFrame.empty() ? profile.GetStartingWeaponId() : weaponFrame);
+        if(wp.GetId() != "UNKNOWN")
+        {
+            std::string weaponFrame = wp.GetFrameName();
+            m_weaponSprite = m_atlas.CreateSprite(weaponFrame.empty() ? profile.GetStartingWeaponId() : weaponFrame);
+        }
     }
     else
     {

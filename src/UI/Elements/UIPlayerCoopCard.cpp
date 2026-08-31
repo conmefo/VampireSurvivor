@@ -56,8 +56,11 @@ void UIPlayerCoopCard::SetCharacterProfile(const CharacterProfile* profile, cons
         if (weaponManager)
         {
             const WeaponProfile& wp = weaponManager->GetWeaponById(profile->GetStartingWeaponId());
-            std::string weaponFrame = wp.GetFrameName();
-            m_weaponSprite = atlas.CreateSprite(weaponFrame.empty() ? profile->GetStartingWeaponId() : weaponFrame);
+            if(wp.GetId() != "UNKNOWN")
+            {
+                std::string weaponFrame = wp.GetFrameName();
+                m_weaponSprite = atlas.CreateSprite(weaponFrame.empty() ? profile->GetStartingWeaponId() : weaponFrame);
+            }
         }
         else
         {
