@@ -2,6 +2,8 @@
 
 #include <SFML/Graphics.hpp>
 
+#include "../../Core/Resources/TextureAtlas.h"
+
 #include <functional>
 #include <memory>
 #include <vector>
@@ -11,6 +13,7 @@ class Player;
 class CoinPickupManager
 {
 public:
+    void Initialize(const TextureAtlas& atlas);
     void Clear();
     void SpawnCoin(const sf::Vector2f& position, int value);
     void SpawnHealing(const sf::Vector2f& position, float value);
@@ -31,4 +34,6 @@ private:
 
     std::vector<Pickup> m_pickups;
     std::function<void(int)> m_onCoinCollected;
+    AssetTextureData m_coinVisual;
+    AssetTextureData m_healingVisual;
 };

@@ -136,6 +136,7 @@ void GameState::Init() {
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
+    m_coinPickups.Initialize(m_context.atlas);
     m_experienceGems.SetOnGemCollected([this](float xp) {
         m_context.audio.PlaySfx(SfxID::GemPickup);
         AddSharedExperience(xp);

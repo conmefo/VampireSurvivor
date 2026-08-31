@@ -17,6 +17,12 @@ float Length(const sf::Vector2f& value)
 }
 }
 
+void CoinPickupManager::Initialize(const TextureAtlas& atlas)
+{
+    m_coinVisual = atlas.GetTextureData("coin-spin-gold_01");
+    m_healingVisual = atlas.GetTextureData("Roast");
+}
+
 void CoinPickupManager::Clear()
 {
     m_pickups.clear();
@@ -95,12 +101,23 @@ void CoinPickupManager::Draw(sf::RenderTarget& target) const
     for(const Pickup& pickup : m_pickups)
     {
         const bool coin = pickup.type == PickupType::Coin;
-        sf::CircleShape shape(coin ? 9.0f : 10.0f, coin ? 12 : 4);
-        shape.setOrigin(shape.getRadius(), shape.getRadius());
-        shape.setPosition(pickup.position);
-        shape.setFillColor(coin ? sf::Color(255, 210, 45) : sf::Color(100, 235, 100));
-        shape.setOutlineColor(coin ? sf::Color(135, 78, 15) : sf::Color(20, 115, 35));
-        shape.setOutlineThickness(2.0f);
-        target.draw(shape);
+        const AssetTextureData& visual = coin ? m_coinVisual : m_healingVisual;
+        if(!visual.texture || visual.rect.width <= 0 || visual.rect.height <= 0)
+        {
+            continue;
+        }
+
+        sf::Sprite sprite;
+        sprite.setTexture(*visual.texture);
+        sprite.setTextureRect(visual.rect);
+        sprite.setOrigin(
+            static_cast<float>(visual.rect.width) * 0.5f,
+            static_cast<float>(visual.rect.height) * 0.5f);
+        sprite.setPosition(pickup.position);
+
+        const float targetHeight = coin ? 24.0f : 32.0f;
+        const float scale = targetHeight / static_cast<float>(visual.rect.height);
+        sprite.setScale(scale, scale);
+        target.draw(sprite);
     }
 }
