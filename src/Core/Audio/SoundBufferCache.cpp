@@ -41,32 +41,32 @@ void SoundBufferCache::LoadDefaultCatalog(const std::string& assetsPath)
         base += "/";
     }
 
-    // Attempt loading standard SFX paths (missing ones will be logged safely)
-    Load(SfxID::ButtonClick, base + "ui_click.wav");
-    Load(SfxID::ButtonHover, base + "ui_hover.wav");
-    Load(SfxID::MenuBack, base + "ui_back.wav");
+    // Vampire Survivors clips extracted from the supplied game asset bundle.
+    Load(SfxID::ButtonClick, base + "sfx_bell2.ogg");
+    Load(SfxID::ButtonHover, base + "sfx_littlepickup.wav");
+    Load(SfxID::MenuBack, base + "sfx_sounds_pause7_out.wav");
     Load(SfxID::LevelUpOpen, base + "sfx_levelup.wav");
-    Load(SfxID::ChestOpen, base + "sfx_chest_open.wav");
-    Load(SfxID::ChestReward, base + "sfx_chest_reward.wav");
+    Load(SfxID::ChestOpen, base + "sfx_treasure_found.wav");
+    Load(SfxID::ChestReward, base + "sfx_treasure_foundB.wav");
 
-    Load(SfxID::WhipAttack, base + "sfx_whip.wav");
-    Load(SfxID::MagicMissileFire, base + "sfx_magic_missile.wav");
-    Load(SfxID::FireballFire, base + "sfx_fireball.wav");
-    Load(SfxID::KnifeFire, base + "sfx_knife.wav");
-    Load(SfxID::AxeFire, base + "sfx_axe.wav");
-    Load(SfxID::GarlicPulse, base + "sfx_garlic.wav");
-    Load(SfxID::SantaWaterThrow, base + "sfx_santa_water.wav");
-    Load(SfxID::LightningStrike, base + "sfx_lightning.wav");
-    Load(SfxID::SongOfManaPulse, base + "sfx_song_of_mana.wav");
+    Load(SfxID::WhipAttack, base + "sfx_strike.wav");
+    LoadVariations(SfxID::MagicMissileFire, { base + "sfx_projectile_magic.wav", base + "sfx_projectile_magic2.wav", base + "sfx_projectile_magic4.wav" });
+    Load(SfxID::FireballFire, base + "sfx_explo_soft.wav");
+    Load(SfxID::KnifeFire, base + "sfx_javelin.wav");
+    Load(SfxID::AxeFire, base + "sfx_javelin2.wav");
+    Load(SfxID::GarlicPulse, base + "sfx_mwind1.wav");
+    Load(SfxID::SantaWaterThrow, base + "sfx_bubble.wav");
+    Load(SfxID::LightningStrike, base + "sfx_mlightning1.wav");
+    Load(SfxID::SongOfManaPulse, base + "sfx_magic_chanting.wav");
 
     // Multi-sample variations for high frequency events
-    LoadVariations(SfxID::EnemyHit, { base + "sfx_hit_1.wav", base + "sfx_hit_2.wav", base + "sfx_hit_3.wav" });
-    LoadVariations(SfxID::EnemyDeath, { base + "sfx_enemy_death_1.wav", base + "sfx_enemy_death_2.wav" });
+    LoadVariations(SfxID::EnemyHit, { base + "sfx_enemyHit.wav", base + "sfx_sounds_impact9.wav", base + "sfx_sounds_impact15_2.wav" });
+    LoadVariations(SfxID::EnemyDeath, { base + "sfx_death_4.wav", base + "sfx_potBreak.wav" });
 
-    Load(SfxID::PlayerHit, base + "sfx_player_hit.wav");
-    Load(SfxID::PlayerDeath, base + "sfx_player_death.wav");
-    Load(SfxID::GemPickup, base + "sfx_gem_pickup.wav");
-    Load(SfxID::GoldPickup, base + "sfx_coin_pickup.wav");
+    Load(SfxID::PlayerHit, base + "sfx_impact.wav");
+    Load(SfxID::PlayerDeath, base + "sfx_deathscream.wav");
+    Load(SfxID::GemPickup, base + "sfx_gem.wav");
+    Load(SfxID::GoldPickup, base + "sfx_coin_double4.wav");
 }
 
 const sf::SoundBuffer* SoundBufferCache::GetBuffer(SfxID id)

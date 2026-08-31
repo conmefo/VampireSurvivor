@@ -190,8 +190,11 @@ add_custom_command(TARGET VampireSurvivors POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E copy_directory
         "${CMAKE_CURRENT_SOURCE_DIR}/assets"
         "$<TARGET_FILE_DIR:VampireSurvivors>/assets"
+    COMMAND ${CMAKE_COMMAND} -E copy_directory
+        "${CMAKE_CURRENT_SOURCE_DIR}/VS_audio_fixed"
+        "$<TARGET_FILE_DIR:VampireSurvivors>/VS_audio_fixed"
     COMMAND ${CMAKE_COMMAND} -E copy_if_different
         "${sfml_SOURCE_DIR}/extlibs/bin/x64/openal32.dll"
         "$<TARGET_FILE_DIR:VampireSurvivors>/openal32.dll"
-    COMMENT "Copying Assets and OpenAL DLL to build output..."
+    COMMENT "Copying game assets and OpenAL DLL to build output..."
 )

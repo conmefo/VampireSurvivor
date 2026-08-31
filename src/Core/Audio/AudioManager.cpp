@@ -25,11 +25,11 @@ void AudioManager::Initialize(const std::string& sfxAssetsPath, const std::strin
         bgmBase += "/";
     }
 
-    m_bgmPlayer.RegisterTrack(BgmID::MainMenu, bgmBase + "bgm_main_menu.ogg");
-    m_bgmPlayer.RegisterTrack(BgmID::StageForest, bgmBase + "bgm_forest.ogg");
+    m_bgmPlayer.RegisterTrack(BgmID::MainMenu, bgmBase + "VS_Music_v04-01.ogg");
+    m_bgmPlayer.RegisterTrack(BgmID::StageForest, bgmBase + "bgm_elrond_forest.ogg");
     m_bgmPlayer.RegisterTrack(BgmID::StageLibrary, bgmBase + "bgm_library.ogg");
-    m_bgmPlayer.RegisterTrack(BgmID::GameOver, bgmBase + "bgm_game_over.ogg");
-    m_bgmPlayer.RegisterTrack(BgmID::Victory, bgmBase + "bgm_victory.ogg");
+    m_bgmPlayer.RegisterTrack(BgmID::GameOver, bgmBase + "bgm_TheEndMain.ogg");
+    m_bgmPlayer.RegisterTrack(BgmID::Victory, bgmBase + "bgm_TheEndIntro.ogg");
 
     std::cout << "[AudioManager] Initialized. SFX pool: " << m_soundPool.GetPoolSize()
               << " channels." << std::endl;

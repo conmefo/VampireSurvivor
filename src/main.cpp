@@ -152,7 +152,7 @@ int runSfmlTest()
     particleDataManager.LoadFromJson("Assets/Data/PARTICLE_DATA.json");
 
     AudioManager audioManager;
-    audioManager.Initialize("assets/audio/sfx/", "assets/audio/bgm/");
+    audioManager.Initialize("VS_audio_fixed/AudioClip/", "VS_audio_fixed/BGM/");
 
     StateManager stateManager;
     StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager, audioManager);
