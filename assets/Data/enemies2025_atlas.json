@@ -1,0 +1,6176 @@
+{
+    "Barm_0": {
+        "x": 648,
+        "y": 1455,
+        "width": 30,
+        "height": 25
+    },
+    "Barm_1": {
+        "x": 1559,
+        "y": 723,
+        "width": 28,
+        "height": 24
+    },
+    "Barm_10": {
+        "x": 1495,
+        "y": 571,
+        "width": 51,
+        "height": 35
+    },
+    "Barm_11": {
+        "x": 1263,
+        "y": 874,
+        "width": 53,
+        "height": 41
+    },
+    "Barm_12": {
+        "x": 1554,
+        "y": 647,
+        "width": 43,
+        "height": 35
+    },
+    "Barm_13": {
+        "x": 1348,
+        "y": 811,
+        "width": 54,
+        "height": 39
+    },
+    "Barm_2": {
+        "x": 660,
+        "y": 467,
+        "width": 32,
+        "height": 25
+    },
+    "Barm_3": {
+        "x": 680,
+        "y": 1455,
+        "width": 35,
+        "height": 26
+    },
+    "Barm_4": {
+        "x": 691,
+        "y": 1,
+        "width": 38,
+        "height": 29
+    },
+    "Barm_5": {
+        "x": 1270,
+        "y": 1,
+        "width": 41,
+        "height": 31
+    },
+    "Barm_6": {
+        "x": 1606,
+        "y": 37,
+        "width": 44,
+        "height": 33
+    },
+    "Barm_7": {
+        "x": 1638,
+        "y": 614,
+        "width": 45,
+        "height": 34
+    },
+    "Barm_8": {
+        "x": 1428,
+        "y": 437,
+        "width": 47,
+        "height": 37
+    },
+    "Barm_9": {
+        "x": 1621,
+        "y": 650,
+        "width": 49,
+        "height": 34
+    },
+    "Barm_i01": {
+        "x": 1549,
+        "y": 399,
+        "width": 28,
+        "height": 22
+    },
+    "Barm_i02": {
+        "x": 1579,
+        "y": 399,
+        "width": 28,
+        "height": 22
+    },
+    "Barm_i03": {
+        "x": 1566,
+        "y": 1,
+        "width": 28,
+        "height": 23
+    },
+    "Barm_i04": {
+        "x": 1609,
+        "y": 399,
+        "width": 28,
+        "height": 22
+    },
+    "boss_greenknight_casinoblack_0": {
+        "x": 878,
+        "y": 1455,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinoblack_1": {
+        "x": 878,
+        "y": 1455,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinoblack_10": {
+        "x": 1,
+        "y": 662,
+        "width": 71,
+        "height": 70
+    },
+    "boss_greenknight_casinoblack_11": {
+        "x": 273,
+        "y": 1670,
+        "width": 73,
+        "height": 79
+    },
+    "boss_greenknight_casinoblack_12": {
+        "x": 437,
+        "y": 1843,
+        "width": 73,
+        "height": 74
+    },
+    "boss_greenknight_casinoblack_13": {
+        "x": 269,
+        "y": 1163,
+        "width": 76,
+        "height": 76
+    },
+    "boss_greenknight_casinoblack_14": {
+        "x": 127,
+        "y": 1241,
+        "width": 77,
+        "height": 77
+    },
+    "boss_greenknight_casinoblack_15": {
+        "x": 185,
+        "y": 1487,
+        "width": 78,
+        "height": 80
+    },
+    "boss_greenknight_casinoblack_16": {
+        "x": 211,
+        "y": 1580,
+        "width": 76,
+        "height": 80
+    },
+    "boss_greenknight_casinoblack_17": {
+        "x": 196,
+        "y": 1835,
+        "width": 80,
+        "height": 82
+    },
+    "boss_greenknight_casinoblack_18": {
+        "x": 210,
+        "y": 1751,
+        "width": 78,
+        "height": 82
+    },
+    "boss_greenknight_casinoblack_19": {
+        "x": 428,
+        "y": 1763,
+        "width": 78,
+        "height": 74
+    },
+    "boss_greenknight_casinoblack_2": {
+        "x": 878,
+        "y": 1455,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinoblack_20": {
+        "x": 129,
+        "y": 1831,
+        "width": 65,
+        "height": 86
+    },
+    "boss_greenknight_casinoblack_3": {
+        "x": 850,
+        "y": 1813,
+        "width": 59,
+        "height": 52
+    },
+    "boss_greenknight_casinoblack_4": {
+        "x": 655,
+        "y": 1919,
+        "width": 59,
+        "height": 53
+    },
+    "boss_greenknight_casinoblack_5": {
+        "x": 472,
+        "y": 1346,
+        "width": 62,
+        "height": 57
+    },
+    "boss_greenknight_casinoblack_6": {
+        "x": 564,
+        "y": 756,
+        "width": 63,
+        "height": 58
+    },
+    "boss_greenknight_casinoblack_7": {
+        "x": 327,
+        "y": 944,
+        "width": 66,
+        "height": 64
+    },
+    "boss_greenknight_casinoblack_8": {
+        "x": 320,
+        "y": 1074,
+        "width": 67,
+        "height": 64
+    },
+    "boss_greenknight_casinoblack_9": {
+        "x": 60,
+        "y": 159,
+        "width": 69,
+        "height": 69
+    },
+    "boss_greenknight_casinoblack_i01": {
+        "x": 810,
+        "y": 873,
+        "width": 59,
+        "height": 50
+    },
+    "boss_greenknight_casinoblack_i02": {
+        "x": 878,
+        "y": 1455,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinoblack_i03": {
+        "x": 839,
+        "y": 930,
+        "width": 59,
+        "height": 50
+    },
+    "boss_greenknight_casinoblack_i04": {
+        "x": 688,
+        "y": 866,
+        "width": 59,
+        "height": 51
+    },
+    "boss_greenknight_casinoblack_i05": {
+        "x": 864,
+        "y": 983,
+        "width": 59,
+        "height": 50
+    },
+    "boss_greenknight_casinowhite_0": {
+        "x": 904,
+        "y": 1352,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_1": {
+        "x": 904,
+        "y": 1352,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_10": {
+        "x": 137,
+        "y": 307,
+        "width": 76,
+        "height": 68
+    },
+    "boss_greenknight_casinowhite_11": {
+        "x": 120,
+        "y": 377,
+        "width": 78,
+        "height": 68
+    },
+    "boss_greenknight_casinowhite_12": {
+        "x": 459,
+        "y": 1528,
+        "width": 81,
+        "height": 72
+    },
+    "boss_greenknight_casinowhite_13": {
+        "x": 131,
+        "y": 1963,
+        "width": 83,
+        "height": 84
+    },
+    "boss_greenknight_casinowhite_14": {
+        "x": 508,
+        "y": 1768,
+        "width": 84,
+        "height": 73
+    },
+    "boss_greenknight_casinowhite_15": {
+        "x": 456,
+        "y": 1970,
+        "width": 86,
+        "height": 77
+    },
+    "boss_greenknight_casinowhite_16": {
+        "x": 213,
+        "y": 459,
+        "width": 87,
+        "height": 66
+    },
+    "boss_greenknight_casinowhite_17": {
+        "x": 494,
+        "y": 1613,
+        "width": 77,
+        "height": 72
+    },
+    "boss_greenknight_casinowhite_18": {
+        "x": 57,
+        "y": 15,
+        "width": 90,
+        "height": 69
+    },
+    "boss_greenknight_casinowhite_19": {
+        "x": 121,
+        "y": 453,
+        "width": 90,
+        "height": 67
+    },
+    "boss_greenknight_casinowhite_2": {
+        "x": 904,
+        "y": 1352,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_20": {
+        "x": 289,
+        "y": 1593,
+        "width": 79,
+        "height": 75
+    },
+    "boss_greenknight_casinowhite_3": {
+        "x": 736,
+        "y": 920,
+        "width": 59,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_4": {
+        "x": 781,
+        "y": 1,
+        "width": 61,
+        "height": 54
+    },
+    "boss_greenknight_casinowhite_5": {
+        "x": 389,
+        "y": 1079,
+        "width": 62,
+        "height": 59
+    },
+    "boss_greenknight_casinowhite_6": {
+        "x": 312,
+        "y": 748,
+        "width": 66,
+        "height": 64
+    },
+    "boss_greenknight_casinowhite_7": {
+        "x": 247,
+        "y": 1010,
+        "width": 67,
+        "height": 62
+    },
+    "boss_greenknight_casinowhite_8": {
+        "x": 642,
+        "y": 32,
+        "width": 71,
+        "height": 64
+    },
+    "boss_greenknight_casinowhite_9": {
+        "x": 125,
+        "y": 523,
+        "width": 74,
+        "height": 67
+    },
+    "boss_greenknight_casinowhite_i01": {
+        "x": 869,
+        "y": 1037,
+        "width": 59,
+        "height": 50
+    },
+    "boss_greenknight_casinowhite_i02": {
+        "x": 904,
+        "y": 1352,
+        "width": 60,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_i03": {
+        "x": 895,
+        "y": 1091,
+        "width": 59,
+        "height": 50
+    },
+    "boss_greenknight_casinowhite_i04": {
+        "x": 749,
+        "y": 867,
+        "width": 59,
+        "height": 51
+    },
+    "boss_greenknight_casinowhite_i05": {
+        "x": 932,
+        "y": 1144,
+        "width": 59,
+        "height": 50
+    },
+    "CarsharpCLUB_0": {
+        "x": 1017,
+        "y": 642,
+        "width": 40,
+        "height": 44
+    },
+    "CarsharpCLUB_1": {
+        "x": 1054,
+        "y": 289,
+        "width": 38,
+        "height": 42
+    },
+    "CarsharpCLUB_10": {
+        "x": 844,
+        "y": 1,
+        "width": 59,
+        "height": 55
+    },
+    "CarsharpCLUB_11": {
+        "x": 633,
+        "y": 636,
+        "width": 60,
+        "height": 58
+    },
+    "CarsharpCLUB_12": {
+        "x": 635,
+        "y": 217,
+        "width": 63,
+        "height": 60
+    },
+    "CarsharpCLUB_13": {
+        "x": 257,
+        "y": 880,
+        "width": 60,
+        "height": 62
+    },
+    "CarsharpCLUB_14": {
+        "x": 408,
+        "y": 551,
+        "width": 68,
+        "height": 63
+    },
+    "CarsharpCLUB_15": {
+        "x": 395,
+        "y": 944,
+        "width": 63,
+        "height": 64
+    },
+    "CarsharpCLUB_2": {
+        "x": 1230,
+        "y": 1024,
+        "width": 38,
+        "height": 43
+    },
+    "CarsharpCLUB_3": {
+        "x": 977,
+        "y": 634,
+        "width": 38,
+        "height": 45
+    },
+    "CarsharpCLUB_4": {
+        "x": 983,
+        "y": 1481,
+        "width": 40,
+        "height": 50
+    },
+    "CarsharpCLUB_5": {
+        "x": 1038,
+        "y": 1198,
+        "width": 43,
+        "height": 49
+    },
+    "CarsharpCLUB_6": {
+        "x": 941,
+        "y": 1299,
+        "width": 46,
+        "height": 51
+    },
+    "CarsharpCLUB_7": {
+        "x": 683,
+        "y": 1139,
+        "width": 49,
+        "height": 53
+    },
+    "CarsharpCLUB_8": {
+        "x": 605,
+        "y": 1482,
+        "width": 53,
+        "height": 56
+    },
+    "CarsharpCLUB_9": {
+        "x": 942,
+        "y": 134,
+        "width": 56,
+        "height": 53
+    },
+    "CarsharpCLUB_i01": {
+        "x": 1385,
+        "y": 178,
+        "width": 36,
+        "height": 39
+    },
+    "CarsharpCLUB_i02": {
+        "x": 1219,
+        "y": 32,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpCLUB_i03": {
+        "x": 1134,
+        "y": 291,
+        "width": 36,
+        "height": 42
+    },
+    "CarsharpCLUB_i04": {
+        "x": 1219,
+        "y": 32,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpDIAMOND_0": {
+        "x": 1053,
+        "y": 596,
+        "width": 40,
+        "height": 44
+    },
+    "CarsharpDIAMOND_1": {
+        "x": 1083,
+        "y": 245,
+        "width": 38,
+        "height": 42
+    },
+    "CarsharpDIAMOND_10": {
+        "x": 719,
+        "y": 578,
+        "width": 55,
+        "height": 58
+    },
+    "CarsharpDIAMOND_11": {
+        "x": 738,
+        "y": 281,
+        "width": 57,
+        "height": 60
+    },
+    "CarsharpDIAMOND_12": {
+        "x": 319,
+        "y": 880,
+        "width": 58,
+        "height": 62
+    },
+    "CarsharpDIAMOND_13": {
+        "x": 380,
+        "y": 748,
+        "width": 60,
+        "height": 64
+    },
+    "CarsharpDIAMOND_14": {
+        "x": 370,
+        "y": 1601,
+        "width": 59,
+        "height": 75
+    },
+    "CarsharpDIAMOND_15": {
+        "x": 272,
+        "y": 19,
+        "width": 56,
+        "height": 69
+    },
+    "CarsharpDIAMOND_2": {
+        "x": 1194,
+        "y": 1114,
+        "width": 39,
+        "height": 46
+    },
+    "CarsharpDIAMOND_3": {
+        "x": 990,
+        "y": 937,
+        "width": 40,
+        "height": 49
+    },
+    "CarsharpDIAMOND_4": {
+        "x": 858,
+        "y": 1297,
+        "width": 41,
+        "height": 52
+    },
+    "CarsharpDIAMOND_5": {
+        "x": 837,
+        "y": 1748,
+        "width": 43,
+        "height": 55
+    },
+    "CarsharpDIAMOND_6": {
+        "x": 843,
+        "y": 766,
+        "width": 48,
+        "height": 50
+    },
+    "CarsharpDIAMOND_7": {
+        "x": 760,
+        "y": 219,
+        "width": 49,
+        "height": 60
+    },
+    "CarsharpDIAMOND_8": {
+        "x": 667,
+        "y": 1027,
+        "width": 51,
+        "height": 52
+    },
+    "CarsharpDIAMOND_9": {
+        "x": 406,
+        "y": 616,
+        "width": 53,
+        "height": 64
+    },
+    "CarsharpDIAMOND_i01": {
+        "x": 1368,
+        "y": 96,
+        "width": 36,
+        "height": 39
+    },
+    "CarsharpDIAMOND_i02": {
+        "x": 1225,
+        "y": 76,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpDIAMOND_i03": {
+        "x": 1147,
+        "y": 336,
+        "width": 36,
+        "height": 42
+    },
+    "CarsharpDIAMOND_i04": {
+        "x": 1225,
+        "y": 76,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpHEART_0": {
+        "x": 1049,
+        "y": 696,
+        "width": 40,
+        "height": 44
+    },
+    "CarsharpHEART_1": {
+        "x": 1094,
+        "y": 289,
+        "width": 38,
+        "height": 42
+    },
+    "CarsharpHEART_10": {
+        "x": 320,
+        "y": 682,
+        "width": 61,
+        "height": 64
+    },
+    "CarsharpHEART_11": {
+        "x": 196,
+        "y": 811,
+        "width": 63,
+        "height": 67
+    },
+    "CarsharpHEART_12": {
+        "x": 1,
+        "y": 590,
+        "width": 66,
+        "height": 70
+    },
+    "CarsharpHEART_13": {
+        "x": 139,
+        "y": 669,
+        "width": 67,
+        "height": 67
+    },
+    "CarsharpHEART_14": {
+        "x": 64,
+        "y": 231,
+        "width": 69,
+        "height": 69
+    },
+    "CarsharpHEART_15": {
+        "x": 536,
+        "y": 1694,
+        "width": 71,
+        "height": 72
+    },
+    "CarsharpHEART_2": {
+        "x": 1236,
+        "y": 1166,
+        "width": 39,
+        "height": 43
+    },
+    "CarsharpHEART_3": {
+        "x": 1074,
+        "y": 150,
+        "width": 41,
+        "height": 45
+    },
+    "CarsharpHEART_4": {
+        "x": 963,
+        "y": 681,
+        "width": 44,
+        "height": 47
+    },
+    "CarsharpHEART_5": {
+        "x": 1047,
+        "y": 1302,
+        "width": 48,
+        "height": 49
+    },
+    "CarsharpHEART_6": {
+        "x": 792,
+        "y": 1088,
+        "width": 51,
+        "height": 51
+    },
+    "CarsharpHEART_7": {
+        "x": 947,
+        "y": 79,
+        "width": 54,
+        "height": 53
+    },
+    "CarsharpHEART_8": {
+        "x": 776,
+        "y": 588,
+        "width": 56,
+        "height": 54
+    },
+    "CarsharpHEART_9": {
+        "x": 749,
+        "y": 1484,
+        "width": 59,
+        "height": 55
+    },
+    "CarsharpHEART_i01": {
+        "x": 1390,
+        "y": 137,
+        "width": 36,
+        "height": 39
+    },
+    "CarsharpHEART_i02": {
+        "x": 1246,
+        "y": 118,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpHEART_i03": {
+        "x": 1149,
+        "y": 382,
+        "width": 36,
+        "height": 42
+    },
+    "CarsharpHEART_i04": {
+        "x": 1246,
+        "y": 118,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpSPADE_0": {
+        "x": 1078,
+        "y": 749,
+        "width": 40,
+        "height": 44
+    },
+    "CarsharpSPADE_1": {
+        "x": 1107,
+        "y": 335,
+        "width": 38,
+        "height": 42
+    },
+    "CarsharpSPADE_10": {
+        "x": 587,
+        "y": 1919,
+        "width": 66,
+        "height": 53
+    },
+    "CarsharpSPADE_11": {
+        "x": 451,
+        "y": 339,
+        "width": 68,
+        "height": 61
+    },
+    "CarsharpSPADE_12": {
+        "x": 193,
+        "y": 880,
+        "width": 62,
+        "height": 56
+    },
+    "CarsharpSPADE_13": {
+        "x": 550,
+        "y": 897,
+        "width": 72,
+        "height": 58
+    },
+    "CarsharpSPADE_14": {
+        "x": 561,
+        "y": 837,
+        "width": 65,
+        "height": 58
+    },
+    "CarsharpSPADE_15": {
+        "x": 810,
+        "y": 58,
+        "width": 69,
+        "height": 59
+    },
+    "CarsharpSPADE_2": {
+        "x": 937,
+        "y": 368,
+        "width": 39,
+        "height": 46
+    },
+    "CarsharpSPADE_3": {
+        "x": 964,
+        "y": 833,
+        "width": 42,
+        "height": 48
+    },
+    "CarsharpSPADE_4": {
+        "x": 687,
+        "y": 919,
+        "width": 47,
+        "height": 52
+    },
+    "CarsharpSPADE_5": {
+        "x": 836,
+        "y": 501,
+        "width": 52,
+        "height": 54
+    },
+    "CarsharpSPADE_6": {
+        "x": 692,
+        "y": 760,
+        "width": 56,
+        "height": 56
+    },
+    "CarsharpSPADE_7": {
+        "x": 658,
+        "y": 576,
+        "width": 59,
+        "height": 58
+    },
+    "CarsharpSPADE_8": {
+        "x": 516,
+        "y": 213,
+        "width": 62,
+        "height": 61
+    },
+    "CarsharpSPADE_9": {
+        "x": 684,
+        "y": 405,
+        "width": 65,
+        "height": 60
+    },
+    "CarsharpSPADE_i01": {
+        "x": 1257,
+        "y": 34,
+        "width": 36,
+        "height": 40
+    },
+    "CarsharpSPADE_i02": {
+        "x": 1399,
+        "y": 55,
+        "width": 36,
+        "height": 39
+    },
+    "CarsharpSPADE_i03": {
+        "x": 1158,
+        "y": 427,
+        "width": 36,
+        "height": 42
+    },
+    "CarsharpSPADE_i04": {
+        "x": 1399,
+        "y": 55,
+        "width": 36,
+        "height": 39
+    },
+    "CasinUgul_D_0": {
+        "x": 1227,
+        "y": 387,
+        "width": 40,
+        "height": 40
+    },
+    "CasinUgul_D_1": {
+        "x": 1185,
+        "y": 339,
+        "width": 38,
+        "height": 41
+    },
+    "CasinUgul_D_10": {
+        "x": 644,
+        "y": 1639,
+        "width": 46,
+        "height": 56
+    },
+    "CasinUgul_D_11": {
+        "x": 782,
+        "y": 348,
+        "width": 50,
+        "height": 58
+    },
+    "CasinUgul_D_12": {
+        "x": 411,
+        "y": 1267,
+        "width": 52,
+        "height": 59
+    },
+    "CasinUgul_D_13": {
+        "x": 625,
+        "y": 119,
+        "width": 54,
+        "height": 60
+    },
+    "CasinUgul_D_14": {
+        "x": 497,
+        "y": 488,
+        "width": 54,
+        "height": 62
+    },
+    "CasinUgul_D_15": {
+        "x": 478,
+        "y": 552,
+        "width": 56,
+        "height": 63
+    },
+    "CasinUgul_D_16": {
+        "x": 351,
+        "y": 550,
+        "width": 55,
+        "height": 64
+    },
+    "CasinUgul_D_17": {
+        "x": 458,
+        "y": 30,
+        "width": 58,
+        "height": 65
+    },
+    "CasinUgul_D_18": {
+        "x": 289,
+        "y": 323,
+        "width": 59,
+        "height": 66
+    },
+    "CasinUgul_D_19": {
+        "x": 208,
+        "y": 672,
+        "width": 57,
+        "height": 67
+    },
+    "CasinUgul_D_2": {
+        "x": 1109,
+        "y": 380,
+        "width": 38,
+        "height": 42
+    },
+    "CasinUgul_D_3": {
+        "x": 1140,
+        "y": 902,
+        "width": 39,
+        "height": 44
+    },
+    "CasinUgul_D_4": {
+        "x": 953,
+        "y": 420,
+        "width": 39,
+        "height": 46
+    },
+    "CasinUgul_D_5": {
+        "x": 1053,
+        "y": 993,
+        "width": 40,
+        "height": 48
+    },
+    "CasinUgul_D_6": {
+        "x": 935,
+        "y": 506,
+        "width": 42,
+        "height": 50
+    },
+    "CasinUgul_D_7": {
+        "x": 720,
+        "y": 1031,
+        "width": 43,
+        "height": 52
+    },
+    "CasinUgul_D_8": {
+        "x": 839,
+        "y": 1563,
+        "width": 46,
+        "height": 53
+    },
+    "CasinUgul_D_9": {
+        "x": 808,
+        "y": 1675,
+        "width": 47,
+        "height": 55
+    },
+    "CasinUgul_D_i01": {
+        "x": 1340,
+        "y": 684,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_D_i02": {
+        "x": 1340,
+        "y": 646,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_D_i03": {
+        "x": 1471,
+        "y": 773,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_D_i04": {
+        "x": 1378,
+        "y": 684,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_H_0": {
+        "x": 1258,
+        "y": 300,
+        "width": 40,
+        "height": 40
+    },
+    "CasinUgul_H_1": {
+        "x": 1116,
+        "y": 201,
+        "width": 37,
+        "height": 42
+    },
+    "CasinUgul_H_10": {
+        "x": 517,
+        "y": 835,
+        "width": 42,
+        "height": 59
+    },
+    "CasinUgul_H_11": {
+        "x": 765,
+        "y": 57,
+        "width": 43,
+        "height": 60
+    },
+    "CasinUgul_H_12": {
+        "x": 791,
+        "y": 119,
+        "width": 41,
+        "height": 60
+    },
+    "CasinUgul_H_13": {
+        "x": 553,
+        "y": 490,
+        "width": 42,
+        "height": 62
+    },
+    "CasinUgul_H_14": {
+        "x": 444,
+        "y": 402,
+        "width": 43,
+        "height": 63
+    },
+    "CasinUgul_H_15": {
+        "x": 405,
+        "y": 337,
+        "width": 44,
+        "height": 63
+    },
+    "CasinUgul_H_16": {
+        "x": 518,
+        "y": 31,
+        "width": 44,
+        "height": 65
+    },
+    "CasinUgul_H_17": {
+        "x": 879,
+        "y": 244,
+        "width": 46,
+        "height": 54
+    },
+    "CasinUgul_H_18": {
+        "x": 341,
+        "y": 112,
+        "width": 46,
+        "height": 66
+    },
+    "CasinUgul_H_19": {
+        "x": 660,
+        "y": 1483,
+        "width": 47,
+        "height": 56
+    },
+    "CasinUgul_H_2": {
+        "x": 1100,
+        "y": 657,
+        "width": 37,
+        "height": 44
+    },
+    "CasinUgul_H_3": {
+        "x": 969,
+        "y": 272,
+        "width": 36,
+        "height": 46
+    },
+    "CasinUgul_H_4": {
+        "x": 1055,
+        "y": 1045,
+        "width": 37,
+        "height": 48
+    },
+    "CasinUgul_H_5": {
+        "x": 925,
+        "y": 985,
+        "width": 38,
+        "height": 50
+    },
+    "CasinUgul_H_6": {
+        "x": 901,
+        "y": 1297,
+        "width": 38,
+        "height": 52
+    },
+    "CasinUgul_H_7": {
+        "x": 927,
+        "y": 244,
+        "width": 40,
+        "height": 54
+    },
+    "CasinUgul_H_8": {
+        "x": 679,
+        "y": 1714,
+        "width": 41,
+        "height": 56
+    },
+    "CasinUgul_H_9": {
+        "x": 797,
+        "y": 288,
+        "width": 41,
+        "height": 58
+    },
+    "CasinUgul_H_i01": {
+        "x": 1378,
+        "y": 646,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_H_i02": {
+        "x": 1416,
+        "y": 684,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_H_i03": {
+        "x": 1416,
+        "y": 646,
+        "width": 36,
+        "height": 36
+    },
+    "CasinUgul_H_i04": {
+        "x": 1422,
+        "y": 608,
+        "width": 36,
+        "height": 36
+    },
+    "ClubbieP_0": {
+        "x": 1479,
+        "y": 102,
+        "width": 30,
+        "height": 38
+    },
+    "ClubbieP_1": {
+        "x": 1437,
+        "y": 55,
+        "width": 29,
+        "height": 39
+    },
+    "ClubbieP_10": {
+        "x": 1084,
+        "y": 1405,
+        "width": 44,
+        "height": 48
+    },
+    "ClubbieP_11": {
+        "x": 1027,
+        "y": 513,
+        "width": 45,
+        "height": 44
+    },
+    "ClubbieP_12": {
+        "x": 1451,
+        "y": 811,
+        "width": 43,
+        "height": 39
+    },
+    "ClubbieP_13": {
+        "x": 1213,
+        "y": 297,
+        "width": 43,
+        "height": 40
+    },
+    "ClubbieP_14": {
+        "x": 1235,
+        "y": 493,
+        "width": 39,
+        "height": 40
+    },
+    "ClubbieP_2": {
+        "x": 1117,
+        "y": 115,
+        "width": 31,
+        "height": 41
+    },
+    "ClubbieP_3": {
+        "x": 1054,
+        "y": 4,
+        "width": 32,
+        "height": 46
+    },
+    "ClubbieP_4": {
+        "x": 1083,
+        "y": 1199,
+        "width": 33,
+        "height": 48
+    },
+    "ClubbieP_5": {
+        "x": 1076,
+        "y": 1096,
+        "width": 36,
+        "height": 48
+    },
+    "ClubbieP_6": {
+        "x": 930,
+        "y": 1039,
+        "width": 38,
+        "height": 50
+    },
+    "ClubbieP_7": {
+        "x": 823,
+        "y": 982,
+        "width": 39,
+        "height": 51
+    },
+    "ClubbieP_8": {
+        "x": 887,
+        "y": 1582,
+        "width": 40,
+        "height": 53
+    },
+    "ClubbieP_9": {
+        "x": 996,
+        "y": 735,
+        "width": 43,
+        "height": 47
+    },
+    "ClubbieP_i01": {
+        "x": 1585,
+        "y": 325,
+        "width": 27,
+        "height": 35
+    },
+    "ClubbieP_i02": {
+        "x": 1599,
+        "y": 686,
+        "width": 27,
+        "height": 35
+    },
+    "ClubbieP_i03": {
+        "x": 1623,
+        "y": 424,
+        "width": 28,
+        "height": 35
+    },
+    "ClubbieP_i04": {
+        "x": 1479,
+        "y": 494,
+        "width": 27,
+        "height": 36
+    },
+    "Dandybrine_0": {
+        "x": 947,
+        "y": 730,
+        "width": 47,
+        "height": 47
+    },
+    "Dandybrine_1": {
+        "x": 947,
+        "y": 730,
+        "width": 47,
+        "height": 47
+    },
+    "Dandybrine_10": {
+        "x": 397,
+        "y": 814,
+        "width": 59,
+        "height": 64
+    },
+    "Dandybrine_11": {
+        "x": 332,
+        "y": 180,
+        "width": 58,
+        "height": 66
+    },
+    "Dandybrine_12": {
+        "x": 136,
+        "y": 810,
+        "width": 58,
+        "height": 68
+    },
+    "Dandybrine_13": {
+        "x": 253,
+        "y": 742,
+        "width": 57,
+        "height": 67
+    },
+    "Dandybrine_14": {
+        "x": 211,
+        "y": 18,
+        "width": 59,
+        "height": 69
+    },
+    "Dandybrine_15": {
+        "x": 212,
+        "y": 90,
+        "width": 59,
+        "height": 69
+    },
+    "Dandybrine_16": {
+        "x": 1,
+        "y": 302,
+        "width": 63,
+        "height": 70
+    },
+    "Dandybrine_17": {
+        "x": 910,
+        "y": 677,
+        "width": 51,
+        "height": 47
+    },
+    "Dandybrine_2": {
+        "x": 947,
+        "y": 730,
+        "width": 47,
+        "height": 47
+    },
+    "Dandybrine_3": {
+        "x": 530,
+        "y": 1140,
+        "width": 48,
+        "height": 48
+    },
+    "Dandybrine_4": {
+        "x": 852,
+        "y": 714,
+        "width": 47,
+        "height": 50
+    },
+    "Dandybrine_5": {
+        "x": 705,
+        "y": 1292,
+        "width": 50,
+        "height": 53
+    },
+    "Dandybrine_6": {
+        "x": 574,
+        "y": 1081,
+        "width": 54,
+        "height": 57
+    },
+    "Dandybrine_7": {
+        "x": 505,
+        "y": 1018,
+        "width": 56,
+        "height": 59
+    },
+    "Dandybrine_8": {
+        "x": 379,
+        "y": 880,
+        "width": 55,
+        "height": 62
+    },
+    "Dandybrine_9": {
+        "x": 442,
+        "y": 748,
+        "width": 58,
+        "height": 64
+    },
+    "Dandybrine_i01": {
+        "x": 257,
+        "y": 1919,
+        "width": 47,
+        "height": 43
+    },
+    "Dandybrine_i02": {
+        "x": 1088,
+        "y": 6,
+        "width": 47,
+        "height": 45
+    },
+    "Dandybrine_i03": {
+        "x": 947,
+        "y": 730,
+        "width": 47,
+        "height": 47
+    },
+    "Dandybrine_i04": {
+        "x": 993,
+        "y": 468,
+        "width": 47,
+        "height": 43
+    },
+    "diamondDiceNeutral_0": {
+        "x": 1727,
+        "y": 165,
+        "width": 30,
+        "height": 30
+    },
+    "diamondDiceNeutral_1": {
+        "x": 1690,
+        "y": 133,
+        "width": 32,
+        "height": 30
+    },
+    "diamondDiceNeutral_10": {
+        "x": 534,
+        "y": 1919,
+        "width": 51,
+        "height": 49
+    },
+    "diamondDiceNeutral_11": {
+        "x": 478,
+        "y": 1919,
+        "width": 54,
+        "height": 49
+    },
+    "diamondDiceNeutral_12": {
+        "x": 944,
+        "y": 1197,
+        "width": 56,
+        "height": 50
+    },
+    "diamondDiceNeutral_13": {
+        "x": 763,
+        "y": 978,
+        "width": 58,
+        "height": 51
+    },
+    "diamondDiceNeutral_14": {
+        "x": 849,
+        "y": 1867,
+        "width": 60,
+        "height": 52
+    },
+    "diamondDiceNeutral_15": {
+        "x": 857,
+        "y": 1692,
+        "width": 61,
+        "height": 54
+    },
+    "diamondDiceNeutral_16": {
+        "x": 467,
+        "y": 1190,
+        "width": 62,
+        "height": 57
+    },
+    "diamondDiceNeutral_17": {
+        "x": 347,
+        "y": 1188,
+        "width": 63,
+        "height": 59
+    },
+    "diamondDiceNeutral_18": {
+        "x": 597,
+        "y": 494,
+        "width": 64,
+        "height": 61
+    },
+    "diamondDiceNeutral_19": {
+        "x": 316,
+        "y": 1010,
+        "width": 65,
+        "height": 62
+    },
+    "diamondDiceNeutral_2": {
+        "x": 1614,
+        "y": 536,
+        "width": 34,
+        "height": 35
+    },
+    "diamondDiceNeutral_3": {
+        "x": 1495,
+        "y": 222,
+        "width": 35,
+        "height": 38
+    },
+    "diamondDiceNeutral_4": {
+        "x": 1123,
+        "y": 245,
+        "width": 37,
+        "height": 42
+    },
+    "diamondDiceNeutral_5": {
+        "x": 1009,
+        "y": 688,
+        "width": 38,
+        "height": 45
+    },
+    "diamondDiceNeutral_6": {
+        "x": 936,
+        "y": 579,
+        "width": 39,
+        "height": 47
+    },
+    "diamondDiceNeutral_7": {
+        "x": 1005,
+        "y": 887,
+        "width": 41,
+        "height": 48
+    },
+    "diamondDiceNeutral_8": {
+        "x": 970,
+        "y": 1041,
+        "width": 44,
+        "height": 49
+    },
+    "diamondDiceNeutral_9": {
+        "x": 1056,
+        "y": 1354,
+        "width": 48,
+        "height": 49
+    },
+    "diamondDiceNeutral_i01": {
+        "x": 1533,
+        "y": 144,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDiceNeutral_i02": {
+        "x": 1533,
+        "y": 144,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i01": {
+        "x": 1533,
+        "y": 144,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i02": {
+        "x": 1559,
+        "y": 144,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i03": {
+        "x": 1585,
+        "y": 144,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i04": {
+        "x": 1665,
+        "y": 402,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i05": {
+        "x": 1757,
+        "y": 139,
+        "width": 24,
+        "height": 24
+    },
+    "diamondDice_i06": {
+        "x": 1759,
+        "y": 171,
+        "width": 24,
+        "height": 24
+    },
+    "DiamonP_0": {
+        "x": 1118,
+        "y": 426,
+        "width": 38,
+        "height": 42
+    },
+    "DiamonP_1": {
+        "x": 1118,
+        "y": 426,
+        "width": 38,
+        "height": 42
+    },
+    "DiamonP_10": {
+        "x": 681,
+        "y": 119,
+        "width": 53,
+        "height": 60
+    },
+    "DiamonP_11": {
+        "x": 532,
+        "y": 278,
+        "width": 59,
+        "height": 61
+    },
+    "DiamonP_12": {
+        "x": 502,
+        "y": 749,
+        "width": 60,
+        "height": 63
+    },
+    "DiamonP_13": {
+        "x": 392,
+        "y": 188,
+        "width": 62,
+        "height": 65
+    },
+    "DiamonP_14": {
+        "x": 338,
+        "y": 255,
+        "width": 58,
+        "height": 66
+    },
+    "DiamonP_15": {
+        "x": 186,
+        "y": 741,
+        "width": 65,
+        "height": 67
+    },
+    "DiamonP_16": {
+        "x": 264,
+        "y": 167,
+        "width": 66,
+        "height": 68
+    },
+    "DiamonP_17": {
+        "x": 147,
+        "y": 89,
+        "width": 63,
+        "height": 69
+    },
+    "DiamonP_2": {
+        "x": 1118,
+        "y": 426,
+        "width": 38,
+        "height": 42
+    },
+    "DiamonP_3": {
+        "x": 1162,
+        "y": 248,
+        "width": 39,
+        "height": 41
+    },
+    "DiamonP_4": {
+        "x": 1010,
+        "y": 588,
+        "width": 41,
+        "height": 44
+    },
+    "DiamonP_5": {
+        "x": 1159,
+        "y": 1210,
+        "width": 43,
+        "height": 46
+    },
+    "DiamonP_6": {
+        "x": 965,
+        "y": 988,
+        "width": 45,
+        "height": 49
+    },
+    "DiamonP_7": {
+        "x": 695,
+        "y": 1085,
+        "width": 50,
+        "height": 52
+    },
+    "DiamonP_8": {
+        "x": 710,
+        "y": 1600,
+        "width": 53,
+        "height": 55
+    },
+    "DiamonP_9": {
+        "x": 594,
+        "y": 1287,
+        "width": 55,
+        "height": 57
+    },
+    "DiamonP_i01": {
+        "x": 1346,
+        "y": 178,
+        "width": 37,
+        "height": 39
+    },
+    "DiamonP_i02": {
+        "x": 1295,
+        "y": 34,
+        "width": 35,
+        "height": 40
+    },
+    "DiamonP_i03": {
+        "x": 1187,
+        "y": 384,
+        "width": 38,
+        "height": 41
+    },
+    "DiamonP_i04": {
+        "x": 1121,
+        "y": 471,
+        "width": 38,
+        "height": 42
+    },
+    "EctoGold_0": {
+        "x": 1428,
+        "y": 142,
+        "width": 37,
+        "height": 38
+    },
+    "EctoGold_1": {
+        "x": 1524,
+        "y": 320,
+        "width": 35,
+        "height": 37
+    },
+    "EctoGold_10": {
+        "x": 514,
+        "y": 1081,
+        "width": 58,
+        "height": 57
+    },
+    "EctoGold_11": {
+        "x": 682,
+        "y": 698,
+        "width": 60,
+        "height": 58
+    },
+    "EctoGold_12": {
+        "x": 441,
+        "y": 1018,
+        "width": 62,
+        "height": 59
+    },
+    "EctoGold_13": {
+        "x": 617,
+        "y": 696,
+        "width": 63,
+        "height": 58
+    },
+    "EctoGold_14": {
+        "x": 716,
+        "y": 1919,
+        "width": 64,
+        "height": 54
+    },
+    "EctoGold_15": {
+        "x": 125,
+        "y": 880,
+        "width": 66,
+        "height": 56
+    },
+    "EctoGold_16": {
+        "x": 811,
+        "y": 229,
+        "width": 66,
+        "height": 57
+    },
+    "EctoGold_17": {
+        "x": 1087,
+        "y": 1253,
+        "width": 66,
+        "height": 47
+    },
+    "EctoGold_2": {
+        "x": 1196,
+        "y": 429,
+        "width": 38,
+        "height": 41
+    },
+    "EctoGold_3": {
+        "x": 1111,
+        "y": 802,
+        "width": 40,
+        "height": 44
+    },
+    "EctoGold_4": {
+        "x": 1188,
+        "y": 1259,
+        "width": 42,
+        "height": 46
+    },
+    "EctoGold_5": {
+        "x": 1037,
+        "y": 1405,
+        "width": 45,
+        "height": 48
+    },
+    "EctoGold_6": {
+        "x": 903,
+        "y": 1530,
+        "width": 47,
+        "height": 50
+    },
+    "EctoGold_7": {
+        "x": 698,
+        "y": 1194,
+        "width": 49,
+        "height": 53
+    },
+    "EctoGold_8": {
+        "x": 753,
+        "y": 1658,
+        "width": 53,
+        "height": 55
+    },
+    "EctoGold_9": {
+        "x": 744,
+        "y": 702,
+        "width": 55,
+        "height": 56
+    },
+    "EctoGold_i01": {
+        "x": 1563,
+        "y": 245,
+        "width": 32,
+        "height": 34
+    },
+    "EctoGold_i02": {
+        "x": 1591,
+        "y": 289,
+        "width": 32,
+        "height": 34
+    },
+    "EctoGold_i03": {
+        "x": 1533,
+        "y": 170,
+        "width": 32,
+        "height": 34
+    },
+    "EctoGold_i04": {
+        "x": 1567,
+        "y": 170,
+        "width": 32,
+        "height": 34
+    },
+    "EX_17COLOSSUS_0": {
+        "x": 1,
+        "y": 1919,
+        "width": 128,
+        "height": 128
+    },
+    "EX_17COLOSSUS_ASLEEP_i01": {
+        "x": 1,
+        "y": 1009,
+        "width": 120,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i01": {
+        "x": 1,
+        "y": 880,
+        "width": 122,
+        "height": 127
+    },
+    "EX_17COLOSSUS_i02": {
+        "x": 1,
+        "y": 1529,
+        "width": 124,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i03": {
+        "x": 1,
+        "y": 1789,
+        "width": 126,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i04": {
+        "x": 1,
+        "y": 1399,
+        "width": 124,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i05": {
+        "x": 123,
+        "y": 1010,
+        "width": 122,
+        "height": 127
+    },
+    "EX_17COLOSSUS_i06": {
+        "x": 1,
+        "y": 1269,
+        "width": 124,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i07": {
+        "x": 1,
+        "y": 1659,
+        "width": 126,
+        "height": 128
+    },
+    "EX_17COLOSSUS_i08": {
+        "x": 1,
+        "y": 1139,
+        "width": 124,
+        "height": 128
+    },
+    "Gambergar_0": {
+        "x": 1525,
+        "y": 684,
+        "width": 28,
+        "height": 36
+    },
+    "Gambergar_1": {
+        "x": 1532,
+        "y": 242,
+        "width": 29,
+        "height": 37
+    },
+    "Gambergar_10": {
+        "x": 756,
+        "y": 644,
+        "width": 54,
+        "height": 56
+    },
+    "Gambergar_11": {
+        "x": 723,
+        "y": 497,
+        "width": 56,
+        "height": 58
+    },
+    "Gambergar_12": {
+        "x": 882,
+        "y": 1759,
+        "width": 58,
+        "height": 52
+    },
+    "Gambergar_13": {
+        "x": 453,
+        "y": 1079,
+        "width": 59,
+        "height": 59
+    },
+    "Gambergar_14": {
+        "x": 719,
+        "y": 343,
+        "width": 61,
+        "height": 60
+    },
+    "Gambergar_15": {
+        "x": 692,
+        "y": 1657,
+        "width": 59,
+        "height": 55
+    },
+    "Gambergar_16": {
+        "x": 461,
+        "y": 617,
+        "width": 63,
+        "height": 63
+    },
+    "Gambergar_17": {
+        "x": 530,
+        "y": 1287,
+        "width": 62,
+        "height": 57
+    },
+    "Gambergar_2": {
+        "x": 1318,
+        "y": 132,
+        "width": 31,
+        "height": 40
+    },
+    "Gambergar_3": {
+        "x": 1025,
+        "y": 377,
+        "width": 34,
+        "height": 43
+    },
+    "Gambergar_4": {
+        "x": 1153,
+        "y": 803,
+        "width": 38,
+        "height": 44
+    },
+    "Gambergar_5": {
+        "x": 1032,
+        "y": 940,
+        "width": 41,
+        "height": 48
+    },
+    "Gambergar_6": {
+        "x": 995,
+        "y": 1094,
+        "width": 44,
+        "height": 49
+    },
+    "Gambergar_7": {
+        "x": 883,
+        "y": 1143,
+        "width": 47,
+        "height": 51
+    },
+    "Gambergar_8": {
+        "x": 757,
+        "y": 1295,
+        "width": 49,
+        "height": 53
+    },
+    "Gambergar_9": {
+        "x": 783,
+        "y": 1732,
+        "width": 52,
+        "height": 55
+    },
+    "Gambergar_i01": {
+        "x": 1696,
+        "y": 508,
+        "width": 26,
+        "height": 32
+    },
+    "Gambergar_i02": {
+        "x": 1724,
+        "y": 508,
+        "width": 26,
+        "height": 32
+    },
+    "Gambergar_i03": {
+        "x": 1727,
+        "y": 545,
+        "width": 26,
+        "height": 32
+    },
+    "Gambergar_i04": {
+        "x": 1630,
+        "y": 263,
+        "width": 26,
+        "height": 32
+    },
+    "GamblinP_0": {
+        "x": 1528,
+        "y": 26,
+        "width": 37,
+        "height": 36
+    },
+    "GamblinP_1": {
+        "x": 1464,
+        "y": 359,
+        "width": 38,
+        "height": 37
+    },
+    "GamblinP_10": {
+        "x": 1182,
+        "y": 1007,
+        "width": 46,
+        "height": 43
+    },
+    "GamblinP_11": {
+        "x": 1114,
+        "y": 1150,
+        "width": 39,
+        "height": 47
+    },
+    "GamblinP_2": {
+        "x": 1454,
+        "y": 222,
+        "width": 39,
+        "height": 38
+    },
+    "GamblinP_3": {
+        "x": 1624,
+        "y": 2,
+        "width": 44,
+        "height": 33
+    },
+    "GamblinP_4": {
+        "x": 1318,
+        "y": 893,
+        "width": 42,
+        "height": 41
+    },
+    "GamblinP_5": {
+        "x": 1269,
+        "y": 369,
+        "width": 40,
+        "height": 39
+    },
+    "GamblinP_6": {
+        "x": 1196,
+        "y": 962,
+        "width": 45,
+        "height": 43
+    },
+    "GamblinP_7": {
+        "x": 776,
+        "y": 1249,
+        "width": 46,
+        "height": 44
+    },
+    "GamblinP_8": {
+        "x": 1216,
+        "y": 867,
+        "width": 45,
+        "height": 43
+    },
+    "GamblinP_9": {
+        "x": 1059,
+        "y": 650,
+        "width": 39,
+        "height": 44
+    },
+    "GamblinP_i01": {
+        "x": 1656,
+        "y": 117,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinP_i02": {
+        "x": 1659,
+        "y": 83,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinP_i03": {
+        "x": 1686,
+        "y": 49,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinP_i04": {
+        "x": 1703,
+        "y": 15,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinR_0": {
+        "x": 1485,
+        "y": 320,
+        "width": 37,
+        "height": 37
+    },
+    "GamblinR_1": {
+        "x": 1495,
+        "y": 534,
+        "width": 39,
+        "height": 35
+    },
+    "GamblinR_10": {
+        "x": 1203,
+        "y": 251,
+        "width": 61,
+        "height": 40
+    },
+    "GamblinR_11": {
+        "x": 1289,
+        "y": 831,
+        "width": 49,
+        "height": 41
+    },
+    "GamblinR_2": {
+        "x": 1679,
+        "y": 300,
+        "width": 42,
+        "height": 30
+    },
+    "GamblinR_3": {
+        "x": 945,
+        "y": 468,
+        "width": 46,
+        "height": 36
+    },
+    "GamblinR_4": {
+        "x": 1628,
+        "y": 687,
+        "width": 49,
+        "height": 34
+    },
+    "GamblinR_5": {
+        "x": 1410,
+        "y": 342,
+        "width": 52,
+        "height": 35
+    },
+    "GamblinR_6": {
+        "x": 1369,
+        "y": 476,
+        "width": 54,
+        "height": 37
+    },
+    "GamblinR_7": {
+        "x": 1362,
+        "y": 900,
+        "width": 56,
+        "height": 39
+    },
+    "GamblinR_8": {
+        "x": 1312,
+        "y": 419,
+        "width": 59,
+        "height": 38
+    },
+    "GamblinR_9": {
+        "x": 1228,
+        "y": 824,
+        "width": 59,
+        "height": 41
+    },
+    "GamblinR_i01": {
+        "x": 1614,
+        "y": 365,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinR_i02": {
+        "x": 1653,
+        "y": 428,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinR_i03": {
+        "x": 1614,
+        "y": 331,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinR_i04": {
+        "x": 1659,
+        "y": 470,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinY_0": {
+        "x": 1511,
+        "y": 398,
+        "width": 36,
+        "height": 37
+    },
+    "GamblinY_1": {
+        "x": 1444,
+        "y": 102,
+        "width": 33,
+        "height": 38
+    },
+    "GamblinY_10": {
+        "x": 1194,
+        "y": 1162,
+        "width": 40,
+        "height": 46
+    },
+    "GamblinY_11": {
+        "x": 1155,
+        "y": 1258,
+        "width": 31,
+        "height": 47
+    },
+    "GamblinY_2": {
+        "x": 1611,
+        "y": 150,
+        "width": 34,
+        "height": 32
+    },
+    "GamblinY_3": {
+        "x": 1658,
+        "y": 504,
+        "width": 36,
+        "height": 34
+    },
+    "GamblinY_4": {
+        "x": 1545,
+        "y": 66,
+        "width": 37,
+        "height": 36
+    },
+    "GamblinY_5": {
+        "x": 1342,
+        "y": 301,
+        "width": 38,
+        "height": 39
+    },
+    "GamblinY_6": {
+        "x": 1406,
+        "y": 96,
+        "width": 36,
+        "height": 39
+    },
+    "GamblinY_7": {
+        "x": 1155,
+        "y": 202,
+        "width": 40,
+        "height": 41
+    },
+    "GamblinY_8": {
+        "x": 1025,
+        "y": 1497,
+        "width": 39,
+        "height": 50
+    },
+    "GamblinY_9": {
+        "x": 1091,
+        "y": 703,
+        "width": 39,
+        "height": 44
+    },
+    "GamblinY_i01": {
+        "x": 1625,
+        "y": 297,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinY_i02": {
+        "x": 1648,
+        "y": 366,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinY_i03": {
+        "x": 1648,
+        "y": 332,
+        "width": 32,
+        "height": 32
+    },
+    "GamblinY_i04": {
+        "x": 1687,
+        "y": 436,
+        "width": 32,
+        "height": 32
+    },
+    "GoldPile_0": {
+        "x": 1243,
+        "y": 979,
+        "width": 36,
+        "height": 43
+    },
+    "GoldPile_1": {
+        "x": 1199,
+        "y": 482,
+        "width": 34,
+        "height": 41
+    },
+    "GoldPile_10": {
+        "x": 750,
+        "y": 765,
+        "width": 36,
+        "height": 51
+    },
+    "GoldPile_11": {
+        "x": 901,
+        "y": 1637,
+        "width": 37,
+        "height": 53
+    },
+    "GoldPile_12": {
+        "x": 871,
+        "y": 878,
+        "width": 39,
+        "height": 50
+    },
+    "GoldPile_13": {
+        "x": 940,
+        "y": 1478,
+        "width": 41,
+        "height": 50
+    },
+    "GoldPile_14": {
+        "x": 890,
+        "y": 506,
+        "width": 43,
+        "height": 50
+    },
+    "GoldPile_15": {
+        "x": 1072,
+        "y": 424,
+        "width": 44,
+        "height": 42
+    },
+    "GoldPile_16": {
+        "x": 1181,
+        "y": 912,
+        "width": 46,
+        "height": 43
+    },
+    "GoldPile_17": {
+        "x": 596,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "GoldPile_2": {
+        "x": 1224,
+        "y": 535,
+        "width": 34,
+        "height": 41
+    },
+    "GoldPile_3": {
+        "x": 1037,
+        "y": 423,
+        "width": 33,
+        "height": 43
+    },
+    "GoldPile_4": {
+        "x": 1193,
+        "y": 810,
+        "width": 33,
+        "height": 44
+    },
+    "GoldPile_5": {
+        "x": 1024,
+        "y": 52,
+        "width": 33,
+        "height": 46
+    },
+    "GoldPile_6": {
+        "x": 1094,
+        "y": 1046,
+        "width": 33,
+        "height": 48
+    },
+    "GoldPile_7": {
+        "x": 1039,
+        "y": 100,
+        "width": 33,
+        "height": 46
+    },
+    "GoldPile_8": {
+        "x": 1002,
+        "y": 1197,
+        "width": 34,
+        "height": 50
+    },
+    "GoldPile_9": {
+        "x": 1169,
+        "y": 1052,
+        "width": 34,
+        "height": 47
+    },
+    "GoldPile_i01": {
+        "x": 1284,
+        "y": 118,
+        "width": 32,
+        "height": 40
+    },
+    "GoldPile_i02": {
+        "x": 1301,
+        "y": 76,
+        "width": 32,
+        "height": 40
+    },
+    "GoldPile_i03": {
+        "x": 1332,
+        "y": 34,
+        "width": 32,
+        "height": 40
+    },
+    "GoldPile_i04": {
+        "x": 1312,
+        "y": 174,
+        "width": 32,
+        "height": 40
+    },
+    "Harpy2_0": {
+        "x": 1501,
+        "y": 142,
+        "width": 30,
+        "height": 38
+    },
+    "Harpy2_1": {
+        "x": 1293,
+        "y": 789,
+        "width": 29,
+        "height": 40
+    },
+    "Harpy2_10": {
+        "x": 1095,
+        "y": 604,
+        "width": 38,
+        "height": 44
+    },
+    "Harpy2_11": {
+        "x": 1161,
+        "y": 472,
+        "width": 36,
+        "height": 42
+    },
+    "Harpy2_12": {
+        "x": 1169,
+        "y": 713,
+        "width": 39,
+        "height": 42
+    },
+    "Harpy2_13": {
+        "x": 1120,
+        "y": 756,
+        "width": 39,
+        "height": 44
+    },
+    "Harpy2_14": {
+        "x": 1235,
+        "y": 1117,
+        "width": 40,
+        "height": 43
+    },
+    "Harpy2_15": {
+        "x": 1139,
+        "y": 666,
+        "width": 40,
+        "height": 42
+    },
+    "Harpy2_16": {
+        "x": 1333,
+        "y": 219,
+        "width": 38,
+        "height": 39
+    },
+    "Harpy2_17": {
+        "x": 1266,
+        "y": 258,
+        "width": 40,
+        "height": 40
+    },
+    "Harpy2_18": {
+        "x": 1172,
+        "y": 293,
+        "width": 39,
+        "height": 41
+    },
+    "Harpy2_2": {
+        "x": 1197,
+        "y": 578,
+        "width": 29,
+        "height": 42
+    },
+    "Harpy2_3": {
+        "x": 1389,
+        "y": 6,
+        "width": 30,
+        "height": 40
+    },
+    "Harpy2_4": {
+        "x": 1076,
+        "y": 795,
+        "width": 33,
+        "height": 45
+    },
+    "Harpy2_5": {
+        "x": 994,
+        "y": 196,
+        "width": 36,
+        "height": 46
+    },
+    "Harpy2_6": {
+        "x": 1228,
+        "y": 582,
+        "width": 34,
+        "height": 41
+    },
+    "Harpy2_7": {
+        "x": 1160,
+        "y": 569,
+        "width": 35,
+        "height": 42
+    },
+    "Harpy2_8": {
+        "x": 1113,
+        "y": 56,
+        "width": 40,
+        "height": 45
+    },
+    "Harpy2_9": {
+        "x": 1176,
+        "y": 856,
+        "width": 38,
+        "height": 44
+    },
+    "Harpy2_i01": {
+        "x": 1626,
+        "y": 185,
+        "width": 34,
+        "height": 32
+    },
+    "Harpy2_i02": {
+        "x": 1670,
+        "y": 4,
+        "width": 31,
+        "height": 33
+    },
+    "Harpy2_i03": {
+        "x": 1629,
+        "y": 462,
+        "width": 28,
+        "height": 35
+    },
+    "Harpy2_i04": {
+        "x": 1670,
+        "y": 4,
+        "width": 31,
+        "height": 33
+    },
+    "JastorP_0": {
+        "x": 1207,
+        "y": 118,
+        "width": 37,
+        "height": 40
+    },
+    "JastorP_1": {
+        "x": 1197,
+        "y": 766,
+        "width": 39,
+        "height": 42
+    },
+    "JastorP_10": {
+        "x": 536,
+        "y": 554,
+        "width": 48,
+        "height": 62
+    },
+    "JastorP_11": {
+        "x": 575,
+        "y": 114,
+        "width": 48,
+        "height": 65
+    },
+    "JastorP_12": {
+        "x": 211,
+        "y": 603,
+        "width": 57,
+        "height": 67
+    },
+    "JastorP_13": {
+        "x": 149,
+        "y": 18,
+        "width": 60,
+        "height": 69
+    },
+    "JastorP_14": {
+        "x": 69,
+        "y": 522,
+        "width": 54,
+        "height": 68
+    },
+    "JastorP_15": {
+        "x": 1,
+        "y": 86,
+        "width": 56,
+        "height": 70
+    },
+    "JastorP_2": {
+        "x": 1263,
+        "y": 76,
+        "width": 36,
+        "height": 40
+    },
+    "JastorP_3": {
+        "x": 428,
+        "y": 1919,
+        "width": 48,
+        "height": 44
+    },
+    "JastorP_4": {
+        "x": 1059,
+        "y": 53,
+        "width": 52,
+        "height": 45
+    },
+    "JastorP_5": {
+        "x": 1097,
+        "y": 1305,
+        "width": 56,
+        "height": 47
+    },
+    "JastorP_6": {
+        "x": 909,
+        "y": 416,
+        "width": 42,
+        "height": 50
+    },
+    "JastorP_7": {
+        "x": 630,
+        "y": 1081,
+        "width": 63,
+        "height": 52
+    },
+    "JastorP_8": {
+        "x": 782,
+        "y": 1919,
+        "width": 65,
+        "height": 55
+    },
+    "JastorP_9": {
+        "x": 356,
+        "y": 1267,
+        "width": 53,
+        "height": 59
+    },
+    "JastorP_i01": {
+        "x": 1454,
+        "y": 646,
+        "width": 32,
+        "height": 36
+    },
+    "JastorP_i02": {
+        "x": 1460,
+        "y": 608,
+        "width": 32,
+        "height": 36
+    },
+    "JastorP_i03": {
+        "x": 1488,
+        "y": 646,
+        "width": 32,
+        "height": 36
+    },
+    "JastorP_i04": {
+        "x": 1491,
+        "y": 684,
+        "width": 32,
+        "height": 36
+    },
+    "JellyGoldBag2_0": {
+        "x": 1561,
+        "y": 320,
+        "width": 22,
+        "height": 37
+    },
+    "JellyGoldBag2_1": {
+        "x": 1315,
+        "y": 639,
+        "width": 23,
+        "height": 38
+    },
+    "JellyGoldBag2_10": {
+        "x": 747,
+        "y": 1086,
+        "width": 43,
+        "height": 52
+    },
+    "JellyGoldBag2_11": {
+        "x": 891,
+        "y": 300,
+        "width": 44,
+        "height": 54
+    },
+    "JellyGoldBag2_12": {
+        "x": 620,
+        "y": 1022,
+        "width": 45,
+        "height": 57
+    },
+    "JellyGoldBag2_13": {
+        "x": 575,
+        "y": 963,
+        "width": 46,
+        "height": 57
+    },
+    "JellyGoldBag2_14": {
+        "x": 423,
+        "y": 1344,
+        "width": 47,
+        "height": 59
+    },
+    "JellyGoldBag2_15": {
+        "x": 715,
+        "y": 36,
+        "width": 48,
+        "height": 60
+    },
+    "JellyGoldBag2_2": {
+        "x": 1276,
+        "y": 499,
+        "width": 25,
+        "height": 39
+    },
+    "JellyGoldBag2_3": {
+        "x": 1155,
+        "y": 72,
+        "width": 28,
+        "height": 41
+    },
+    "JellyGoldBag2_4": {
+        "x": 1210,
+        "y": 722,
+        "width": 30,
+        "height": 42
+    },
+    "JellyGoldBag2_5": {
+        "x": 1161,
+        "y": 757,
+        "width": 34,
+        "height": 44
+    },
+    "JellyGoldBag2_6": {
+        "x": 1000,
+        "y": 148,
+        "width": 36,
+        "height": 46
+    },
+    "JellyGoldBag2_7": {
+        "x": 1114,
+        "y": 1101,
+        "width": 38,
+        "height": 47
+    },
+    "JellyGoldBag2_8": {
+        "x": 1014,
+        "y": 1353,
+        "width": 40,
+        "height": 50
+    },
+    "JellyGoldBag2_9": {
+        "x": 861,
+        "y": 1351,
+        "width": 41,
+        "height": 52
+    },
+    "JellyGoldBag2_i01": {
+        "x": 1584,
+        "y": 72,
+        "width": 19,
+        "height": 34
+    },
+    "JellyGoldBag2_i02": {
+        "x": 1605,
+        "y": 72,
+        "width": 18,
+        "height": 34
+    },
+    "JellyGoldBag2_i03": {
+        "x": 1618,
+        "y": 612,
+        "width": 18,
+        "height": 35
+    },
+    "JellyGoldBag2_i04": {
+        "x": 1605,
+        "y": 72,
+        "width": 18,
+        "height": 34
+    },
+    "JellyGoldBag3_0": {
+        "x": 1322,
+        "y": 747,
+        "width": 22,
+        "height": 40
+    },
+    "JellyGoldBag3_1": {
+        "x": 1324,
+        "y": 789,
+        "width": 22,
+        "height": 40
+    },
+    "JellyGoldBag3_10": {
+        "x": 1129,
+        "y": 1052,
+        "width": 38,
+        "height": 47
+    },
+    "JellyGoldBag3_11": {
+        "x": 1204,
+        "y": 1211,
+        "width": 40,
+        "height": 46
+    },
+    "JellyGoldBag3_12": {
+        "x": 1057,
+        "y": 842,
+        "width": 41,
+        "height": 47
+    },
+    "JellyGoldBag3_13": {
+        "x": 786,
+        "y": 1141,
+        "width": 43,
+        "height": 52
+    },
+    "JellyGoldBag3_14": {
+        "x": 978,
+        "y": 373,
+        "width": 45,
+        "height": 45
+    },
+    "JellyGoldBag3_15": {
+        "x": 843,
+        "y": 181,
+        "width": 46,
+        "height": 46
+    },
+    "JellyGoldBag3_2": {
+        "x": 1181,
+        "y": 116,
+        "width": 24,
+        "height": 41
+    },
+    "JellyGoldBag3_3": {
+        "x": 1025,
+        "y": 332,
+        "width": 26,
+        "height": 43
+    },
+    "JellyGoldBag3_4": {
+        "x": 1166,
+        "y": 957,
+        "width": 28,
+        "height": 44
+    },
+    "JellyGoldBag3_5": {
+        "x": 977,
+        "y": 587,
+        "width": 31,
+        "height": 45
+    },
+    "JellyGoldBag3_6": {
+        "x": 1041,
+        "y": 1095,
+        "width": 33,
+        "height": 49
+    },
+    "JellyGoldBag3_7": {
+        "x": 1155,
+        "y": 1307,
+        "width": 33,
+        "height": 47
+    },
+    "JellyGoldBag3_8": {
+        "x": 1041,
+        "y": 742,
+        "width": 35,
+        "height": 45
+    },
+    "JellyGoldBag3_9": {
+        "x": 1016,
+        "y": 1043,
+        "width": 37,
+        "height": 49
+    },
+    "JellyGoldBag3_i01": {
+        "x": 1511,
+        "y": 103,
+        "width": 19,
+        "height": 37
+    },
+    "JellyGoldBag3_i02": {
+        "x": 1508,
+        "y": 24,
+        "width": 18,
+        "height": 37
+    },
+    "JellyGoldBag3_i03": {
+        "x": 1525,
+        "y": 64,
+        "width": 18,
+        "height": 37
+    },
+    "JellyGoldBag3_i04": {
+        "x": 1508,
+        "y": 24,
+        "width": 18,
+        "height": 37
+    },
+    "JellyGoldBag_0": {
+        "x": 1484,
+        "y": 23,
+        "width": 22,
+        "height": 37
+    },
+    "JellyGoldBag_1": {
+        "x": 1599,
+        "y": 649,
+        "width": 20,
+        "height": 35
+    },
+    "JellyGoldBag_10": {
+        "x": 1132,
+        "y": 710,
+        "width": 35,
+        "height": 44
+    },
+    "JellyGoldBag_11": {
+        "x": 1155,
+        "y": 1155,
+        "width": 37,
+        "height": 47
+    },
+    "JellyGoldBag_12": {
+        "x": 1308,
+        "y": 260,
+        "width": 39,
+        "height": 39
+    },
+    "JellyGoldBag_13": {
+        "x": 797,
+        "y": 925,
+        "width": 40,
+        "height": 51
+    },
+    "JellyGoldBag_14": {
+        "x": 920,
+        "y": 829,
+        "width": 42,
+        "height": 49
+    },
+    "JellyGoldBag_15": {
+        "x": 1281,
+        "y": 984,
+        "width": 43,
+        "height": 41
+    },
+    "JellyGoldBag_2": {
+        "x": 1501,
+        "y": 63,
+        "width": 22,
+        "height": 37
+    },
+    "JellyGoldBag_3": {
+        "x": 1304,
+        "y": 597,
+        "width": 25,
+        "height": 38
+    },
+    "JellyGoldBag_4": {
+        "x": 1301,
+        "y": 554,
+        "width": 26,
+        "height": 38
+    },
+    "JellyGoldBag_5": {
+        "x": 1453,
+        "y": 14,
+        "width": 29,
+        "height": 39
+    },
+    "JellyGoldBag_6": {
+        "x": 1074,
+        "y": 514,
+        "width": 29,
+        "height": 43
+    },
+    "JellyGoldBag_8": {
+        "x": 1178,
+        "y": 622,
+        "width": 32,
+        "height": 42
+    },
+    "JellyGoldBag_9": {
+        "x": 1003,
+        "y": 100,
+        "width": 34,
+        "height": 46
+    },
+    "JellyGoldBag_i01": {
+        "x": 1630,
+        "y": 229,
+        "width": 19,
+        "height": 32
+    },
+    "JellyGoldBag_i02": {
+        "x": 1658,
+        "y": 263,
+        "width": 18,
+        "height": 32
+    },
+    "JellyGoldBag_i03": {
+        "x": 1651,
+        "y": 229,
+        "width": 19,
+        "height": 32
+    },
+    "JellyGoldBag_i04": {
+        "x": 1659,
+        "y": 298,
+        "width": 18,
+        "height": 32
+    },
+    "JoyaTauro_0": {
+        "x": 1412,
+        "y": 222,
+        "width": 40,
+        "height": 38
+    },
+    "JoyaTauro_1": {
+        "x": 1264,
+        "y": 594,
+        "width": 38,
+        "height": 40
+    },
+    "JoyaTauro_10": {
+        "x": 461,
+        "y": 114,
+        "width": 55,
+        "height": 65
+    },
+    "JoyaTauro_11": {
+        "x": 267,
+        "y": 673,
+        "width": 51,
+        "height": 67
+    },
+    "JoyaTauro_12": {
+        "x": 67,
+        "y": 447,
+        "width": 52,
+        "height": 69
+    },
+    "JoyaTauro_13": {
+        "x": 663,
+        "y": 1845,
+        "width": 58,
+        "height": 72
+    },
+    "JoyaTauro_14": {
+        "x": 480,
+        "y": 1687,
+        "width": 54,
+        "height": 74
+    },
+    "JoyaTauro_15": {
+        "x": 424,
+        "y": 1678,
+        "width": 54,
+        "height": 75
+    },
+    "JoyaTauro_16": {
+        "x": 206,
+        "y": 1162,
+        "width": 61,
+        "height": 77
+    },
+    "JoyaTauro_17": {
+        "x": 290,
+        "y": 1754,
+        "width": 55,
+        "height": 79
+    },
+    "JoyaTauro_18": {
+        "x": 127,
+        "y": 1402,
+        "width": 56,
+        "height": 81
+    },
+    "JoyaTauro_19": {
+        "x": 127,
+        "y": 1485,
+        "width": 56,
+        "height": 82
+    },
+    "JoyaTauro_2": {
+        "x": 1134,
+        "y": 849,
+        "width": 40,
+        "height": 44
+    },
+    "JoyaTauro_20": {
+        "x": 129,
+        "y": 1661,
+        "width": 58,
+        "height": 83
+    },
+    "JoyaTauro_3": {
+        "x": 1032,
+        "y": 789,
+        "width": 42,
+        "height": 47
+    },
+    "JoyaTauro_4": {
+        "x": 844,
+        "y": 558,
+        "width": 45,
+        "height": 50
+    },
+    "JoyaTauro_5": {
+        "x": 810,
+        "y": 1489,
+        "width": 47,
+        "height": 53
+    },
+    "JoyaTauro_6": {
+        "x": 617,
+        "y": 1563,
+        "width": 50,
+        "height": 56
+    },
+    "JoyaTauro_7": {
+        "x": 751,
+        "y": 408,
+        "width": 51,
+        "height": 58
+    },
+    "JoyaTauro_8": {
+        "x": 580,
+        "y": 215,
+        "width": 53,
+        "height": 61
+    },
+    "JoyaTauro_9": {
+        "x": 526,
+        "y": 618,
+        "width": 55,
+        "height": 63
+    },
+    "JoyaTauro_i01": {
+        "x": 1690,
+        "y": 542,
+        "width": 35,
+        "height": 34
+    },
+    "JoyaTauro_i02": {
+        "x": 1536,
+        "y": 534,
+        "width": 37,
+        "height": 35
+    },
+    "JoyaTauro_i03": {
+        "x": 1650,
+        "y": 540,
+        "width": 38,
+        "height": 34
+    },
+    "JoyaTauro_i04": {
+        "x": 1548,
+        "y": 572,
+        "width": 37,
+        "height": 35
+    },
+    "JoyaTauro_R_0": {
+        "x": 1439,
+        "y": 262,
+        "width": 40,
+        "height": 38
+    },
+    "JoyaTauro_R_1": {
+        "x": 1504,
+        "y": 359,
+        "width": 37,
+        "height": 37
+    },
+    "JoyaTauro_R_10": {
+        "x": 651,
+        "y": 1289,
+        "width": 52,
+        "height": 56
+    },
+    "JoyaTauro_R_11": {
+        "x": 590,
+        "y": 1190,
+        "width": 53,
+        "height": 57
+    },
+    "JoyaTauro_R_12": {
+        "x": 736,
+        "y": 119,
+        "width": 53,
+        "height": 60
+    },
+    "JoyaTauro_R_13": {
+        "x": 412,
+        "y": 1188,
+        "width": 53,
+        "height": 59
+    },
+    "JoyaTauro_R_14": {
+        "x": 436,
+        "y": 880,
+        "width": 55,
+        "height": 62
+    },
+    "JoyaTauro_R_15": {
+        "x": 383,
+        "y": 1010,
+        "width": 56,
+        "height": 62
+    },
+    "JoyaTauro_R_16": {
+        "x": 458,
+        "y": 814,
+        "width": 57,
+        "height": 64
+    },
+    "JoyaTauro_R_17": {
+        "x": 456,
+        "y": 197,
+        "width": 58,
+        "height": 65
+    },
+    "JoyaTauro_R_18": {
+        "x": 323,
+        "y": 399,
+        "width": 59,
+        "height": 66
+    },
+    "JoyaTauro_R_19": {
+        "x": 125,
+        "y": 738,
+        "width": 59,
+        "height": 68
+    },
+    "JoyaTauro_R_2": {
+        "x": 1275,
+        "y": 637,
+        "width": 38,
+        "height": 40
+    },
+    "JoyaTauro_R_20": {
+        "x": 1,
+        "y": 158,
+        "width": 57,
+        "height": 70
+    },
+    "JoyaTauro_R_3": {
+        "x": 1105,
+        "y": 515,
+        "width": 41,
+        "height": 42
+    },
+    "JoyaTauro_R_4": {
+        "x": 1074,
+        "y": 103,
+        "width": 41,
+        "height": 45
+    },
+    "JoyaTauro_R_5": {
+        "x": 901,
+        "y": 726,
+        "width": 44,
+        "height": 48
+    },
+    "JoyaTauro_R_6": {
+        "x": 1032,
+        "y": 1146,
+        "width": 44,
+        "height": 49
+    },
+    "JoyaTauro_R_7": {
+        "x": 966,
+        "y": 1352,
+        "width": 46,
+        "height": 51
+    },
+    "JoyaTauro_R_8": {
+        "x": 808,
+        "y": 1296,
+        "width": 48,
+        "height": 52
+    },
+    "JoyaTauro_R_9": {
+        "x": 765,
+        "y": 1601,
+        "width": 49,
+        "height": 55
+    },
+    "JOYATAURO_R_i01": {
+        "x": 1717,
+        "y": 579,
+        "width": 35,
+        "height": 34
+    },
+    "JOYATAURO_R_i02": {
+        "x": 1579,
+        "y": 610,
+        "width": 37,
+        "height": 35
+    },
+    "JOYATAURO_R_i03": {
+        "x": 1677,
+        "y": 578,
+        "width": 38,
+        "height": 34
+    },
+    "JOYATAURO_R_i04": {
+        "x": 1518,
+        "y": 460,
+        "width": 37,
+        "height": 35
+    },
+    "JoyaTauro_Y_0": {
+        "x": 1423,
+        "y": 182,
+        "width": 40,
+        "height": 38
+    },
+    "JoyaTauro_Y_1": {
+        "x": 1236,
+        "y": 451,
+        "width": 38,
+        "height": 40
+    },
+    "JoyaTauro_Y_10": {
+        "x": 695,
+        "y": 638,
+        "width": 59,
+        "height": 58
+    },
+    "JoyaTauro_Y_11": {
+        "x": 624,
+        "y": 905,
+        "width": 61,
+        "height": 56
+    },
+    "JoyaTauro_Y_12": {
+        "x": 465,
+        "y": 1285,
+        "width": 63,
+        "height": 57
+    },
+    "JoyaTauro_Y_13": {
+        "x": 834,
+        "y": 120,
+        "width": 65,
+        "height": 59
+    },
+    "JoyaTauro_Y_14": {
+        "x": 521,
+        "y": 341,
+        "width": 67,
+        "height": 61
+    },
+    "JoyaTauro_Y_15": {
+        "x": 489,
+        "y": 404,
+        "width": 68,
+        "height": 61
+    },
+    "JoyaTauro_Y_16": {
+        "x": 255,
+        "y": 944,
+        "width": 70,
+        "height": 64
+    },
+    "JoyaTauro_Y_17": {
+        "x": 247,
+        "y": 1074,
+        "width": 71,
+        "height": 64
+    },
+    "JoyaTauro_Y_18": {
+        "x": 270,
+        "y": 605,
+        "width": 73,
+        "height": 66
+    },
+    "JoyaTauro_Y_19": {
+        "x": 135,
+        "y": 596,
+        "width": 74,
+        "height": 67
+    },
+    "JoyaTauro_Y_2": {
+        "x": 1117,
+        "y": 560,
+        "width": 41,
+        "height": 42
+    },
+    "JoyaTauro_Y_20": {
+        "x": 586,
+        "y": 557,
+        "width": 70,
+        "height": 61
+    },
+    "JoyaTauro_Y_3": {
+        "x": 940,
+        "y": 1249,
+        "width": 44,
+        "height": 46
+    },
+    "JoyaTauro_Y_4": {
+        "x": 871,
+        "y": 827,
+        "width": 47,
+        "height": 49
+    },
+    "JoyaTauro_Y_5": {
+        "x": 819,
+        "y": 1035,
+        "width": 48,
+        "height": 51
+    },
+    "JoyaTauro_Y_6": {
+        "x": 630,
+        "y": 1135,
+        "width": 51,
+        "height": 53
+    },
+    "JoyaTauro_Y_7": {
+        "x": 781,
+        "y": 501,
+        "width": 53,
+        "height": 54
+    },
+    "JoyaTauro_Y_8": {
+        "x": 549,
+        "y": 1482,
+        "width": 54,
+        "height": 56
+    },
+    "JoyaTauro_Y_9": {
+        "x": 531,
+        "y": 1190,
+        "width": 57,
+        "height": 57
+    },
+    "JOYATAURO_Y_i01": {
+        "x": 1533,
+        "y": 206,
+        "width": 35,
+        "height": 34
+    },
+    "JOYATAURO_Y_i02": {
+        "x": 1548,
+        "y": 497,
+        "width": 37,
+        "height": 35
+    },
+    "JOYATAURO_Y_i03": {
+        "x": 1685,
+        "y": 615,
+        "width": 38,
+        "height": 34
+    },
+    "JOYATAURO_Y_i04": {
+        "x": 1575,
+        "y": 535,
+        "width": 37,
+        "height": 35
+    },
+    "Meanataur_0": {
+        "x": 845,
+        "y": 1089,
+        "width": 48,
+        "height": 51
+    },
+    "Meanataur_1": {
+        "x": 929,
+        "y": 1585,
+        "width": 47,
+        "height": 50
+    },
+    "Meanataur_10": {
+        "x": 302,
+        "y": 467,
+        "width": 63,
+        "height": 66
+    },
+    "Meanataur_11": {
+        "x": 330,
+        "y": 27,
+        "width": 64,
+        "height": 68
+    },
+    "Meanataur_12": {
+        "x": 1,
+        "y": 230,
+        "width": 61,
+        "height": 70
+    },
+    "Meanataur_13": {
+        "x": 667,
+        "y": 1772,
+        "width": 67,
+        "height": 71
+    },
+    "Meanataur_14": {
+        "x": 596,
+        "y": 1845,
+        "width": 65,
+        "height": 72
+    },
+    "Meanataur_15": {
+        "x": 1,
+        "y": 807,
+        "width": 60,
+        "height": 71
+    },
+    "Meanataur_16": {
+        "x": 396,
+        "y": 1525,
+        "width": 61,
+        "height": 74
+    },
+    "Meanataur_17": {
+        "x": 594,
+        "y": 1770,
+        "width": 71,
+        "height": 72
+    },
+    "Meanataur_18": {
+        "x": 355,
+        "y": 1328,
+        "width": 66,
+        "height": 75
+    },
+    "Meanataur_19": {
+        "x": 340,
+        "y": 1440,
+        "width": 63,
+        "height": 74
+    },
+    "Meanataur_2": {
+        "x": 812,
+        "y": 662,
+        "width": 48,
+        "height": 50
+    },
+    "Meanataur_20": {
+        "x": 331,
+        "y": 1516,
+        "width": 63,
+        "height": 75
+    },
+    "Meanataur_21": {
+        "x": 265,
+        "y": 1502,
+        "width": 64,
+        "height": 76
+    },
+    "Meanataur_22": {
+        "x": 284,
+        "y": 1249,
+        "width": 70,
+        "height": 76
+    },
+    "Meanataur_3": {
+        "x": 734,
+        "y": 1140,
+        "width": 50,
+        "height": 52
+    },
+    "Meanataur_4": {
+        "x": 907,
+        "y": 1995,
+        "width": 52,
+        "height": 52
+    },
+    "Meanataur_5": {
+        "x": 969,
+        "y": 24,
+        "width": 53,
+        "height": 53
+    },
+    "Meanataur_6": {
+        "x": 792,
+        "y": 1862,
+        "width": 55,
+        "height": 55
+    },
+    "Meanataur_7": {
+        "x": 663,
+        "y": 497,
+        "width": 58,
+        "height": 58
+    },
+    "Meanataur_8": {
+        "x": 590,
+        "y": 341,
+        "width": 59,
+        "height": 61
+    },
+    "Meanataur_9": {
+        "x": 345,
+        "y": 616,
+        "width": 59,
+        "height": 64
+    },
+    "Meanataur_i01": {
+        "x": 645,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "Meanataur_i02": {
+        "x": 694,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "Meanataur_i03": {
+        "x": 743,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "Meanataur_i04": {
+        "x": 983,
+        "y": 784,
+        "width": 47,
+        "height": 47
+    },
+    "Meanataur_i05": {
+        "x": 1008,
+        "y": 838,
+        "width": 47,
+        "height": 47
+    },
+    "Meanataur_R_0": {
+        "x": 801,
+        "y": 714,
+        "width": 49,
+        "height": 50
+    },
+    "Meanataur_R_1": {
+        "x": 912,
+        "y": 880,
+        "width": 47,
+        "height": 49
+    },
+    "Meanataur_R_10": {
+        "x": 559,
+        "y": 404,
+        "width": 65,
+        "height": 61
+    },
+    "Meanataur_R_11": {
+        "x": 261,
+        "y": 814,
+        "width": 67,
+        "height": 64
+    },
+    "Meanataur_R_12": {
+        "x": 389,
+        "y": 113,
+        "width": 70,
+        "height": 65
+    },
+    "Meanataur_R_13": {
+        "x": 215,
+        "y": 316,
+        "width": 72,
+        "height": 66
+    },
+    "Meanataur_R_14": {
+        "x": 202,
+        "y": 237,
+        "width": 71,
+        "height": 68
+    },
+    "Meanataur_R_15": {
+        "x": 52,
+        "y": 735,
+        "width": 71,
+        "height": 70
+    },
+    "Meanataur_R_16": {
+        "x": 542,
+        "y": 1540,
+        "width": 73,
+        "height": 71
+    },
+    "Meanataur_R_17": {
+        "x": 544,
+        "y": 1974,
+        "width": 77,
+        "height": 73
+    },
+    "Meanataur_R_18": {
+        "x": 348,
+        "y": 1678,
+        "width": 74,
+        "height": 75
+    },
+    "Meanataur_R_19": {
+        "x": 208,
+        "y": 1327,
+        "width": 75,
+        "height": 76
+    },
+    "Meanataur_R_2": {
+        "x": 940,
+        "y": 1653,
+        "width": 47,
+        "height": 50
+    },
+    "Meanataur_R_20": {
+        "x": 347,
+        "y": 1755,
+        "width": 79,
+        "height": 78
+    },
+    "Meanataur_R_21": {
+        "x": 593,
+        "y": 279,
+        "width": 78,
+        "height": 60
+    },
+    "Meanataur_R_22": {
+        "x": 564,
+        "y": 32,
+        "width": 76,
+        "height": 64
+    },
+    "Meanataur_R_3": {
+        "x": 831,
+        "y": 1142,
+        "width": 50,
+        "height": 51
+    },
+    "Meanataur_R_4": {
+        "x": 765,
+        "y": 1033,
+        "width": 52,
+        "height": 51
+    },
+    "Meanataur_R_5": {
+        "x": 888,
+        "y": 1941,
+        "width": 53,
+        "height": 52
+    },
+    "Meanataur_R_6": {
+        "x": 850,
+        "y": 1995,
+        "width": 55,
+        "height": 52
+    },
+    "Meanataur_R_7": {
+        "x": 736,
+        "y": 1789,
+        "width": 58,
+        "height": 55
+    },
+    "Meanataur_R_8": {
+        "x": 629,
+        "y": 758,
+        "width": 61,
+        "height": 58
+    },
+    "Meanataur_R_9": {
+        "x": 673,
+        "y": 280,
+        "width": 63,
+        "height": 60
+    },
+    "MEANATAUR_R_i01": {
+        "x": 792,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_R_i02": {
+        "x": 841,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_R_i03": {
+        "x": 890,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_R_i04": {
+        "x": 1048,
+        "y": 891,
+        "width": 47,
+        "height": 47
+    },
+    "MEANATAUR_R_i05": {
+        "x": 1075,
+        "y": 944,
+        "width": 47,
+        "height": 47
+    },
+    "Meanataur_Y_0": {
+        "x": 844,
+        "y": 1196,
+        "width": 49,
+        "height": 51
+    },
+    "Meanataur_Y_1": {
+        "x": 834,
+        "y": 610,
+        "width": 46,
+        "height": 50
+    },
+    "Meanataur_Y_10": {
+        "x": 383,
+        "y": 682,
+        "width": 59,
+        "height": 64
+    },
+    "Meanataur_Y_11": {
+        "x": 396,
+        "y": 30,
+        "width": 60,
+        "height": 65
+    },
+    "Meanataur_Y_12": {
+        "x": 275,
+        "y": 248,
+        "width": 61,
+        "height": 66
+    },
+    "Meanataur_Y_13": {
+        "x": 201,
+        "y": 527,
+        "width": 62,
+        "height": 67
+    },
+    "Meanataur_Y_14": {
+        "x": 74,
+        "y": 665,
+        "width": 63,
+        "height": 68
+    },
+    "Meanataur_Y_15": {
+        "x": 69,
+        "y": 592,
+        "width": 64,
+        "height": 68
+    },
+    "Meanataur_Y_16": {
+        "x": 135,
+        "y": 232,
+        "width": 65,
+        "height": 69
+    },
+    "Meanataur_Y_17": {
+        "x": 131,
+        "y": 160,
+        "width": 66,
+        "height": 69
+    },
+    "Meanataur_Y_18": {
+        "x": 723,
+        "y": 1846,
+        "width": 67,
+        "height": 71
+    },
+    "Meanataur_Y_19": {
+        "x": 125,
+        "y": 938,
+        "width": 68,
+        "height": 70
+    },
+    "Meanataur_Y_2": {
+        "x": 895,
+        "y": 1196,
+        "width": 47,
+        "height": 51
+    },
+    "Meanataur_Y_20": {
+        "x": 573,
+        "y": 1621,
+        "width": 69,
+        "height": 71
+    },
+    "Meanataur_Y_21": {
+        "x": 66,
+        "y": 303,
+        "width": 69,
+        "height": 69
+    },
+    "Meanataur_Y_22": {
+        "x": 63,
+        "y": 808,
+        "width": 71,
+        "height": 70
+    },
+    "Meanataur_Y_3": {
+        "x": 811,
+        "y": 1351,
+        "width": 48,
+        "height": 52
+    },
+    "Meanataur_Y_4": {
+        "x": 708,
+        "y": 1350,
+        "width": 50,
+        "height": 53
+    },
+    "Meanataur_Y_5": {
+        "x": 804,
+        "y": 412,
+        "width": 51,
+        "height": 54
+    },
+    "Meanataur_Y_6": {
+        "x": 599,
+        "y": 1347,
+        "width": 53,
+        "height": 56
+    },
+    "Meanataur_Y_7": {
+        "x": 519,
+        "y": 957,
+        "width": 54,
+        "height": 59
+    },
+    "Meanataur_Y_8": {
+        "x": 626,
+        "y": 404,
+        "width": 56,
+        "height": 61
+    },
+    "Meanataur_Y_9": {
+        "x": 438,
+        "y": 486,
+        "width": 57,
+        "height": 63
+    },
+    "MEANATAUR_Y_i01": {
+        "x": 939,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_Y_i02": {
+        "x": 986,
+        "y": 1249,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_Y_i03": {
+        "x": 988,
+        "y": 1405,
+        "width": 47,
+        "height": 48
+    },
+    "MEANATAUR_Y_i04": {
+        "x": 1095,
+        "y": 997,
+        "width": 47,
+        "height": 47
+    },
+    "MEANATAUR_Y_i05": {
+        "x": 928,
+        "y": 628,
+        "width": 47,
+        "height": 47
+    },
+    "Migno4_0": {
+        "x": 1311,
+        "y": 369,
+        "width": 40,
+        "height": 39
+    },
+    "Migno4_1": {
+        "x": 1324,
+        "y": 941,
+        "width": 41,
+        "height": 41
+    },
+    "Migno4_10": {
+        "x": 462,
+        "y": 276,
+        "width": 68,
+        "height": 61
+    },
+    "Migno4_11": {
+        "x": 367,
+        "y": 485,
+        "width": 69,
+        "height": 63
+    },
+    "Migno4_12": {
+        "x": 562,
+        "y": 684,
+        "width": 53,
+        "height": 63
+    },
+    "Migno4_13": {
+        "x": 444,
+        "y": 682,
+        "width": 52,
+        "height": 64
+    },
+    "Migno4_14": {
+        "x": 518,
+        "y": 114,
+        "width": 55,
+        "height": 65
+    },
+    "Migno4_15": {
+        "x": 350,
+        "y": 331,
+        "width": 53,
+        "height": 66
+    },
+    "Migno4_16": {
+        "x": 200,
+        "y": 384,
+        "width": 51,
+        "height": 67
+    },
+    "Migno4_17": {
+        "x": 583,
+        "y": 620,
+        "width": 48,
+        "height": 62
+    },
+    "Migno4_18": {
+        "x": 67,
+        "y": 376,
+        "width": 51,
+        "height": 69
+    },
+    "Migno4_19": {
+        "x": 549,
+        "y": 816,
+        "width": 23,
+        "height": 17
+    },
+    "Migno4_2": {
+        "x": 978,
+        "y": 326,
+        "width": 45,
+        "height": 45
+    },
+    "Migno4_20": {
+        "x": 1,
+        "y": 14,
+        "width": 54,
+        "height": 70
+    },
+    "Migno4_3": {
+        "x": 479,
+        "y": 1140,
+        "width": 49,
+        "height": 48
+    },
+    "Migno4_4": {
+        "x": 788,
+        "y": 766,
+        "width": 53,
+        "height": 50
+    },
+    "Migno4_5": {
+        "x": 920,
+        "y": 1705,
+        "width": 56,
+        "height": 52
+    },
+    "Migno4_6": {
+        "x": 722,
+        "y": 1715,
+        "width": 59,
+        "height": 55
+    },
+    "Migno4_7": {
+        "x": 536,
+        "y": 1346,
+        "width": 61,
+        "height": 57
+    },
+    "Migno4_8": {
+        "x": 881,
+        "y": 59,
+        "width": 64,
+        "height": 59
+    },
+    "Migno4_9": {
+        "x": 651,
+        "y": 342,
+        "width": 66,
+        "height": 60
+    },
+    "Migno4_i01": {
+        "x": 1625,
+        "y": 74,
+        "width": 32,
+        "height": 33
+    },
+    "Migno4_i02": {
+        "x": 1557,
+        "y": 460,
+        "width": 35,
+        "height": 35
+    },
+    "Migno4_i03": {
+        "x": 1549,
+        "y": 423,
+        "width": 36,
+        "height": 35
+    },
+    "Migno4_i04": {
+        "x": 1557,
+        "y": 460,
+        "width": 35,
+        "height": 35
+    },
+    "RouletteMush1_0": {
+        "x": 1461,
+        "y": 570,
+        "width": 32,
+        "height": 36
+    },
+    "RouletteMush1_1": {
+        "x": 1461,
+        "y": 570,
+        "width": 32,
+        "height": 36
+    },
+    "RouletteMush1_10": {
+        "x": 800,
+        "y": 1195,
+        "width": 42,
+        "height": 52
+    },
+    "RouletteMush1_11": {
+        "x": 849,
+        "y": 1921,
+        "width": 37,
+        "height": 53
+    },
+    "RouletteMush1_12": {
+        "x": 901,
+        "y": 132,
+        "width": 39,
+        "height": 54
+    },
+    "RouletteMush1_13": {
+        "x": 709,
+        "y": 1483,
+        "width": 38,
+        "height": 56
+    },
+    "RouletteMush1_14": {
+        "x": 669,
+        "y": 1581,
+        "width": 39,
+        "height": 56
+    },
+    "RouletteMush1_15": {
+        "x": 956,
+        "y": 1092,
+        "width": 37,
+        "height": 50
+    },
+    "RouletteMush1_16": {
+        "x": 993,
+        "y": 1145,
+        "width": 37,
+        "height": 50
+    },
+    "RouletteMush1_2": {
+        "x": 1461,
+        "y": 570,
+        "width": 32,
+        "height": 36
+    },
+    "RouletteMush1_3": {
+        "x": 1468,
+        "y": 62,
+        "width": 31,
+        "height": 38
+    },
+    "RouletteMush1_4": {
+        "x": 1335,
+        "y": 90,
+        "width": 31,
+        "height": 40
+    },
+    "RouletteMush1_5": {
+        "x": 1181,
+        "y": 669,
+        "width": 31,
+        "height": 42
+    },
+    "RouletteMush1_6": {
+        "x": 1100,
+        "y": 848,
+        "width": 32,
+        "height": 45
+    },
+    "RouletteMush1_7": {
+        "x": 1032,
+        "y": 196,
+        "width": 36,
+        "height": 46
+    },
+    "RouletteMush1_8": {
+        "x": 1078,
+        "y": 1148,
+        "width": 34,
+        "height": 48
+    },
+    "RouletteMush1_9": {
+        "x": 952,
+        "y": 1533,
+        "width": 41,
+        "height": 50
+    },
+    "RouletteMush1_i01": {
+        "x": 1624,
+        "y": 499,
+        "width": 32,
+        "height": 35
+    },
+    "RouletteMush1_i02": {
+        "x": 1494,
+        "y": 608,
+        "width": 32,
+        "height": 36
+    },
+    "RouletteMush1_i03": {
+        "x": 1580,
+        "y": 362,
+        "width": 32,
+        "height": 35
+    },
+    "RouletteMush1_i04": {
+        "x": 1461,
+        "y": 570,
+        "width": 32,
+        "height": 36
+    },
+    "Skelegem_0": {
+        "x": 1503,
+        "y": 182,
+        "width": 28,
+        "height": 38
+    },
+    "Skelegem_1": {
+        "x": 1293,
+        "y": 747,
+        "width": 27,
+        "height": 40
+    },
+    "Skelegem_10": {
+        "x": 978,
+        "y": 1601,
+        "width": 41,
+        "height": 50
+    },
+    "Skelegem_11": {
+        "x": 900,
+        "y": 931,
+        "width": 39,
+        "height": 50
+    },
+    "Skelegem_12": {
+        "x": 1137,
+        "y": 9,
+        "width": 40,
+        "height": 45
+    },
+    "Skelegem_13": {
+        "x": 994,
+        "y": 422,
+        "width": 41,
+        "height": 44
+    },
+    "Skelegem_14": {
+        "x": 1020,
+        "y": 2,
+        "width": 18,
+        "height": 20
+    },
+    "Skelegem_15": {
+        "x": 727,
+        "y": 559,
+        "width": 18,
+        "height": 17
+    },
+    "Skelegem_2": {
+        "x": 1150,
+        "y": 115,
+        "width": 29,
+        "height": 41
+    },
+    "Skelegem_3": {
+        "x": 1042,
+        "y": 468,
+        "width": 32,
+        "height": 43
+    },
+    "Skelegem_4": {
+        "x": 1038,
+        "y": 148,
+        "width": 34,
+        "height": 46
+    },
+    "Skelegem_5": {
+        "x": 1144,
+        "y": 1003,
+        "width": 36,
+        "height": 47
+    },
+    "Skelegem_6": {
+        "x": 1154,
+        "y": 1101,
+        "width": 38,
+        "height": 47
+    },
+    "Skelegem_7": {
+        "x": 1118,
+        "y": 1204,
+        "width": 39,
+        "height": 47
+    },
+    "Skelegem_8": {
+        "x": 1012,
+        "y": 990,
+        "width": 39,
+        "height": 49
+    },
+    "Skelegem_9": {
+        "x": 1205,
+        "y": 1069,
+        "width": 41,
+        "height": 43
+    },
+    "Skelegem_i01": {
+        "x": 1465,
+        "y": 532,
+        "width": 28,
+        "height": 36
+    },
+    "Skelegem_i02": {
+        "x": 1560,
+        "y": 281,
+        "width": 29,
+        "height": 37
+    },
+    "Skelegem_i03": {
+        "x": 1421,
+        "y": 14,
+        "width": 30,
+        "height": 39
+    },
+    "Skelegem_i04": {
+        "x": 1560,
+        "y": 281,
+        "width": 29,
+        "height": 37
+    },
+    "skullCoin_0": {
+        "x": 1762,
+        "y": 13,
+        "width": 18,
+        "height": 22
+    },
+    "skullCoin_1": {
+        "x": 1503,
+        "y": 722,
+        "width": 21,
+        "height": 25
+    },
+    "skullCoin_2": {
+        "x": 753,
+        "y": 1455,
+        "width": 22,
+        "height": 27
+    },
+    "skullCoin_3": {
+        "x": 1751,
+        "y": 69,
+        "width": 25,
+        "height": 30
+    },
+    "skullCoin_4": {
+        "x": 1599,
+        "y": 219,
+        "width": 29,
+        "height": 33
+    },
+    "skullCoin_5": {
+        "x": 1587,
+        "y": 498,
+        "width": 35,
+        "height": 35
+    },
+    "skullCoin_6": {
+        "x": 1567,
+        "y": 28,
+        "width": 37,
+        "height": 36
+    },
+    "skullCoin_7": {
+        "x": 1300,
+        "y": 301,
+        "width": 40,
+        "height": 39
+    },
+    "skullCoin_i01": {
+        "x": 1762,
+        "y": 13,
+        "width": 18,
+        "height": 22
+    },
+    "skullCoin_i02": {
+        "x": 1766,
+        "y": 45,
+        "width": 16,
+        "height": 22
+    },
+    "skullCoin_i03": {
+        "x": 347,
+        "y": 1164,
+        "width": 10,
+        "height": 22
+    },
+    "skullCoin_i04": {
+        "x": 1778,
+        "y": 78,
+        "width": 16,
+        "height": 22
+    },
+    "smallbat1_0": {
+        "x": 969,
+        "y": 2,
+        "width": 24,
+        "height": 20
+    },
+    "smallbat1_1": {
+        "x": 995,
+        "y": 2,
+        "width": 23,
+        "height": 20
+    },
+    "smallbat1_10": {
+        "x": 1242,
+        "y": 738,
+        "width": 49,
+        "height": 41
+    },
+    "smallbat1_11": {
+        "x": 1135,
+        "y": 613,
+        "width": 41,
+        "height": 42
+    },
+    "smallbat1_12": {
+        "x": 1229,
+        "y": 917,
+        "width": 45,
+        "height": 43
+    },
+    "smallbat1_13": {
+        "x": 1007,
+        "y": 279,
+        "width": 45,
+        "height": 45
+    },
+    "smallbat1_14": {
+        "x": 989,
+        "y": 1300,
+        "width": 56,
+        "height": 50
+    },
+    "smallbat1_15": {
+        "x": 941,
+        "y": 934,
+        "width": 47,
+        "height": 49
+    },
+    "smallbat1_16": {
+        "x": 995,
+        "y": 1549,
+        "width": 40,
+        "height": 50
+    },
+    "smallbat1_17": {
+        "x": 816,
+        "y": 1618,
+        "width": 40,
+        "height": 55
+    },
+    "smallbat1_18": {
+        "x": 623,
+        "y": 963,
+        "width": 42,
+        "height": 57
+    },
+    "smallbat1_19": {
+        "x": 1035,
+        "y": 1249,
+        "width": 50,
+        "height": 49
+    },
+    "smallbat1_2": {
+        "x": 711,
+        "y": 98,
+        "width": 25,
+        "height": 19
+    },
+    "smallbat1_3": {
+        "x": 777,
+        "y": 1455,
+        "width": 22,
+        "height": 27
+    },
+    "smallbat1_4": {
+        "x": 1239,
+        "y": 1,
+        "width": 29,
+        "height": 29
+    },
+    "smallbat1_5": {
+        "x": 646,
+        "y": 818,
+        "width": 29,
+        "height": 27
+    },
+    "smallbat1_6": {
+        "x": 1601,
+        "y": 184,
+        "width": 23,
+        "height": 33
+    },
+    "smallbat1_7": {
+        "x": 1578,
+        "y": 108,
+        "width": 26,
+        "height": 34
+    },
+    "smallbat1_8": {
+        "x": 1532,
+        "y": 104,
+        "width": 44,
+        "height": 36
+    },
+    "smallbat1_9": {
+        "x": 1437,
+        "y": 302,
+        "width": 46,
+        "height": 38
+    },
+    "smallbat1_grey_0": {
+        "x": 617,
+        "y": 1541,
+        "width": 25,
+        "height": 20
+    },
+    "smallbat1_grey_1": {
+        "x": 1639,
+        "y": 400,
+        "width": 24,
+        "height": 22
+    },
+    "smallbat1_grey_10": {
+        "x": 1248,
+        "y": 1072,
+        "width": 38,
+        "height": 43
+    },
+    "smallbat1_grey_11": {
+        "x": 937,
+        "y": 320,
+        "width": 39,
+        "height": 46
+    },
+    "smallbat1_grey_12": {
+        "x": 1124,
+        "y": 948,
+        "width": 40,
+        "height": 47
+    },
+    "smallbat1_grey_13": {
+        "x": 938,
+        "y": 779,
+        "width": 43,
+        "height": 48
+    },
+    "smallbat1_grey_14": {
+        "x": 882,
+        "y": 610,
+        "width": 44,
+        "height": 50
+    },
+    "smallbat1_grey_15": {
+        "x": 862,
+        "y": 662,
+        "width": 46,
+        "height": 50
+    },
+    "smallbat1_grey_16": {
+        "x": 667,
+        "y": 973,
+        "width": 48,
+        "height": 52
+    },
+    "smallbat1_grey_17": {
+        "x": 749,
+        "y": 1195,
+        "width": 49,
+        "height": 52
+    },
+    "smallbat1_grey_18": {
+        "x": 857,
+        "y": 412,
+        "width": 50,
+        "height": 54
+    },
+    "smallbat1_grey_19": {
+        "x": 796,
+        "y": 1805,
+        "width": 52,
+        "height": 55
+    },
+    "smallbat1_grey_2": {
+        "x": 1737,
+        "y": 11,
+        "width": 23,
+        "height": 24
+    },
+    "smallbat1_grey_3": {
+        "x": 1737,
+        "y": 37,
+        "width": 27,
+        "height": 30
+    },
+    "smallbat1_grey_4": {
+        "x": 1570,
+        "y": 209,
+        "width": 27,
+        "height": 34
+    },
+    "smallbat1_grey_5": {
+        "x": 1522,
+        "y": 646,
+        "width": 30,
+        "height": 36
+    },
+    "smallbat1_grey_6": {
+        "x": 1467,
+        "y": 142,
+        "width": 32,
+        "height": 38
+    },
+    "smallbat1_grey_7": {
+        "x": 1240,
+        "y": 636,
+        "width": 33,
+        "height": 41
+    },
+    "smallbat1_grey_8": {
+        "x": 1188,
+        "y": 525,
+        "width": 34,
+        "height": 42
+    },
+    "smallbat1_grey_9": {
+        "x": 1270,
+        "y": 1027,
+        "width": 36,
+        "height": 43
+    },
+    "smallbat1_grey_i01": {
+        "x": 574,
+        "y": 818,
+        "width": 22,
+        "height": 17
+    },
+    "smallbat1_grey_i02": {
+        "x": 401,
+        "y": 467,
+        "width": 24,
+        "height": 16
+    },
+    "smallbat1_grey_i03": {
+        "x": 382,
+        "y": 1249,
+        "width": 21,
+        "height": 16
+    },
+    "smallbat1_grey_i04": {
+        "x": 658,
+        "y": 557,
+        "width": 21,
+        "height": 17
+    },
+    "smallbat1_i01": {
+        "x": 598,
+        "y": 818,
+        "width": 22,
+        "height": 17
+    },
+    "smallbat1_i02": {
+        "x": 427,
+        "y": 467,
+        "width": 24,
+        "height": 16
+    },
+    "smallbat1_i03": {
+        "x": 405,
+        "y": 1249,
+        "width": 21,
+        "height": 16
+    },
+    "smallbat1_i04": {
+        "x": 681,
+        "y": 557,
+        "width": 21,
+        "height": 17
+    },
+    "smallbat1_red_0": {
+        "x": 644,
+        "y": 1541,
+        "width": 25,
+        "height": 20
+    },
+    "smallbat1_red_1": {
+        "x": 738,
+        "y": 98,
+        "width": 25,
+        "height": 19
+    },
+    "smallbat1_red_10": {
+        "x": 1313,
+        "y": 1,
+        "width": 40,
+        "height": 31
+    },
+    "smallbat1_red_11": {
+        "x": 846,
+        "y": 468,
+        "width": 45,
+        "height": 31
+    },
+    "smallbat1_red_12": {
+        "x": 833,
+        "y": 1455,
+        "width": 43,
+        "height": 32
+    },
+    "smallbat1_red_13": {
+        "x": 731,
+        "y": 1,
+        "width": 48,
+        "height": 33
+    },
+    "smallbat1_red_14": {
+        "x": 1033,
+        "y": 244,
+        "width": 48,
+        "height": 33
+    },
+    "smallbat1_red_15": {
+        "x": 1528,
+        "y": 609,
+        "width": 49,
+        "height": 35
+    },
+    "smallbat1_red_16": {
+        "x": 893,
+        "y": 468,
+        "width": 50,
+        "height": 36
+    },
+    "smallbat1_red_17": {
+        "x": 1355,
+        "y": 342,
+        "width": 53,
+        "height": 35
+    },
+    "smallbat1_red_18": {
+        "x": 1382,
+        "y": 302,
+        "width": 53,
+        "height": 38
+    },
+    "smallbat1_red_19": {
+        "x": 1373,
+        "y": 437,
+        "width": 53,
+        "height": 37
+    },
+    "smallbat1_red_2": {
+        "x": 166,
+        "y": 1139,
+        "width": 26,
+        "height": 21
+    },
+    "smallbat1_red_3": {
+        "x": 1471,
+        "y": 748,
+        "width": 28,
+        "height": 23
+    },
+    "smallbat1_red_4": {
+        "x": 1526,
+        "y": 723,
+        "width": 31,
+        "height": 24
+    },
+    "smallbat1_red_5": {
+        "x": 717,
+        "y": 1455,
+        "width": 34,
+        "height": 26
+    },
+    "smallbat1_red_6": {
+        "x": 730,
+        "y": 468,
+        "width": 34,
+        "height": 27
+    },
+    "smallbat1_red_7": {
+        "x": 650,
+        "y": 1,
+        "width": 39,
+        "height": 29
+    },
+    "smallbat1_red_8": {
+        "x": 565,
+        "y": 1,
+        "width": 41,
+        "height": 29
+    },
+    "smallbat1_red_9": {
+        "x": 1722,
+        "y": 234,
+        "width": 42,
+        "height": 30
+    },
+    "smallbat1_red_i01": {
+        "x": 622,
+        "y": 818,
+        "width": 22,
+        "height": 17
+    },
+    "smallbat1_red_i02": {
+        "x": 356,
+        "y": 1249,
+        "width": 24,
+        "height": 16
+    },
+    "smallbat1_red_i03": {
+        "x": 428,
+        "y": 1249,
+        "width": 21,
+        "height": 16
+    },
+    "smallbat1_red_i04": {
+        "x": 704,
+        "y": 557,
+        "width": 21,
+        "height": 17
+    },
+    "Squiller2_0": {
+        "x": 583,
+        "y": 468,
+        "width": 35,
+        "height": 20
+    },
+    "Squiller2_1": {
+        "x": 1335,
+        "y": 722,
+        "width": 36,
+        "height": 23
+    },
+    "Squiller2_10": {
+        "x": 979,
+        "y": 513,
+        "width": 46,
+        "height": 44
+    },
+    "Squiller2_2": {
+        "x": 440,
+        "y": 1,
+        "width": 40,
+        "height": 27
+    },
+    "Squiller2_3": {
+        "x": 1683,
+        "y": 165,
+        "width": 42,
+        "height": 30
+    },
+    "Squiller2_4": {
+        "x": 1606,
+        "y": 109,
+        "width": 48,
+        "height": 33
+    },
+    "Squiller2_5": {
+        "x": 520,
+        "y": 1249,
+        "width": 51,
+        "height": 34
+    },
+    "Squiller2_6": {
+        "x": 573,
+        "y": 1249,
+        "width": 51,
+        "height": 36
+    },
+    "Squiller2_7": {
+        "x": 1353,
+        "y": 379,
+        "width": 56,
+        "height": 38
+    },
+    "Squiller2_8": {
+        "x": 1238,
+        "y": 781,
+        "width": 53,
+        "height": 41
+    },
+    "Squiller2_9": {
+        "x": 1061,
+        "y": 379,
+        "width": 46,
+        "height": 42
+    },
+    "Squiller2_i01": {
+        "x": 265,
+        "y": 1405,
+        "width": 30,
+        "height": 18
+    },
+    "Squiller2_i02": {
+        "x": 297,
+        "y": 1405,
+        "width": 30,
+        "height": 18
+    },
+    "Squiller2_i03": {
+        "x": 367,
+        "y": 467,
+        "width": 32,
+        "height": 16
+    },
+    "Squiller2_i04": {
+        "x": 149,
+        "y": 1,
+        "width": 31,
+        "height": 15
+    },
+    "Squiller_0": {
+        "x": 1528,
+        "y": 1,
+        "width": 36,
+        "height": 23
+    },
+    "Squiller_1": {
+        "x": 127,
+        "y": 1139,
+        "width": 37,
+        "height": 21
+    },
+    "Squiller_10": {
+        "x": 1061,
+        "y": 559,
+        "width": 54,
+        "height": 35
+    },
+    "Squiller_2": {
+        "x": 1293,
+        "y": 722,
+        "width": 40,
+        "height": 23
+    },
+    "Squiller_3": {
+        "x": 519,
+        "y": 1,
+        "width": 44,
+        "height": 28
+    },
+    "Squiller_4": {
+        "x": 1678,
+        "y": 266,
+        "width": 47,
+        "height": 30
+    },
+    "Squiller_5": {
+        "x": 1672,
+        "y": 231,
+        "width": 48,
+        "height": 30
+    },
+    "Squiller_6": {
+        "x": 1626,
+        "y": 576,
+        "width": 49,
+        "height": 34
+    },
+    "Squiller_7": {
+        "x": 626,
+        "y": 1249,
+        "width": 51,
+        "height": 36
+    },
+    "Squiller_8": {
+        "x": 1425,
+        "y": 476,
+        "width": 52,
+        "height": 37
+    },
+    "Squiller_9": {
+        "x": 465,
+        "y": 1249,
+        "width": 53,
+        "height": 34
+    },
+    "Squiller_i01": {
+        "x": 329,
+        "y": 1405,
+        "width": 30,
+        "height": 18
+    },
+    "Squiller_i02": {
+        "x": 517,
+        "y": 815,
+        "width": 30,
+        "height": 18
+    },
+    "Squiller_i03": {
+        "x": 644,
+        "y": 98,
+        "width": 32,
+        "height": 19
+    },
+    "Squiller_i04": {
+        "x": 678,
+        "y": 98,
+        "width": 31,
+        "height": 19
+    },
+    "Toll2O_0": {
+        "x": 766,
+        "y": 468,
+        "width": 30,
+        "height": 27
+    },
+    "Toll2O_1": {
+        "x": 1179,
+        "y": 3,
+        "width": 28,
+        "height": 25
+    },
+    "Toll2O_10": {
+        "x": 1179,
+        "y": 30,
+        "width": 38,
+        "height": 40
+    },
+    "Toll2O_11": {
+        "x": 1148,
+        "y": 516,
+        "width": 38,
+        "height": 42
+    },
+    "Toll2O_12": {
+        "x": 1477,
+        "y": 437,
+        "width": 39,
+        "height": 37
+    },
+    "Toll2O_13": {
+        "x": 1097,
+        "y": 895,
+        "width": 41,
+        "height": 47
+    },
+    "Toll2O_14": {
+        "x": 1076,
+        "y": 470,
+        "width": 43,
+        "height": 42
+    },
+    "Toll2O_2": {
+        "x": 1179,
+        "y": 3,
+        "width": 28,
+        "height": 25
+    },
+    "Toll2O_3": {
+        "x": 1024,
+        "y": 24,
+        "width": 28,
+        "height": 26
+    },
+    "Toll2O_4": {
+        "x": 677,
+        "y": 818,
+        "width": 28,
+        "height": 27
+    },
+    "Toll2O_5": {
+        "x": 1756,
+        "y": 102,
+        "width": 28,
+        "height": 29
+    },
+    "Toll2O_6": {
+        "x": 1726,
+        "y": 101,
+        "width": 28,
+        "height": 30
+    },
+    "Toll2O_7": {
+        "x": 1597,
+        "y": 254,
+        "width": 31,
+        "height": 33
+    },
+    "Toll2O_8": {
+        "x": 1587,
+        "y": 423,
+        "width": 34,
+        "height": 35
+    },
+    "Toll2O_9": {
+        "x": 1543,
+        "y": 359,
+        "width": 35,
+        "height": 37
+    },
+    "Toll2O_i01": {
+        "x": 1589,
+        "y": 723,
+        "width": 28,
+        "height": 24
+    },
+    "Toll2O_i02": {
+        "x": 1209,
+        "y": 3,
+        "width": 28,
+        "height": 25
+    },
+    "Toll2O_i03": {
+        "x": 1619,
+        "y": 723,
+        "width": 28,
+        "height": 24
+    },
+    "Toll2O_i04": {
+        "x": 1269,
+        "y": 342,
+        "width": 28,
+        "height": 25
+    },
+    "TorinoR_i01": {
+        "x": 582,
+        "y": 1455,
+        "width": 31,
+        "height": 25
+    },
+    "TorinoR_i02": {
+        "x": 969,
+        "y": 244,
+        "width": 30,
+        "height": 26
+    },
+    "TorinoR_i03": {
+        "x": 1327,
+        "y": 342,
+        "width": 26,
+        "height": 25
+    },
+    "TorinoR_i04": {
+        "x": 1005,
+        "y": 559,
+        "width": 26,
+        "height": 26
+    },
+    "TorinoY_i01": {
+        "x": 615,
+        "y": 1455,
+        "width": 31,
+        "height": 25
+    },
+    "TorinoY_i02": {
+        "x": 1001,
+        "y": 244,
+        "width": 30,
+        "height": 26
+    },
+    "TorinoY_i03": {
+        "x": 1596,
+        "y": 1,
+        "width": 26,
+        "height": 25
+    },
+    "TorinoY_i04": {
+        "x": 1033,
+        "y": 560,
+        "width": 26,
+        "height": 26
+    },
+    "Torino_0": {
+        "x": 776,
+        "y": 557,
+        "width": 32,
+        "height": 29
+    },
+    "Torino_1": {
+        "x": 1693,
+        "y": 101,
+        "width": 31,
+        "height": 30
+    },
+    "Torino_10": {
+        "x": 1411,
+        "y": 398,
+        "width": 49,
+        "height": 37
+    },
+    "Torino_11": {
+        "x": 1404,
+        "y": 811,
+        "width": 45,
+        "height": 39
+    },
+    "Torino_12": {
+        "x": 798,
+        "y": 468,
+        "width": 46,
+        "height": 31
+    },
+    "Torino_13": {
+        "x": 1555,
+        "y": 686,
+        "width": 42,
+        "height": 35
+    },
+    "Torino_14": {
+        "x": 694,
+        "y": 467,
+        "width": 34,
+        "height": 28
+    },
+    "Torino_15": {
+        "x": 482,
+        "y": 1,
+        "width": 35,
+        "height": 27
+    },
+    "Torino_2": {
+        "x": 1652,
+        "y": 39,
+        "width": 32,
+        "height": 33
+    },
+    "Torino_3": {
+        "x": 1594,
+        "y": 461,
+        "width": 33,
+        "height": 35
+    },
+    "Torino_4": {
+        "x": 1423,
+        "y": 570,
+        "width": 36,
+        "height": 36
+    },
+    "Torino_5": {
+        "x": 1481,
+        "y": 262,
+        "width": 39,
+        "height": 38
+    },
+    "Torino_6": {
+        "x": 1269,
+        "y": 410,
+        "width": 41,
+        "height": 39
+    },
+    "Torino_7": {
+        "x": 1117,
+        "y": 158,
+        "width": 41,
+        "height": 41
+    },
+    "Torino_8": {
+        "x": 1276,
+        "y": 936,
+        "width": 46,
+        "height": 41
+    },
+    "Torino_9": {
+        "x": 1462,
+        "y": 398,
+        "width": 47,
+        "height": 37
+    },
+    "Torino_i01": {
+        "x": 549,
+        "y": 1455,
+        "width": 31,
+        "height": 25
+    },
+    "Torino_i02": {
+        "x": 801,
+        "y": 1456,
+        "width": 30,
+        "height": 26
+    },
+    "Torino_i03": {
+        "x": 1299,
+        "y": 342,
+        "width": 26,
+        "height": 25
+    },
+    "Torino_i04": {
+        "x": 977,
+        "y": 559,
+        "width": 26,
+        "height": 26
+    },
+    "Torino_R_0": {
+        "x": 1724,
+        "y": 133,
+        "width": 31,
+        "height": 30
+    },
+    "Torino_R_1": {
+        "x": 1693,
+        "y": 470,
+        "width": 32,
+        "height": 32
+    },
+    "Torino_R_10": {
+        "x": 893,
+        "y": 776,
+        "width": 43,
+        "height": 49
+    },
+    "Torino_R_11": {
+        "x": 891,
+        "y": 558,
+        "width": 43,
+        "height": 50
+    },
+    "Torino_R_12": {
+        "x": 717,
+        "y": 973,
+        "width": 44,
+        "height": 52
+    },
+    "Torino_R_13": {
+        "x": 858,
+        "y": 1637,
+        "width": 41,
+        "height": 53
+    },
+    "Torino_R_14": {
+        "x": 859,
+        "y": 1508,
+        "width": 42,
+        "height": 53
+    },
+    "Torino_R_15": {
+        "x": 891,
+        "y": 188,
+        "width": 42,
+        "height": 54
+    },
+    "Torino_R_2": {
+        "x": 1428,
+        "y": 532,
+        "width": 35,
+        "height": 36
+    },
+    "Torino_R_3": {
+        "x": 1373,
+        "y": 219,
+        "width": 37,
+        "height": 39
+    },
+    "Torino_R_4": {
+        "x": 1291,
+        "y": 216,
+        "width": 40,
+        "height": 40
+    },
+    "Torino_R_5": {
+        "x": 1225,
+        "y": 342,
+        "width": 42,
+        "height": 40
+    },
+    "Torino_R_6": {
+        "x": 1070,
+        "y": 197,
+        "width": 44,
+        "height": 45
+    },
+    "Torino_R_7": {
+        "x": 707,
+        "y": 818,
+        "width": 46,
+        "height": 46
+    },
+    "Torino_R_8": {
+        "x": 580,
+        "y": 1140,
+        "width": 48,
+        "height": 48
+    },
+    "Torino_R_9": {
+        "x": 961,
+        "y": 883,
+        "width": 42,
+        "height": 49
+    },
+    "Torino_R_i01": {
+        "x": 582,
+        "y": 1455,
+        "width": 31,
+        "height": 25
+    },
+    "Torino_R_i02": {
+        "x": 969,
+        "y": 244,
+        "width": 30,
+        "height": 26
+    },
+    "Torino_R_i03": {
+        "x": 1327,
+        "y": 342,
+        "width": 26,
+        "height": 25
+    },
+    "Torino_R_i04": {
+        "x": 1005,
+        "y": 559,
+        "width": 26,
+        "height": 26
+    },
+    "Torino_Y_0": {
+        "x": 810,
+        "y": 557,
+        "width": 32,
+        "height": 29
+    },
+    "Torino_Y_1": {
+        "x": 1720,
+        "y": 69,
+        "width": 29,
+        "height": 30
+    },
+    "Torino_Y_10": {
+        "x": 1349,
+        "y": 260,
+        "width": 38,
+        "height": 39
+    },
+    "Torino_Y_11": {
+        "x": 1260,
+        "y": 540,
+        "width": 39,
+        "height": 40
+    },
+    "Torino_Y_12": {
+        "x": 1366,
+        "y": 48,
+        "width": 31,
+        "height": 40
+    },
+    "Torino_Y_13": {
+        "x": 1185,
+        "y": 74,
+        "width": 38,
+        "height": 40
+    },
+    "Torino_Y_14": {
+        "x": 1212,
+        "y": 625,
+        "width": 26,
+        "height": 42
+    },
+    "Torino_Y_15": {
+        "x": 1160,
+        "y": 159,
+        "width": 29,
+        "height": 41
+    },
+    "Torino_Y_2": {
+        "x": 1355,
+        "y": 1,
+        "width": 32,
+        "height": 31
+    },
+    "Torino_Y_3": {
+        "x": 1647,
+        "y": 151,
+        "width": 34,
+        "height": 32
+    },
+    "Torino_Y_4": {
+        "x": 1587,
+        "y": 573,
+        "width": 37,
+        "height": 35
+    },
+    "Torino_Y_5": {
+        "x": 1508,
+        "y": 497,
+        "width": 38,
+        "height": 35
+    },
+    "Torino_Y_6": {
+        "x": 1454,
+        "y": 684,
+        "width": 35,
+        "height": 36
+    },
+    "Torino_Y_7": {
+        "x": 1465,
+        "y": 182,
+        "width": 36,
+        "height": 38
+    },
+    "Torino_Y_8": {
+        "x": 1522,
+        "y": 281,
+        "width": 36,
+        "height": 37
+    },
+    "Torino_Y_9": {
+        "x": 1351,
+        "y": 137,
+        "width": 37,
+        "height": 39
+    },
+    "Torino_Y_i01": {
+        "x": 615,
+        "y": 1455,
+        "width": 31,
+        "height": 25
+    },
+    "Torino_Y_i02": {
+        "x": 1001,
+        "y": 244,
+        "width": 30,
+        "height": 26
+    },
+    "Torino_Y_i03": {
+        "x": 1596,
+        "y": 1,
+        "width": 26,
+        "height": 25
+    },
+    "Torino_Y_i04": {
+        "x": 1033,
+        "y": 560,
+        "width": 26,
+        "height": 26
+    },
+    "Valentin_0": {
+        "x": 563,
+        "y": 1022,
+        "width": 55,
+        "height": 57
+    },
+    "Valentin_1": {
+        "x": 700,
+        "y": 218,
+        "width": 58,
+        "height": 60
+    },
+    "Valentin_10": {
+        "x": 265,
+        "y": 535,
+        "width": 84,
+        "height": 66
+    },
+    "Valentin_11": {
+        "x": 763,
+        "y": 1976,
+        "width": 85,
+        "height": 71
+    },
+    "Valentin_12": {
+        "x": 59,
+        "y": 87,
+        "width": 86,
+        "height": 69
+    },
+    "Valentin_13": {
+        "x": 1,
+        "y": 446,
+        "width": 64,
+        "height": 70
+    },
+    "Valentin_14": {
+        "x": 1,
+        "y": 374,
+        "width": 64,
+        "height": 70
+    },
+    "Valentin_15": {
+        "x": 127,
+        "y": 1569,
+        "width": 82,
+        "height": 88
+    },
+    "Valentin_16": {
+        "x": 1,
+        "y": 734,
+        "width": 49,
+        "height": 71
+    },
+    "Valentin_2": {
+        "x": 398,
+        "y": 264,
+        "width": 62,
+        "height": 65
+    },
+    "Valentin_3": {
+        "x": 273,
+        "y": 97,
+        "width": 66,
+        "height": 68
+    },
+    "Valentin_4": {
+        "x": 609,
+        "y": 1697,
+        "width": 68,
+        "height": 71
+    },
+    "Valentin_5": {
+        "x": 623,
+        "y": 1974,
+        "width": 71,
+        "height": 73
+    },
+    "Valentin_6": {
+        "x": 265,
+        "y": 1425,
+        "width": 73,
+        "height": 75
+    },
+    "Valentin_7": {
+        "x": 127,
+        "y": 1162,
+        "width": 77,
+        "height": 77
+    },
+    "Valentin_8": {
+        "x": 127,
+        "y": 1320,
+        "width": 79,
+        "height": 80
+    },
+    "Valentin_9": {
+        "x": 189,
+        "y": 1662,
+        "width": 82,
+        "height": 82
+    },
+    "Valentin_i01": {
+        "x": 840,
+        "y": 300,
+        "width": 49,
+        "height": 54
+    },
+    "Valentin_i02": {
+        "x": 760,
+        "y": 1350,
+        "width": 49,
+        "height": 53
+    },
+    "Valentin_i03": {
+        "x": 788,
+        "y": 1544,
+        "width": 49,
+        "height": 55
+    },
+    "Valentin_i04": {
+        "x": 654,
+        "y": 1347,
+        "width": 52,
+        "height": 56
+    },
+    "XLDragonGold_Flag": {
+        "x": 456,
+        "y": 181,
+        "width": 125,
+        "height": 14
+    },
+    "XLDragonGold_FlagTip_0 - Copy": {
+        "x": 324,
+        "y": 1141,
+        "width": 36,
+        "height": 20
+    },
+    "XLDragonGold_FlagTip_0": {
+        "x": 620,
+        "y": 467,
+        "width": 38,
+        "height": 25
+    },
+    "XLDragonGold_FlagTip_1": {
+        "x": 608,
+        "y": 1,
+        "width": 40,
+        "height": 29
+    },
+    "XLDragonGold_FlagTip_10": {
+        "x": 195,
+        "y": 940,
+        "width": 58,
+        "height": 68
+    },
+    "XLDragonGold_FlagTip_11": {
+        "x": 1,
+        "y": 518,
+        "width": 66,
+        "height": 70
+    },
+    "XLDragonGold_FlagTip_12": {
+        "x": 405,
+        "y": 1450,
+        "width": 60,
+        "height": 73
+    },
+    "XLDragonGold_FlagTip_13": {
+        "x": 431,
+        "y": 1602,
+        "width": 61,
+        "height": 74
+    },
+    "XLDragonGold_FlagTip_2": {
+        "x": 1672,
+        "y": 651,
+        "width": 44,
+        "height": 34
+    },
+    "XLDragonGold_FlagTip_3": {
+        "x": 1389,
+        "y": 262,
+        "width": 48,
+        "height": 38
+    },
+    "XLDragonGold_FlagTip_4": {
+        "x": 1053,
+        "y": 333,
+        "width": 52,
+        "height": 42
+    },
+    "XLDragonGold_FlagTip_5": {
+        "x": 1106,
+        "y": 1356,
+        "width": 56,
+        "height": 47
+    },
+    "XLDragonGold_FlagTip_6": {
+        "x": 905,
+        "y": 1,
+        "width": 62,
+        "height": 56
+    },
+    "XLDragonGold_FlagTip_7": {
+        "x": 493,
+        "y": 896,
+        "width": 55,
+        "height": 59
+    },
+    "XLDragonGold_FlagTip_8": {
+        "x": 384,
+        "y": 402,
+        "width": 58,
+        "height": 63
+    },
+    "XLDragonGold_FlagTip_9": {
+        "x": 253,
+        "y": 391,
+        "width": 68,
+        "height": 66
+    },
+    "XLDragonGold_Flag_0": {
+        "x": 310,
+        "y": 1,
+        "width": 128,
+        "height": 16
+    },
+    "XLDragonGold_Flag_1": {
+        "x": 182,
+        "y": 2,
+        "width": 126,
+        "height": 14
+    },
+    "XLDragonGold_Flag_10": {
+        "x": 583,
+        "y": 181,
+        "width": 128,
+        "height": 32
+    },
+    "XLDragonGold_Flag_11": {
+        "x": 713,
+        "y": 181,
+        "width": 128,
+        "height": 35
+    },
+    "XLDragonGold_Flag_12": {
+        "x": 1303,
+        "y": 515,
+        "width": 123,
+        "height": 37
+    },
+    "XLDragonGold_Flag_13": {
+        "x": 1346,
+        "y": 748,
+        "width": 123,
+        "height": 39
+    },
+    "XLDragonGold_Flag_14": {
+        "x": 1214,
+        "y": 679,
+        "width": 124,
+        "height": 41
+    },
+    "XLDragonGold_Flag_15": {
+        "x": 131,
+        "y": 1919,
+        "width": 124,
+        "height": 42
+    },
+    "XLDragonGold_Flag_16": {
+        "x": 306,
+        "y": 1919,
+        "width": 120,
+        "height": 44
+    },
+    "XLDragonGold_Flag_17": {
+        "x": 1191,
+        "y": 160,
+        "width": 119,
+        "height": 40
+    },
+    "XLDragonGold_Flag_18": {
+        "x": 755,
+        "y": 818,
+        "width": 114,
+        "height": 47
+    },
+    "XLDragonGold_Flag_19": {
+        "x": 478,
+        "y": 1405,
+        "width": 116,
+        "height": 48
+    },
+    "XLDragonGold_Flag_2": {
+        "x": 517,
+        "y": 98,
+        "width": 125,
+        "height": 14
+    },
+    "XLDragonGold_Flag_20": {
+        "x": 361,
+        "y": 1405,
+        "width": 115,
+        "height": 33
+    },
+    "XLDragonGold_Flag_21": {
+        "x": 824,
+        "y": 1249,
+        "width": 114,
+        "height": 45
+    },
+    "XLDragonGold_Flag_22": {
+        "x": 362,
+        "y": 1140,
+        "width": 115,
+        "height": 46
+    },
+    "XLDragonGold_Flag_23": {
+        "x": 671,
+        "y": 1541,
+        "width": 115,
+        "height": 38
+    },
+    "XLDragonGold_Flag_24": {
+        "x": 1340,
+        "y": 852,
+        "width": 115,
+        "height": 39
+    },
+    "XLDragonGold_Flag_25": {
+        "x": 679,
+        "y": 1249,
+        "width": 95,
+        "height": 38
+    },
+    "XLDragonGold_Flag_26": {
+        "x": 1331,
+        "y": 600,
+        "width": 89,
+        "height": 37
+    },
+    "XLDragonGold_Flag_27": {
+        "x": 1329,
+        "y": 558,
+        "width": 92,
+        "height": 37
+    },
+    "XLDragonGold_Flag_28": {
+        "x": 1276,
+        "y": 459,
+        "width": 91,
+        "height": 38
+    },
+    "XLDragonGold_Flag_29": {
+        "x": 1197,
+        "y": 206,
+        "width": 92,
+        "height": 40
+    },
+    "XLDragonGold_Flag_3": {
+        "x": 389,
+        "y": 97,
+        "width": 126,
+        "height": 14
+    },
+    "XLDragonGold_Flag_4": {
+        "x": 453,
+        "y": 467,
+        "width": 128,
+        "height": 17
+    },
+    "XLDragonGold_Flag_5": {
+        "x": 194,
+        "y": 1140,
+        "width": 128,
+        "height": 20
+    },
+    "XLDragonGold_Flag_6": {
+        "x": 1501,
+        "y": 749,
+        "width": 128,
+        "height": 22
+    },
+    "XLDragonGold_Flag_7": {
+        "x": 983,
+        "y": 1455,
+        "width": 128,
+        "height": 24
+    },
+    "XLDragonGold_Flag_8": {
+        "x": 1373,
+        "y": 722,
+        "width": 128,
+        "height": 24
+    },
+    "XLDragonGold_Flag_9": {
+        "x": 1662,
+        "y": 197,
+        "width": 128,
+        "height": 30
+    },
+    "XLMantisGold_0": {
+        "x": 628,
+        "y": 847,
+        "width": 58,
+        "height": 56
+    },
+    "XLMantisGold_1": {
+        "x": 460,
+        "y": 957,
+        "width": 57,
+        "height": 59
+    },
+    "XLMantisGold_10": {
+        "x": 380,
+        "y": 1965,
+        "width": 74,
+        "height": 82
+    },
+    "XLMantisGold_11": {
+        "x": 216,
+        "y": 1964,
+        "width": 81,
+        "height": 83
+    },
+    "XLMantisGold_12": {
+        "x": 278,
+        "y": 1835,
+        "width": 78,
+        "height": 82
+    },
+    "XLMantisGold_13": {
+        "x": 299,
+        "y": 1965,
+        "width": 79,
+        "height": 82
+    },
+    "XLMantisGold_14": {
+        "x": 129,
+        "y": 1746,
+        "width": 79,
+        "height": 83
+    },
+    "XLMantisGold_15": {
+        "x": 512,
+        "y": 1844,
+        "width": 82,
+        "height": 73
+    },
+    "XLMantisGold_16": {
+        "x": 467,
+        "y": 1455,
+        "width": 80,
+        "height": 71
+    },
+    "XLMantisGold_2": {
+        "x": 498,
+        "y": 683,
+        "width": 62,
+        "height": 63
+    },
+    "XLMantisGold_3": {
+        "x": 330,
+        "y": 814,
+        "width": 65,
+        "height": 64
+    },
+    "XLMantisGold_4": {
+        "x": 199,
+        "y": 161,
+        "width": 63,
+        "height": 69
+    },
+    "XLMantisGold_5": {
+        "x": 696,
+        "y": 1975,
+        "width": 65,
+        "height": 72
+    },
+    "XLMantisGold_6": {
+        "x": 285,
+        "y": 1328,
+        "width": 68,
+        "height": 75
+    },
+    "XLMantisGold_7": {
+        "x": 206,
+        "y": 1241,
+        "width": 76,
+        "height": 77
+    },
+    "XLMantisGold_8": {
+        "x": 358,
+        "y": 1839,
+        "width": 77,
+        "height": 78
+    },
+    "XLMantisGold_9": {
+        "x": 185,
+        "y": 1405,
+        "width": 78,
+        "height": 80
+    },
+    "XLMantisGold_i01": {
+        "x": 887,
+        "y": 356,
+        "width": 48,
+        "height": 54
+    },
+    "XLMantisGold_i02": {
+        "x": 834,
+        "y": 356,
+        "width": 51,
+        "height": 54
+    },
+    "XLMantisGold_i03": {
+        "x": 935,
+        "y": 189,
+        "width": 57,
+        "height": 53
+    },
+    "XLMantisGold_i04": {
+        "x": 645,
+        "y": 1194,
+        "width": 51,
+        "height": 53
+    }
+}

@@ -9,7 +9,8 @@ AnimatedEnemy::AnimatedEnemy(const EnemyDefinition& definition)
       m_animationTimer(0.0f),
       m_currentFrame(0),
       m_deathAnimationTimer(0.0f),
-      m_deathFrame(0)
+      m_deathFrame(0),
+      m_facingSign(1.0f)
 {
     auto found = m_definition.animations.find("idle");
     if(found != m_definition.animations.end())
@@ -26,6 +27,7 @@ void AnimatedEnemy::Activate(const sf::Vector2f& position, const EnemyStats& sta
     m_currentFrame = 0;
     m_deathAnimationTimer = 0.0f;
     m_deathFrame = 0;
+    m_facingSign = 1.0f;
     ApplyFrame();
     SyncSpriteToPosition();
 }
@@ -109,9 +111,9 @@ void AnimatedEnemy::ApplyAnimationFrame(const EnemyAnimationDefinition& animatio
 
     sf::FloatRect bounds = m_sprite.getLocalBounds();
     m_sprite.setOrigin(bounds.left + bounds.width / 2.0f,
-                       bounds.top + bounds.height / 2.0f);
-    const float xDirection = m_sprite.getScale().x < 0.0f ? -1.0f : 1.0f;
-    m_sprite.setScale(xDirection * m_definition.spriteScale, m_definition.spriteScale);
+                       bounds.top + bounds.height);
+    // Note: scale is intentionally NOT set here.
+    // SyncSpriteToPosition() owns the scale and runs after every frame update.
 }
 
 void AnimatedEnemy::UpdateAnimation(float dt)
@@ -179,13 +181,14 @@ void AnimatedEnemy::SyncSpriteToPosition()
 {
     m_sprite.setPosition(m_position);
 
-    const float scale = m_definition.spriteScale;
     if(m_velocity.x < -0.01f)
     {
-        m_sprite.setScale(scale, scale);
+        m_facingSign = 1.0f;
     }
     else if(m_velocity.x > 0.01f)
     {
-        m_sprite.setScale(-scale, scale);
+        m_facingSign = -1.0f;
     }
+    // Always apply the last-known facing so the sprite never snaps when idle
+    m_sprite.setScale(m_facingSign * m_definition.spriteScale, m_definition.spriteScale);
 }

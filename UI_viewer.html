@@ -146,6 +146,14 @@
                 <option value="ui">UI Atlas (UI.png)</option>
                 <option value="items">Items Atlas (items.png)</option>
                 <option value="vfx">VFX Atlas (vfx.png)</option>
+                <option value="enemies">Enemies (enemies.png)</option>
+                <option value="enemies2">Enemies 2 (enemies2.png)</option>
+                <option value="enemies3">Enemies 3 (enemies3.png)</option>
+                <option value="enemies2023">Enemies 2023 (enemies2023.png)</option>
+                <option value="enemies2025">Enemies 2025 (enemies2025.png)</option>
+                <option value="enemiesM">Enemies M (enemiesM.png)</option>
+                <option value="stageEnemies">Stage Enemies Atlas (vs_enemies.png)</option>
+                <option value="forestEnemies">Forest Enemies Atlas (vs_vfx.png)</option>
                 <option value="illustrations">Illustrations Atlas (illustrations.png)</option>
                 <option value="damageNumbers">Damage Numbers Atlas</option>
                 <option value="stageIcons">Stage Icons Atlas (UI_StageIcons.png)</option>
@@ -186,32 +194,86 @@
             ui: {
                 name: "UI Atlas",
                 image: "assets/Graphics/Spritesheets/UI.png",
-                json: "assets/Data/ui_atlas.json"
+                json: "assets/Data/ui_atlas.json",
+                isUnityCoords: true
             },
             items: {
                 name: "Items Atlas",
                 image: "assets/Graphics/Spritesheets/items.png",
-                json: "assets/Data/items_atlas.json"
+                json: "assets/Data/items_atlas.json",
+                isUnityCoords: true
             },
             vfx: {
                 name: "VFX Atlas",
                 image: "assets/Graphics/Spritesheets/vfx.png",
-                json: "assets/Data/vfx_atlas.json"
+                json: "assets/Data/vfx_atlas.json",
+                isUnityCoords: true
+            },
+            enemies: {
+                name: "Enemies Atlas (enemies.png)",
+                image: "assets/images/enemies/enemies.png",
+                json: "assets/Data/enemies_atlas.json",
+                isUnityCoords: true
+            },
+            enemies2: {
+                name: "Enemies 2 Atlas (enemies2.png)",
+                image: "assets/images/enemies/enemies2.png",
+                json: "assets/Data/enemies2_atlas.json",
+                isUnityCoords: true
+            },
+            enemies3: {
+                name: "Enemies 3 Atlas (enemies3.png)",
+                image: "assets/images/enemies/enemies3.png",
+                json: "assets/Data/enemies3_atlas.json",
+                isUnityCoords: true
+            },
+            enemies2023: {
+                name: "Enemies 2023 Atlas (enemies2023.png)",
+                image: "assets/images/enemies/enemies2023.png",
+                json: "assets/Data/enemies2023_atlas.json",
+                isUnityCoords: true
+            },
+            enemies2025: {
+                name: "Enemies 2025 Atlas (enemies2025.png)",
+                image: "assets/images/enemies/enemies2025.png",
+                json: "assets/Data/enemies2025_atlas.json",
+                isUnityCoords: true
+            },
+            enemiesM: {
+                name: "Enemies M Atlas (enemiesM.png)",
+                image: "assets/images/enemies/enemiesM.png",
+                json: "assets/Data/enemiesM_atlas.json",
+                isUnityCoords: true
+            },
+            stageEnemies: {
+                name: "Stage Enemies Atlas",
+                image: "assets/images/enemies/vs_enemies.png",
+                json: "assets/Data/enemies/stage_enemies.json",
+                isUnityCoords: false
+            },
+            forestEnemies: {
+                name: "Forest Enemies Atlas",
+                image: "assets/images/enemies/vs_vfx.png",
+                json: "assets/Data/enemies/forest_enemies.json",
+                isUnityCoords: false
             },
             illustrations: {
                 name: "Illustrations Atlas",
                 image: "assets/Graphics/Spritesheets/illustrations.png",
-                json: "assets/Data/illustration_atlas.json"
+                json: "assets/Data/illustration_atlas.json",
+                isUnityCoords: true
             },
             damageNumbers: {
                 name: "Damage Numbers",
                 image: "assets/Graphics/Spritesheets/UI.png",
-                json: "assets/Data/damage_numbers_atlas.json"
+                json: "assets/Data/damage_numbers_atlas.json",
+                isUnityCoords: true
             },
             stageIcons: {
                 name: "Stage Icons Atlas",
                 image: "assets/Graphics/Spritesheets/UI_StageIcons.png",
-                json: "assets/Data/StageIcons_atlas.json"
+                json: "assets/Data/StageIcons_atlas.json",
+                isUnityCoords: true
             }
         };
 
@@ -258,7 +320,12 @@
                     return response.json();
                 })
                 .then(data => {
-                    sprites = data;
+                    // Extract atlas if nested in enemy format
+                    if (data.atlas) {
+                        sprites = data.atlas;
+                    } else {
+                        sprites = data;
+                    }
                     currentHighlightKey = null;
                     img = new Image();
 
@@ -316,6 +383,14 @@
             drawEverything();
         }
 
+        function getSpriteY(sp) {
+            const sheet = SPRITESHEETS[currentSheetKey];
+            if (sheet && sheet.isUnityCoords) {
+                return img.height - sp.y - sp.height;
+            }
+            return sp.y;
+        }
+
         function drawEverything() {
             if (!img.complete || img.width === 0) return;
 
@@ -332,12 +407,12 @@
             // Draw bounding boxes
             for (let key in sprites) {
                 const sp = sprites[key];
-                const sfmlY = img.height - sp.y - sp.height;
+                const drawY = getSpriteY(sp);
 
                 if (key === currentHighlightKey) {
                     // Blue highlight overlay
                     ctx.fillStyle = 'rgba(0, 122, 204, 0.4)';
-                    ctx.fillRect(sp.x, sfmlY, sp.width, sp.height);
+                    ctx.fillRect(sp.x, drawY, sp.width, sp.height);
 
                     ctx.strokeStyle = '#00aaff';
                     ctx.lineWidth = 2 / scale;
@@ -345,7 +420,7 @@
                     ctx.strokeStyle = 'rgba(0, 122, 204, 0.3)';
                     ctx.lineWidth = 1 / scale;
                 }
-                ctx.strokeRect(sp.x, sfmlY, sp.width, sp.height);
+                ctx.strokeRect(sp.x, drawY, sp.width, sp.height);
             }
 
             ctx.restore();
@@ -379,10 +454,11 @@
             }
 
             const sp = sprites[key];
+            const drawY = getSpriteY(sp);
             document.getElementById('info').innerHTML = `
                 <strong>Name:</strong> ${key}<br>
-                <strong>Unity X, Y:</strong> ${sp.x}, ${sp.y}<br>
-                <strong>SFML X, Y:</strong> ${sp.x}, ${img.height - sp.y - sp.height}<br>
+                <strong>Raw JSON (x, y):</strong> ${sp.x}, ${sp.y}<br>
+                <strong>Canvas/SFML Y:</strong> ${drawY}<br>
                 <strong>Size:</strong> ${sp.width} x ${sp.height}
             `;
 
@@ -403,9 +479,9 @@
             const sp = sprites[key];
             if (!sp) return;
 
-            const sfmlY = img.height - sp.y - sp.height;
+            const drawY = getSpriteY(sp);
             const cx = sp.x + sp.width / 2;
-            const cy = sfmlY + sp.height / 2;
+            const cy = drawY + sp.height / 2;
 
             // Calculate ideal scale to fit sprite with padding
             const padding = 100;
@@ -496,10 +572,10 @@
             let found = null;
             for (let key in sprites) {
                 const sp = sprites[key];
-                const sfmlY = img.height - sp.y - sp.height;
+                const drawY = getSpriteY(sp);
 
                 if (worldX >= sp.x && worldX <= sp.x + sp.width &&
-                    worldY >= sfmlY && worldY <= sfmlY + sp.height) {
+                    worldY >= drawY && worldY <= drawY + sp.height) {
                     found = key;
                     break;
                 }

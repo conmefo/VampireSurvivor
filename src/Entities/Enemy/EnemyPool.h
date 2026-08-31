@@ -65,6 +65,7 @@ struct EnemyHotSoA
     std::vector<uint8_t> flags; // Bit 0: Active, Bit 1: Dying, Bit 2: Boss
     std::vector<float> deathTimer;
     std::vector<float> flashTimer;
+    std::vector<float> animTimer;
 
     void Reserve(std::size_t capacity);
 };

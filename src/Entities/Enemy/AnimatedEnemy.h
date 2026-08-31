@@ -27,4 +27,5 @@ private:
     int m_currentFrame;
     float m_deathAnimationTimer;
     int m_deathFrame;
+    float m_facingSign; // +1 = left, -1 = right (matches sprite scale convention)
 };

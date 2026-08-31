@@ -37,6 +37,7 @@ void EnemyHotSoA::Reserve(std::size_t capacity)
     flags.resize(capacity, 0);
     deathTimer.resize(capacity, 0.0f);
     flashTimer.resize(capacity, 0.0f);
+    animTimer.resize(capacity, 0.0f);
 }
 
 EnemyPool::EnemyPool(const EnemyDatabase& enemyDatabase, std::size_t initialCapacity)
@@ -170,6 +171,10 @@ EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& po
     m_hot.flags[sparseIndex] = 1; // Active bit
     m_hot.deathTimer[sparseIndex] = 0.0f;
     m_hot.flashTimer[sparseIndex] = 0.0f;
+    // Stagger each enemy's animation phase so frames advance independently
+    const int frameCount = static_cast<int>(typeData.animFrames.size());
+    const float animPeriod = typeData.frameDuration * (frameCount > 0 ? static_cast<float>(frameCount) : 1.0f);
+    m_hot.animTimer[sparseIndex] = (static_cast<float>(QuickHash(sparseIndex) % 1000) / 1000.0f) * animPeriod;
 
     // Sync legacy wrapper
     if (sparseIndex < m_legacyPool.size())
@@ -274,6 +279,9 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
             continue;
         }
 
+        // Per-enemy animation timer
+        m_hot.animTimer[idx] += dt;
+
         // Flashing damage timer
         if (m_hot.flashTimer[idx] > 0.0f)
         {
@@ -363,9 +371,9 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
                     if (distSq < minDistance * minDistance && distSq > 0.0001f)
                     {
                         const float dist = std::sqrt(distSq);
-                        const float overlap = (minDistance - dist) * 0.5f;
-                        const float pushX = (dx / dist) * overlap;
-                        const float pushY = (dy / dist) * overlap;
+                        const float overlap = (minDistance - dist);
+                        const float pushX = (dx / dist) * overlap * 10.0f;
+                        const float pushY = (dy / dist) * overlap * 10.0f;
 
                         m_pushX[sparseA] -= pushX;
                         m_pushY[sparseA] -= pushY;
@@ -406,9 +414,9 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
                         if (distSq < minDistance * minDistance && distSq > 0.0001f)
                         {
                             const float dist = std::sqrt(distSq);
-                            const float overlap = (minDistance - dist) * 0.5f;
-                            const float pushX = (dx / dist) * overlap;
-                            const float pushY = (dy / dist) * overlap;
+                            const float overlap = (minDistance - dist);
+                            const float pushX = (dx / dist) * overlap * 10.0f;
+                            const float pushY = (dy / dist) * overlap * 10.0f;
 
                             m_pushX[sparseA] -= pushX;
                             m_pushY[sparseA] -= pushY;
@@ -421,7 +429,9 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
         }
     }
 
-    // Step 4: Apply position updates and clamped crowd push forces
+    // Step 4: Apply position updates + Player Solid Wall constraint
+    constexpr float PlayerColliderRadius = 14.0f;
+
     for (uint32_t i = 0; i < m_activeCount; ++i)
     {
         const uint32_t idx = m_activeIndices[i];
@@ -430,11 +440,25 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
             continue;
         }
 
-        float pX = std::clamp(m_pushX[idx], -MaxSeparationForce, MaxSeparationForce);
-        float pY = std::clamp(m_pushY[idx], -MaxSeparationForce, MaxSeparationForce);
+        const float pX = std::clamp(m_pushX[idx], -180.0f, 180.0f);
+        const float pY = std::clamp(m_pushY[idx], -180.0f, 180.0f);
 
-        m_hot.x[idx] += (m_hot.vx[idx] * dt) + pX;
-        m_hot.y[idx] += (m_hot.vy[idx] * dt) + pY;
+        m_hot.x[idx] += (m_hot.vx[idx] + pX) * dt;
+        m_hot.y[idx] += (m_hot.vy[idx] + pY) * dt;
+
+        // Player wall collision: prevent enemy from penetrating player bounds
+        const float pdx = m_hot.x[idx] - targetPosition.x;
+        const float pdy = m_hot.y[idx] - targetPosition.y;
+        const float pDistSq = pdx * pdx + pdy * pdy;
+        const float minPlayerDist = PlayerColliderRadius + m_hot.radius[idx];
+
+        if (pDistSq < minPlayerDist * minPlayerDist && pDistSq > 0.0001f)
+        {
+            const float pDist = std::sqrt(pDistSq);
+            const float pushFactor = minPlayerDist / pDist;
+            m_hot.x[idx] = targetPosition.x + pdx * pushFactor;
+            m_hot.y[idx] = targetPosition.y + pdy * pushFactor;
+        }
     }
 
     // Process queued damage and death events
@@ -659,9 +683,8 @@ void EnemyPool::Draw(sf::RenderTarget& target)
 
         if (frameCount > 1)
         {
-            const uint32_t hashVal = QuickHash(idx);
-            const int globalTick = static_cast<int>(m_globalTime / typeData.frameDuration);
-            frameIdx = static_cast<uint8_t>((globalTick + hashVal) % frameCount);
+            frameIdx = static_cast<uint8_t>(
+                static_cast<int>(m_hot.animTimer[idx] / typeData.frameDuration) % frameCount);
         }
 
         RenderEnemy ren;
@@ -732,7 +755,7 @@ void EnemyPool::Draw(sf::RenderTarget& target)
             }
 
             const float halfW = (texRect.width * typeData.spriteScale) * 0.5f;
-            const float halfH = (texRect.height * typeData.spriteScale) * 0.5f;
+            const float fullH = texRect.height * typeData.spriteScale;
 
             sf::Color renderColor = sf::Color::White;
             if (ren.isFlashing)
@@ -745,9 +768,9 @@ void EnemyPool::Draw(sf::RenderTarget& target)
             }
 
             const float left = ren.x - halfW;
-            const float top = ren.y - halfH;
+            const float top = ren.y - fullH;
             const float right = ren.x + halfW;
-            const float bottom = ren.y + halfH;
+            const float bottom = ren.y;
 
             const float texL = static_cast<float>(texRect.left);
             const float texT = static_cast<float>(texRect.top);
