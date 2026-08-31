@@ -44,6 +44,7 @@ enum class BgmID
     MainMenu,
     StageForest,
     StageLibrary,
+    StagePlant,
     GameOver,
     Victory
 };

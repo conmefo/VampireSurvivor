@@ -38,7 +38,10 @@ class TreasureRewardView;
 
 class GameState : public BaseState {
   public:
-    GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds);
+    GameState(StateContext context,
+              TileMapManager& mapManager,
+              const std::vector<std::string>& selectedCharacterIds,
+              int stageId);
     ~GameState() override;
 
     void Init() override;

@@ -28,6 +28,7 @@ void AudioManager::Initialize(const std::string& sfxAssetsPath, const std::strin
     m_bgmPlayer.RegisterTrack(BgmID::MainMenu, bgmBase + "VS_Music_v04-01.ogg");
     m_bgmPlayer.RegisterTrack(BgmID::StageForest, bgmBase + "bgm_elrond_forest.ogg");
     m_bgmPlayer.RegisterTrack(BgmID::StageLibrary, bgmBase + "bgm_library.ogg");
+    m_bgmPlayer.RegisterTrack(BgmID::StagePlant, bgmBase + "bgm_elrond_plant.ogg");
     m_bgmPlayer.RegisterTrack(BgmID::GameOver, bgmBase + "bgm_TheEndMain.ogg");
     m_bgmPlayer.RegisterTrack(BgmID::Victory, bgmBase + "bgm_TheEndIntro.ogg");
 

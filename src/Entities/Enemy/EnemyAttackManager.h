@@ -2,7 +2,6 @@
 
 #include <SFML/Graphics.hpp>
 
-#include <functional>
 #include <memory>
 #include <unordered_map>
 #include <unordered_set>
@@ -19,13 +18,10 @@ class EnemyAttackManager
 public:
     void Initialize(const TextureAtlas& atlas);
     void Clear();
-    void SetOnBossBurst(std::function<void(const sf::Vector2f&)> callback) { m_onBossBurst = std::move(callback); }
-
     void Update(
         float dt,
         const std::vector<EnemyBase*>& enemies,
-        const std::vector<std::unique_ptr<Player>>& players,
-        const std::unordered_set<EnemyBase*>& bossEnemies);
+        const std::vector<std::unique_ptr<Player>>& players);
 
     void Draw(sf::RenderTarget& target) const;
 
@@ -37,7 +33,6 @@ private:
         float cooldown = 0.35f;
         float telegraphRemaining = 0.0f;
         sf::Vector2f aimPosition{0.0f, 0.0f};
-        bool bossBurst = false;
     };
 
     struct Projectile
@@ -60,7 +55,6 @@ private:
         const std::vector<std::unique_ptr<Player>>& players);
 
     void FireSingleProjectile(const EnemyBase& enemy, const AttackState& state);
-    void FireBossBurst(const EnemyBase& enemy);
     void SpawnProjectile(
         const sf::Vector2f& position,
         const sf::Vector2f& velocity,
@@ -78,7 +72,4 @@ private:
     sf::IntRect m_authenticEnemyProjectileRect{704, 243, 15, 15};
     const sf::Texture* m_normalProjectileTexture = nullptr;
     sf::IntRect m_normalProjectileRect;
-    const sf::Texture* m_bossProjectileTexture = nullptr;
-    sf::IntRect m_bossProjectileRect;
-    std::function<void(const sf::Vector2f&)> m_onBossBurst;
 };

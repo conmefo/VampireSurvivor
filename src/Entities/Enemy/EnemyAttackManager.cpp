@@ -13,11 +13,6 @@
 namespace
 {
 constexpr float Pi = 3.14159265358979323846f;
-constexpr float DefaultBossAttackRange = 420.0f;
-constexpr float DefaultBossCooldown = 3.4f;
-constexpr float DefaultBossTelegraph = 0.9f;
-constexpr int BossProjectileCount = 8;
-constexpr float BossProjectileDamageMultiplier = 0.6f;
 }
 
 void EnemyAttackManager::Initialize(const TextureAtlas& atlas)
@@ -44,8 +39,6 @@ void EnemyAttackManager::Initialize(const TextureAtlas& atlas)
     {
         m_normalProjectileTexture = &m_authenticEnemyProjectileTexture;
         m_normalProjectileRect = m_authenticEnemyProjectileRect;
-        m_bossProjectileTexture = &m_authenticEnemyProjectileTexture;
-        m_bossProjectileRect = m_authenticEnemyProjectileRect;
         return;
     }
 
@@ -55,16 +48,8 @@ void EnemyAttackManager::Initialize(const TextureAtlas& atlas)
         normalProjectile = atlas.GetTextureData("ProjectileBullet");
     }
 
-    AssetTextureData bossProjectile = atlas.GetTextureData("BulletRed");
-    if(!bossProjectile.texture)
-    {
-        bossProjectile = atlas.GetTextureData("ProjectileBullet");
-    }
-
     m_normalProjectileTexture = normalProjectile.texture;
     m_normalProjectileRect = normalProjectile.rect;
-    m_bossProjectileTexture = bossProjectile.texture;
-    m_bossProjectileRect = bossProjectile.rect;
 }
 
 float EnemyAttackManager::Length(const sf::Vector2f& value)
@@ -118,8 +103,7 @@ void EnemyAttackManager::Clear()
 void EnemyAttackManager::Update(
     float dt,
     const std::vector<EnemyBase*>& enemies,
-    const std::vector<std::unique_ptr<Player>>& players,
-    const std::unordered_set<EnemyBase*>& bossEnemies)
+    const std::vector<std::unique_ptr<Player>>& players)
 {
     dt = std::max(0.0f, dt);
 
@@ -133,7 +117,6 @@ void EnemyAttackManager::Update(
             continue;
         }
 
-        const bool isBoss = bossEnemies.find(enemy) != bossEnemies.end();
         const bool hasRangedAttack = enemy->HasRangedAttack();
         if(!hasRangedAttack)
         {
@@ -155,18 +138,8 @@ void EnemyAttackManager::Update(
             state.telegraphRemaining = std::max(0.0f, state.telegraphRemaining - dt);
             if(state.telegraphRemaining <= 0.0f)
             {
-                if(state.bossBurst)
-                {
-                    FireBossBurst(*enemy);
-                }
-                else
-                {
-                    FireSingleProjectile(*enemy, state);
-                }
-
-                state.cooldown = isBoss
-                    ? (enemy->GetAttackCooldown() > 0.0f ? enemy->GetAttackCooldown() : DefaultBossCooldown)
-                    : enemy->GetAttackCooldown();
+                FireSingleProjectile(*enemy, state);
+                state.cooldown = enemy->GetAttackCooldown();
             }
             continue;
         }
@@ -174,9 +147,7 @@ void EnemyAttackManager::Update(
         const sf::Vector2f enemyPosition = enemy->GetCollisionCenter();
         const sf::Vector2f targetPosition = target->GetCenterPosition();
         const float distance = Length(targetPosition - enemyPosition);
-        const float attackRange = isBoss
-            ? std::max(DefaultBossAttackRange, enemy->GetAttackRange())
-            : enemy->GetAttackRange();
+        const float attackRange = enemy->GetAttackRange();
 
         if(distance > attackRange || state.cooldown > 0.0f)
         {
@@ -184,10 +155,7 @@ void EnemyAttackManager::Update(
         }
 
         state.aimPosition = targetPosition;
-        state.bossBurst = isBoss;
-        state.telegraphRemaining = isBoss
-            ? std::max(DefaultBossTelegraph, enemy->GetAttackTelegraph())
-            : std::max(0.15f, enemy->GetAttackTelegraph());
+        state.telegraphRemaining = std::max(0.15f, enemy->GetAttackTelegraph());
     }
 
     for(auto it = m_attackStates.begin(); it != m_attackStates.end();)
@@ -259,34 +227,6 @@ void EnemyAttackManager::FireSingleProjectile(const EnemyBase& enemy, const Atta
         sf::Color(255, 170, 70, 245),
         m_normalProjectileTexture,
         m_normalProjectileRect);
-}
-
-void EnemyAttackManager::FireBossBurst(const EnemyBase& enemy)
-{
-    const sf::Vector2f origin = enemy.GetCollisionCenter();
-    const float speed = std::max(160.0f, enemy.GetProjectileSpeed());
-    const float damage = enemy.GetProjectileDamage() * BossProjectileDamageMultiplier;
-
-    for(int index = 0; index < BossProjectileCount; ++index)
-    {
-        const float angle = (2.0f * Pi * static_cast<float>(index)) /
-                            static_cast<float>(BossProjectileCount);
-        const sf::Vector2f direction(std::cos(angle), std::sin(angle));
-        SpawnProjectile(
-            origin,
-            direction * speed,
-            damage,
-            std::max(8.0f, enemy.GetProjectileRadius()),
-            std::max(5.0f, enemy.GetProjectileLifetime()),
-            sf::Color(255, 70, 100, 245),
-            m_bossProjectileTexture,
-            m_bossProjectileRect);
-    }
-
-    if(m_onBossBurst)
-    {
-        m_onBossBurst(origin);
-    }
 }
 
 void EnemyAttackManager::SpawnProjectile(

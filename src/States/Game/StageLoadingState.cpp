@@ -117,7 +117,8 @@ void StageLoadingState::Update(float dt)
         
         // Transition to GameState
         m_context.stateManager.PopState();
-        m_context.stateManager.AddState(std::make_unique<GameState>(m_context, m_mapManager, m_characterIds));
+        m_context.stateManager.AddState(
+            std::make_unique<GameState>(m_context, m_mapManager, m_characterIds, m_stageId));
     }
 }
 

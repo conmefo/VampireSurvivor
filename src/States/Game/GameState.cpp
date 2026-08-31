@@ -102,15 +102,24 @@ const char *GetStageWaveKey(int stageNumber) {
     return stageNumber == 3 ? "WAREHOUSE" : "LIBRARY";
 }
 
-bool StartsWith(const std::string& value, const char* prefix) {
-    return value.rfind(prefix, 0) == 0;
+BgmID GetStageBgm(int stageNumber)
+{
+    if(stageNumber == 3)
+    {
+        return BgmID::StagePlant;
+    }
+    return stageNumber == 2 ? BgmID::StageLibrary : BgmID::StageForest;
 }
 
 static bool s_disableLevelUpUI = false;
 } // namespace
 
-GameState::GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds)
+GameState::GameState(StateContext context,
+                     TileMapManager& mapManager,
+                     const std::vector<std::string>& selectedCharacterIds,
+                     int stageId)
     : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterIds(selectedCharacterIds)
+    , m_currentStage(stageId)
     , m_weaponFactory(m_context.weaponData) {}
 
 GameState::~GameState()
@@ -130,9 +139,6 @@ void GameState::Init() {
 
     m_vfxManager.Initialize(m_context.atlas);
     m_enemyAttackManager.Initialize(m_context.atlas);
-    m_enemyAttackManager.SetOnBossBurst([this](const sf::Vector2f& position) {
-        m_stageHazards.SpawnCircle(position, 52.0f, 2.4f, 3.0f);
-    });
     m_particleManager.Initialize(&m_context.atlas, &m_context.particleData);
     m_projectileManager.Initialize(&m_particleManager);
     m_experienceGems.Initialize(m_context.atlas);
@@ -159,10 +165,10 @@ void GameState::Init() {
         std::cerr << "GameState: failed to load stage wave data" << std::endl;
     }
 
-    LoadStage(1);
+    LoadStage(m_currentStage);
 
     // Start stage BGM
-    m_context.audio.PlayMusic(BgmID::StageForest);
+    m_context.audio.PlayMusic(GetStageBgm(m_currentStage));
 
     m_players.clear();
     m_playerHUDs.clear();
@@ -816,7 +822,7 @@ void GameState::Update(float dt) {
     }
 
     const std::vector<EnemyBase*> activeEnemies = m_enemyPool.GetActiveEnemies();
-    m_enemyAttackManager.Update(dt, activeEnemies, m_players, m_bossEnemies);
+    m_enemyAttackManager.Update(dt, activeEnemies, m_players);
 
     m_projectileManager.SetViewBounds(GetViewBounds());
     m_projectileManager.Update(dt);
@@ -1447,20 +1453,7 @@ void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
             continue;
         }
 
-        EnemyStats bossStats = ApplyStageEnemyModifiers(definition->stats);
-        bossStats.maxHealth = std::max(80.0f, bossStats.maxHealth * 8.0f);
-        bossStats.damage = std::max(3.0f, bossStats.damage * 1.5f);
-        bossStats.speed *= 0.78f;
-        bossStats.collisionRadius = std::max(22.0f, bossStats.collisionRadius * 1.35f);
-        bossStats.expYield *= 5.0f;
-        bossStats.isRanged = true;
-        bossStats.attackRange = 420.0f;
-        bossStats.attackCooldown = 3.4f;
-        bossStats.attackTelegraph = 0.8f;
-        bossStats.projectileSpeed = 220.0f;
-        bossStats.projectileDamage = std::max(3.0f, bossStats.damage * 0.75f);
-        bossStats.projectileLifetime = 4.5f;
-        bossStats.projectileRadius = 8.0f;
+        const EnemyStats bossStats = ApplyStageEnemyModifiers(definition->stats);
 
         const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor++);
         if(EnemyBase* boss = m_enemyPool.Acquire(resolvedBossId, spawnPosition, bossStats))
@@ -1501,20 +1494,7 @@ void GameState::StartFinalEncounter()
     }
 
     const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(bossId);
-    EnemyStats stats = ApplyStageEnemyModifiers(definition->stats);
-    stats.maxHealth = std::max(500.0f, stats.maxHealth * 16.0f);
-    stats.speed = std::max(35.0f, stats.speed * 0.58f);
-    stats.damage = std::max(8.0f, stats.damage * 2.0f);
-    stats.collisionRadius = std::max(34.0f, stats.collisionRadius * 2.0f);
-    stats.expYield *= 12.0f;
-    stats.isRanged = true;
-    stats.attackRange = 450.0f;
-    stats.attackCooldown = 2.6f;
-    stats.attackTelegraph = 0.75f;
-    stats.projectileSpeed = 270.0f;
-    stats.projectileDamage = std::max(6.0f, stats.damage * 0.8f);
-    stats.projectileLifetime = 4.5f;
-    stats.projectileRadius = 10.0f;
+    const EnemyStats stats = ApplyStageEnemyModifiers(definition->stats);
 
     const sf::FloatRect bounds = GetViewBounds();
     const sf::Vector2f spawnPosition(bounds.left + bounds.width + 120.0f, bounds.top + bounds.height * 0.5f);
@@ -1522,7 +1502,6 @@ void GameState::StartFinalEncounter()
     if(m_finalBoss)
     {
         m_bossEnemies.insert(m_finalBoss);
-        m_stageHazards.SpawnCircle(spawnPosition, 72.0f, 2.0f, 4.0f);
     }
     else
     {
@@ -1669,73 +1648,7 @@ bool GameState::RollStageEventChance(float chance)
 
 std::string GameState::ResolveSpawnEnemyId(const std::string& requestedId) const
 {
-    if(m_enemyDatabase.HasDefinition(requestedId))
-    {
-        return requestedId;
-    }
-
-    if((requestedId == "BAT4" || requestedId == "BAT5") && m_enemyDatabase.HasDefinition("XLBAT")) return "XLBAT";
-    if((requestedId == "BAT4" || requestedId == "BAT5" || StartsWith(requestedId, "XLBAT")) &&
-       m_enemyDatabase.HasDefinition("BUER")) return "BUER";
-    if(StartsWith(requestedId, "BAT") && m_enemyDatabase.HasDefinition("BAT1")) return "BAT1";
-    if(StartsWith(requestedId, "BOSS_WEREWOLF") && m_enemyDatabase.HasDefinition("WEREWOLF")) return "WEREWOLF";
-    if(StartsWith(requestedId, "BOSS_XLDEATH") && m_enemyDatabase.HasDefinition("XLMANTIS")) return "XLMANTIS";
-    if(StartsWith(requestedId, "BOSS_XLDEATH") && m_enemyDatabase.HasDefinition("XLBAT")) return "XLBAT";
-    if(StartsWith(requestedId, "BOSS_XLFLOWER") && m_enemyDatabase.HasDefinition("XLFLOWER")) return "XLFLOWER";
-    if(StartsWith(requestedId, "BOSS_XLMANTIS") && m_enemyDatabase.HasDefinition("XLMANTIS")) return "XLMANTIS";
-    if(StartsWith(requestedId, "BOSS_XLMUMMY") && m_enemyDatabase.HasDefinition("XLMUMMY")) return "XLMUMMY";
-    if(StartsWith(requestedId, "BOSS_XLMUMMY") && m_enemyDatabase.HasDefinition("XLMANTIS")) return "XLMANTIS";
-    if(StartsWith(requestedId, "FLOWER") && m_enemyDatabase.HasDefinition("XLFLOWER")) return "XLFLOWER";
-    if(StartsWith(requestedId, "MUDMAN") && m_enemyDatabase.HasDefinition("MUDMAN1")) return "MUDMAN1";
-    if(StartsWith(requestedId, "BOSS_MUD") && m_enemyDatabase.HasDefinition("MUD")) return "MUD";
-    if(StartsWith(requestedId, "MUD") && m_enemyDatabase.HasDefinition("MUD")) return "MUD";
-    if(StartsWith(requestedId, "GHOST") && m_enemyDatabase.HasDefinition("GHOST")) return "GHOST";
-    if(StartsWith(requestedId, "SKELETON") && m_enemyDatabase.HasDefinition("SKELETON")) return "SKELETON";
-    if(StartsWith(requestedId, "ZOMBIE") && m_enemyDatabase.HasDefinition("ZOMBIE")) return "ZOMBIE";
-    if(StartsWith(requestedId, "BOSS_ECTO") && m_enemyDatabase.HasDefinition("ECTO1")) return "ECTO1";
-    if(StartsWith(requestedId, "ECTO") && m_enemyDatabase.HasDefinition("ECTO1")) return "ECTO1";
-    if(StartsWith(requestedId, "BOSS_MEDUSA") && m_enemyDatabase.HasDefinition("MEDUSA1")) return "MEDUSA1";
-    if(StartsWith(requestedId, "MEDUSA") && m_enemyDatabase.HasDefinition("MEDUSA1")) return "MEDUSA1";
-    if(StartsWith(requestedId, "MUMMY") && m_enemyDatabase.HasDefinition("MUMMY")) return "MUMMY";
-    if(StartsWith(requestedId, "BOSS_MERMAN") && m_enemyDatabase.HasDefinition("FISHMAN_1")) return "FISHMAN_1";
-    if(StartsWith(requestedId, "MERMA") && m_enemyDatabase.HasDefinition("FISHMAN_1")) return "FISHMAN_1";
-    if(StartsWith(requestedId, "MILK") && m_enemyDatabase.HasDefinition("MILK")) return "MILK";
-    if(StartsWith(requestedId, "FISHMAN") && m_enemyDatabase.HasDefinition("FISHMAN_1")) return "FISHMAN_1";
-    if(StartsWith(requestedId, "LIZARD1") && m_enemyDatabase.HasDefinition("LIZARD1_2")) return "LIZARD1_2";
-    if(StartsWith(requestedId, "LIZARD2") && m_enemyDatabase.HasDefinition("LIZARD2_3")) return "LIZARD2_3";
-    if(StartsWith(requestedId, "BOSS_PILE") && m_enemyDatabase.HasDefinition("PILE3")) return "PILE3";
-    if(StartsWith(requestedId, "PILE") && m_enemyDatabase.HasDefinition("PILE1")) return "PILE1";
-    if(StartsWith(requestedId, "DULL") && m_enemyDatabase.HasDefinition("DULL0")) return "DULL0";
-    if(StartsWith(requestedId, "BOSS_WITCH") && m_enemyDatabase.HasDefinition("WITCH2")) return "WITCH2";
-    if(StartsWith(requestedId, "WITCH") && m_enemyDatabase.HasDefinition("WITCH1")) return "WITCH1";
-    if(StartsWith(requestedId, "BOSS_BUER") && m_enemyDatabase.HasDefinition("BUER")) return "BUER";
-    if(StartsWith(requestedId, "BUER") && m_enemyDatabase.HasDefinition("BUER")) return "BUER";
-    if(StartsWith(requestedId, "SKULL") && m_enemyDatabase.HasDefinition("SKULLNOAURA")) return "SKULLNOAURA";
-    if(StartsWith(requestedId, "SKULL") && m_enemyDatabase.HasDefinition("SKELETON")) return "SKELETON";
-    if(StartsWith(requestedId, "SKELENIN") && m_enemyDatabase.HasDefinition("SKELENIN1")) return "SKELENIN1";
-    if(StartsWith(requestedId, "JELLYFISH") && m_enemyDatabase.HasDefinition("JELLYFISH")) return "JELLYFISH";
-    if(StartsWith(requestedId, "GOLEM") && m_enemyDatabase.HasDefinition("GOLEM1")) return "GOLEM1";
-    if(StartsWith(requestedId, "BOSS_MIGNO") && m_enemyDatabase.HasDefinition("MIGNO1_5")) return "MIGNO1_5";
-    if(StartsWith(requestedId, "MIGNO") && m_enemyDatabase.HasDefinition("MIGNO1_5")) return "MIGNO1_5";
-    if(StartsWith(requestedId, "BOSS_ARMOR") && m_enemyDatabase.HasDefinition("ARMOR_6")) return "ARMOR_6";
-    if(StartsWith(requestedId, "XLBAT") && m_enemyDatabase.HasDefinition("XLBAT")) return "XLBAT";
-    if(StartsWith(requestedId, "XLMANTIS") && m_enemyDatabase.HasDefinition("XLMANTIS")) return "XLMANTIS";
-    if(StartsWith(requestedId, "XLFLOWER") && m_enemyDatabase.HasDefinition("XLFLOWER")) return "XLFLOWER";
-    if(StartsWith(requestedId, "BOSS_XLMEDUSA") && m_enemyDatabase.HasDefinition("XLMEDUSA")) return "XLMEDUSA";
-    if(StartsWith(requestedId, "XLMEDUSA") && m_enemyDatabase.HasDefinition("XLMEDUSA")) return "XLMEDUSA";
-    if(StartsWith(requestedId, "XLMUMMY") && m_enemyDatabase.HasDefinition("XLMUMMY")) return "XLMUMMY";
-    if(StartsWith(requestedId, "XLMUMMY") && m_enemyDatabase.HasDefinition("XLMANTIS")) return "XLMANTIS";
-    if(StartsWith(requestedId, "BOSS_XLTRITON") && m_enemyDatabase.HasDefinition("XLTRITON")) return "XLTRITON";
-    if(StartsWith(requestedId, "XLTRITON") && m_enemyDatabase.HasDefinition("XLTRITON")) return "XLTRITON";
-    if(StartsWith(requestedId, "BOSS_XLCOCKATRICE") && m_enemyDatabase.HasDefinition("XLCOCKATRICE")) return "XLCOCKATRICE";
-    if(StartsWith(requestedId, "XLCOCKATRICE") && m_enemyDatabase.HasDefinition("XLCOCKATRICE")) return "XLCOCKATRICE";
-    if(StartsWith(requestedId, "BOSS_XLGOLEM") && m_enemyDatabase.HasDefinition("XLGOLEM1")) return "XLGOLEM1";
-    if(StartsWith(requestedId, "XLGOLEM") && m_enemyDatabase.HasDefinition("XLGOLEM1")) return "XLGOLEM1";
-    if(StartsWith(requestedId, "BOSS_XLARMOR") && m_enemyDatabase.HasDefinition("XLARMOR_SWORD")) return "XLARMOR_SWORD";
-    if(StartsWith(requestedId, "XLARMOR") && m_enemyDatabase.HasDefinition("XLARMOR_SWORD")) return "XLARMOR_SWORD";
-
-    std::cerr << "GameState: missing enemy definition for wave id " << requestedId << std::endl;
-    return "";
+    return m_enemyDatabase.HasDefinition(requestedId) ? requestedId : "";
 }
 
 void GameState::UpdateStageTimer(float dt)

@@ -2,6 +2,7 @@
 #include "../Game/StageLoadingState.h"
 #include "../StateManager.h"
 #include "../../Core/WindowSettings.h"
+#include <algorithm>
 #include <iostream>
 
 StageSelectionScreen::StageSelectionScreen(StateContext context, TileMapManager& mapManager, std::vector<std::string> selectedCharacterIds)
@@ -15,6 +16,13 @@ void StageSelectionScreen::Init()
 {
     m_stageWaveData.LoadData("assets/Data/STAGE_DATA.json");
     std::vector<StageInfo> stages = m_stageWaveData.GetOrderedStageInfos();
+    const std::vector<std::string> supportedStageKeys = { "FOREST", "LIBRARY", "WAREHOUSE" };
+    stages.erase(
+        std::remove_if(stages.begin(), stages.end(), [&supportedStageKeys](const StageInfo& stage) {
+            return std::find(supportedStageKeys.begin(), supportedStageKeys.end(), stage.stageKey) ==
+                supportedStageKeys.end();
+        }),
+        stages.end());
 
     const sf::Font* font = m_context.fonts.GetPtr(FontID::Main);
     const sf::Font* boldFont = m_context.fonts.GetPtr(FontID::Bold);
