@@ -31,24 +31,21 @@
 
 namespace {
 constexpr std::size_t MaxRuntimeEnemies = 2000;
-constexpr int MaxOpeningSpawns = 12;
-constexpr int MaxSpawnBatchPerTick = 3;
+constexpr float GameplayEnemySpeedMultiplier = 0.75f;
 constexpr int MaxEventSpawnBatchPerTick = 4;
 constexpr int MaxEventSpawnsPerTrigger = 16;
 constexpr int MaxQueuedEventSpawns = 32;
 constexpr int DefaultEventSpawnCount = 8;
-constexpr float MinWaveSpawnIntervalSeconds = 0.15f;
 constexpr float EventSpawnCooldownSeconds = 0.1f;
 constexpr float DefaultEventRepeatIntervalMs = 1000.0f;
 constexpr float MinEventRepeatIntervalMs = 250.0f;
 constexpr float Pi = 3.14159265358979323846f;
 
-bool IsSupportedStageEvent(const std::string& eventType)
+bool IsSupportedStageEvent(const std::string&)
 {
-    return eventType == "BAT_SWARM" ||
-           eventType == "GENERIC_SWARM" ||
-           eventType == "FLOWER_WALL" ||
-           eventType == "MEDUSA_WALL";
+    // These events are individual VS behaviours (walls, swarms, bombs, etc.).
+    // Do not substitute generic enemies until each behaviour is implemented.
+    return false;
 }
 
 float GetStageEventRepeatIntervalMs(const StageWaveEvent& event)
@@ -442,18 +439,18 @@ void GameState::Init() {
 }
 
 void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
+    if(m_treasureRewardView && m_treasureRewardView->IsVisible())
+    {
+        m_treasureRewardView->HandleEvent(event, &window);
+        return;
+    }
+
     if (m_levelUpController.IsSessionActive())
     {
         if (m_levelUpView)
         {
             m_levelUpView->HandleEvent(event, window);
         }
-        return;
-    }
-
-    if(m_treasureRewardView && m_treasureRewardView->IsVisible())
-    {
-        m_treasureRewardView->HandleEvent(event, &window);
         return;
     }
 
@@ -1026,6 +1023,7 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_runGoldDisplay->Draw(window);
     }
 
+#ifndef NDEBUG
     const sf::Font* debugFont = m_context.fonts.GetPtr(FontID::Main);
     if (debugFont)
     {
@@ -1042,6 +1040,7 @@ void GameState::Draw(sf::RenderWindow &window) {
         enemyHudText.setString(hudStr);
         window.draw(enemyHudText);
     }
+#endif
 
     window.setView(previousView);
 
@@ -1098,7 +1097,8 @@ void GameState::Draw(sf::RenderWindow &window) {
         window.setView(previousView);
     }
 
-    if(m_levelUpController.IsSessionActive() && m_levelUpView)
+    if((!m_treasureRewardView || !m_treasureRewardView->IsVisible()) &&
+       m_levelUpController.IsSessionActive() && m_levelUpView)
     {
         sf::View levelUpUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
         levelUpUiView.setViewport(viewport);
@@ -1205,7 +1205,7 @@ void GameState::ResetStageSpawner()
 
     const int requestedOpeningSpawns =
         m_currentWave->startingSpawns > 0 ? m_currentWave->startingSpawns : m_currentWave->minimum;
-    const int openingSpawns = std::min(requestedOpeningSpawns, MaxOpeningSpawns);
+    const int openingSpawns = std::max(0, requestedOpeningSpawns);
 
     for(int i = 0; i < openingSpawns; ++i)
     {
@@ -1261,21 +1261,17 @@ void GameState::UpdateStageSpawner(float dt)
     }
 
     m_waveSpawnTimer += dt;
-    const float spawnInterval =
-        std::max(MinWaveSpawnIntervalSeconds, m_currentWave->frequencyMs / 1000.0f);
-    if(m_waveSpawnTimer < spawnInterval)
+    const float spawnInterval = std::max(0.001f, m_currentWave->frequencyMs / 1000.0f);
+    std::size_t spawnedCount = activeCount;
+    while(m_waveSpawnTimer >= spawnInterval && spawnedCount < targetCount)
     {
-        return;
-    }
-
-    m_waveSpawnTimer = 0.0f;
-    const std::size_t missingCount = targetCount - activeCount;
-    const int spawnCount = static_cast<int>(std::min<std::size_t>(missingCount, MaxSpawnBatchPerTick));
-    for(int i = 0; i < spawnCount; ++i)
-    {
+        m_waveSpawnTimer -= spawnInterval;
         const std::string& enemyId =
             m_currentWave->enemies[static_cast<std::size_t>(m_waveSpawnCursor) % m_currentWave->enemies.size()];
-        SpawnWaveEnemy(enemyId);
+        if(SpawnWaveEnemy(enemyId))
+        {
+            ++spawnedCount;
+        }
     }
 }
 
@@ -1432,6 +1428,11 @@ EnemyBase* GameState::SpawnEnemyAt(const std::string& enemyId, const sf::Vector2
     }
 
     EnemyStats spawnStats = ApplyStageEnemyModifiers(definition->stats);
+    if(m_currentStage == 1 &&
+       (resolvedEnemyId == "BAT1" || resolvedEnemyId == "BAT2" || resolvedEnemyId == "BAT3"))
+    {
+        spawnStats.speed *= 0.7f;
+    }
 
     return m_enemyPool.Acquire(resolvedEnemyId, position, spawnStats);
 }
@@ -1453,7 +1454,11 @@ void GameState::SpawnWaveBosses(const StageWaveDefinition& wave)
             continue;
         }
 
-        const EnemyStats bossStats = ApplyStageEnemyModifiers(definition->stats);
+        EnemyStats bossStats = ApplyStageEnemyModifiers(definition->stats);
+        if(Player* player = GetFirstAlivePlayer())
+        {
+            bossStats.speed = std::min(bossStats.speed, player->GetMovementSpeed() * 0.8f);
+        }
 
         const sf::Vector2f spawnPosition = GetWaveSpawnPosition(m_waveSpawnCursor++);
         if(EnemyBase* boss = m_enemyPool.Acquire(resolvedBossId, spawnPosition, bossStats))
@@ -1494,7 +1499,11 @@ void GameState::StartFinalEncounter()
     }
 
     const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(bossId);
-    const EnemyStats stats = ApplyStageEnemyModifiers(definition->stats);
+    EnemyStats stats = ApplyStageEnemyModifiers(definition->stats);
+    if(Player* player = GetFirstAlivePlayer())
+    {
+        stats.speed = std::min(stats.speed, player->GetMovementSpeed() * 0.8f);
+    }
 
     const sf::FloatRect bounds = GetViewBounds();
     const sf::Vector2f spawnPosition(bounds.left + bounds.width + 120.0f, bounds.top + bounds.height * 0.5f);
@@ -1857,6 +1866,8 @@ EnemyStats GameState::ApplyStageEnemyModifiers(const EnemyStats& stats) const
         adjustedStats.speed *= std::max(0.0f, m_activeStageInfo->enemySpeedMultiplier);
         adjustedStats.maxHealth *= std::max(0.0f, m_activeStageInfo->enemyHealthMultiplier);
     }
+
+    adjustedStats.speed *= GameplayEnemySpeedMultiplier;
 
     for(const auto& player : m_players)
     {

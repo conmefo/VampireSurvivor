@@ -153,6 +153,7 @@ int runSfmlTest()
 
     AudioManager audioManager;
     audioManager.Initialize("VS_audio_fixed/AudioClip/", "VS_audio_fixed/BGM/");
+    audioManager.LoadSettings("audio_settings.json");
 
     StateManager stateManager;
     StateContext context(stateManager, textureManager, fontManager, textureAtlas, animLibrary, characterDataManager, playerProgressionManager, weaponDataManager, powerUpDataManager, hitVfxDataManager, particleDataManager, audioManager);

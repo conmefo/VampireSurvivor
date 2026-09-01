@@ -38,6 +38,9 @@ public:
     void SetMuted(bool muted) override;
     bool IsMuted() const override;
 
+    bool LoadSettings(const std::string& filepath) override;
+    bool SaveSettings(const std::string& filepath) const override;
+
     void StopAllSfx() override;
     void Cleanup() override;
 

@@ -401,7 +401,14 @@ void SimpleTextLevelUpView::UpdateLayout(const sf::Vector2f& viewSize, const sf:
         m_cardTargets[i].scaleX = scaleX;
         m_cardTargets[i].scaleY = scaleY;
 
-        if (!m_isAppearing)
+        if (m_isAppearing)
+        {
+            const sf::Vector2f offscreenPosition(
+                viewCenter.x + viewSize.x * 0.5f + 100.0f * scaleX,
+                cardPos.y);
+            m_cards[i].SetLayout(offscreenPosition, cardWidth, cardHeight, scaleX, scaleY);
+        }
+        else
         {
             m_cards[i].SetLayout(cardPos, cardWidth, cardHeight, scaleX, scaleY);
         }

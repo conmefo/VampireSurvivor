@@ -34,6 +34,10 @@ public:
     virtual void SetMuted(bool muted) = 0;
     virtual bool IsMuted() const = 0;
 
+    // Persist user-facing mixer settings between sessions.
+    virtual bool LoadSettings(const std::string& filepath) = 0;
+    virtual bool SaveSettings(const std::string& filepath) const = 0;
+
     // Lifecycle & Clean Shutdown
     virtual void StopAllSfx() = 0;
     virtual void Cleanup() = 0;

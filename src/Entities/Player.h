@@ -53,6 +53,7 @@ public:
     float GetCooldownMultiplier() const { return 1.0f - m_cooldownBuff; }
     int GetBonusAmount() const { return m_amountBuff; }
     float GetMoveSpeedMultiplier() const { return m_moveSpeedMultiplier; }
+    float GetMovementSpeed() const;
     float GetProjectileSpeedMultiplier() const { return 1.0f + m_speedBuff; }
     float GetMagnetRadius() const { return m_baseMagnetRadius * GetMagnetMultiplier(); }
     float GetMagnetMultiplier() const { return m_magnetMultiplier; }

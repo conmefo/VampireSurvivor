@@ -20,9 +20,19 @@ public:
     void Draw(sf::RenderWindow& window) override;
 
 private:
+    enum class AudioChannel
+    {
+        Master,
+        Music,
+        Sfx
+    };
+
     void SetupUI();
     void UpdateCursors(float dt);
     void SetupCompositeBackground();
+    void SetAudioOptionsOpen(bool open);
+    void RefreshAudioOptionLabels();
+    void AdjustAudioVolume(AudioChannel channel, float delta);
 
     sf::RenderTexture m_compositeTexture;
     sf::Sprite m_compositeSprite;
@@ -38,6 +48,16 @@ private:
     
     // UI Layout references
     std::vector<UIButton*> m_centralCluster;
+    UIButton* m_optionsButton = nullptr;
+    std::vector<UIButton*> m_audioOptionButtons;
+
+    bool m_audioOptionsOpen = false;
+    sf::RectangleShape m_audioOptionsPanel;
+    sf::Text m_audioOptionsTitle;
+    sf::Text m_audioOptionsHint;
+    sf::Text m_masterVolumeLabel;
+    sf::Text m_musicVolumeLabel;
+    sf::Text m_sfxVolumeLabel;
     
     // Cursor logic
     std::vector<AssetTextureData> m_cursorFrames;

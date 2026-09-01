@@ -6,6 +6,7 @@
 #include "PowerUpState.h"
 #include "../../UI/Elements/GoldDisplayWidget.h"
 #include "../../Core/Audio/AudioIdentifiers.h"
+#include <algorithm>
 #include <iostream>
 
 
@@ -149,8 +150,11 @@ void MainMenuState::SetupUI() {
     m_context.stateManager.PopState();
   });
 
-  auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 54.0f, 130.0f, 54.0f, 26);
-  optionsBtn->SetOnClickCallback([]() { std::cout << "Options Clicked\n"; });
+  m_optionsButton = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 54.0f, 130.0f, 54.0f, 26);
+  m_optionsButton->SetOnClickCallback([this]() {
+    m_context.audio.PlaySfx(SfxID::ButtonClick);
+    SetAudioOptionsOpen(true);
+  });
 
   // --- BOTTOM BAR ---
   auto creditsBtn =
@@ -167,6 +171,123 @@ void MainMenuState::SetupUI() {
   auto coinPanel = std::make_unique<GoldDisplayWidget>(
       m_context.atlas, &m_context.progressionData, font);
   m_uiManager.AddElement(std::move(coinPanel));
+
+  // --- AUDIO OPTIONS OVERLAY ---
+  m_audioOptionsPanel.setSize(sf::Vector2f(700.0f, 520.0f));
+  m_audioOptionsPanel.setPosition(width / 2.0f - 350.0f, 215.0f);
+  m_audioOptionsPanel.setFillColor(sf::Color(15, 12, 26, 246));
+  m_audioOptionsPanel.setOutlineColor(sf::Color(207, 181, 93));
+  m_audioOptionsPanel.setOutlineThickness(5.0f);
+
+  auto configureOverlayText = [&](sf::Text& text, unsigned int size, const sf::Color& color, float y) {
+    text.setFont(font);
+    text.setCharacterSize(size);
+    text.setFillColor(color);
+    text.setPosition(width / 2.0f, y);
+    const sf::FloatRect bounds = text.getLocalBounds();
+    text.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+  };
+
+  m_audioOptionsTitle.setString("AUDIO");
+  configureOverlayText(m_audioOptionsTitle, 44, sf::Color(255, 224, 112), 270.0f);
+  m_audioOptionsHint.setString("Changes save automatically");
+  configureOverlayText(m_audioOptionsHint, 22, sf::Color(215, 215, 225), 320.0f);
+
+  auto createAudioButton = [&](const std::string& text, float x, float y) {
+    UIButton* button = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", text, x, y, 92.0f, 58.0f, 31);
+    m_audioOptionButtons.push_back(button);
+    return button;
+  };
+
+  UIButton* masterDown = createAudioButton("-", width / 2.0f - 240.0f, 410.0f);
+  UIButton* masterUp = createAudioButton("+", width / 2.0f + 240.0f, 410.0f);
+  UIButton* musicDown = createAudioButton("-", width / 2.0f - 240.0f, 505.0f);
+  UIButton* musicUp = createAudioButton("+", width / 2.0f + 240.0f, 505.0f);
+  UIButton* sfxDown = createAudioButton("-", width / 2.0f - 240.0f, 600.0f);
+  UIButton* sfxUp = createAudioButton("+", width / 2.0f + 240.0f, 600.0f);
+  UIButton* audioBack = createButton("button_c8_normal", "", "", "BACK", width / 2.0f, 685.0f, 180.0f, 58.0f, 27);
+  m_audioOptionButtons.push_back(audioBack);
+
+  masterDown->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Master, -10.0f); });
+  masterUp->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Master, 10.0f); });
+  musicDown->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Music, -10.0f); });
+  musicUp->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Music, 10.0f); });
+  sfxDown->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Sfx, -10.0f); });
+  sfxUp->SetOnClickCallback([this]() { AdjustAudioVolume(AudioChannel::Sfx, 10.0f); });
+  audioBack->SetOnClickCallback([this]() { SetAudioOptionsOpen(false); });
+
+  m_masterVolumeLabel.setString("MASTER");
+  m_musicVolumeLabel.setString("MUSIC");
+  m_sfxVolumeLabel.setString("SFX");
+  configureOverlayText(m_masterVolumeLabel, 30, sf::Color::White, 410.0f);
+  configureOverlayText(m_musicVolumeLabel, 30, sf::Color::White, 505.0f);
+  configureOverlayText(m_sfxVolumeLabel, 30, sf::Color::White, 600.0f);
+
+  SetAudioOptionsOpen(false);
+}
+
+void MainMenuState::SetAudioOptionsOpen(bool open)
+{
+  m_audioOptionsOpen = open;
+  for (UIButton* button : m_centralCluster) {
+    button->SetActive(!open);
+  }
+  if (m_optionsButton) {
+    m_optionsButton->SetActive(!open);
+  }
+  for (UIButton* button : m_audioOptionButtons) {
+    button->SetActive(open);
+  }
+
+  if (open) {
+    RefreshAudioOptionLabels();
+  }
+}
+
+void MainMenuState::RefreshAudioOptionLabels()
+{
+  const auto setLabel = [&](sf::Text& label, const std::string& name, float volume) {
+    label.setString(name + ": " + std::to_string(static_cast<int>(volume + 0.5f)) + "%");
+    const sf::FloatRect bounds = label.getLocalBounds();
+    label.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height / 2.0f);
+  };
+
+  setLabel(m_masterVolumeLabel, "MASTER", m_context.audio.GetMasterVolume());
+  setLabel(m_musicVolumeLabel, "MUSIC", m_context.audio.GetMusicVolume());
+  setLabel(m_sfxVolumeLabel, "SFX", m_context.audio.GetSfxVolume());
+}
+
+void MainMenuState::AdjustAudioVolume(AudioChannel channel, float delta)
+{
+  float current = 100.0f;
+  switch (channel) {
+    case AudioChannel::Master:
+      current = m_context.audio.GetMasterVolume();
+      break;
+    case AudioChannel::Music:
+      current = m_context.audio.GetMusicVolume();
+      break;
+    case AudioChannel::Sfx:
+      current = m_context.audio.GetSfxVolume();
+      break;
+  }
+
+  const float next = std::clamp(current + delta, 0.0f, 100.0f);
+  switch (channel) {
+    case AudioChannel::Master:
+      m_context.audio.SetMasterVolume(next);
+      break;
+    case AudioChannel::Music:
+      m_context.audio.SetMusicVolume(next);
+      break;
+    case AudioChannel::Sfx:
+      m_context.audio.SetSfxVolume(next);
+      break;
+  }
+
+  m_context.audio.SaveSettings("audio_settings.json");
+  m_context.audio.PlaySfx(SfxID::ButtonClick);
+  RefreshAudioOptionLabels();
 }
 
 void MainMenuState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
@@ -225,6 +346,16 @@ void MainMenuState::Draw(sf::RenderWindow &window) {
   }
 
   window.draw(m_topBarBg);
+
+  if (m_audioOptionsOpen) {
+    window.draw(m_audioOptionsPanel);
+    window.draw(m_audioOptionsTitle);
+    window.draw(m_audioOptionsHint);
+    window.draw(m_masterVolumeLabel);
+    window.draw(m_musicVolumeLabel);
+    window.draw(m_sfxVolumeLabel);
+  }
+
   m_uiManager.Draw(window);
 
   if (m_cursorsVisible) {

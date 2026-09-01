@@ -99,7 +99,12 @@ void Player::ApplyGlobalBuffs(const PlayerProgressionManager& progression, const
     }
 }
 
-float g_PlayerSpeedMultiplier = 0.6f;
+float g_PlayerSpeedMultiplier = 0.8f;
+
+float Player::GetMovementSpeed() const
+{
+    return BASE_MOVE_SPEED * m_moveSpeedMultiplier * g_PlayerSpeedMultiplier;
+}
 
 void Player::Update(float dt)
 {
@@ -213,7 +218,7 @@ void Player::Update(float dt)
         direction.x /= length;
         direction.y /= length;
         
-        m_position += direction * BASE_MOVE_SPEED * m_moveSpeedMultiplier * g_PlayerSpeedMultiplier * dt;
+        m_position += direction * GetMovementSpeed() * dt;
         m_animator.Update(dt);
         m_currentDirection = direction;
         m_isMoving = true;

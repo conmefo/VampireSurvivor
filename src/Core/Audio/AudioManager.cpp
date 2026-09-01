@@ -1,7 +1,9 @@
 #include "AudioManager.h"
 #include <SFML/Audio/Listener.hpp>
 #include <algorithm>
+#include <fstream>
 #include <iostream>
+#include <nlohmann/json.hpp>
 
 AudioManager::AudioManager()
     : m_soundPool(64)
@@ -162,6 +164,56 @@ void AudioManager::SetMuted(bool muted)
 bool AudioManager::IsMuted() const
 {
     return m_isMuted;
+}
+
+bool AudioManager::LoadSettings(const std::string& filepath)
+{
+    std::ifstream file(filepath);
+    if (!file)
+    {
+        return false;
+    }
+
+    try
+    {
+        nlohmann::json settings;
+        file >> settings;
+
+        if (settings.contains("masterVolume") && settings["masterVolume"].is_number())
+            SetMasterVolume(settings["masterVolume"].get<float>());
+        if (settings.contains("musicVolume") && settings["musicVolume"].is_number())
+            SetMusicVolume(settings["musicVolume"].get<float>());
+        if (settings.contains("sfxVolume") && settings["sfxVolume"].is_number())
+            SetSfxVolume(settings["sfxVolume"].get<float>());
+        if (settings.contains("muted") && settings["muted"].is_boolean())
+            SetMuted(settings["muted"].get<bool>());
+
+        return true;
+    }
+    catch (const nlohmann::json::exception& error)
+    {
+        std::cerr << "[AudioManager] Could not read " << filepath << ": " << error.what() << '\n';
+        return false;
+    }
+}
+
+bool AudioManager::SaveSettings(const std::string& filepath) const
+{
+    std::ofstream file(filepath);
+    if (!file)
+    {
+        std::cerr << "[AudioManager] Could not save " << filepath << '\n';
+        return false;
+    }
+
+    const nlohmann::json settings = {
+        {"masterVolume", m_masterVolume},
+        {"musicVolume", m_musicVolume},
+        {"sfxVolume", m_sfxVolume},
+        {"muted", m_isMuted}
+    };
+    file << settings.dump(2) << '\n';
+    return static_cast<bool>(file);
 }
 
 void AudioManager::StopAllSfx()

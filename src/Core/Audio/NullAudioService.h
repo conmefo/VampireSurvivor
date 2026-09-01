@@ -26,6 +26,9 @@ public:
     void SetMuted(bool /*muted*/) override {}
     bool IsMuted() const override { return false; }
 
+    bool LoadSettings(const std::string& /*filepath*/) override { return false; }
+    bool SaveSettings(const std::string& /*filepath*/) const override { return false; }
+
     void StopAllSfx() override {}
     void Cleanup() override {}
 };

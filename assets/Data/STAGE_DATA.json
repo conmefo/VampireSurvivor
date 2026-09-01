@@ -62,7 +62,7 @@
       "background": {
         "texture": ""
       },
-      "startingSpawns": 10,
+      "startingSpawns": 5,
       "minute": 0,
       "destructibleType": "BRAZIER",
       "destructibleFreq": 1000,
