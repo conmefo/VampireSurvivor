@@ -30,8 +30,8 @@ struct PulsePetConfig
     uint8_t ringMaxOpacity = 53;          // Max alpha/opacity of rings3 sprite (0-255)
 
     // --- Shockwave Mechanics ---
-    float damage = 10.0f;                  // Damage dealt to enemies inside ring at peak moment (8-12 HP)
-    float knockbackForce = 400.0f;         // Push force applied to enemies inside ring at peak moment
+    float damage = 0.2f;                   // Minimal chip damage (main purpose is knockback crowd control)
+    float knockbackForce = 450.0f;         // Strong radial shockwave push impulse
 };
 
 class DamageNumberManager;

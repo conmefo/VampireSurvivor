@@ -33,22 +33,42 @@ namespace {
 constexpr std::size_t MaxRuntimeEnemies = 2000;
 constexpr int MaxOpeningSpawns = 12;
 constexpr int MaxSpawnBatchPerTick = 3;
-constexpr int MaxEventSpawnBatchPerTick = 4;
-constexpr int MaxEventSpawnsPerTrigger = 16;
-constexpr int MaxQueuedEventSpawns = 32;
-constexpr int DefaultEventSpawnCount = 8;
+constexpr int MaxEventSpawnBatchPerTick = 35;
+constexpr int MaxEventSpawnsPerTrigger = 200;
+constexpr int MaxQueuedEventSpawns = 400;
+constexpr int DefaultEventSpawnCount = 75;
 constexpr float MinWaveSpawnIntervalSeconds = 0.15f;
-constexpr float EventSpawnCooldownSeconds = 0.1f;
+constexpr float EventSpawnCooldownSeconds = 0.02f;
 constexpr float DefaultEventRepeatIntervalMs = 1000.0f;
 constexpr float MinEventRepeatIntervalMs = 250.0f;
 constexpr float Pi = 3.14159265358979323846f;
 
-bool IsSupportedStageEvent(const std::string& eventType)
+bool IsStreamSwarmEvent(const std::string& eventType)
 {
     return eventType == "BAT_SWARM" ||
            eventType == "GENERIC_SWARM" ||
-           eventType == "FLOWER_WALL" ||
-           eventType == "MEDUSA_WALL";
+           eventType == "GHOST_SWARM" ||
+           eventType == "MEDUSA_SWARM" ||
+           eventType == "SKULL_SWARM" ||
+           eventType == "JELLY_SWARM" ||
+           eventType == "DRAGON_SWARM" ||
+           eventType == "DRAGONSTREAM" ||
+           eventType == "SKELESTREAM" ||
+           eventType == "MINO_RUSH" ||
+           eventType == "PILE_ASSAULT";
+}
+
+bool IsWallOrCageEvent(const std::string& eventType)
+{
+    return eventType == "FLOWER_WALL" ||
+           eventType == "GENERIC_CIRCLE" ||
+           eventType == "MEDUSA_WALL" ||
+           eventType == "JELLY_WALL";
+}
+
+bool IsSupportedStageEvent(const std::string& eventType)
+{
+    return IsStreamSwarmEvent(eventType) || IsWallOrCageEvent(eventType);
 }
 
 float GetStageEventRepeatIntervalMs(const StageWaveEvent& event)
@@ -73,8 +93,8 @@ float GetStageEventRepeatIntervalMs(const StageWaveEvent& event)
 }
 
 const char *GetStageEnemyPath(int stageNumber) {
-    return stageNumber == 1 ? "assets/Data/enemies/forest_enemies.json"
-                            : "assets/Data/enemies/stage_enemies.json";
+    (void)stageNumber;
+    return "assets/Data/ENEMY_DATA.json";
 }
 
 const char *GetStageMapPath(int stageNumber) {
@@ -114,12 +134,8 @@ BgmID GetStageBgm(int stageNumber)
 static bool s_disableLevelUpUI = false;
 } // namespace
 
-GameState::GameState(StateContext context,
-                     TileMapManager& mapManager,
-                     const std::vector<std::string>& selectedCharacterIds,
-                     int stageId)
-    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterIds(selectedCharacterIds)
-    , m_currentStage(stageId)
+GameState::GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds, int stageId)
+    : BaseState(std::move(context)), m_mapManager(mapManager), m_enemyPool(m_enemyDatabase), m_selectedCharacterIds(selectedCharacterIds), m_currentStage(stageId)
     , m_weaponFactory(m_context.weaponData) {}
 
 GameState::~GameState()
@@ -132,7 +148,7 @@ GameState::~GameState()
 }
 
 void GameState::Init() {
-    std::cout << "GameState Init" << std::endl;
+    std::cout << "GameState Init: Loading Stage " << m_currentStage << std::endl;
 
     m_sharedExperience = 0.0f;
     m_sharedLevel = 1;
@@ -147,6 +163,7 @@ void GameState::Init() {
         m_context.audio.PlaySfx(SfxID::GemPickup);
         AddSharedExperience(xp);
     });
+    m_coinPickups.Initialize(m_context.atlas);
     m_coinPickups.SetOnCoinCollected([this](int gold) {
         AddRunGold(gold);
         m_context.audio.PlaySfx(SfxID::GemPickup);
@@ -246,6 +263,8 @@ void GameState::Init() {
     }
 
     m_expBar = std::make_unique<ExpBar>(m_context.atlas, m_context.fonts.Get(FontID::Main));
+    m_weaponSlotsHUD = std::make_unique<WeaponSlotsHUD>();
+    m_weaponSlotsHUD->Initialize(m_context.atlas);
 
     // Distribute starting weapons to all players
     for (const std::string& wepId : initialWeaponIds)
@@ -425,17 +444,14 @@ void GameState::Init() {
         m_stageInfoText.setOutlineColor(sf::Color(0, 0, 0, 190));
         m_stageInfoText.setOutlineThickness(1.0f);
 
-        m_bossNameText.setFont(*boldFont);
-        m_bossNameText.setCharacterSize(22);
-        m_bossNameText.setFillColor(sf::Color(255, 225, 225));
-        m_bossNameText.setOutlineColor(sf::Color::Black);
-        m_bossNameText.setOutlineThickness(2.0f);
-
         m_stageTimerBacking.setFillColor(sf::Color(0, 0, 0, 120));
         UpdateStageTimerText();
 
         m_gemTuningUI = std::make_unique<GemTuningUI>(m_context.atlas, *font, m_experienceGems);
         m_gemTuningUI->SetPosition(sf::Vector2f(110.0f, 100.0f));
+
+        m_swarmDebugUI = std::make_unique<SwarmDebugUI>(m_context.atlas, *font, *this);
+        m_swarmDebugUI->SetPosition(sf::Vector2f(20.0f, 130.0f));
     }
 
     ApplyCameraToView();
@@ -646,6 +662,10 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
                 p->Revive();
             }
         }
+    } else if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::F4) {
+        if (m_swarmDebugUI) {
+            m_swarmDebugUI->ToggleVisible();
+        }
     } else if (event.type == sf::Event::MouseButtonPressed) {
         sf::Vector2f mousePos = window.mapPixelToCoords(sf::Vector2i(event.mouseButton.x, event.mouseButton.y), m_worldView);
         std::string vfxName = "Default";
@@ -673,6 +693,14 @@ void GameState::HandleInput(sf::Event &event, sf::RenderWindow &window) {
         sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
         window.setView(tuningUiView);
         m_gemTuningUI->HandleEvent(event, window);
+        window.setView(oldView);
+    }
+
+    if (m_swarmDebugUI && m_swarmDebugUI->IsVisible()) {
+        sf::View oldView = window.getView();
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
+        m_swarmDebugUI->HandleEvent(event, window);
         window.setView(oldView);
     }
 }
@@ -816,6 +844,7 @@ void GameState::Update(float dt) {
     if (!DebugStaticTargetsMode) {
         UpdateStageSpawner(dt);
         UpdateStageEvents(dt);
+        UpdateBossCage(dt);
         m_enemyPool.Update(dt, m_cameraCenter);
     } else {
         // Disabled dummy enemy spawns for clean tuning testing
@@ -861,8 +890,9 @@ void GameState::Update(float dt) {
             float len = std::sqrt(diff.x * diff.x + diff.y * diff.y);
             sf::Vector2f knockbackDir = (len > 0.0f) ? (diff / len) : sf::Vector2f(1.0f, 0.0f);
             const float damage = proj->GetPower();
-            constexpr float KNOCKBACK_FORCE = 15.0f;
-            const bool killed = m_enemyPool.ApplyDamageByPointer(enemy, damage, knockbackDir, KNOCKBACK_FORCE);
+            constexpr float BASE_KNOCKBACK_FORCE = 60.0f;
+            const float appliedKnockback = BASE_KNOCKBACK_FORCE * proj->GetKnockback();
+            const bool killed = m_enemyPool.ApplyDamageByPointer(enemy, damage, knockbackDir, appliedKnockback);
             m_damageNumbers.Spawn(damage, originalPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
 
             // Audio: coalesced enemy hit/death SFX (spatial, low priority)
@@ -915,9 +945,18 @@ void GameState::Update(float dt) {
     }
 
     if (m_tileMap) {
-        const std::vector<sf::FloatRect> obstacles =
-            m_tileMap->GetEnemyCollisionRectsInArea(GetViewBounds());
-        m_enemyPool.ResolveObstacleCollisions(obstacles);
+        const sf::FloatRect viewBounds = GetViewBounds();
+        const std::vector<sf::FloatRect> playerObstacles =
+            m_tileMap->GetCollisionRectsInArea(viewBounds);
+        for (auto& player : m_players) {
+            if (player && !player->IsDead()) {
+                player->ResolveObstacleCollisions(playerObstacles);
+            }
+        }
+
+        const std::vector<sf::FloatRect> enemyObstacles =
+            m_tileMap->GetEnemyCollisionRectsInArea(viewBounds);
+        m_enemyPool.ResolveObstacleCollisions(enemyObstacles);
     }
     m_enemyPool.ResolveEnemyCollisions();
     ApplyEnemyContactDamage();
@@ -941,6 +980,11 @@ void GameState::Update(float dt) {
     if (m_gemTuningUI) {
         m_gemTuningUI->SetPosition(sf::Vector2f(110.0f, 100.0f));
         m_gemTuningUI->Update(dt);
+    }
+
+    if (m_swarmDebugUI && m_swarmDebugUI->IsVisible()) {
+        m_swarmDebugUI->SetPosition(sf::Vector2f(20.0f, 130.0f));
+        m_swarmDebugUI->Update(dt);
     }
 
     if (m_testEmitter) {
@@ -1019,8 +1063,14 @@ void GameState::Draw(sf::RenderWindow &window) {
         m_expBar->Draw(window);
     }
 
+    if(m_weaponSlotsHUD)
+    {
+        const bool isMultiplayer = m_selectedCharacterIds.size() > 1;
+        const int maxSlots = isMultiplayer ? 3 : 6;
+        m_weaponSlotsHUD->Draw(window, m_players, m_context.weaponData, maxSlots);
+    }
+
     DrawStageTimer(window);
-    DrawBossHud(window);
     if(m_runGoldDisplay)
     {
         m_runGoldDisplay->Draw(window);
@@ -1060,6 +1110,13 @@ void GameState::Draw(sf::RenderWindow &window) {
         window.setView(previousView);
     }
 
+    if (m_swarmDebugUI && m_swarmDebugUI->IsVisible()) {
+        sf::View tuningUiView(sf::FloatRect(0.0f, 0.0f, ViewWidth, ViewHeight));
+        window.setView(tuningUiView);
+        m_swarmDebugUI->Draw(window);
+        window.setView(previousView);
+    }
+
     if(m_isPaused && m_pauseMenu)
     {
         sf::View pauseView(sf::FloatRect(0.0f, 0.0f, Core::VIRTUAL_WIDTH, Core::VIRTUAL_HEIGHT));
@@ -1072,8 +1129,10 @@ void GameState::Draw(sf::RenderWindow &window) {
             worldSize = m_tileMap->GetWorldSize();
         }
         Player* p0 = GetFirstAlivePlayer();
-        if(p0)
+        if(p0 && !m_selectedCharacterIds.empty())
         {
+            const CharacterProfile& profile0 = m_context.characterData.GetCharacterById(m_selectedCharacterIds[0]);
+            m_pauseMenu->UpdateRunState(profile0, *p0, m_context.weaponData, m_context.progressionData, m_context.powerUpData);
             m_pauseMenu->SetPlayerPosition(p0->GetPosition(), worldSize);
         }
         m_pauseMenu->Draw(window);
@@ -1301,13 +1360,25 @@ void GameState::ResetStageEventsForCurrentWave()
             {
                 requestedEnemyId = "BAT1";
             }
+            else if(definition.eventType == "GHOST_SWARM")
+            {
+                requestedEnemyId = "GHOST";
+            }
+            else if(definition.eventType == "SKULL_SWARM" || definition.eventType == "SKELESTREAM")
+            {
+                requestedEnemyId = "SKELETON";
+            }
             else if(definition.eventType == "FLOWER_WALL")
             {
-                requestedEnemyId = "XLFLOWER";
+                requestedEnemyId = "FLOWER";
             }
-            else if(definition.eventType == "MEDUSA_WALL")
+            else if(definition.eventType == "MEDUSA_WALL" || definition.eventType == "MEDUSA_SWARM")
             {
                 requestedEnemyId = "MEDUSA1";
+            }
+            else if(definition.eventType == "JELLY_WALL" || definition.eventType == "JELLY_SWARM")
+            {
+                requestedEnemyId = "MUDMAN1";
             }
             else if(!m_currentWave->enemies.empty())
             {
@@ -1331,9 +1402,27 @@ void GameState::ResetStageEventsForCurrentWave()
         runtimeEvent.enemyId = resolvedEnemyId;
         runtimeEvent.nextTriggerMs = std::max(0.0f, definition.delayMs);
         runtimeEvent.spawnCount = std::clamp(
-            definition.moreX > 0 ? definition.moreX : DefaultEventSpawnCount,
+            definition.moreX > 0 ? definition.moreX : (IsStreamSwarmEvent(definition.eventType) ? 35 : DefaultEventSpawnCount),
             1,
             MaxEventSpawnsPerTrigger);
+
+        runtimeEvent.isStream = IsStreamSwarmEvent(definition.eventType);
+        if(runtimeEvent.isStream)
+        {
+            const float angles[] = { 0.0f, Pi, Pi * 0.5f, Pi * 1.5f, Pi * 0.25f, Pi * 0.75f, Pi * 1.25f, Pi * 1.75f };
+            const int angleIndex = static_cast<int>(m_runtimeStageEvents.size() + m_waveSpawnCursor) % 8;
+            const float chosenAngle = angles[angleIndex];
+
+            const float streamSpeed = 340.0f;
+            runtimeEvent.streamVelocity = sf::Vector2f(std::cos(chosenAngle), std::sin(chosenAngle)) * streamSpeed;
+            runtimeEvent.streamPerpendicular = sf::Vector2f(-std::sin(chosenAngle), std::cos(chosenAngle));
+            runtimeEvent.streamWidth = 380.0f;
+
+            const sf::FloatRect bounds = GetViewBounds();
+            const sf::Vector2f viewCenter(bounds.left + bounds.width * 0.5f, bounds.top + bounds.height * 0.5f);
+            runtimeEvent.streamOrigin = viewCenter - sf::Vector2f(std::cos(chosenAngle), std::sin(chosenAngle)) * 620.0f;
+        }
+
         m_runtimeStageEvents.push_back(std::move(runtimeEvent));
     }
 }
@@ -1363,9 +1452,20 @@ void GameState::UpdateStageEvents(float dt)
         {
             if(RollStageEventChance(runtimeEvent.definition.chance))
             {
-                runtimeEvent.pendingSpawns = std::min(
-                    MaxQueuedEventSpawns,
-                    runtimeEvent.pendingSpawns + runtimeEvent.spawnCount);
+                if(IsWallOrCageEvent(runtimeEvent.definition.eventType))
+                {
+                    const Player* primary = GetFirstAlivePlayer();
+                    const sf::Vector2f centerPos = primary ? primary->GetCenterPosition() : m_cameraCenter;
+                    const float durationSec = runtimeEvent.definition.durationMs > 0.0f ? (runtimeEvent.definition.durationMs / 1000.0f) : 30.0f;
+                    const int segCount = runtimeEvent.definition.moreX > 0 ? runtimeEvent.definition.moreX : 55;
+                    StartBossCage(centerPos, runtimeEvent.enemyId, segCount, 360.0f, 120.0f, 4.0f, durationSec);
+                }
+                else
+                {
+                    runtimeEvent.pendingSpawns = std::min(
+                        MaxQueuedEventSpawns,
+                        runtimeEvent.pendingSpawns + runtimeEvent.spawnCount);
+                }
             }
 
             ++runtimeEvent.triggerCount;
@@ -1392,11 +1492,37 @@ void GameState::UpdateStageEvents(float dt)
             std::min(spawnBudget, availableSlots));
         for(int i = 0; i < spawnCount; ++i)
         {
-            const sf::Vector2f spawnPosition =
-                GetStageEventSpawnPosition(runtimeEvent, runtimeEvent.spawnSequence);
-            if(SpawnEnemyAt(runtimeEvent.enemyId, spawnPosition))
+            if(runtimeEvent.isStream)
             {
-                ++activeEnemyCount;
+                // Organic stream emitter: spawn clustered at entry point; physical bounding box collisions fan out the flock
+                std::uniform_real_distribution<float> angleSpread(-0.12f, 0.12f);
+                std::uniform_real_distribution<float> speedVariation(0.88f, 1.22f);
+                std::uniform_real_distribution<float> radialScatter(-24.0f, 24.0f);
+
+                const float baseAngle = std::atan2(runtimeEvent.streamVelocity.y, runtimeEvent.streamVelocity.x);
+                const float enemyAngle = baseAngle + angleSpread(m_stageEventRng);
+                const float baseSpeed = std::sqrt(runtimeEvent.streamVelocity.x * runtimeEvent.streamVelocity.x + runtimeEvent.streamVelocity.y * runtimeEvent.streamVelocity.y);
+                const float enemySpeed = (baseSpeed > 10.0f ? baseSpeed : 340.0f) * speedVariation(m_stageEventRng);
+                const sf::Vector2f enemyVelocity(std::cos(enemyAngle) * enemySpeed, std::sin(enemyAngle) * enemySpeed);
+
+                const sf::Vector2f spawnPos = runtimeEvent.streamOrigin + sf::Vector2f(radialScatter(m_stageEventRng), radialScatter(m_stageEventRng));
+
+                const EnemyDefinition* def = m_enemyDatabase.GetDefinition(runtimeEvent.enemyId);
+                EnemyStats s = def ? ApplyStageEnemyModifiers(def->stats) : EnemyStats{};
+                s.speed = enemySpeed;
+                if(m_enemyPool.AcquireStream(runtimeEvent.enemyId, spawnPos, enemyVelocity, s))
+                {
+                    ++activeEnemyCount;
+                }
+            }
+            else
+            {
+                const sf::Vector2f spawnPosition =
+                    GetStageEventSpawnPosition(runtimeEvent, runtimeEvent.spawnSequence);
+                if(SpawnEnemyAt(runtimeEvent.enemyId, spawnPosition))
+                {
+                    ++activeEnemyCount;
+                }
             }
 
             ++runtimeEvent.spawnSequence;
@@ -1502,11 +1628,172 @@ void GameState::StartFinalEncounter()
     if(m_finalBoss)
     {
         m_bossEnemies.insert(m_finalBoss);
+        m_stageHazards.SpawnCircle(spawnPosition, 72.0f, 2.0f, 4.0f);
+        const Player* primary = GetFirstAlivePlayer();
+        const sf::Vector2f playerPos = primary ? primary->GetCenterPosition() : m_cameraCenter;
+        StartBossCage(playerPos, "XLMANTIS", 55, 380.0f, 120.0f, 4.5f, 0.0f, true);
     }
     else
     {
         FinishRun(RunState::Completed);
     }
+}
+
+static std::vector<float> ComputeEvenlySpacedEllipseAngles(float a, float b, int count)
+{
+    std::vector<float> angles;
+    if (count <= 0) return angles;
+    angles.reserve(count);
+
+    constexpr int Samples = 1024;
+    std::vector<float> cumLength(Samples + 1, 0.0f);
+
+    for (int i = 1; i <= Samples; ++i)
+    {
+        const float thetaPrev = (2.0f * Pi * static_cast<float>(i - 1)) / static_cast<float>(Samples);
+        const float thetaCurr = (2.0f * Pi * static_cast<float>(i)) / static_cast<float>(Samples);
+        const float thetaMid = 0.5f * (thetaPrev + thetaCurr);
+
+        const float dx = -a * std::sin(thetaMid);
+        const float dy = b * std::cos(thetaMid);
+        const float ds = std::sqrt(dx * dx + dy * dy) * (2.0f * Pi / static_cast<float>(Samples));
+        cumLength[i] = cumLength[i - 1] + ds;
+    }
+
+    const float totalPerimeter = cumLength[Samples];
+
+    for (int i = 0; i < count; ++i)
+    {
+        const float targetDist = (static_cast<float>(i) / static_cast<float>(count)) * totalPerimeter;
+
+        auto it = std::upper_bound(cumLength.begin(), cumLength.end(), targetDist);
+        int idx = static_cast<int>(std::distance(cumLength.begin(), it));
+        if (idx <= 0)
+        {
+            angles.push_back(0.0f);
+            continue;
+        }
+        if (idx >= Samples + 1)
+        {
+            angles.push_back(2.0f * Pi);
+            continue;
+        }
+
+        const float l0 = cumLength[idx - 1];
+        const float l1 = cumLength[idx];
+        const float frac = (l1 > l0) ? (targetDist - l0) / (l1 - l0) : 0.0f;
+
+        const float t0 = (2.0f * Pi * static_cast<float>(idx - 1)) / static_cast<float>(Samples);
+        const float t1 = (2.0f * Pi * static_cast<float>(idx)) / static_cast<float>(Samples);
+        angles.push_back(t0 + frac * (t1 - t0));
+    }
+
+    return angles;
+}
+
+void GameState::StartBossCage(const sf::Vector2f& center, const std::string& enemyId, int segmentCount, float startRadius, float minRadius, float shrinkSpeed, float durationSeconds, bool tiedToBosses)
+{
+    ClearBossCage();
+
+    m_bossCage.active = true;
+    m_bossCage.tiedToBosses = tiedToBosses;
+    m_bossCage.center = center;
+    m_bossCage.currentRadiusX = startRadius > 0.0f ? startRadius : 360.0f;
+    m_bossCage.currentRadiusY = m_bossCage.currentRadiusX * 0.70f; // Ellipse matching 16:9 view ratio
+    m_bossCage.minRadiusX = minRadius > 0.0f ? minRadius : 120.0f;
+    m_bossCage.minRadiusY = m_bossCage.minRadiusX * 0.70f;
+    m_bossCage.shrinkSpeed = shrinkSpeed > 0.0f ? shrinkSpeed : 4.0f;
+    m_bossCage.durationTimer = 0.0f;
+    m_bossCage.maxDuration = durationSeconds;
+    m_bossCage.segments.clear();
+
+    const std::string resolvedId = ResolveSpawnEnemyId(enemyId.empty() ? "FLOWER" : enemyId);
+    const EnemyDefinition* def = m_enemyDatabase.GetDefinition(resolvedId);
+    EnemyStats wallStats = def ? ApplyStageEnemyModifiers(def->stats) : EnemyStats{};
+    wallStats.mass = std::max(6.0f, wallStats.mass * 4.0f);
+
+    // Single unbroken perimeter ring with exact equal arc-length distance between all neighbors
+    const int total = std::max(12, segmentCount);
+    const std::vector<float> angles = ComputeEvenlySpacedEllipseAngles(m_bossCage.currentRadiusX, m_bossCage.currentRadiusY, total);
+
+    for (int i = 0; i < total; ++i)
+    {
+        const float angle = angles[i];
+        const sf::Vector2f pos = center + sf::Vector2f(std::cos(angle) * m_bossCage.currentRadiusX, std::sin(angle) * m_bossCage.currentRadiusY);
+
+        if (EnemyBase* ringEnemy = m_enemyPool.AcquireCage(resolvedId, pos, wallStats))
+        {
+            BossCage::Segment seg;
+            seg.enemy = ringEnemy;
+            seg.angle = angle;
+            seg.radialOffset = 0.0f;
+            m_bossCage.segments.push_back(seg);
+        }
+    }
+}
+
+void GameState::UpdateBossCage(float dt)
+{
+    if (!m_bossCage.active)
+    {
+        return;
+    }
+
+    // Only clear if specifically tied to an active boss fight and all bosses died
+    if (m_bossCage.tiedToBosses && m_bossEnemies.empty())
+    {
+        ClearBossCage();
+        return;
+    }
+
+    if (m_bossCage.maxDuration > 0.0f)
+    {
+        m_bossCage.durationTimer += dt;
+        if (m_bossCage.durationTimer >= m_bossCage.maxDuration)
+        {
+            ClearBossCage();
+            return;
+        }
+    }
+
+    // Slowly shrink without rotation
+    const float aspect = m_bossCage.currentRadiusY / m_bossCage.currentRadiusX;
+    const float oldRx = m_bossCage.currentRadiusX;
+    const float oldRy = m_bossCage.currentRadiusY;
+    m_bossCage.currentRadiusX = std::max(m_bossCage.minRadiusX, m_bossCage.currentRadiusX - m_bossCage.shrinkSpeed * dt);
+    m_bossCage.currentRadiusY = std::max(m_bossCage.minRadiusY, m_bossCage.currentRadiusY - m_bossCage.shrinkSpeed * aspect * dt);
+
+    const float deltaRx = m_bossCage.currentRadiusX - oldRx;
+    const float deltaRy = m_bossCage.currentRadiusY - oldRy;
+
+    for (auto& seg : m_bossCage.segments)
+    {
+        if (seg.enemy && seg.enemy->IsAlive())
+        {
+            // Move inward incrementally by the contraction delta instead of forcing absolute position!
+            // When pushed by the player or weapons, they stay pushed naturally!
+            const sf::Vector2f shrinkDelta(std::cos(seg.angle) * deltaRx, std::sin(seg.angle) * deltaRy);
+            m_enemyPool.MovePosition(seg.enemy, shrinkDelta);
+        }
+    }
+}
+
+void GameState::ClearBossCage()
+{
+    if (!m_bossCage.active)
+    {
+        return;
+    }
+
+    m_bossCage.active = false;
+    for (auto& seg : m_bossCage.segments)
+    {
+        if (seg.enemy && seg.enemy->IsAlive())
+        {
+            m_enemyPool.ApplyDamageByPointer(seg.enemy, 99999.0f, sf::Vector2f(0.0f, 0.0f), 0.0f);
+        }
+    }
+    m_bossCage.segments.clear();
 }
 
 void GameState::HandleEnemyDeath(EnemyBase* enemy, const sf::Vector2f& position, float expYield)
@@ -1530,17 +1817,21 @@ void GameState::HandleEnemyDeath(EnemyBase* enemy, const sf::Vector2f& position,
             m_context.audio.PlaySfx(SfxID::ChestOpen, chestOpts);
             m_treasureChests->Spawn(position);
         }
+        if(m_bossEnemies.empty())
+        {
+            ClearBossCage();
+        }
     }
     else
     {
         std::uniform_real_distribution<float> roll(0.0f, 1.0f);
-        if(roll(m_stageEventRng) < 0.28f)
+        if(roll(m_stageEventRng) < 0.015f)
         {
             m_coinPickups.SpawnCoin(position, 1);
         }
-        if(roll(m_stageEventRng) < 0.05f)
+        if(roll(m_stageEventRng) < 0.003f)
         {
-            m_coinPickups.SpawnHealing(position, 8.0f);
+            m_coinPickups.SpawnHealing(position, 30.0f);
         }
     }
 
@@ -1720,49 +2011,6 @@ void GameState::DrawStageTimer(sf::RenderTarget& target) const
     target.draw(m_stageInfoText);
 }
 
-void GameState::DrawBossHud(sf::RenderTarget& target) const
-{
-    EnemyBase* boss = m_finalBoss;
-    if(!boss || !boss->IsAlive())
-    {
-        for(EnemyBase* candidate : m_bossEnemies)
-        {
-            if(candidate && candidate->IsAlive())
-            {
-                boss = candidate;
-                break;
-            }
-        }
-    }
-    if(!boss || !boss->IsAlive() || !m_bossNameText.getFont())
-    {
-        return;
-    }
-
-    constexpr float width = 440.0f;
-    const float healthRatio = std::clamp(boss->GetHealth() / std::max(1.0f, boss->GetMaxHealth()), 0.0f, 1.0f);
-    sf::RectangleShape backing({width, 18.0f});
-    backing.setOrigin(width / 2.0f, 0.0f);
-    backing.setPosition(ViewWidth / 2.0f, 106.0f);
-    backing.setFillColor(sf::Color(35, 0, 8, 225));
-    backing.setOutlineColor(sf::Color(255, 210, 150));
-    backing.setOutlineThickness(2.0f);
-    target.draw(backing);
-
-    sf::RectangleShape fill({width * healthRatio, 18.0f});
-    fill.setPosition(backing.getPosition().x - width / 2.0f, backing.getPosition().y);
-    fill.setFillColor(sf::Color(210, 35, 50));
-    target.draw(fill);
-
-    sf::Text name = m_bossNameText;
-    const EnemyDefinition* definition = m_enemyDatabase.GetDefinition(boss->GetDefinitionId());
-    name.setString("BOSS: " + (definition ? definition->name : boss->GetDefinitionId()));
-    const sf::FloatRect bounds = name.getLocalBounds();
-    name.setOrigin(bounds.left + bounds.width / 2.0f, bounds.top + bounds.height);
-    name.setPosition(ViewWidth / 2.0f, 102.0f);
-    target.draw(name);
-}
-
 std::string GameState::FormatStageTime(int totalSeconds) const
 {
     if(totalSeconds < 0)
@@ -1881,7 +2129,7 @@ void GameState::ReturnToMainMenu()
 {
     m_isPaused = false;
     BankRunGold();
-    m_context.stateManager.ChangeStateWithTransition(
+    m_context.stateManager.ClearAndSetState(
         std::make_unique<MainMenuState>(m_context, m_mapManager),
         0.35f,
         sf::Color::Black);
@@ -2195,4 +2443,90 @@ WeaponInventory GameState::BuildMergedInventoryView() const
         }
     }
     return merged;
+}
+
+void GameState::TriggerSwarmDebug(const std::string& eventType, const std::string& enemyId, int count)
+{
+    if (IsWallOrCageEvent(eventType) || eventType == "BOSS_CAGE")
+    {
+        const Player* primary = GetFirstAlivePlayer();
+        const sf::Vector2f centerPos = primary ? primary->GetCenterPosition() : m_cameraCenter;
+        std::string wallId = enemyId.empty() ? (eventType == "MEDUSA_WALL" ? "MEDUSA1" : "FLOWER") : enemyId;
+
+        if (eventType == "BOSS_CAGE")
+        {
+            const std::string bossId = "BOSS_XLFLOWER";
+            const EnemyDefinition* def = m_enemyDatabase.GetDefinition(bossId);
+            EnemyStats s = def ? ApplyStageEnemyModifiers(def->stats) : EnemyStats{};
+            s.maxHealth = std::max(500.0f, s.maxHealth * 3.0f);
+            if (EnemyBase* boss = m_enemyPool.Acquire(bossId, centerPos + sf::Vector2f(40.0f, 0.0f), s))
+            {
+                m_bossEnemies.insert(boss);
+            }
+            StartBossCage(centerPos, wallId, 55, 360.0f, 120.0f, 4.0f, 0.0f, true);
+            std::cout << "[SWARM DEBUG] Triggered Boss Cage with Boss: " << bossId << " + Ring: " << wallId << std::endl;
+        }
+        else
+        {
+            StartBossCage(centerPos, wallId, 55, 360.0f, 120.0f, 4.0f, 0.0f, false);
+            std::cout << "[SWARM DEBUG] Triggered Standalone Ring Cage: " << eventType << " (" << wallId << ") x55" << std::endl;
+        }
+        return;
+    }
+
+    RuntimeStageEvent runtimeEvent;
+    runtimeEvent.definition.eventType = eventType;
+    runtimeEvent.definition.chance = 100.0f;
+    runtimeEvent.definition.repeat = 1;
+    runtimeEvent.definition.moreX = count;
+    runtimeEvent.definition.moreY = enemyId;
+
+    std::string requestedId = enemyId;
+    if (requestedId.empty())
+    {
+        if (eventType == "BAT_SWARM") requestedId = "BAT1";
+        else if (eventType == "GHOST_SWARM") requestedId = "GHOST";
+        else if (eventType == "SKULL_SWARM" || eventType == "SKELESTREAM") requestedId = "SKELETON";
+        else if (eventType == "MEDUSA_SWARM") requestedId = "MEDUSA1";
+        else if (eventType == "JELLY_SWARM") requestedId = "MUDMAN1";
+        else if (m_currentWave && !m_currentWave->enemies.empty()) requestedId = m_currentWave->enemies.front();
+        else requestedId = "BAT1";
+    }
+
+    runtimeEvent.enemyId = ResolveSpawnEnemyId(requestedId);
+    runtimeEvent.spawnCount = count;
+    runtimeEvent.pendingSpawns = count;
+    runtimeEvent.isStream = true;
+
+    const float angles[] = { 0.0f, Pi, Pi * 0.5f, Pi * 1.5f, Pi * 0.25f, Pi * 0.75f, Pi * 1.25f, Pi * 1.75f };
+    const int angleIndex = static_cast<int>(m_runtimeStageEvents.size() + m_waveSpawnCursor) % 8;
+    const float chosenAngle = angles[angleIndex];
+
+    const float streamSpeed = 340.0f;
+    runtimeEvent.streamVelocity = sf::Vector2f(std::cos(chosenAngle), std::sin(chosenAngle)) * streamSpeed;
+    runtimeEvent.streamPerpendicular = sf::Vector2f(-std::sin(chosenAngle), std::cos(chosenAngle));
+    runtimeEvent.streamWidth = 380.0f;
+
+    const sf::FloatRect bounds = GetViewBounds();
+    const sf::Vector2f viewCenter(bounds.left + bounds.width * 0.5f, bounds.top + bounds.height * 0.5f);
+    runtimeEvent.streamOrigin = viewCenter - sf::Vector2f(std::cos(chosenAngle), std::sin(chosenAngle)) * 620.0f;
+
+    m_runtimeStageEvents.push_back(std::move(runtimeEvent));
+    std::cout << "[SWARM DEBUG] Triggered Fast Organic Stream Swarm (340px/s): " << eventType << " (" << requestedId << ") x" << count << std::endl;
+}
+
+void GameState::ClearAllSwarmsAndCages()
+{
+    m_runtimeStageEvents.clear();
+    ClearBossCage();
+    // Also clear any active stream or cage enemies
+    std::vector<EnemyBase*> active = m_enemyPool.GetActiveEnemies();
+    for (EnemyBase* enemy : active)
+    {
+        if (enemy && enemy->IsAlive())
+        {
+            m_enemyPool.ApplyDamageByPointer(enemy, 99999.0f, sf::Vector2f(0.0f, 0.0f), 0.0f);
+        }
+    }
+    std::cout << "[SWARM DEBUG] Cleared all swarms and cages!" << std::endl;
 }

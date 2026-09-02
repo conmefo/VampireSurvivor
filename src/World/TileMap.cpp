@@ -109,25 +109,37 @@ bool TileMap::LoadAsync(const std::string &mapJsonPath) {
     return false;
   }
 
+  // Build per-tile collision rects from individual tile positions in the
+  // Walls, PlayerWall, and Obstacle layers.  The hand-drawn "collisionRects"
+  // in the JSON are coarse boxes that cover entire tree groups (including
+  // the gaps between trees), creating invisible walls.  Per-tile rects let
+  // the player walk through gaps between individual trees/obstacles.
   m_collisionRects.clear();
-  std::vector<sf::FloatRect> tmxEnemyCollisionRects;
-  for (const nlohmann::json &rectJson :
-       mapJson.value("collisionRects", nlohmann::json::array())) {
-    sf::FloatRect collisionRect(
-        static_cast<float>(rectJson.value("x", 0) * m_tileWidth),
-        static_cast<float>(rectJson.value("y", 0) * m_tileHeight),
-        static_cast<float>(rectJson.value("width", 0) * m_tileWidth),
-        static_cast<float>(rectJson.value("height", 0) * m_tileHeight));
-    m_collisionRects.push_back(collisionRect);
+  for (const auto &layer : m_layers) {
+    const bool isWalls = (layer.name == "Walls");
+    const bool isPlayerWall = (layer.name == "PlayerWall");
+    const bool isObstacle = (layer.name == "Obstacle");
 
-    const std::string source = rectJson.value("source", "");
-    if (source.find("_Walls") != std::string::npos) {
-      tmxEnemyCollisionRects.push_back(collisionRect);
+    if (!isWalls && !isPlayerWall && !isObstacle) {
+      continue;
+    }
+
+    for (const auto &tile : layer.tiles) {
+      const float tx = static_cast<float>(tile.x * m_tileWidth);
+      const float ty = static_cast<float>(tile.y * m_tileHeight);
+      const float tw = static_cast<float>(m_tileWidth);
+      const float th = static_cast<float>(m_tileHeight);
+
+      // Apply an inset so the collision box sits inside the visual footprint
+      constexpr float Inset = 5.5f;
+      m_collisionRects.emplace_back(tx + Inset, ty + Inset, tw - Inset * 2.0f, th - Inset * 2.0f);
     }
   }
 
+  // m_enemyCollisionRects was already populated from "Walls" tiles above (lines 89-94).
+  // If it ended up empty for some reason, fall back to the player collision rects.
   if (m_enemyCollisionRects.empty()) {
-    m_enemyCollisionRects = std::move(tmxEnemyCollisionRects);
+    m_enemyCollisionRects = m_collisionRects;
   }
 
   return BuildMapImage();

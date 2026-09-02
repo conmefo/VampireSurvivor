@@ -79,5 +79,6 @@ void MagicMissileWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& a
         penetration
     );
 
+    projectile->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(projectile));
 }

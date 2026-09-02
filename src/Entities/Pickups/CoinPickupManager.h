@@ -1,7 +1,6 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
-
 #include "../../Core/Resources/TextureAtlas.h"
 
 #include <functional>

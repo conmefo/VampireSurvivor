@@ -14,6 +14,7 @@
 #include "../../Entities/DamageNumberManager.h"
 #include "../../UI/GemTuningUI.h"
 #include "../../UI/ParticleTuningUI.h"
+#include "../../UI/SwarmDebugUI.h"
 #include "../../Entities/Projectiles/ProjectileManager.h"
 #include "../../Entities/Weapons/Weapon.h"
 #include "../../Entities/Weapons/WeaponFactory.h"
@@ -21,6 +22,7 @@
 #include "../../Core/Data/StageWaveDataManager.h"
 #include "../../UI/PlayerHUD.h"
 #include "../../UI/Elements/ExpBar.h"
+#include "../../UI/WeaponSlotsHUD.h"
 #include "../../Core/LevelUp/LevelUpSessionController.h"
 #include "../../UI/Views/SimpleTextLevelUpView.h"
 #include "../BaseState.h"
@@ -38,16 +40,17 @@ class TreasureRewardView;
 
 class GameState : public BaseState {
   public:
-    GameState(StateContext context,
-              TileMapManager& mapManager,
-              const std::vector<std::string>& selectedCharacterIds,
-              int stageId);
+    GameState(StateContext context, TileMapManager& mapManager, const std::vector<std::string>& selectedCharacterIds, int stageId = 1);
     ~GameState() override;
 
     void Init() override;
     void HandleInput(sf::Event &event, sf::RenderWindow &window) override;
     void Update(float dt) override;
     void Draw(sf::RenderWindow &window) override;
+
+    // Swarm Debug API
+    void TriggerSwarmDebug(const std::string& eventType, const std::string& enemyId = "", int count = 35);
+    void ClearAllSwarmsAndCages();
 
   private:
     enum class RunState
@@ -69,7 +72,42 @@ class GameState : public BaseState {
         int pendingSpawns = 0;
         int spawnCount = 0;
         int spawnSequence = 0;
+
+        // Directional stream parameters
+        bool isStream = false;
+        sf::Vector2f streamVelocity{0.0f, 0.0f};
+        sf::Vector2f streamPerpendicular{0.0f, 0.0f};
+        sf::Vector2f streamOrigin{0.0f, 0.0f};
+        float streamWidth = 640.0f;
     };
+
+    struct BossCage
+    {
+        bool active = false;
+        bool tiedToBosses = false;
+        sf::Vector2f center;
+        float currentRadiusX = 360.0f;
+        float currentRadiusY = 250.0f;
+        float minRadiusX = 120.0f;
+        float minRadiusY = 85.0f;
+        float shrinkSpeed = 4.0f;
+        float durationTimer = 0.0f;
+        float maxDuration = 0.0f; // >0: timed duration, 0: manual/boss clear
+
+        struct Segment
+        {
+            EnemyBase* enemy = nullptr;
+            float angle = 0.0f;
+            float radialOffset = 0.0f;
+        };
+        std::vector<Segment> segments;
+    };
+
+    BossCage m_bossCage;
+
+    void StartBossCage(const sf::Vector2f& center, const std::string& enemyId, int segmentCount = 55, float startRadius = 360.0f, float minRadius = 120.0f, float shrinkSpeed = 4.0f, float durationSeconds = 0.0f, bool tiedToBosses = false);
+    void UpdateBossCage(float dt);
+    void ClearBossCage();
 
     void LoadStage(int stageNumber);
     void ResetStageSpawner();
@@ -89,7 +127,6 @@ class GameState : public BaseState {
     void UpdateStageTimer(float dt);
     void UpdateStageTimerText();
     void DrawStageTimer(sf::RenderTarget& target) const;
-    void DrawBossHud(sf::RenderTarget& target) const;
     std::string FormatStageTime(int totalSeconds) const;
     float GetStageClockSpeed() const;
     int GetStageTimeLimitSeconds() const;
@@ -149,7 +186,6 @@ class GameState : public BaseState {
     sf::Text m_stageTimerText;
     sf::Text m_stageTimerShadowText;
     sf::Text m_stageInfoText;
-    sf::Text m_bossNameText;
     std::vector<std::unique_ptr<Player>> m_players;
     std::vector<std::string> m_selectedCharacterIds;
     int m_currentStage = 1;
@@ -167,6 +203,7 @@ class GameState : public BaseState {
     vs::ParticleEmitterConfig m_testParticleConfig;
     std::unique_ptr<ParticleTuningUI> m_tuningUI;
     std::unique_ptr<GemTuningUI> m_gemTuningUI;
+    std::unique_ptr<SwarmDebugUI> m_swarmDebugUI;
     vs::ParticleEmitterConfig m_bloodTearConfig;
     vs::ParticleEmitter* m_testEmitter = nullptr;
     ProjectileManager m_projectileManager;
@@ -178,6 +215,7 @@ class GameState : public BaseState {
     std::unique_ptr<TreasureRewardView> m_treasureRewardView;
     std::vector<std::unique_ptr<PlayerHUD>> m_playerHUDs;
     std::unique_ptr<ExpBar> m_expBar;
+    std::unique_ptr<WeaponSlotsHUD> m_weaponSlotsHUD;
     WeaponFactory m_weaponFactory;
     LevelUpSessionController m_levelUpController;
     std::unique_ptr<SimpleTextLevelUpView> m_levelUpView;

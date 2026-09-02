@@ -74,5 +74,6 @@ void KnifeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, P
         penetration
     );
 
+    projectile->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(projectile));
 }

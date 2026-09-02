@@ -98,6 +98,7 @@ void SantaWaterWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
             m_profile.GetHitVFX()
         );
 
+        bottle->SetKnockback(m_profile.GetKnockback());
         projManager.AddProjectile(std::move(bottle));
     }
 }

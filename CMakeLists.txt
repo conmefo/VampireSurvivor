@@ -132,6 +132,8 @@ add_executable(VampireSurvivors
     src/UI/Components/UIDetailPanel.h
     src/UI/ParticleTuningUI.cpp
     src/UI/GemTuningUI.cpp
+    src/UI/SwarmDebugUI.cpp
+    src/UI/WeaponSlotsHUD.cpp
     src/Core/Data/PowerUpData.h
     src/Core/UI/ScreenTransitionManager.cpp
     src/States/Title/TitleState.cpp

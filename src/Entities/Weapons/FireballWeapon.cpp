@@ -101,5 +101,6 @@ void FireballWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas
     sf::Vector2f spawnPosition = player.GetPosition();
 
     auto proj = std::make_unique<FireballProjectile>(&projManager, &atlas, *data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX());
+    proj->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(proj));
 }

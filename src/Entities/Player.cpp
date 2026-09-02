@@ -76,6 +76,7 @@ Player::Player(const CharacterProfile& profile, const sf::Texture& texture, cons
     m_currentHealth = m_maxHealth;
 
     m_animator.Initialize(frames, ANIMATION_SPEED);
+    SetCollisionRadius(8.0f);
 }
 
 void Player::ApplyGlobalBuffs(const PlayerProgressionManager& progression, const PowerUpDataManager& powerUpData)
@@ -515,4 +516,59 @@ void Player::OnHpReachedZero()
     m_deathColorTweener.SetEndValue(0.0f);
     m_deathColorTweener.SetDuration(1.5f);
     m_deathColorTweener.Start();
+}
+
+void Player::ResolveObstacleCollisions(const std::vector<sf::FloatRect>& obstacles)
+{
+    if (obstacles.empty() || m_isDead)
+    {
+        return;
+    }
+
+    const float radius = m_collisionRadius > 0.0f ? m_collisionRadius : 8.0f;
+    // Player feet collision center (m_position is feet)
+    const sf::Vector2f feetCenter = m_position - sf::Vector2f(0.0f, radius * 0.5f);
+
+    for (const auto& obs : obstacles)
+    {
+        // Find closest point on obstacle AABB
+        const float closestX = std::clamp(feetCenter.x, obs.left, obs.left + obs.width);
+        const float closestY = std::clamp(feetCenter.y, obs.top, obs.top + obs.height);
+
+        const float distX = feetCenter.x - closestX;
+        const float distY = feetCenter.y - closestY;
+        const float distSq = distX * distX + distY * distY;
+
+        if (distSq < radius * radius)
+        {
+            if (distSq > 0.0001f)
+            {
+                const float dist = std::sqrt(distSq);
+                const float overlap = radius - dist;
+                m_position.x += (distX / dist) * overlap;
+                m_position.y += (distY / dist) * overlap;
+            }
+            else
+            {
+                // Feet center is completely inside obstacle: push out along nearest boundary
+                const float leftDist = std::abs(feetCenter.x - obs.left);
+                const float rightDist = std::abs(feetCenter.x - (obs.left + obs.width));
+                const float topDist = std::abs(feetCenter.y - obs.top);
+                const float bottomDist = std::abs(feetCenter.y - (obs.top + obs.height));
+
+                const float minXDist = std::min(leftDist, rightDist);
+                const float minYDist = std::min(topDist, bottomDist);
+
+                if (minXDist < minYDist)
+                {
+                    m_position.x += (leftDist < rightDist) ? -(leftDist + radius) : (rightDist + radius);
+                }
+                else
+                {
+                    m_position.y += (topDist < bottomDist) ? -(topDist + radius) : (bottomDist + radius);
+                }
+            }
+            m_sprite.setPosition(m_position);
+        }
+    }
 }

@@ -100,6 +100,11 @@ void RosterGridPanel::ClearSelection()
     }
 }
 
+void RosterGridPanel::SelectCharacter(const std::string& characterId)
+{
+    OnCardClicked(characterId);
+}
+
 void RosterGridPanel::SetPosition(const sf::Vector2f& pos)
 {
     UIElement::SetPosition(pos);

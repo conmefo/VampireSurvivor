@@ -24,6 +24,7 @@ public:
     void Heal(float amount);
     void AddExperience(float amount);
     void GrantInvulnerability(float duration);
+    void ResolveObstacleCollisions(const std::vector<sf::FloatRect>& obstacles);
     
     float GetCurrentHealth() const { return m_currentHealth; }
     float GetMaxHealth() const { return m_maxHealth; }
@@ -38,6 +39,7 @@ public:
 
     int GetPassiveLevel(const std::string& passiveId) const;
     int GetPassiveCount() const;
+    const std::unordered_map<std::string, int>& GetPassiveLevels() const { return m_passiveLevels; }
     bool LevelUpPassive(
         const std::string& passiveId,
         const class WeaponProfile& profile,
@@ -69,6 +71,7 @@ public:
     void SetOnLevelUpCallback(std::function<void()> callback) { m_onLevelUpCallback = std::move(callback); }
 
     WeaponInventory& GetWeaponInventory() { return m_weaponInventory; }
+    const WeaponInventory& GetWeaponInventory() const { return m_weaponInventory; }
     sf::Vector2f GetFacingDirection() const { return m_currentDirection; }
     sf::Vector2f GetBottomPosition() const {
         sf::FloatRect bounds = m_sprite.getGlobalBounds();

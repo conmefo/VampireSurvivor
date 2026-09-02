@@ -44,6 +44,9 @@ struct EnemyTypeData
     const sf::Texture* texture = nullptr;
     std::vector<sf::IntRect> animFrames;
     float frameDuration = 0.1f;
+    std::vector<sf::IntRect> deathFrames;
+    float deathFrameDuration = 0.03125f;
+    float totalDeathDuration = 0.35f;
 };
 
 // High-performance Struct-of-Arrays (SoA) layout
@@ -53,6 +56,8 @@ struct EnemyHotSoA
     std::vector<float> y;
     std::vector<float> vx;
     std::vector<float> vy;
+    std::vector<float> kbVx;
+    std::vector<float> kbVy;
     std::vector<float> hp;
     std::vector<float> maxHp;
     std::vector<float> speed;
@@ -94,6 +99,10 @@ public:
     // Spawn / Acquire methods
     EnemyBase* Acquire(const std::string& enemyId, const sf::Vector2f& position);
     EnemyBase* Acquire(const std::string& enemyId, const sf::Vector2f& position, const EnemyStats& stats);
+    EnemyBase* AcquireStream(const std::string& enemyId, const sf::Vector2f& position, const sf::Vector2f& velocity, const EnemyStats& stats = {});
+    EnemyBase* AcquireCage(const std::string& enemyId, const sf::Vector2f& position, const EnemyStats& stats = {});
+    void SetPosition(EnemyBase* enemyPtr, const sf::Vector2f& pos);
+    void MovePosition(EnemyBase* enemyPtr, const sf::Vector2f& delta);
     void Clear();
     void DeactivateAll();
 

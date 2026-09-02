@@ -14,6 +14,7 @@ class TextureAtlas;
 class UIButton;
 class UIPanel;
 class WeaponDataManager;
+class Player;
 
 class PauseMenuView
 {
@@ -27,6 +28,13 @@ public:
         const PlayerProgressionManager& progression,
         const PowerUpDataManager& powerUps);
     ~PauseMenuView();
+
+    void UpdateRunState(
+        const CharacterProfile& character,
+        const Player& player,
+        const WeaponDataManager& weapons,
+        const PlayerProgressionManager& progression,
+        const PowerUpDataManager& powerUps);
 
     void SetOnResume(std::function<void()> callback);
     void SetOnQuit(std::function<void()> callback);
@@ -62,13 +70,18 @@ private:
     sf::CircleShape m_playerMarker;
     sf::Sprite m_pauseIcon;
     sf::Sprite m_characterSprite;
-    sf::Sprite m_weaponSprite;
-    std::vector<sf::Sprite> m_emptySlots;
+
+    struct WeaponSlotView
+    {
+        sf::Sprite slotFrame;
+        sf::Sprite weaponIcon;
+        bool hasWeapon = false;
+    };
+    std::vector<WeaponSlotView> m_weaponSlots;
 
     sf::Text m_title;
     sf::Text m_characterName;
     sf::Text m_equipmentTitle;
-    sf::Text m_weaponName;
     sf::Text m_mapTitle;
     sf::Text m_stageName;
     sf::Text m_mapHint;

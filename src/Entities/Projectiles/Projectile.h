@@ -16,6 +16,8 @@ public:
     virtual bool IsExpired() const;
     virtual sf::FloatRect GetGlobalBounds() const;
     float GetPower() const;
+    float GetKnockback() const { return m_knockback; }
+    void SetKnockback(float kb) { m_knockback = kb; }
     const std::string& GetHitVfxName() const;
 
     sf::Vector2f GetPosition() const;
@@ -30,6 +32,7 @@ protected:
     sf::Vector2f m_velocity;
     float m_duration;
     float m_power;
+    float m_knockback = 1.0f;
     std::string m_hitVfxName;
     int m_penetration;
     vs::ParticleManager* m_particleManager = nullptr;

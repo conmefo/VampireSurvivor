@@ -18,6 +18,7 @@ struct WeaponLevelDelta
     int   repeatInterval = 0;    // ms
     int   penetrating    = 0;
     int   poolLimit      = 0;
+    float knockback      = 0.0f;
     std::unordered_map<std::string, float> specialStats;
 
     std::string addEvolvedWeapon; // e.g. "BORA" — empty if no evolution at this level

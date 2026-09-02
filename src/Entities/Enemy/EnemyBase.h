@@ -12,6 +12,8 @@ struct EnemyStats
     float mass = 1.0f;
     float collisionRadius = 14.0f;
     sf::Vector2f collisionOffset = sf::Vector2f(0.0f, 0.0f);
+    float knockback = 1.0f;
+    float maxKnockback = 3.0f;
     float deathKnockback = 2.0f;
     float baseAlpha = 1.0f;
     float expYield = 1.0f;
@@ -72,6 +74,7 @@ public:
     void ReduceStatusResistance(float amount) { m_statusResistanceReduction += amount; }
     float GetKnockbackResistanceReduction() const { return m_knockbackResistanceReduction; }
     float GetStatusResistanceReduction() const { return m_statusResistanceReduction; }
+    const EnemyStats& GetStats() const { return m_stats; }
 
 protected:
     virtual void UpdateAI(float dt);
@@ -81,7 +84,7 @@ protected:
     void StartDeathSequence(const sf::Vector2f& hitDirection);
 
     static constexpr float FallbackDeathDurationSeconds = 0.35f;
-    static constexpr float DeathKnockbackSpeedScale = 70.0f;
+    static constexpr float DeathKnockbackSpeedScale = 150.0f;
 
     sf::Vector2f m_targetPosition;
     sf::CircleShape m_body;
@@ -91,6 +94,7 @@ protected:
     float m_deathTimer;
     std::string m_definitionId;
 
+    sf::Vector2f m_knockbackVelocity = sf::Vector2f(0.0f, 0.0f);
     float m_knockbackResistanceReduction = 0.0f;
     float m_statusResistanceReduction = 0.0f;
 };

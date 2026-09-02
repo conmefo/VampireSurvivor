@@ -57,7 +57,14 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
             frameName = frameName.substr(0, dotPos);
         }
 
+        bool isPowerUp = weaponJson.value("isPowerUp", false);
+        bool isUnlocked = weaponJson.value("isUnlocked", true);
+
         float power = weaponJson.value("power", 1.0f);
+        if(!isPowerUp)
+        {
+            power *= 5.0f;
+        }
         float area = weaponJson.value("area", 1.0f);
         float speed = weaponJson.value("speed", 1.0f);
         float duration = weaponJson.value("duration", 2000) / 1000.0f; // ms to seconds
@@ -69,8 +76,7 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         int repeatInterval = weaponJson.value("repeatInterval", 0);
         int penetrating = weaponJson.value("penetrating", 1);
         int rarity = weaponJson.value("rarity", 100);
-        bool isPowerUp = weaponJson.value("isPowerUp", false);
-        bool isUnlocked = weaponJson.value("isUnlocked", true);
+        float knockback = weaponJson.value("knockback", 1.0f);
 
         WeaponProfile profile(
             id,
@@ -91,6 +97,7 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
             repeatInterval,
             penetrating,
             rarity,
+            knockback,
             isPowerUp,
             isUnlocked);
 
@@ -122,12 +129,13 @@ bool WeaponDataManager::LoadData(const std::string& configFilePath)
         {
             const auto& levelJson = levelsArray[i];
             WeaponLevelDelta delta;
-            delta.power          = levelJson.value("power", 0.0f);
+            delta.power          = levelJson.value("power", 0.0f) * (isPowerUp ? 1.0f : 5.0f);
             delta.area           = levelJson.value("area", 0.0f);
             delta.speed          = levelJson.value("speed", 0.0f);
             delta.duration       = levelJson.value("duration", 0) / 1000.0f; // ms to seconds
             delta.hitBoxDelay    = levelJson.value("hitBoxDelay", 0) / 1000.0f; // ms to seconds
             delta.magnet         = levelJson.value("magnet", 0.0f);
+            delta.knockback      = levelJson.value("knockback", 0.0f);
             delta.amount         = levelJson.value("amount", 0);
             delta.interval       = levelJson.value("interval", 0);
             delta.repeatInterval = levelJson.value("repeatInterval", 0);

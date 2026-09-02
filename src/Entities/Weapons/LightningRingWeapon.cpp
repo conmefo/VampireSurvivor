@@ -93,5 +93,6 @@ void LightningRingWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& 
         m_profile.GetHitVFX()
     );
 
+    projectile->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(projectile));
 }

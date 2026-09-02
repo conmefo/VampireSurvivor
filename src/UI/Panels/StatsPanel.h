@@ -37,7 +37,12 @@ public:
     StatsPanel(TextureAtlas& atlas, const sf::Font& font);
     ~StatsPanel() override = default;
 
-    void SetCharacterProfile(const CharacterProfile& profile, const class PlayerProgressionManager* progressionManager = nullptr, const class PowerUpDataManager* powerUpManager = nullptr);
+    void SetCharacterProfile(
+        const CharacterProfile& profile,
+        const class PlayerProgressionManager* progressionManager = nullptr,
+        const class PowerUpDataManager* powerUpManager = nullptr,
+        const class Player* player = nullptr,
+        const class WeaponDataManager* weaponManager = nullptr);
 
     void Update(float deltaTime) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;

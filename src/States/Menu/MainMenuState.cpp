@@ -146,7 +146,7 @@ void MainMenuState::SetupUI() {
   quitBtn->SetStateColors(sf::Color::White, sf::Color(255, 255, 255, 200), sf::Color(255, 255, 255, 150), sf::Color(100, 100, 100, 150));
   quitBtn->SetOnClickCallback([this]() {
     m_context.audio.PlaySfx(SfxID::ButtonClick);
-    m_context.stateManager.PopState();
+    m_context.stateManager.ClearAndQuit();
   });
 
   auto optionsBtn = createButton("button_c9_normal", "button_c9_mouseover", "button_c9_pressed", "OPTIONS", width * 0.65f, 54.0f, 130.0f, 54.0f, 26);

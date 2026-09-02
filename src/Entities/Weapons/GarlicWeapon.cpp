@@ -123,6 +123,7 @@ void GarlicWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, 
     
     // Connect tracking so the projectile moves locked with the player's feet
     proj->SetCenterPosition(player.GetBottomPosition());
+    proj->SetKnockback(m_profile.GetKnockback());
 
     projManager.AddProjectile(std::move(proj));
 

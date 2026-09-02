@@ -73,5 +73,6 @@ void WhipWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pl
         flipY
     );
 
+    projectile->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(projectile));
 }

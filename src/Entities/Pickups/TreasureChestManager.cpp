@@ -6,32 +6,38 @@
 
 namespace
 {
-constexpr int AnimationFrameCount = 8;
-constexpr float IdleFrameDuration = 0.13f;
+constexpr int ArrowFrameCount = 8;
+constexpr float ArrowFrameDuration = 0.075f;
 constexpr float CollectionRadius = 42.0f;
-constexpr float ChestScale = 1.45f;
+constexpr float ChestScale = 1.0f;
+constexpr float ArrowScale = 1.5f;
+constexpr float ArrowOffsetY = 24.0f;
 constexpr int MinimumGoldReward = 100;
 constexpr int MaximumGoldReward = 200;
 
-std::string MakeFrameName(const char* prefix, int index)
+std::string MakeArrowFrameName(int index)
 {
-    return std::string(prefix) + (index < 10 ? "0" : "") + std::to_string(index);
+    return "arrow_0" + std::to_string(index);
 }
 }
 
 void TreasureChestManager::Initialize(const TextureAtlas& atlas)
 {
-    m_idleFrames.clear();
-
-    for(int frameIndex = 1; frameIndex <= AnimationFrameCount; ++frameIndex)
+    m_chestData = atlas.GetTextureData("BoxOpen");
+    if(!m_chestData.texture)
     {
-        const AssetTextureData idleFrame =
-            atlas.GetTextureData(MakeFrameName("TreasureIdle_", frameIndex));
-        if(idleFrame.texture)
-        {
-            m_idleFrames.push_back(idleFrame);
-        }
+        m_chestData = atlas.GetTextureData("BoxOpen.png");
+    }
 
+    m_arrowFrames.clear();
+    for(int frameIndex = 1; frameIndex <= ArrowFrameCount; ++frameIndex)
+    {
+        const AssetTextureData arrowFrame =
+            atlas.GetTextureData(MakeArrowFrameName(frameIndex));
+        if(arrowFrame.texture)
+        {
+            m_arrowFrames.push_back(arrowFrame);
+        }
     }
 }
 
@@ -42,11 +48,6 @@ void TreasureChestManager::Clear()
 
 void TreasureChestManager::Spawn(const sf::Vector2f& position)
 {
-    if(m_idleFrames.empty())
-    {
-        return;
-    }
-
     Chest* chest = nullptr;
     for(Chest& candidate : m_chests)
     {
@@ -66,14 +67,48 @@ void TreasureChestManager::Spawn(const sf::Vector2f& position)
     std::uniform_int_distribution<int> rewardDistribution(MinimumGoldReward, MaximumGoldReward);
     chest->position = position;
     chest->state = ChestState::Idle;
-    chest->frameIndex = 0;
-    chest->frameTimer = 0.0f;
+    chest->arrowFrameIndex = 0;
+    chest->arrowFrameTimer = 0.0f;
     chest->goldReward = rewardDistribution(m_random);
     chest->active = true;
+
+    if(m_chestData.texture)
+    {
+        chest->sprite.setTexture(*m_chestData.texture, false);
+        chest->sprite.setTextureRect(m_chestData.rect);
+        chest->sprite.setOrigin(
+            static_cast<float>(m_chestData.rect.width) / 2.0f,
+            static_cast<float>(m_chestData.rect.height) / 2.0f);
+    }
     chest->sprite.setPosition(position);
     chest->sprite.setScale(ChestScale, ChestScale);
     chest->sprite.setColor(sf::Color::White);
-    ApplyFrame(*chest, m_idleFrames);
+
+    ApplyArrowFrame(*chest);
+}
+
+void TreasureChestManager::ApplyArrowFrame(Chest& chest) const
+{
+    if(m_arrowFrames.empty() || chest.arrowFrameIndex >= m_arrowFrames.size())
+    {
+        return;
+    }
+
+    const AssetTextureData& frame = m_arrowFrames[chest.arrowFrameIndex];
+    if(!frame.texture)
+    {
+        return;
+    }
+
+    chest.arrowSprite.setTexture(*frame.texture, false);
+    chest.arrowSprite.setTextureRect(frame.rect);
+    chest.arrowSprite.setOrigin(
+        static_cast<float>(frame.rect.width) / 2.0f,
+        static_cast<float>(frame.rect.height) / 2.0f);
+    chest.arrowSprite.setPosition(chest.position.x, chest.position.y - ArrowOffsetY);
+    chest.arrowSprite.setRotation(90.0f); // Rotate 90 degrees to the right (pointing down to the chest)
+    chest.arrowSprite.setScale(ArrowScale, ArrowScale);
+    chest.arrowSprite.setColor(sf::Color::White);
 }
 
 void TreasureChestManager::Update(
@@ -100,16 +135,18 @@ void TreasureChestManager::Update(
                 return;
             }
 
-            chest.frameTimer += dt;
-            if(chest.frameTimer >= IdleFrameDuration && !m_idleFrames.empty())
+            // Animate arrow like a film projector pointing to the chest
+            if(!m_arrowFrames.empty())
             {
-                chest.frameTimer -= IdleFrameDuration;
-                chest.frameIndex = (chest.frameIndex + 1) % m_idleFrames.size();
-                ApplyFrame(chest, m_idleFrames);
+                chest.arrowFrameTimer += dt;
+                if(chest.arrowFrameTimer >= ArrowFrameDuration)
+                {
+                    chest.arrowFrameTimer -= ArrowFrameDuration;
+                    chest.arrowFrameIndex = (chest.arrowFrameIndex + 1) % m_arrowFrames.size();
+                    ApplyArrowFrame(chest);
+                }
             }
-            continue;
         }
-
     }
 }
 
@@ -120,6 +157,10 @@ void TreasureChestManager::Draw(sf::RenderTarget& target) const
         if(chest.active)
         {
             target.draw(chest.sprite);
+            if(!m_arrowFrames.empty())
+            {
+                target.draw(chest.arrowSprite);
+            }
         }
     }
 }
@@ -130,24 +171,6 @@ std::size_t TreasureChestManager::GetActiveCount() const
         m_chests.begin(),
         m_chests.end(),
         [](const Chest& chest) { return chest.active; }));
-}
-
-void TreasureChestManager::ApplyFrame(
-    Chest& chest,
-    const std::vector<AssetTextureData>& frames) const
-{
-    if(frames.empty() || chest.frameIndex >= frames.size())
-    {
-        return;
-    }
-
-    const AssetTextureData& frame = frames[chest.frameIndex];
-    chest.sprite.setTexture(*frame.texture, false);
-    chest.sprite.setTextureRect(frame.rect);
-    chest.sprite.setOrigin(
-        static_cast<float>(frame.rect.width) / 2.0f,
-        static_cast<float>(frame.rect.height) / 2.0f);
-    chest.sprite.setPosition(chest.position);
 }
 
 void TreasureChestManager::BeginOpening(

@@ -576,21 +576,9 @@
       "isAnUnlockable": true,
       "price": 2000,
       "seal": 1,
-      "unlockedRank": 10,
+      "unlockedRank": 6,
       "specialBG": true,
       "active": true
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
     },
     {
       "seal": 1
@@ -621,21 +609,9 @@
       "isAnUnlockable": true,
       "price": 4000,
       "seal": 1,
-      "unlockedRank": 10,
+      "unlockedRank": 6,
       "specialBG": true,
       "active": true
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
     },
     {
       "seal": 1
@@ -666,21 +642,9 @@
       "isAnUnlockable": true,
       "price": 6000,
       "seal": 1,
-      "unlockedRank": 10,
+      "unlockedRank": 6,
       "specialBG": true,
       "active": true
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
     },
     {
       "seal": 1
@@ -711,21 +675,9 @@
       "isAnUnlockable": true,
       "price": 8000,
       "seal": 1,
-      "unlockedRank": 10,
+      "unlockedRank": 6,
       "specialBG": true,
       "active": true
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
-    },
-    {
-      "seal": 1
     },
     {
       "seal": 1

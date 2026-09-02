@@ -105,6 +105,17 @@ CharacterSelectionView::CharacterSelectionView(TextureAtlas& atlas, const sf::Fo
                 }
             }
         });
+
+        // Select the first unlocked character by default so stats panel and detail panel are immediately populated
+        const auto& order = characterData.GetCharacterOrder();
+        for(const auto& id : order)
+        {
+            if (progressionManager && progressionManager->IsCharacterUnlocked(id))
+            {
+                m_mainBoard->GetRosterGrid()->SelectCharacter(id);
+                break;
+            }
+        }
     }
 
     m_confirmButton->SetOnClickCallback([this]()

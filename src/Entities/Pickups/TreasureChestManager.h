@@ -30,18 +30,20 @@ private:
     struct Chest
     {
         sf::Sprite sprite;
+        sf::Sprite arrowSprite;
         sf::Vector2f position;
         ChestState state = ChestState::Idle;
-        std::size_t frameIndex = 0;
-        float frameTimer = 0.0f;
+        std::size_t arrowFrameIndex = 0;
+        float arrowFrameTimer = 0.0f;
         int goldReward = 0;
         bool active = false;
     };
 
-    void ApplyFrame(Chest& chest, const std::vector<AssetTextureData>& frames) const;
+    void ApplyArrowFrame(Chest& chest) const;
     void BeginOpening(Chest& chest, const std::function<void(int)>& onGoldCollected);
 
-    std::vector<AssetTextureData> m_idleFrames;
+    AssetTextureData m_chestData;
+    std::vector<AssetTextureData> m_arrowFrames;
     std::vector<Chest> m_chests;
     std::mt19937 m_random{std::random_device{}()};
 };

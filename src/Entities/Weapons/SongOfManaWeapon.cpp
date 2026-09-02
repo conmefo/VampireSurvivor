@@ -94,6 +94,7 @@ void SongOfManaWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     projectile->SetOwnerPlayer(&player);
     projectile->SetHitBoxDelay(m_profile.GetHitBoxDelay());
     projectile->SetRepeatInterval(m_profile.GetRepeatInterval() > 0.0f ? m_profile.GetRepeatInterval() : 500.0f);
+    projectile->SetKnockback(m_profile.GetKnockback());
 
     projManager.AddProjectile(std::move(projectile));
 }

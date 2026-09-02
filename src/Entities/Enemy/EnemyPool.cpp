@@ -25,6 +25,8 @@ void EnemyHotSoA::Reserve(std::size_t capacity)
     y.resize(capacity, 0.0f);
     vx.resize(capacity, 0.0f);
     vy.resize(capacity, 0.0f);
+    kbVx.resize(capacity, 0.0f);
+    kbVy.resize(capacity, 0.0f);
     hp.resize(capacity, 0.0f);
     maxHp.resize(capacity, 0.0f);
     speed.resize(capacity, 0.0f);
@@ -109,6 +111,26 @@ uint16_t EnemyPool::GetOrCreateTypeId(const std::string& enemyId, const EnemySta
                 }
             }
         }
+
+        if (!def->deathAnimation.frames.empty())
+        {
+            data.deathFrameDuration = def->deathAnimation.frameDuration > 0.001f ? def->deathAnimation.frameDuration : (1.0f / 60.0f);
+            for (const auto& frame : def->deathAnimation.frames)
+            {
+                if (frame.texture)
+                {
+                    if (!data.texture)
+                    {
+                        data.texture = frame.texture;
+                    }
+                    data.deathFrames.push_back(frame.rect);
+                }
+            }
+            if (!data.deathFrames.empty())
+            {
+                data.totalDeathDuration = static_cast<float>(data.deathFrames.size()) * data.deathFrameDuration;
+            }
+        }
     }
     else if (customStats)
     {
@@ -159,6 +181,8 @@ EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& po
     m_hot.y[sparseIndex] = position.y;
     m_hot.vx[sparseIndex] = 0.0f;
     m_hot.vy[sparseIndex] = 0.0f;
+    m_hot.kbVx[sparseIndex] = 0.0f;
+    m_hot.kbVy[sparseIndex] = 0.0f;
     m_hot.maxHp[sparseIndex] = hasCustomStats ? stats.maxHealth : typeData.maxHealth;
     m_hot.hp[sparseIndex] = m_hot.maxHp[sparseIndex];
     m_hot.speed[sparseIndex] = hasCustomStats ? stats.speed : typeData.speed;
@@ -195,6 +219,86 @@ EnemyBase* EnemyPool::Acquire(const std::string& enemyId, const sf::Vector2f& po
     }
 
     return nullptr;
+}
+
+EnemyBase* EnemyPool::AcquireStream(const std::string& enemyId, const sf::Vector2f& position, const sf::Vector2f& velocity, const EnemyStats& stats)
+{
+    EnemyBase* enemy = Acquire(enemyId, position, stats);
+    if (!enemy)
+    {
+        return nullptr;
+    }
+    for (uint32_t i = 0; i < m_activeCount; ++i)
+    {
+        const uint32_t sparse = m_activeIndices[i];
+        if (m_legacyPool[sparse].get() == enemy)
+        {
+            m_hot.vx[sparse] = velocity.x;
+            m_hot.vy[sparse] = velocity.y;
+            m_hot.flags[sparse] |= 4; // Stream flag
+            break;
+        }
+    }
+    return enemy;
+}
+
+EnemyBase* EnemyPool::AcquireCage(const std::string& enemyId, const sf::Vector2f& position, const EnemyStats& stats)
+{
+    EnemyBase* enemy = Acquire(enemyId, position, stats);
+    if (!enemy)
+    {
+        return nullptr;
+    }
+    for (uint32_t i = 0; i < m_activeCount; ++i)
+    {
+        const uint32_t sparse = m_activeIndices[i];
+        if (m_legacyPool[sparse].get() == enemy)
+        {
+            m_hot.vx[sparse] = 0.0f;
+            m_hot.vy[sparse] = 0.0f;
+            m_hot.flags[sparse] |= 8; // Cage flag
+            break;
+        }
+    }
+    return enemy;
+}
+
+void EnemyPool::SetPosition(EnemyBase* enemyPtr, const sf::Vector2f& pos)
+{
+    if (!enemyPtr)
+    {
+        return;
+    }
+    for (uint32_t i = 0; i < m_activeCount; ++i)
+    {
+        const uint32_t sparse = m_activeIndices[i];
+        if (m_legacyPool[sparse].get() == enemyPtr)
+        {
+            m_hot.x[sparse] = pos.x;
+            m_hot.y[sparse] = pos.y;
+            enemyPtr->SetPosition(pos);
+            return;
+        }
+    }
+}
+
+void EnemyPool::MovePosition(EnemyBase* enemyPtr, const sf::Vector2f& delta)
+{
+    if (!enemyPtr)
+    {
+        return;
+    }
+    for (uint32_t i = 0; i < m_activeCount; ++i)
+    {
+        const uint32_t sparse = m_activeIndices[i];
+        if (m_legacyPool[sparse].get() == enemyPtr)
+        {
+            m_hot.x[sparse] += delta.x;
+            m_hot.y[sparse] += delta.y;
+            enemyPtr->SetPosition(sf::Vector2f(m_hot.x[sparse], m_hot.y[sparse]));
+            return;
+        }
+    }
 }
 
 void EnemyPool::DeactivateIndex(uint32_t denseIdx)
@@ -270,7 +374,14 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
         if (m_hot.flags[idx] & 2)
         {
             m_hot.deathTimer[idx] += dt;
-            if (m_hot.deathTimer[idx] >= 0.35f)
+            m_hot.x[idx] += m_hot.vx[idx] * dt;
+            m_hot.y[idx] += m_hot.vy[idx] * dt;
+            m_hot.vx[idx] *= std::max(0.0f, 1.0f - dt * 6.0f);
+            m_hot.vy[idx] *= std::max(0.0f, 1.0f - dt * 6.0f);
+
+            const uint16_t typeId = m_hot.typeId[idx];
+            const float totalDeathTime = m_typeCatalog[typeId].totalDeathDuration;
+            if (m_hot.deathTimer[idx] >= totalDeathTime)
             {
                 DeactivateIndex(i);
                 --i;
@@ -292,20 +403,50 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
         const float dy = targetPosition.y - m_hot.y[idx];
         const float distSq = dx * dx + dy * dy;
 
-        const float attackRange = m_hot.attackRange[idx];
-        const bool holdingAttackRange = attackRange > 0.0f && distSq <= attackRange * attackRange;
-
-        if (distSq > 0.001f && !holdingAttackRange)
+        if (m_hot.flags[idx] & 4) // Stream enemy: preserves directional velocity with organic flock undulation
         {
-            const float invDist = 1.0f / std::sqrt(distSq);
-            const float speed = m_hot.speed[idx];
-            m_hot.vx[idx] = (dx * invDist) * speed;
-            m_hot.vy[idx] = (dy * invDist) * speed;
+            // If the stream enemy has traveled far past the screen boundaries, recycle safely
+            if (distSq > 1400.0f * 1400.0f)
+            {
+                DeactivateIndex(i);
+                --i;
+                continue;
+            }
+
+            // Subtle organic flock undulation perpendicular to trajectory
+            const float vSq = m_hot.vx[idx] * m_hot.vx[idx] + m_hot.vy[idx] * m_hot.vy[idx];
+            if (vSq > 10.0f)
+            {
+                const float invV = 1.0f / std::sqrt(vSq);
+                const float perpX = -m_hot.vy[idx] * invV;
+                const float perpY = m_hot.vx[idx] * invV;
+                const float wave = std::sin(m_hot.animTimer[idx] * 4.5f + static_cast<float>((idx * 23) % 47)) * 22.0f;
+                m_hot.x[idx] += perpX * wave * dt;
+                m_hot.y[idx] += perpY * wave * dt;
+            }
         }
-        else
+        else if (m_hot.flags[idx] & 8) // Cage enemy: positions are controlled by BossCage
         {
             m_hot.vx[idx] = 0.0f;
             m_hot.vy[idx] = 0.0f;
+        }
+        else
+        {
+            const float attackRange = m_hot.attackRange[idx];
+            const bool holdingAttackRange = attackRange > 0.0f && distSq <= attackRange * attackRange;
+
+            if (distSq > 0.001f && !holdingAttackRange)
+            {
+                const float invDist = 1.0f / std::sqrt(distSq);
+                const float speed = m_hot.speed[idx];
+                m_hot.vx[idx] = (dx * invDist) * speed;
+                m_hot.vy[idx] = (dy * invDist) * speed;
+            }
+            else
+            {
+                m_hot.vx[idx] = 0.0f;
+                m_hot.vy[idx] = 0.0f;
+            }
         }
 
         minX = std::min(minX, m_hot.x[idx]);
@@ -430,7 +571,7 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
     }
 
     // Step 4: Apply position updates + Player Solid Wall constraint
-    constexpr float PlayerColliderRadius = 14.0f;
+    constexpr float PlayerColliderRadius = 8.0f;
 
     for (uint32_t i = 0; i < m_activeCount; ++i)
     {
@@ -440,11 +581,14 @@ void EnemyPool::Update(float dt, const sf::Vector2f& targetPosition)
             continue;
         }
 
-        const float pX = std::clamp(m_pushX[idx], -180.0f, 180.0f);
-        const float pY = std::clamp(m_pushY[idx], -180.0f, 180.0f);
+        const float pX = std::clamp(m_pushX[idx], -320.0f, 320.0f);
+        const float pY = std::clamp(m_pushY[idx], -320.0f, 320.0f);
 
-        m_hot.x[idx] += (m_hot.vx[idx] + pX) * dt;
-        m_hot.y[idx] += (m_hot.vy[idx] + pY) * dt;
+        m_hot.x[idx] += (m_hot.vx[idx] + pX + m_hot.kbVx[idx]) * dt;
+        m_hot.y[idx] += (m_hot.vy[idx] + pY + m_hot.kbVy[idx]) * dt;
+
+        m_hot.kbVx[idx] *= std::max(0.0f, 1.0f - dt * 10.0f);
+        m_hot.kbVy[idx] *= std::max(0.0f, 1.0f - dt * 10.0f);
 
         // Player wall collision: prevent enemy from penetrating player bounds
         const float pdx = m_hot.x[idx] - targetPosition.x;
@@ -537,14 +681,22 @@ bool EnemyPool::ApplyDamageAtIndex(uint32_t index, float damage, const sf::Vecto
         {
             const float inverseLength = 1.0f / std::sqrt(directionLengthSquared);
             legacy->ApplyKnockback(direction * (inverseLength * knockbackForce));
-            const sf::Vector2f position = legacy->GetPosition();
-            m_hot.x[index] = position.x;
-            m_hot.y[index] = position.y;
+
+            float safeMass = legacy->GetStats().mass <= 0.0f ? 1.0f : legacy->GetStats().mass;
+            float effectiveKnockback = legacy->GetStats().knockback + legacy->GetKnockbackResistanceReduction();
+            effectiveKnockback = std::clamp(effectiveKnockback, 0.0f, legacy->GetStats().maxKnockback);
+            float impulse = (knockbackForce * effectiveKnockback) / safeMass;
+
+            m_hot.kbVx[index] += direction.x * (inverseLength * impulse);
+            m_hot.kbVy[index] += direction.y * (inverseLength * impulse);
         }
         return false;
     }
 
     m_hot.flags[index] |= 2;
+    const sf::Vector2f deathVelocity = legacy->GetVelocity();
+    m_hot.vx[index] = deathVelocity.x + m_hot.kbVx[index];
+    m_hot.vy[index] = deathVelocity.y + m_hot.kbVy[index];
     const sf::Vector2f deathPosition = legacy->GetPosition();
     m_hot.x[index] = deathPosition.x;
     m_hot.y[index] = deathPosition.y;
@@ -678,13 +830,31 @@ void EnemyPool::Draw(sf::RenderTarget& target)
 
         const uint16_t typeId = m_hot.typeId[idx];
         const EnemyTypeData& typeData = m_typeCatalog[typeId];
-        const int frameCount = static_cast<int>(typeData.animFrames.size());
+        const bool isDying = ((m_hot.flags[idx] & 2) != 0);
         uint8_t frameIdx = 0;
+        float deathAlpha = 1.0f;
 
-        if (frameCount > 1)
+        if (isDying)
         {
-            frameIdx = static_cast<uint8_t>(
-                static_cast<int>(m_hot.animTimer[idx] / typeData.frameDuration) % frameCount);
+            const int deathFrameCount = static_cast<int>(typeData.deathFrames.size());
+            if (deathFrameCount > 0)
+            {
+                const int curFrame = static_cast<int>(m_hot.deathTimer[idx] / typeData.deathFrameDuration);
+                frameIdx = static_cast<uint8_t>(std::clamp(curFrame, 0, deathFrameCount - 1));
+            }
+            else
+            {
+                deathAlpha = std::max(0.0f, 1.0f - (m_hot.deathTimer[idx] / typeData.totalDeathDuration));
+            }
+        }
+        else
+        {
+            const int frameCount = static_cast<int>(typeData.animFrames.size());
+            if (frameCount > 1)
+            {
+                frameIdx = static_cast<uint8_t>(
+                    static_cast<int>(m_hot.animTimer[idx] / typeData.frameDuration) % frameCount);
+            }
         }
 
         RenderEnemy ren;
@@ -694,8 +864,8 @@ void EnemyPool::Draw(sf::RenderTarget& target)
         ren.typeId = typeId;
         ren.frame = frameIdx;
         ren.isFlashing = (m_hot.flashTimer[idx] > 0.0f);
-        ren.isDying = ((m_hot.flags[idx] & 2) != 0);
-        ren.deathAlpha = ren.isDying ? std::max(0.0f, 1.0f - (m_hot.deathTimer[idx] / 0.35f)) : 1.0f;
+        ren.isDying = isDying;
+        ren.deathAlpha = deathAlpha;
         m_renderBuffer.push_back(ren);
     }
 
@@ -745,7 +915,18 @@ void EnemyPool::Draw(sf::RenderTarget& target)
 
             activeTexture = typeData.texture;
             sf::IntRect texRect;
-            if (!typeData.animFrames.empty() && ren.frame < typeData.animFrames.size())
+            if (ren.isDying && !typeData.deathFrames.empty())
+            {
+                if (ren.frame < typeData.deathFrames.size())
+                {
+                    texRect = typeData.deathFrames[ren.frame];
+                }
+                else
+                {
+                    texRect = typeData.deathFrames.back();
+                }
+            }
+            else if (!typeData.animFrames.empty() && ren.frame < typeData.animFrames.size())
             {
                 texRect = typeData.animFrames[ren.frame];
             }

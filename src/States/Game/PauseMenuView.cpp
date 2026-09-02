@@ -10,6 +10,8 @@
 #include "../../UI/Panels/UIPanel.h"
 #include <algorithm>
 
+#include "../../Entities/Player.h"
+
 namespace
 {
 void CenterText(sf::Text& text, const sf::Vector2f& position)
@@ -77,33 +79,43 @@ PauseMenuView::PauseMenuView(
     m_characterName.setString(character.GetName());
     m_characterName.setCharacterSize(27);
     m_characterName.setFillColor(sf::Color::White);
-    m_characterName.setPosition(190.0f, 185.0f);
+    m_characterName.setPosition(185.0f, 185.0f);
 
     m_characterSprite = m_atlas.CreateSprite(character.GetPortraitTextureId());
     FitSprite(m_characterSprite, 92.0f, 92.0f);
-    m_characterSprite.setPosition(125.0f, 240.0f);
+    m_characterSprite.setPosition(120.0f, 240.0f);
 
-    const WeaponProfile& weapon = weapons.GetWeaponById(character.GetStartingWeaponId());
-    if(weapon.GetId() != "UNKNOWN")
-    {
-        m_weaponSprite = m_atlas.CreateSprite(
-            weapon.GetFrameName().empty() ? character.GetStartingWeaponId() : weapon.GetFrameName());
-    }
-    FitSprite(m_weaponSprite, 58.0f, 58.0f);
-    m_weaponSprite.setPosition(235.0f, 267.0f);
-
-    m_weaponName.setFont(m_font);
-    m_weaponName.setString(weapon.GetName() + "  Lv. 1");
-    m_weaponName.setCharacterSize(21);
-    m_weaponName.setFillColor(sf::Color(230, 230, 230));
-    m_weaponName.setPosition(190.0f, 219.0f);
+    // Initialize 6 weapon slots (moved to left and smaller 50x50 size)
+    const WeaponProfile& startingWeapon = weapons.GetWeaponById(character.GetStartingWeaponId());
+    std::string startIconKey = startingWeapon.GetFrameName().empty() ? character.GetStartingWeaponId() : startingWeapon.GetFrameName();
 
     for(int i = 0; i < 6; ++i)
     {
-        sf::Sprite slot = m_atlas.CreateSprite(i == 0 ? "frameB10" : "frameB10_empty");
-        FitSprite(slot, 66.0f, 66.0f);
-        slot.setPosition(235.0f + static_cast<float>(i) * 66.0f, 267.0f);
-        m_emptySlots.push_back(slot);
+        WeaponSlotView slot;
+        const float slotCenterX = 185.0f + static_cast<float>(i) * 54.0f + 25.0f;
+        const float slotCenterY = 245.0f;
+
+        if (i == 0)
+        {
+            slot.slotFrame = m_atlas.CreateSprite("frameB10");
+            FitSprite(slot.slotFrame, 50.0f, 50.0f);
+            slot.slotFrame.setPosition(slotCenterX, slotCenterY);
+
+            slot.weaponIcon = m_atlas.CreateSprite(startIconKey);
+            FitSprite(slot.weaponIcon, 40.0f, 40.0f);
+            slot.weaponIcon.setPosition(slotCenterX, slotCenterY);
+
+            slot.hasWeapon = true;
+        }
+        else
+        {
+            slot.slotFrame = m_atlas.CreateSprite("frameB10_empty");
+            FitSprite(slot.slotFrame, 50.0f, 50.0f);
+            slot.slotFrame.setPosition(slotCenterX, slotCenterY);
+
+            slot.hasWeapon = false;
+        }
+        m_weaponSlots.push_back(slot);
     }
 
     m_statsPanel = std::make_unique<StatsPanel>(m_atlas, m_font);
@@ -350,6 +362,62 @@ void PauseMenuView::HandleEvent(const sf::Event& event, const sf::RenderWindow& 
     }
 }
 
+void PauseMenuView::UpdateRunState(
+    const CharacterProfile& character,
+    const Player& player,
+    const WeaponDataManager& weapons,
+    const PlayerProgressionManager& progression,
+    const PowerUpDataManager& powerUps)
+{
+    m_characterName.setString(character.GetName());
+    m_characterSprite = m_atlas.CreateSprite(character.GetPortraitTextureId());
+    FitSprite(m_characterSprite, 92.0f, 92.0f);
+    m_characterSprite.setPosition(120.0f, 240.0f);
+
+    m_statsPanel->SetCharacterProfile(character, &progression, &powerUps, &player, &weapons);
+
+    const auto& equippedWeapons = player.GetWeaponInventory().GetWeapons();
+    std::vector<std::string> weaponIconKeys;
+    for (const auto& w : equippedWeapons)
+    {
+        if (!w) continue;
+        const auto& prof = w->GetProfile();
+        if (!prof.IsPowerUp())
+        {
+            std::string iconKey = prof.GetFrameName();
+            if (iconKey.empty()) iconKey = prof.GetId();
+            weaponIconKeys.push_back(iconKey);
+        }
+    }
+
+    for (std::size_t i = 0; i < m_weaponSlots.size(); ++i)
+    {
+        const float slotCenterX = 185.0f + static_cast<float>(i) * 54.0f + 25.0f;
+        const float slotCenterY = 245.0f;
+
+        if (i < weaponIconKeys.size())
+        {
+            m_weaponSlots[i].slotFrame = m_atlas.CreateSprite("frameB10");
+            FitSprite(m_weaponSlots[i].slotFrame, 50.0f, 50.0f);
+            m_weaponSlots[i].slotFrame.setPosition(slotCenterX, slotCenterY);
+
+            m_weaponSlots[i].weaponIcon = m_atlas.CreateSprite(weaponIconKeys[i]);
+            FitSprite(m_weaponSlots[i].weaponIcon, 40.0f, 40.0f);
+            m_weaponSlots[i].weaponIcon.setPosition(slotCenterX, slotCenterY);
+
+            m_weaponSlots[i].hasWeapon = true;
+        }
+        else
+        {
+            m_weaponSlots[i].slotFrame = m_atlas.CreateSprite("frameB10_empty");
+            FitSprite(m_weaponSlots[i].slotFrame, 50.0f, 50.0f);
+            m_weaponSlots[i].slotFrame.setPosition(slotCenterX, slotCenterY);
+
+            m_weaponSlots[i].hasWeapon = false;
+        }
+    }
+}
+
 void PauseMenuView::Update(float dt)
 {
     m_uiManager.Update(dt);
@@ -367,12 +435,14 @@ void PauseMenuView::Draw(sf::RenderTarget& target)
     target.draw(m_equipmentTitle);
     target.draw(m_characterSprite);
     target.draw(m_characterName);
-    target.draw(m_weaponName);
-    for(const sf::Sprite& slot : m_emptySlots)
+    for(const auto& slot : m_weaponSlots)
     {
-        target.draw(slot);
+        target.draw(slot.slotFrame);
+        if (slot.hasWeapon)
+        {
+            target.draw(slot.weaponIcon);
+        }
     }
-    target.draw(m_weaponSprite);
     m_statsPanel->Draw(target);
 
     target.draw(m_mapBackground);

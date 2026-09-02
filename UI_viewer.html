@@ -320,9 +320,11 @@
                     return response.json();
                 })
                 .then(data => {
-                    // Extract atlas if nested in enemy format
-                    if (data.atlas) {
+                    // Extract atlas if nested in enemy container format (and not a single sprite named "atlas")
+                    if (data.atlas && typeof data.atlas === 'object' && !('x' in data.atlas) && !('width' in data.atlas)) {
                         sprites = data.atlas;
+                    } else if (data.frames && typeof data.frames === 'object' && !('x' in data.frames)) {
+                        sprites = data.frames;
                     } else {
                         sprites = data;
                     }

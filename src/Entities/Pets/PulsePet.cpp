@@ -154,15 +154,12 @@ void PulsePet::TriggerShockwave(EnemyPool& enemyPool, DamageNumberManager* damag
         {
             sf::Vector2f knockbackDir = (distance > 0.001f) ? (diff / distance) : sf::Vector2f(1.0f, 0.0f);
 
-            // Deal shockwave damage
-            if (m_config.damage > 0.0f)
-            {
-                enemyPool.ApplyDamageByPointer(enemy, m_config.damage, knockbackDir, m_config.knockbackForce);
+            // Apply shockwave knockback and chip damage
+            enemyPool.ApplyDamageByPointer(enemy, m_config.damage, knockbackDir, m_config.knockbackForce);
 
-                if (damageNumbers)
-                {
-                    damageNumbers->Spawn(m_config.damage, enemyPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
-                }
+            if (damageNumbers && m_config.damage > 0.0f)
+            {
+                damageNumbers->Spawn(m_config.damage, enemyPos - sf::Vector2f(0.0f, enemy->GetCollisionRadius()));
             }
         }
     }

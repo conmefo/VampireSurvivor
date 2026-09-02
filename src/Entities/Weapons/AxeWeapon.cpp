@@ -62,6 +62,7 @@ void AxeWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atlas, Pla
 
     auto proj = std::make_unique<AxeProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating());
     proj->SetParticleManager(projManager.GetParticleManager());
+    proj->SetKnockback(m_profile.GetKnockback());
     
     projManager.AddProjectile(std::move(proj));
 }

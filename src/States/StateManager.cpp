@@ -12,6 +12,13 @@ void StateManager::PopState()
     m_isRemoving = true;
 }
 
+void StateManager::ClearAndQuit()
+{
+    // Defer the actual cleanup to ProcessStateChanges so we don't
+    // destroy the current state mid-HandleInput (use-after-free).
+    m_quitRequested = true;
+}
+
 void StateManager::ChangeStateWithTransition(std::unique_ptr<BaseState> state, float duration, sf::Color color)
 {
     m_newState = std::move(state);
@@ -31,8 +38,34 @@ void StateManager::ChangeStateWithTransition(std::unique_ptr<BaseState> state, f
     });
 }
 
+void StateManager::ClearAndSetState(std::unique_ptr<BaseState> state, float duration, sf::Color color)
+{
+    m_newState = std::move(state);
+    
+    m_transitionManager.StartTransition(duration, color, [this]()
+    {
+        m_states.clear();
+        if(m_newState)
+        {
+            m_states.push_back(std::move(m_newState));
+            m_states.back()->Init();
+        }
+        m_transitionManager.ProceedToFadeIn();
+    });
+}
+
 void StateManager::ProcessStateChanges()
 {
+    if(m_quitRequested)
+    {
+        m_states.clear();
+        m_newState.reset();
+        m_isRemoving = false;
+        m_isAdding = false;
+        // m_quitRequested stays true; IsEmpty() + IsQuitRequested() will close the window
+        return;
+    }
+
     if(m_isRemoving && !m_states.empty())
     {
         m_states.pop_back();

@@ -147,5 +147,6 @@ void RunetracerWeapon::FireOne(ProjectileManager& projManager, TextureAtlas& atl
     sf::Color projectileColor = colors[dist(gen)];
 
     auto proj = std::make_unique<RunetracerProjectile>(*data.texture, data.rect, spawnPosition, velocity, duration, power, area, m_profile.GetHitVFX(), m_profile.GetPenetrating(), &projManager, trailConfig, projectileColor);
+    proj->SetKnockback(m_profile.GetKnockback());
     projManager.AddProjectile(std::move(proj));
 }

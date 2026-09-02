@@ -5,7 +5,8 @@
 
 namespace
 {
-    constexpr float DigitScale = 3.0f;
+    constexpr float InitialDigitScale = 1.6f;
+    constexpr float FinalDigitScale = 1.0f;
     constexpr float DigitAdvancePixels = 6.0f;
     constexpr float SpawnYOffset = -18.0f;
 }
@@ -50,7 +51,7 @@ void DamageNumberManager::Spawn(float damage, const sf::Vector2f& position)
     DamageNumber number;
     number.digits.reserve(damageText.size());
 
-    const float totalWidth = ((static_cast<float>(damageText.size()) - 1.0f) * DigitAdvancePixels + 5.0f) * DigitScale;
+    const float totalWidth = ((static_cast<float>(damageText.size()) - 1.0f) * DigitAdvancePixels + 5.0f) * InitialDigitScale;
     float cursorX = -totalWidth * 0.5f;
     const float horizontalOffset = static_cast<float>(static_cast<int>(m_spawnCounter % 5) - 2) * 4.0f;
     const float horizontalSpeed = static_cast<float>(static_cast<int>(m_spawnCounter % 3) - 1) * 8.0f;
@@ -70,12 +71,12 @@ void DamageNumberManager::Spawn(float damage, const sf::Vector2f& position)
         }
 
         sf::Sprite digit(*glyph.texture, glyph.rect);
-        digit.setScale(DigitScale, DigitScale);
+        digit.setScale(InitialDigitScale, InitialDigitScale);
         digit.setOrigin(0.0f, static_cast<float>(glyph.rect.height) * 0.5f);
         digit.setPosition(basePosition + sf::Vector2f(cursorX, 0.0f));
         number.digits.push_back(digit);
 
-        cursorX += DigitAdvancePixels * DigitScale;
+        cursorX += DigitAdvancePixels * InitialDigitScale;
     }
 
     if(number.digits.empty())
@@ -102,9 +103,11 @@ void DamageNumberManager::Update(float dt)
 
         const float t = number.lifetime > 0.0f ? std::clamp(number.age / number.lifetime, 0.0f, 1.0f) : 1.0f;
         const sf::Uint8 alpha = static_cast<sf::Uint8>(255.0f * (1.0f - t));
+        const float currentScale = InitialDigitScale + (FinalDigitScale - InitialDigitScale) * t;
 
         for(auto& digit : number.digits)
         {
+            digit.setScale(currentScale, currentScale);
             digit.setColor(sf::Color(255, 255, 255, alpha));
         }
     }

@@ -172,6 +172,13 @@ void TreasureRewardView::Finish()
 
     m_finishing = true;
     m_visible = false;
+
+    // Credit the gold reward to the player's run total
+    if(m_context.onGoldAdded && m_context.goldReward > 0)
+    {
+        m_context.onGoldAdded(m_context.goldReward);
+    }
+
     if(m_context.onComplete)
     {
         m_context.onComplete();

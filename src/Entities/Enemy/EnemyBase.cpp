@@ -42,6 +42,7 @@ void EnemyBase::Activate(const sf::Vector2f& position, const EnemyStats& stats)
     m_active = true;
     m_isDying = false;
     m_deathTimer = 0.0f;
+    m_knockbackVelocity = sf::Vector2f(0.0f, 0.0f);
     m_knockbackResistanceReduction = 0.0f;
     m_statusResistanceReduction = 0.0f;
 
@@ -56,6 +57,7 @@ void EnemyBase::Deactivate()
     m_isDying = false;
     m_deathTimer = 0.0f;
     m_velocity = sf::Vector2f(0.0f, 0.0f);
+    m_knockbackVelocity = sf::Vector2f(0.0f, 0.0f);
 }
 
 void EnemyBase::Update(float dt)
@@ -72,6 +74,8 @@ void EnemyBase::Update(float dt)
     }
 
     UpdateAI(dt);
+    m_position += m_knockbackVelocity * dt;
+    m_knockbackVelocity *= std::max(0.0f, 1.0f - dt * 10.0f);
     SyncBodyToPosition();
 }
 
@@ -122,10 +126,11 @@ void EnemyBase::ApplyKnockback(const sf::Vector2f& force)
     }
 
     float safeMass = m_stats.mass <= 0.0f ? 1.0f : m_stats.mass;
-    // Lower mass (or multiply force) based on knockback resistance reduction (each 0.1 reduction increases force by 10%)
-    float knockbackMultiplier = 1.0f + m_knockbackResistanceReduction;
-    m_position += (force * knockbackMultiplier) / safeMass;
-    SyncBodyToPosition();
+    // Calculate effective vulnerability combining base enemy knockback factor and garlic reduction
+    float effectiveKnockback = m_stats.knockback + m_knockbackResistanceReduction;
+    effectiveKnockback = std::clamp(effectiveKnockback, 0.0f, m_stats.maxKnockback);
+
+    m_knockbackVelocity += (force * effectiveKnockback) / safeMass;
 }
 
 bool EnemyBase::IsAlive() const

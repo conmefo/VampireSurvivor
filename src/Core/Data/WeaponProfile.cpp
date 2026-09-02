@@ -4,7 +4,7 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
                              const std::string& bulletType, const std::string& hitVFX,
                              float power, float area, float speed, float duration, float hitBoxDelay, float magnet, int amount, int poolLimit,
                              int interval, int repeatInterval, int penetrating, int rarity,
-                             bool isPowerUp, bool isUnlocked)
+                             float knockback, bool isPowerUp, bool isUnlocked)
     : m_id(id)
     , m_name(name)
     , m_description(description)
@@ -22,6 +22,7 @@ WeaponProfile::WeaponProfile(const std::string& id, const std::string& name, con
     , m_interval(interval)
     , m_repeatInterval(repeatInterval)
     , m_penetrating(penetrating)
+    , m_knockback(knockback)
     , m_currentLevel(1)
     , m_rarity(rarity)
     , m_isPowerUp(isPowerUp)
@@ -37,6 +38,7 @@ void WeaponProfile::ApplyDelta(const WeaponLevelDelta& delta)
     m_duration       += delta.duration;
     m_hitBoxDelay    += delta.hitBoxDelay;
     m_magnet         += delta.magnet;
+    m_knockback      += delta.knockback;
     m_amount         += delta.amount;
     m_interval       += delta.interval;
     m_repeatInterval += delta.repeatInterval;
@@ -53,6 +55,7 @@ void WeaponProfile::RevertDelta(const WeaponLevelDelta& delta)
     m_duration       -= delta.duration;
     m_hitBoxDelay    -= delta.hitBoxDelay;
     m_magnet         -= delta.magnet;
+    m_knockback      -= delta.knockback;
     m_amount         -= delta.amount;
     m_interval       -= delta.interval;
     m_repeatInterval -= delta.repeatInterval;
@@ -74,6 +77,7 @@ float WeaponProfile::GetSpeed() const { return m_speed; }
 float WeaponProfile::GetDuration() const { return m_duration; }
 float WeaponProfile::GetHitBoxDelay() const { return m_hitBoxDelay; }
 float WeaponProfile::GetMagnet() const { return m_magnet; }
+float WeaponProfile::GetKnockback() const { return m_knockback; }
 int   WeaponProfile::GetAmount() const { return m_amount; }
 int   WeaponProfile::GetPoolLimit() const { return m_poolLimit; }
 int   WeaponProfile::GetInterval() const { return m_interval; }

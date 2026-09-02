@@ -26,6 +26,7 @@ private:
     int   m_interval;
     int   m_repeatInterval;
     int   m_penetrating;
+    float m_knockback;
     int   m_currentLevel;
     int   m_rarity = 100;
 
@@ -35,7 +36,7 @@ public:
                   float power = 1.0f, float area = 1.0f, float speed = 1.0f, float duration = 2.0f, float hitBoxDelay = 0.5f,
                   float magnet = 0.0f, int amount = 1, int poolLimit = 0,
                   int interval = 1000, int repeatInterval = 0, int penetrating = 1, int rarity = 100,
-                  bool isPowerUp = false, bool isUnlocked = true);
+                  float knockback = 1.0f, bool isPowerUp = false, bool isUnlocked = true);
 
     // Accumulates a level delta into runtime stats. Called by Weapon::LevelUp().
     void ApplyDelta(const WeaponLevelDelta& delta);
@@ -55,6 +56,7 @@ public:
     float GetDuration() const;
     float GetHitBoxDelay() const;
     float GetMagnet() const;
+    float GetKnockback() const;
     int   GetAmount() const;
     int   GetPoolLimit() const;
     int   GetInterval() const;

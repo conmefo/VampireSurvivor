@@ -1,14 +1,19 @@
 #include "EnemyDatabase.h"
 
 #include <algorithm>
+#include <cstdio>
 #include <fstream>
 #include <iostream>
 #include <nlohmann/json.hpp>
 #include <string>
+#include <unordered_map>
 
 namespace
 {
+    constexpr int MaxAuthenticDeathFrames = 30;
     constexpr float AuthenticColliderRadiusScale = 100.0f;
+    constexpr float AuthenticSpeedScale = 0.21f;
+    constexpr float AuthenticHealthScale = 10.0f;
 
     float GetFloatOrDefault(const nlohmann::json& json, const char* key, float fallback)
     {
@@ -60,32 +65,6 @@ namespace
                LoadOptionalJsonFile("../../Assets/Data/ENEMY_DATA.json", json);
     }
 
-    bool LoadAuthenticEnemyAtlas(const std::string& textureName, nlohmann::json& json)
-    {
-        if(textureName == "enemies")
-        {
-            return LoadOptionalJsonFile("assets/Data/enemies_atlas.json", json) ||
-                   LoadOptionalJsonFile("Assets/Data/enemies_atlas.json", json);
-        }
-        if(textureName == "enemies3")
-        {
-            return LoadOptionalJsonFile("assets/Data/enemies3_atlas.json", json) ||
-                   LoadOptionalJsonFile("Assets/Data/enemies3_atlas.json", json);
-        }
-        return false;
-    }
-
-    const nlohmann::json* FindAuthenticEnemyStats(const nlohmann::json& enemyData, const std::string& enemyId)
-    {
-        if(!enemyData.contains(enemyId) || !enemyData[enemyId].is_array() || enemyData[enemyId].empty())
-        {
-            return nullptr;
-        }
-
-        const nlohmann::json& firstEntry = enemyData[enemyId].front();
-        return firstEntry.is_object() ? &firstEntry : nullptr;
-    }
-
     std::string StripExtension(const std::string& filename)
     {
         const std::size_t dot = filename.find_last_of('.');
@@ -124,24 +103,170 @@ namespace
 
     std::string GetTexturePathForAuthenticSheet(const std::string& textureName)
     {
-        if(textureName == "enemies")
+        if(textureName == "enemies") return "assets/images/enemies/enemies.png";
+        if(textureName == "enemies2") return "assets/images/enemies/enemies2.png";
+        if(textureName == "enemies3") return "assets/images/enemies/enemies3.png";
+        if(textureName == "enemies2023") return "assets/images/enemies/enemies2023.png";
+        if(textureName == "enemies2025") return "assets/images/enemies/enemies2025.png";
+        if(textureName == "enemiesM") return "assets/images/enemies/enemiesM.png";
+        if(textureName == "vfx") return "assets/images/enemies/vs_vfx.png";
+
+        return "assets/images/enemies/enemies.png";
+    }
+
+    std::string GetAtlasPathForAuthenticSheet(const std::string& textureName)
+    {
+        if(textureName == "enemies") return "assets/Data/enemies_atlas.json";
+        if(textureName == "enemies2") return "assets/Data/enemies2_atlas.json";
+        if(textureName == "enemies3") return "assets/Data/enemies3_atlas.json";
+        if(textureName == "enemies2023") return "assets/Data/enemies2023_atlas.json";
+        if(textureName == "enemies2025") return "assets/Data/enemies2025_atlas.json";
+        if(textureName == "enemiesM") return "assets/Data/enemiesM_atlas.json";
+        if(textureName == "vfx") return "assets/Data/vfx_atlas.json";
+
+        return "assets/Data/enemies_atlas.json";
+    }
+
+    bool IsPrototypeBoss(const std::string& enemyId, const EnemyStats& stats)
+    {
+        return enemyId.find("BOSS") != std::string::npos ||
+               enemyId.rfind("MASK_", 0) == 0 ||
+               stats.maxHealth >= 100.0f ||
+               stats.damage >= 30.0f;
+    }
+
+    void ApplyAuthenticScaleAndCollider(EnemyDefinition& definition,
+                                        const nlohmann::json& authenticStats)
+    {
+        const float previousScale = std::max(0.001f, definition.spriteScale);
+        definition.spriteScale = std::clamp(
+            GetFloatOrDefault(authenticStats, "scale", definition.spriteScale),
+            0.25f,
+            3.0f);
+
+        if(!authenticStats.contains("colliderOverride") ||
+           !authenticStats["colliderOverride"].is_object())
         {
-            return "assets/images/enemies/vs_enemies.png";
-        }
-        if(textureName == "enemies2")
-        {
-            return "assets/images/enemies/vs_enemies2.png";
-        }
-        if(textureName == "enemies3")
-        {
-            return "assets/images/enemies/vs_enemies3.png";
-        }
-        if(textureName == "vfx")
-        {
-            return "assets/images/enemies/vs_vfx.png";
+            if(authenticStats.contains("scale"))
+            {
+                definition.stats.collisionRadius *= definition.spriteScale / previousScale;
+            }
+            return;
         }
 
-        return "";
+        const nlohmann::json& collider = authenticStats["colliderOverride"];
+        definition.stats.collisionRadius =
+            GetFloatOrDefault(collider, "radius", definition.stats.collisionRadius / AuthenticColliderRadiusScale) *
+            AuthenticColliderRadiusScale *
+            definition.spriteScale;
+
+        definition.stats.collisionOffset = sf::Vector2f(
+            std::clamp(GetFloatOrDefault(collider, "offsetX", 0.0f) * definition.spriteScale, -80.0f, 80.0f),
+            std::clamp(GetFloatOrDefault(collider, "offsetY", 0.0f) * definition.spriteScale, -80.0f, 80.0f));
+    }
+
+    void ApplyPrototypeBalance(const std::string& enemyId, EnemyStats& stats)
+    {
+        const bool bossLike = IsPrototypeBoss(enemyId, stats);
+        const float maxHealthCap = bossLike ? 1500.0f : 800.0f;
+        const float damageCap = bossLike ? 25.0f : 20.0f;
+        const float speedCap = bossLike ? 220.0f : 240.0f;
+        const float collisionRadiusCap = bossLike ? 48.0f : 34.0f;
+
+        stats.maxHealth = std::clamp(stats.maxHealth, 0.1f, maxHealthCap);
+        stats.damage = std::clamp(stats.damage, 0.0f, damageCap);
+        stats.speed = std::clamp(stats.speed, 0.0f, speedCap);
+        stats.mass = std::max(stats.mass, 0.5f);
+        stats.collisionRadius = std::clamp(stats.collisionRadius, 8.0f, collisionRadiusCap);
+        stats.deathKnockback = std::clamp(stats.deathKnockback, 0.0f, 8.0f);
+        stats.baseAlpha = std::clamp(stats.baseAlpha, 0.0f, 1.0f);
+        stats.expYield = std::max(stats.expYield, 0.0f);
+    }
+
+    void BuildAuthenticIdleAnimation(EnemyDefinition& definition,
+                                     const nlohmann::json& authenticStats,
+                                     const nlohmann::json& authenticAtlas,
+                                     const sf::Texture* texture)
+    {
+        if(!texture)
+        {
+            return;
+        }
+
+        const std::string firstFrameName = GetFirstDeathFrameName(authenticStats);
+        const std::string framePrefix = GetFramePrefix(firstFrameName);
+        const int idleCount = GetIntOrDefault(authenticStats, "idleFrameCount", 1);
+
+        EnemyAnimationDefinition idleAnim;
+        idleAnim.frameDuration = 0.16f;
+        idleAnim.isLooping = true;
+
+        for(int i = 1; i <= idleCount; ++i)
+        {
+            char buf[32];
+            std::snprintf(buf, sizeof(buf), "_i%02d", i);
+            const std::string key = framePrefix + buf;
+            auto it = authenticAtlas.find(key);
+            if(it != authenticAtlas.end() && it->is_object())
+            {
+                const auto& fj = *it;
+                const int w = fj.value("width", 0);
+                const int h = fj.value("height", 0);
+                if(w > 0 && h > 0)
+                {
+                    EnemyAnimationFrame f;
+                    f.texture = texture;
+                    const int y = fj.value("y", 0);
+                    f.rect = sf::IntRect(fj.value("x", 0), static_cast<int>(texture->getSize().y) - y - h, w, h);
+                    idleAnim.frames.push_back(f);
+                }
+            }
+            else
+            {
+                const std::string altKey = framePrefix + "_" + std::to_string(i - 1);
+                auto altIt = authenticAtlas.find(altKey);
+                if(altIt != authenticAtlas.end() && altIt->is_object())
+                {
+                    const auto& fj = *altIt;
+                    const int w = fj.value("width", 0);
+                    const int h = fj.value("height", 0);
+                    if(w > 0 && h > 0)
+                    {
+                        EnemyAnimationFrame f;
+                        f.texture = texture;
+                        const int y = fj.value("y", 0);
+                        f.rect = sf::IntRect(fj.value("x", 0), static_cast<int>(texture->getSize().y) - y - h, w, h);
+                        idleAnim.frames.push_back(f);
+                    }
+                }
+            }
+        }
+
+        if(idleAnim.frames.empty() && !firstFrameName.empty())
+        {
+            const std::string rawKey = StripExtension(firstFrameName);
+            auto rawIt = authenticAtlas.find(rawKey);
+            if(rawIt != authenticAtlas.end() && rawIt->is_object())
+            {
+                const auto& fj = *rawIt;
+                const int w = fj.value("width", 0);
+                const int h = fj.value("height", 0);
+                if(w > 0 && h > 0)
+                {
+                    EnemyAnimationFrame f;
+                    f.texture = texture;
+                    const int y = fj.value("y", 0);
+                    f.rect = sf::IntRect(fj.value("x", 0), static_cast<int>(texture->getSize().y) - y - h, w, h);
+                    idleAnim.frames.push_back(f);
+                }
+            }
+        }
+
+        if(!idleAnim.frames.empty())
+        {
+            definition.animations["idle"] = idleAnim;
+            definition.animations["WALK"] = idleAnim;
+        }
     }
 
     void BuildAuthenticDeathAnimation(EnemyDefinition& definition,
@@ -167,18 +292,20 @@ namespace
         }
 
         EnemyAnimationDefinition deathAnimation;
-        deathAnimation.frameDuration = 1.0f / 60.0f;
+        deathAnimation.frameDuration = 0.04f;
         deathAnimation.isLooping = false;
 
-        for(int frameIndex = 0; frameIndex <= endFrame; ++frameIndex)
+        const int lastFrame = std::min(endFrame, MaxAuthenticDeathFrames - 1);
+        for(int frameIndex = 0; frameIndex <= lastFrame; ++frameIndex)
         {
             const std::string frameKey = framePrefix + "_" + std::to_string(frameIndex);
-            if(!authenticAtlas.contains(frameKey) || !authenticAtlas[frameKey].is_object())
+            auto it = authenticAtlas.find(frameKey);
+            if(it == authenticAtlas.end() || !it->is_object())
             {
                 continue;
             }
 
-            const nlohmann::json& frameJson = authenticAtlas[frameKey];
+            const nlohmann::json& frameJson = *it;
             const int width = frameJson.value("width", 0);
             const int height = frameJson.value("height", 0);
             if(width <= 0 || height <= 0)
@@ -202,332 +329,106 @@ namespace
             definition.deathAnimation = deathAnimation;
         }
     }
-
-    void ApplyAuthenticScaleAndCollider(EnemyDefinition& definition,
-                                        const nlohmann::json& authenticStats)
-    {
-        const float previousScale = std::max(0.001f, definition.spriteScale);
-        const float authenticScale = GetFloatOrDefault(authenticStats, "scale", definition.spriteScale);
-        if(authenticScale > 0.0f)
-        {
-            definition.spriteScale = authenticScale;
-        }
-
-        if(!authenticStats.contains("colliderOverride") ||
-           !authenticStats["colliderOverride"].is_object())
-        {
-            if(authenticStats.contains("scale"))
-            {
-                definition.stats.collisionRadius *= definition.spriteScale / previousScale;
-            }
-            return;
-        }
-
-        const nlohmann::json& collider = authenticStats["colliderOverride"];
-        definition.stats.collisionRadius =
-            GetFloatOrDefault(collider, "radius", definition.stats.collisionRadius / AuthenticColliderRadiusScale) *
-            AuthenticColliderRadiusScale *
-            definition.spriteScale;
-
-        definition.stats.collisionOffset = sf::Vector2f(
-            GetFloatOrDefault(collider, "offsetX", 0.0f) * definition.spriteScale,
-            GetFloatOrDefault(collider, "offsetY", 0.0f) * definition.spriteScale);
-    }
-
-    void BuildAuthenticIdleAnimation(EnemyDefinition& definition,
-                                     const nlohmann::json& authenticStats,
-                                     const nlohmann::json& authenticAtlas,
-                                     const sf::Texture* texture)
-    {
-        if(!texture || !authenticStats.contains("frameNames") || !authenticStats["frameNames"].is_array())
-        {
-            return;
-        }
-
-        EnemyAnimationDefinition walkAnimation;
-        walkAnimation.frameDuration = 0.1f;
-        walkAnimation.isLooping = true;
-        const int idleFrameCount = std::max(1, GetIntOrDefault(authenticStats, "idleFrameCount", 1));
-        for(const nlohmann::json& frameNameJson : authenticStats["frameNames"])
-        {
-            if(!frameNameJson.is_string())
-            {
-                continue;
-            }
-
-            const std::string prefix = GetFramePrefix(frameNameJson.get<std::string>());
-            for(int frameIndex = 0; frameIndex < idleFrameCount; ++frameIndex)
-            {
-                const std::string frameKey = prefix + "_" + std::to_string(frameIndex);
-                if(!authenticAtlas.contains(frameKey) || !authenticAtlas[frameKey].is_object())
-                {
-                    continue;
-                }
-
-                const nlohmann::json& frameJson = authenticAtlas[frameKey];
-                const int width = frameJson.value("width", 0);
-                const int height = frameJson.value("height", 0);
-                if(width <= 0 || height <= 0)
-                {
-                    continue;
-                }
-
-                walkAnimation.frames.push_back({
-                    texture,
-                    sf::IntRect(
-                        frameJson.value("x", 0),
-                        static_cast<int>(texture->getSize().y) - frameJson.value("y", 0) - height,
-                        width,
-                        height)});
-            }
-        }
-
-        if(!walkAnimation.frames.empty())
-        {
-            definition.animations["WALK"] = std::move(walkAnimation);
-        }
-    }
 }
 
 bool EnemyDatabase::LoadFromFile(const std::string& filepath)
 {
-    std::ifstream file(filepath);
-    if(!file.is_open())
+    nlohmann::json authenticEnemyData;
+    bool loaded = LoadOptionalJsonFile(filepath, authenticEnemyData);
+    if(!loaded || !authenticEnemyData.is_object() || authenticEnemyData.empty())
     {
-        std::cerr << "EnemyDatabase: Failed to open " << filepath << std::endl;
-        return false;
+        loaded = LoadAuthenticEnemyData(authenticEnemyData);
     }
 
-    nlohmann::json json;
-    try
+    if(!loaded || !authenticEnemyData.is_object() || authenticEnemyData.empty())
     {
-        file >> json;
-    }
-    catch(const nlohmann::json::parse_error& e)
-    {
-        std::cerr << "EnemyDatabase: Parse error in " << filepath << ": " << e.what() << std::endl;
-        return false;
-    }
-
-    if(!json.contains("atlas") || !json.contains("animations") || !json.contains("stats"))
-    {
-        std::cerr << "EnemyDatabase: Missing atlas, animations, or stats in " << filepath << std::endl;
+        std::cerr << "EnemyDatabase: Failed to load authentic ENEMY_DATA.json from " << filepath << std::endl;
         return false;
     }
 
     m_definitions.clear();
 
-    const nlohmann::json& atlasJson = json["atlas"];
-    const nlohmann::json& animationsJson = json["animations"];
-    const nlohmann::json& statsJson = json["stats"];
-    nlohmann::json authenticEnemyData;
-    const bool hasAuthenticEnemyData = LoadAuthenticEnemyData(authenticEnemyData);
-    nlohmann::json authenticEnemyAtlas;
-    const bool hasAuthenticEnemyAtlas = LoadAuthenticEnemyAtlas("enemies", authenticEnemyAtlas);
-    nlohmann::json authenticEnemy3Atlas;
-    const bool hasAuthenticEnemy3Atlas = LoadAuthenticEnemyAtlas("enemies3", authenticEnemy3Atlas);
+    std::unordered_map<std::string, nlohmann::json> atlases;
 
-    for(auto animationIt = animationsJson.begin(); animationIt != animationsJson.end(); ++animationIt)
+    for(auto it = authenticEnemyData.begin(); it != authenticEnemyData.end(); ++it)
     {
-        const std::string enemyId = animationIt.key();
-        const nlohmann::json& enemyAnimationJson = animationIt.value();
+        const std::string enemyId = it.key();
+        const nlohmann::json& entries = it.value();
+        if(!entries.is_array() || entries.empty() || !entries.front().is_object())
+        {
+            continue;
+        }
 
+        const nlohmann::json& statJson = entries.front();
         EnemyDefinition definition;
         definition.id = enemyId;
-        definition.name = enemyAnimationJson.value("name", enemyId);
-        const nlohmann::json* authenticStats =
-            hasAuthenticEnemyData ? FindAuthenticEnemyStats(authenticEnemyData, enemyId) : nullptr;
+        definition.name = GetStringOrDefault(statJson, "bName", enemyId);
 
-        if(statsJson.contains(enemyId))
+        definition.stats.maxHealth = GetFloatOrDefault(statJson, "maxHp", 10.0f) * AuthenticHealthScale;
+        definition.stats.speed = GetFloatOrDefault(statJson, "speed", 100.0f) * AuthenticSpeedScale;
+        definition.stats.damage = GetFloatOrDefault(statJson, "power", 5.0f);
+        definition.stats.mass = GetFloatOrDefault(statJson, "mass", 1.0f);
+        definition.stats.collisionRadius = GetFloatOrDefault(statJson, "collisionRadius", 14.0f);
+        definition.stats.knockback = GetFloatOrDefault(statJson, "knockback", 1.0f);
+        definition.stats.maxKnockback = GetFloatOrDefault(statJson, "maxKnockback", 3.0f);
+        definition.stats.deathKnockback = GetFloatOrDefault(statJson, "deathKB", 1.0f);
+        definition.stats.baseAlpha = GetFloatOrDefault(statJson, "alpha", 1.0f);
+        definition.stats.expYield = GetFloatOrDefault(statJson, "xp", 1.0f);
+        definition.stats.baseTint = GetIntOrDefault(statJson, "tint", 0xFFFFFF);
+        definition.spriteScale = GetFloatOrDefault(statJson, "scale", 1.0f);
+
+        ApplyAuthenticScaleAndCollider(definition, statJson);
+
+        const std::string bulletType = GetStringOrDefault(statJson, "bulletType", "");
+        const float fireDelayMs = GetFloatOrDefault(statJson, "fireDelay", 0.0f);
+        definition.stats.isRanged = !bulletType.empty() && fireDelayMs > 0.0f;
+        definition.stats.attackRange = definition.stats.isRanged ? 360.0f : 0.0f;
+        definition.stats.attackCooldown = definition.stats.isRanged
+            ? std::max(0.5f, fireDelayMs / 1000.0f)
+            : 0.0f;
+        definition.stats.attackTelegraph = definition.stats.isRanged ? 0.45f : 0.65f;
+
+        if(definition.stats.isRanged)
         {
-            const nlohmann::json& statJson = statsJson[enemyId];
-            definition.stats.maxHealth = GetFloatOrDefault(statJson, "maxHp", definition.stats.maxHealth);
-            definition.stats.speed = GetFloatOrDefault(statJson, "speed", definition.stats.speed);
-            definition.stats.damage = GetFloatOrDefault(statJson, "power", definition.stats.damage);
-            definition.stats.mass = GetFloatOrDefault(statJson, "mass", definition.stats.mass);
-            definition.stats.collisionRadius = GetFloatOrDefault(statJson, "collisionRadius", definition.stats.collisionRadius);
-            definition.stats.deathKnockback = GetFloatOrDefault(statJson, "deathKB", definition.stats.deathKnockback);
-            definition.stats.baseAlpha = GetFloatOrDefault(statJson, "alpha", definition.stats.baseAlpha);
-            definition.stats.expYield = GetFloatOrDefault(statJson, "xp", definition.stats.expYield);
-            definition.stats.baseTint = GetIntOrDefault(statJson, "tint", definition.stats.baseTint);
-            definition.spriteScale = GetFloatOrDefault(statJson, "spriteScale", definition.spriteScale);
-
-            definition.stats.isRanged = statJson.value("isRanged", false);
-            definition.stats.attackRange = GetFloatOrDefault(statJson, "attackRange", definition.stats.attackRange);
-            definition.stats.attackCooldown = GetFloatOrDefault(statJson, "attackCooldown", definition.stats.attackCooldown);
-            definition.stats.attackTelegraph = GetFloatOrDefault(statJson, "attackTelegraph", definition.stats.attackTelegraph);
-            definition.stats.projectileSpeed = GetFloatOrDefault(statJson, "projectileSpeed", definition.stats.projectileSpeed);
-            definition.stats.projectileDamage = GetFloatOrDefault(statJson, "projectileDamage", definition.stats.projectileDamage);
-            definition.stats.projectileLifetime = GetFloatOrDefault(statJson, "projectileLifetime", definition.stats.projectileLifetime);
-            definition.stats.projectileRadius = GetFloatOrDefault(statJson, "projectileRadius", definition.stats.projectileRadius);
-
-            if(authenticStats)
+            auto bulletIt = authenticEnemyData.find(bulletType);
+            if(bulletIt != authenticEnemyData.end() &&
+               bulletIt->is_array() &&
+               !bulletIt->empty())
             {
-                definition.stats.maxHealth =
-                    GetFloatOrDefault(*authenticStats, "maxHp", definition.stats.maxHealth);
-                definition.stats.speed =
-                    GetFloatOrDefault(*authenticStats, "speed", definition.stats.speed);
-                definition.stats.damage =
-                    GetFloatOrDefault(*authenticStats, "power", definition.stats.damage);
-                definition.stats.mass =
-                    GetFloatOrDefault(*authenticStats, "mass", definition.stats.mass);
-                definition.stats.expYield =
-                    GetFloatOrDefault(*authenticStats, "xp", definition.stats.expYield);
-                ApplyAuthenticScaleAndCollider(definition, *authenticStats);
-
-                definition.stats.deathKnockback =
-                    GetFloatOrDefault(*authenticStats, "deathKB", definition.stats.deathKnockback);
-                definition.stats.baseAlpha =
-                    GetFloatOrDefault(*authenticStats, "alpha", definition.stats.baseAlpha);
-                definition.stats.baseTint =
-                    GetIntOrDefault(*authenticStats, "tint", definition.stats.baseTint);
-
-                // Only enemies that have an authentic projectile type and fire delay
-                // get ranged attacks. Ordinary enemies, including MUDMAN1 and MUMMY,
-                // keep the game's default contact-damage behavior.
-                const std::string bulletType =
-                    GetStringOrDefault(*authenticStats, "bulletType", "");
-                const float fireDelayMs =
-                    GetFloatOrDefault(*authenticStats, "fireDelay", 0.0f);
-                definition.stats.isRanged = !bulletType.empty() && fireDelayMs > 0.0f;
-                definition.stats.attackRange = definition.stats.isRanged ? 360.0f : 0.0f;
-                definition.stats.attackCooldown = definition.stats.isRanged
-                    ? std::max(0.5f, fireDelayMs / 1000.0f)
-                    : 0.0f;
-                definition.stats.attackTelegraph = definition.stats.isRanged ? 0.45f : 0.65f;
-
-                if(definition.stats.isRanged)
-                {
-                    const nlohmann::json* projectileStats =
-                        FindAuthenticEnemyStats(authenticEnemyData, bulletType);
-                    if(projectileStats)
-                    {
-                        definition.stats.projectileSpeed =
-                            GetFloatOrDefault(*projectileStats, "speed", definition.stats.projectileSpeed);
-                        definition.stats.projectileDamage =
-                            GetFloatOrDefault(*projectileStats, "power", definition.stats.damage);
-                    }
-                    else
-                    {
-                        definition.stats.projectileDamage = definition.stats.damage;
-                    }
-
-                    definition.stats.projectileLifetime =
-                        std::max(3.0f, definition.stats.attackRange / definition.stats.projectileSpeed + 1.0f);
-                    definition.stats.projectileRadius = 7.0f;
-                }
+                const auto& projStat = bulletIt->front();
+                definition.stats.projectileSpeed = std::max(60.0f, GetFloatOrDefault(projStat, "speed", 120.0f));
+                definition.stats.projectileDamage = std::max(1.0f, GetFloatOrDefault(projStat, "power", definition.stats.damage));
+            }
+            else
+            {
+                definition.stats.projectileSpeed = 120.0f;
+                definition.stats.projectileDamage = definition.stats.damage;
             }
 
+            definition.stats.projectileLifetime =
+                std::max(3.0f, definition.stats.attackRange / definition.stats.projectileSpeed + 1.0f);
+            definition.stats.projectileRadius = 7.0f;
         }
 
-        if(enemyAnimationJson.contains("states"))
+        ApplyPrototypeBalance(enemyId, definition.stats);
+
+        const std::string textureName = GetStringOrDefault(statJson, "textureName", "enemies");
+        const std::string texturePath = GetTexturePathForAuthenticSheet(textureName);
+        const sf::Texture* texture = LoadTexture(texturePath);
+
+        if(atlases.find(textureName) == atlases.end())
         {
-            const nlohmann::json& statesJson = enemyAnimationJson["states"];
-            for(auto stateIt = statesJson.begin(); stateIt != statesJson.end(); ++stateIt)
-            {
-                const std::string stateName = stateIt.key();
-                const nlohmann::json& stateJson = stateIt.value();
-
-                EnemyAnimationDefinition animation;
-                animation.frameDuration = GetFloatOrDefault(stateJson, "frameDuration", animation.frameDuration);
-                animation.isLooping = stateJson.value("isLooping", animation.isLooping);
-
-                if(stateJson.contains("frames"))
-                {
-                    for(const nlohmann::json& frameNameJson : stateJson["frames"])
-                    {
-                        const std::string frameName = frameNameJson.get<std::string>();
-                        if(!atlasJson.contains(frameName))
-                        {
-                            std::cerr << "EnemyDatabase: Missing atlas frame " << frameName << std::endl;
-                            continue;
-                        }
-
-                        const nlohmann::json& frameJson = atlasJson[frameName];
-                        const std::string texturePath = frameJson.value("texture", "");
-                        const sf::Texture* texture = LoadTexture(texturePath);
-                        if(!texture)
-                        {
-                            continue;
-                        }
-
-                        EnemyAnimationFrame frame;
-                        frame.texture = texture;
-                        frame.rect = sf::IntRect(
-                            frameJson.value("x", 0),
-                            frameJson.value("y", 0),
-                            frameJson.value("width", 0),
-                            frameJson.value("height", 0));
-                        animation.frames.push_back(frame);
-                    }
-                }
-
-                definition.animations[stateName] = animation;
-            }
+            nlohmann::json atlasJson;
+            LoadOptionalJsonFile(GetAtlasPathForAuthenticSheet(textureName), atlasJson);
+            atlases[textureName] = std::move(atlasJson);
         }
 
-        if(authenticStats && hasAuthenticEnemyAtlas)
-        {
-            const std::string textureName = GetStringOrDefault(*authenticStats, "textureName", "");
-            const sf::Texture* texture = LoadTexture(GetTexturePathForAuthenticSheet(textureName));
-            BuildAuthenticDeathAnimation(definition, *authenticStats, authenticEnemyAtlas, texture);
-        }
+        const nlohmann::json& atlasJson = atlases[textureName];
 
-        m_definitions[enemyId] = definition;
-    }
+        BuildAuthenticIdleAnimation(definition, statJson, atlasJson, texture);
+        BuildAuthenticDeathAnimation(definition, statJson, atlasJson, texture);
 
-    if(hasAuthenticEnemyData)
-    {
-        for(const auto& enemyEntry : authenticEnemyData.items())
-        {
-            if(m_definitions.find(enemyEntry.key()) != m_definitions.end())
-            {
-                continue;
-            }
-
-            const nlohmann::json* authenticStats = FindAuthenticEnemyStats(authenticEnemyData, enemyEntry.key());
-            if(!authenticStats)
-            {
-                continue;
-            }
-
-            const std::string textureName = GetStringOrDefault(*authenticStats, "textureName", "");
-            const nlohmann::json* authenticAtlas = nullptr;
-            if(textureName == "enemies" && hasAuthenticEnemyAtlas)
-            {
-                authenticAtlas = &authenticEnemyAtlas;
-            }
-            else if(textureName == "enemies3" && hasAuthenticEnemy3Atlas)
-            {
-                authenticAtlas = &authenticEnemy3Atlas;
-            }
-
-            const sf::Texture* texture = LoadTexture(GetTexturePathForAuthenticSheet(textureName));
-            if(!authenticAtlas || !texture)
-            {
-                continue;
-            }
-
-            EnemyDefinition definition;
-            definition.id = enemyEntry.key();
-            definition.name = GetStringOrDefault(*authenticStats, "name", definition.id);
-            definition.stats.maxHealth = GetFloatOrDefault(*authenticStats, "maxHp", definition.stats.maxHealth);
-            definition.stats.speed = GetFloatOrDefault(*authenticStats, "speed", definition.stats.speed);
-            definition.stats.damage = GetFloatOrDefault(*authenticStats, "power", definition.stats.damage);
-            definition.stats.mass = GetFloatOrDefault(*authenticStats, "mass", definition.stats.mass);
-            definition.stats.expYield = GetFloatOrDefault(*authenticStats, "xp", definition.stats.expYield);
-            definition.stats.deathKnockback = GetFloatOrDefault(*authenticStats, "deathKB", definition.stats.deathKnockback);
-            definition.stats.baseAlpha = GetFloatOrDefault(*authenticStats, "alpha", definition.stats.baseAlpha);
-            definition.stats.baseTint = GetIntOrDefault(*authenticStats, "tint", definition.stats.baseTint);
-            ApplyAuthenticScaleAndCollider(definition, *authenticStats);
-            BuildAuthenticIdleAnimation(definition, *authenticStats, *authenticAtlas, texture);
-            BuildAuthenticDeathAnimation(definition, *authenticStats, *authenticAtlas, texture);
-
-            if(!definition.animations.empty())
-            {
-                m_definitions[definition.id] = std::move(definition);
-            }
-        }
+        m_definitions[enemyId] = std::move(definition);
     }
 
     return !m_definitions.empty();
@@ -535,18 +436,17 @@ bool EnemyDatabase::LoadFromFile(const std::string& filepath)
 
 const EnemyDefinition* EnemyDatabase::GetDefinition(const std::string& id) const
 {
-    auto found = m_definitions.find(id);
-    if(found == m_definitions.end())
+    auto it = m_definitions.find(id);
+    if(it != m_definitions.end())
     {
-        return nullptr;
+        return &it->second;
     }
-
-    return &found->second;
+    return nullptr;
 }
 
 bool EnemyDatabase::HasDefinition(const std::string& id) const
 {
-    return GetDefinition(id) != nullptr;
+    return m_definitions.find(id) != m_definitions.end();
 }
 
 const sf::Texture* EnemyDatabase::LoadTexture(const std::string& texturePath)
@@ -556,21 +456,36 @@ const sf::Texture* EnemyDatabase::LoadTexture(const std::string& texturePath)
         return nullptr;
     }
 
-    auto found = m_textures.find(texturePath);
-    if(found != m_textures.end())
+    auto it = m_textures.find(texturePath);
+    if(it != m_textures.end())
     {
-        return found->second.get();
+        return it->second.get();
     }
 
     auto texture = std::make_unique<sf::Texture>();
     if(!texture->loadFromFile(texturePath))
     {
+        if(texturePath.find("vs_") == std::string::npos)
+        {
+            std::string fallback = texturePath;
+            auto pos = fallback.find("enemies/");
+            if(pos != std::string::npos)
+            {
+                fallback.insert(pos + 8, "vs_");
+                if(texture->loadFromFile(fallback))
+                {
+                    const sf::Texture* ptr = texture.get();
+                    m_textures[texturePath] = std::move(texture);
+                    return ptr;
+                }
+            }
+        }
+
         std::cerr << "EnemyDatabase: Failed to load texture " << texturePath << std::endl;
         return nullptr;
     }
 
-    texture->setSmooth(false);
-    const sf::Texture* result = texture.get();
+    const sf::Texture* ptr = texture.get();
     m_textures[texturePath] = std::move(texture);
-    return result;
+    return ptr;
 }

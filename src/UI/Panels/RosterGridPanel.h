@@ -43,6 +43,7 @@ public:
     void SetOnSelectionChanged(std::function<void(const std::string&)> callback);
     void SetCardConfirmedState(bool confirmed);
     void ClearSelection();
+    void SelectCharacter(const std::string& characterId);
 
     void Update(float deltaTime) override;
     void HandleEvent(const sf::Event& event, const sf::RenderWindow& window) override;
